@@ -40,6 +40,16 @@
 - TDD 사이클에 맞춰 **필요한 시점에 필요한 파일만** 생성하는 것을 원칙으로 합니다.
 - 단, 헥사고날 아키텍처의 패키지 구조는 유지합니다.
 
+# 네이밍 규칙 (Naming Convention)
+
+- **어댑터 패턴 적용 (Adapters)**: 기술적인 역할(Controller, Repository)보다는 아키텍처 역할(Adapter)을 강조하는 네이밍을 사용합니다.
+  - **Web Layer**: `...Controller` 대신 `...WebAdapter` 사용
+  - **Persistence Layer**: `...Dao`, `...Repository` 대신 `...PersistAdapter` 사용
+- **유스케이스 맥락 반영 (Context Specific)**: 클래스 및 메서드 명은 해당 유스케이스의 의도를 명확히 드러내야 합니다.
+  - ❌ Bad: `User`, `UserPersistenceAdapter`, `UserService`
+  - ⭕ Good: `LoginUser`, `LoginUserPersistAdapter`, `LoginService`, `LoginWebAdapter`
+- **일반 명사 지양**: 도메인 모델, 어댑터, 포트 등 모든 구성 요소에서 `Data`, `Info`, `Manager` 같은 모호한 접미사나 `User` 같은 단순 명사 사용을 피합니다.
+
 # Java 코딩 규칙
 
 - 모든 객체 생성은 `new` 키워드를 사용한 **생성자 호출 방식**으로 통일합니다. (Lombok `@Builder` 지양)
@@ -49,24 +59,34 @@
 
 # 헥사고날 아키텍처 파일 구조
 
-파일은 개발 진행 단계에 따라 순차적으로 생성되지만, 최종적인 디렉터리 구조는 아래 규칙을 따릅니다.
+파일은 개발 진행 단계에 따라 순차적으로 생성되지만, 최종적인 디렉터리 구조는 아래 규칙을 따릅니다. **특히 엔티티와 리포지토리는 공통 패키지(`common`)에서 관리합니다.**
 
 ```
-<USE_CASE_NAME>/
-|-- adapters
-|   |-- persistence
-|   |   `-- <USE_CASE_NAME>Dao.java      (Repository 구현체)
-|   `-- web
-|       |-- <USE_CASE_NAME>Controller.java
-|       `-- model
-|           |-- <USE_CASE_NAME>Req.java  (Request DTO)
-|           `-- <USE_CASE_NAME>Res.java  (Response DTO)
-`-- application
-    |-- <USE_CASE_NAME>UseCase.java      (Input Port - Interface)
-    |-- <USE_CASE_NAME>Service.java      (UseCase 구현체)
-    |-- <USE_CASE_NAME>PortOut.java      (Output Port - Interface)
-    `-- model
-        |-- <USE_CASE_NAME>Cmd.java      (Service 내부용 데이터)
+io.api.vision/
+|-- common
+|   `-- adapters
+|       `-- persistence
+|           |-- entity
+|           |   `-- <NAME>Entity.java
+|           `-- repository
+|               `-- <NAME>Repository.java
+`-- useCases
+    `-- <USE_CASE_NAME>
+        |-- adapters
+        |   |-- persistence
+        |   |   `-- <USE_CASE_NAME>PersistAdapter.java
+        |   `-- web
+        |       |-- <USE_CASE_NAME>WebAdapter.java
+        |       `-- model
+        |           |-- <USE_CASE_NAME>Req.java
+        |           `-- <USE_CASE_NAME>Res.java
+        `-- application
+            |-- <USE_CASE_NAME>UseCase.java
+            |-- <USE_CASE_NAME>Service.java
+            |-- <USE_CASE_NAME>PortOut.java
+            `-- model
+                |-- <USE_CASE_NAME>User.java
+                `-- <USE_CASE_NAME>Cmd.java
 ```
 
 ---
