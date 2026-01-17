@@ -28,6 +28,7 @@ public class LoginService implements LoginUseCase {
       throw new IllegalArgumentException("Invalid password");
     }
 
-    return jwtUseCase.createToken(new AuthCmd(user.email()));
+    return jwtUseCase.createToken(
+        new AuthCmd(user.email(), java.util.Collections.singletonList(user.role())));
   }
 }

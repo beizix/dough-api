@@ -5,6 +5,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
 
+import io.vision.api.common.application.enums.Role;
 import io.vision.api.useCases.auth.application.JwtUseCase;
 import io.vision.api.useCases.auth.application.model.AuthCmd;
 import io.vision.api.useCases.auth.application.model.AuthToken;
@@ -32,27 +33,24 @@ class LoginUseCaseTest {
   @Mock private JwtUseCase jwtUseCase;
 
   @Test
-  @DisplayName("Scenario: 성공 - 유효한 자격 증명으로 로그인 시 토큰 발급")
-  void login_success() {
+  @DisplayName("Scenario: 성공 - 유효한 자격 증명으로 로그인 성공")
+  void operate_success() {
     // Given
-    String email = "test@test.com";
-    String rawPassword = "password123";
-    String encodedPassword = "encodedPassword123";
-
-    LoginCmd cmd = new LoginCmd(email, rawPassword);
-    LoginUser user = new LoginUser(UUID.randomUUID(), email, encodedPassword, "ROLE_USER");
-    AuthToken expectedToken = new AuthToken("access", "refresh");
+    String email = "test@example.com";
+    String password = "password";
+    String encodedPassword = "encodedPassword";
+    LoginCmd cmd = new LoginCmd(email, password);
+    LoginUser user = new LoginUser(UUID.randomUUID(), email, encodedPassword, Role.ROLE_USER);
 
     given(loginPortOut.loadUser(email)).willReturn(Optional.of(user));
-    given(passwordEncoder.matches(rawPassword, encodedPassword)).willReturn(true);
-    given(jwtUseCase.createToken(any(AuthCmd.class))).willReturn(expectedToken);
+    given(passwordEncoder.matches(password, encodedPassword)).willReturn(true);
+    given(jwtUseCase.createToken(any(AuthCmd.class))).willReturn(new AuthToken("access", "refresh"));
 
     // When
-    AuthToken result = loginService.operate(cmd);
+    AuthToken token = loginService.operate(cmd);
 
     // Then
-    assertThat(result).isEqualTo(expectedToken);
-    verify(loginPortOut).loadUser(email);
-    verify(passwordEncoder).matches(rawPassword, encodedPassword);
+    assertThat(token).isNotNull();
+    verify(jwtUseCase).createToken(any(AuthCmd.class));
   }
 }

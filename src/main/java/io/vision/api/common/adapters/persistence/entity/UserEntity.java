@@ -1,8 +1,11 @@
 package io.vision.api.common.adapters.persistence.entity;
 
 import io.vision.api.common.adapters.persistence.component.AuditEntity;
+import io.vision.api.common.application.enums.Role;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -34,9 +37,10 @@ public class UserEntity extends AuditEntity {
   private String password;
 
   @Column(nullable = false)
-  private String role;
+  @Enumerated(EnumType.STRING)
+  private Role role;
 
-  public UserEntity(String email, String password, String role) {
+  public UserEntity(String email, String password, Role role) {
     this.email = email;
     this.password = password;
     this.role = role;

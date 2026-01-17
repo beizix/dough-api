@@ -3,6 +3,7 @@ package io.vision.api.common.adapters.persistence.repository;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import io.vision.api.common.adapters.persistence.entity.UserEntity;
+import io.vision.api.common.application.enums.Role;
 import io.vision.api.support.DataJpaTestBase;
 import java.util.Optional;
 import org.junit.jupiter.api.DisplayName;
@@ -20,7 +21,7 @@ class UserRepositoryTest extends DataJpaTestBase {
   @DisplayName("Scenario: 성공 - UserEntity 저장 시 Audit 정보가 자동 주입된다")
   void testAuditing_onSave() {
     // Given
-    var user = new UserEntity("test@email.com", "password", "ROLE_USER");
+    var user = new UserEntity("test@email.com", "password", Role.ROLE_USER);
 
     // When
     var savedUser = userRepository.save(user);
@@ -38,7 +39,7 @@ class UserRepositoryTest extends DataJpaTestBase {
   @DisplayName("Scenario: 성공 - UserEntity 수정 시 updatedAt 정보가 자동 갱신된다")
   void testAuditing_onUpdate() throws InterruptedException {
     // Given
-    var savedUser = userRepository.save(new UserEntity("test2@email.com", "password", "ROLE_USER"));
+    var savedUser = userRepository.save(new UserEntity("test2@email.com", "password", Role.ROLE_USER));
     em.flush();
     em.clear();
 
@@ -61,7 +62,7 @@ class UserRepositoryTest extends DataJpaTestBase {
   @DisplayName("Scenario: 성공 - deleted가 true인 User는 조회되지 않는다")
   void testSQLRestriction_onSoftDelete() {
     // Given
-    var savedUser = userRepository.save(new UserEntity("test3@email.com", "password", "ROLE_USER"));
+    var savedUser = userRepository.save(new UserEntity("test3@email.com", "password", Role.ROLE_USER));
     em.flush();
     em.clear();
 

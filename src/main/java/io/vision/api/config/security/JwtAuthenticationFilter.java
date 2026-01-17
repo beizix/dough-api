@@ -30,16 +30,16 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     tokenOptional
         .filter(jwtUseCase::validateToken)
-        .map(jwtUseCase::getSubject)
         .ifPresent(
-            email -> {
-              // 실제 애플리케이션에서는 사용자 역할을 DB에서 조회하거나 토큰의 클레임에서 추출해야 합니다.
-              // 여기서는 간단히 "ROLE_USER" 권한을 부여합니다.
+            token -> {
+              String email = jwtUseCase.getSubject(token);
+              var roles =
+                  jwtUseCase.getRoles(token).stream()
+                      .map(SimpleGrantedAuthority::new)
+                      .toList();
+
               UsernamePasswordAuthenticationToken authentication =
-                  new UsernamePasswordAuthenticationToken(
-                      email,
-                      null,
-                      Collections.singletonList(new SimpleGrantedAuthority("ROLE_USER")));
+                  new UsernamePasswordAuthenticationToken(email, null, roles);
               SecurityContextHolder.getContext().setAuthentication(authentication);
             });
 

@@ -12,4 +12,6 @@ public interface JwtUseCase {
   AuthToken refreshToken(RefreshTokenCmd cmd);
 
   String getSubject(String token);
+
+  java.util.List<String> getRoles(String token);
 }
