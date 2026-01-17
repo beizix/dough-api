@@ -1,4 +1,6 @@
 package io.vision.api.useCases.auth.adapters.web.model;
 
-public record ValidateReq(String token) {
-}
+import io.swagger.v3.oas.annotations.media.Schema;
+
+@Schema(description = "토큰 검증 요청")
+public record ValidateReq(@Schema(description = "검증할 액세스 토큰") String token) {}

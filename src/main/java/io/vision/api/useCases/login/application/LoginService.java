@@ -13,19 +13,21 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class LoginService implements LoginUseCase {
 
-    private final LoginPortOut loginPortOut;
-    private final JwtUseCase jwtUseCase;
-    private final PasswordEncoder passwordEncoder;
+  private final LoginPortOut loginPortOut;
+  private final JwtUseCase jwtUseCase;
+  private final PasswordEncoder passwordEncoder;
 
-    @Override
-    public AuthToken operate(LoginCmd cmd) {
-        LoginUser user = loginPortOut.loadUser(cmd.email())
-                .orElseThrow(() -> new IllegalArgumentException("User not found"));
+  @Override
+  public AuthToken operate(LoginCmd cmd) {
+    LoginUser user =
+        loginPortOut
+            .loadUser(cmd.email())
+            .orElseThrow(() -> new IllegalArgumentException("User not found"));
 
-        if (!passwordEncoder.matches(cmd.password(), user.password())) {
-            throw new IllegalArgumentException("Invalid password");
-        }
-
-        return jwtUseCase.createToken(new AuthCmd(user.email()));
+    if (!passwordEncoder.matches(cmd.password(), user.password())) {
+      throw new IllegalArgumentException("Invalid password");
     }
+
+    return jwtUseCase.createToken(new AuthCmd(user.email()));
+  }
 }
