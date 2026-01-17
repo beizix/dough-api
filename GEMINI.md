@@ -62,7 +62,7 @@
 파일은 개발 진행 단계에 따라 순차적으로 생성되지만, 최종적인 디렉터리 구조는 아래 규칙을 따릅니다. **특히 엔티티와 리포지토리는 공통 패키지(`common`)에서 관리합니다.**
 
 ```
-io.api.vision/
+io.vision.api/
 |-- common
 |   `-- adapters
 |       `-- persistence
