@@ -1,7 +1,7 @@
 package io.vision.api.useCases.login.application;
 
 import io.vision.api.useCases.auth.application.JwtUseCase;
-import io.vision.api.useCases.auth.application.model.AuthCmd;
+import io.vision.api.useCases.auth.application.model.CreateTokenCmd;
 import io.vision.api.useCases.auth.application.model.AuthToken;
 import io.vision.api.useCases.login.application.model.LoginCmd;
 import io.vision.api.useCases.login.application.model.LoginUser;
@@ -29,6 +29,6 @@ public class LoginService implements LoginUseCase {
     }
 
     return jwtUseCase.createToken(
-        new AuthCmd(user.email(), user.displayName(), java.util.Collections.singletonList(user.role())));
+        new CreateTokenCmd(user.email(), user.displayName(), java.util.Collections.singletonList(user.role())));
   }
 }

@@ -3,7 +3,7 @@ package io.vision.api.useCases.auth.application;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import io.vision.api.common.application.enums.Role;
-import io.vision.api.useCases.auth.application.model.AuthCmd;
+import io.vision.api.useCases.auth.application.model.CreateTokenCmd;
 import io.vision.api.useCases.auth.application.model.AuthToken;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -26,7 +26,7 @@ class JwtServiceTest {
   @DisplayName("Scenario: 성공 - 유효한 토큰 검증 시 true를 반환한다")
   void validate_token_success() {
     // Given
-    AuthCmd cmd = new AuthCmd("test@example.com", "Test User", java.util.List.of(Role.ROLE_USER));
+    CreateTokenCmd cmd = new CreateTokenCmd("test@example.com", "Test User", java.util.List.of(Role.ROLE_USER));
     AuthToken token = jwtService.createToken(cmd);
     String accessToken = token.accessToken();
 
@@ -55,7 +55,7 @@ class JwtServiceTest {
   void get_subject_success() {
     // Given
     String email = "user@example.com";
-    AuthCmd cmd = new AuthCmd(email, "User", java.util.List.of(Role.ROLE_USER));
+    CreateTokenCmd cmd = new CreateTokenCmd(email, "User", java.util.List.of(Role.ROLE_USER));
     AuthToken token = jwtService.createToken(cmd);
 
     // When
@@ -71,7 +71,7 @@ class JwtServiceTest {
     // Given
     String email = "admin@example.com";
     java.util.List<Role> roles = java.util.List.of(Role.ROLE_ADMIN, Role.ROLE_USER);
-    AuthCmd cmd = new AuthCmd(email, "Admin User", roles);
+    CreateTokenCmd cmd = new CreateTokenCmd(email, "Admin User", roles);
     AuthToken token = jwtService.createToken(cmd);
 
     // When
@@ -87,7 +87,7 @@ class JwtServiceTest {
     // Given
     String email = "user@example.com";
     String displayName = "Super User";
-    AuthCmd cmd = new AuthCmd(email, displayName, java.util.List.of(Role.ROLE_USER));
+    CreateTokenCmd cmd = new CreateTokenCmd(email, displayName, java.util.List.of(Role.ROLE_USER));
     AuthToken token = jwtService.createToken(cmd);
 
     // When

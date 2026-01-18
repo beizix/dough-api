@@ -9,7 +9,7 @@ import static org.mockito.Mockito.verify;
 
 import io.vision.api.common.application.enums.Role;
 import io.vision.api.useCases.auth.application.JwtUseCase;
-import io.vision.api.useCases.auth.application.model.AuthCmd;
+import io.vision.api.useCases.auth.application.model.CreateTokenCmd;
 import io.vision.api.useCases.auth.application.model.AuthToken;
 import io.vision.api.useCases.signup.application.model.SignupCmd;
 import org.junit.jupiter.api.DisplayName;
@@ -39,7 +39,7 @@ class SignupServiceTest {
 
     given(signupPortOut.existsByEmailAndRole(cmd.email(), cmd.role())).willReturn(false);
     given(passwordEncoder.encode(cmd.password())).willReturn("encodedPassword");
-    given(jwtUseCase.createToken(any(AuthCmd.class)))
+    given(jwtUseCase.createToken(any(CreateTokenCmd.class)))
         .willReturn(new AuthToken("access", "refresh"));
 
     // When

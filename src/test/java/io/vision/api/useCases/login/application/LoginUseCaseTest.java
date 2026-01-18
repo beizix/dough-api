@@ -7,7 +7,7 @@ import static org.mockito.Mockito.verify;
 
 import io.vision.api.common.application.enums.Role;
 import io.vision.api.useCases.auth.application.JwtUseCase;
-import io.vision.api.useCases.auth.application.model.AuthCmd;
+import io.vision.api.useCases.auth.application.model.CreateTokenCmd;
 import io.vision.api.useCases.auth.application.model.AuthToken;
 import io.vision.api.useCases.login.application.model.LoginCmd;
 import io.vision.api.useCases.login.application.model.LoginUser;
@@ -45,7 +45,7 @@ class LoginUseCaseTest {
 
     given(loginPortOut.loadUser(email)).willReturn(Optional.of(user));
     given(passwordEncoder.matches(password, encodedPassword)).willReturn(true);
-    given(jwtUseCase.createToken(any(AuthCmd.class)))
+    given(jwtUseCase.createToken(any(CreateTokenCmd.class)))
         .willReturn(new AuthToken("access", "refresh"));
 
     // When
@@ -53,6 +53,6 @@ class LoginUseCaseTest {
 
     // Then
     assertThat(token).isNotNull();
-    verify(jwtUseCase).createToken(any(AuthCmd.class));
+    verify(jwtUseCase).createToken(any(CreateTokenCmd.class));
   }
 }

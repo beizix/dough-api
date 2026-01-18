@@ -3,7 +3,7 @@ package io.vision.api.useCases.auth.application;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
-import io.vision.api.useCases.auth.application.model.AuthCmd;
+import io.vision.api.useCases.auth.application.model.CreateTokenCmd;
 import io.vision.api.useCases.auth.application.model.AuthToken;
 import io.vision.api.useCases.auth.application.model.RefreshTokenCmd;
 import java.nio.charset.StandardCharsets;
@@ -31,7 +31,7 @@ public class JwtService implements JwtUseCase {
   }
 
   @Override
-  public AuthToken createToken(AuthCmd cmd) {
+  public AuthToken createToken(CreateTokenCmd cmd) {
     var roles = cmd.roles().stream().map(Enum::name).toList();
     String accessToken = createToken(cmd.email(), cmd.displayName(), roles, accessTokenValidity);
     String refreshToken = createToken(cmd.email(), cmd.displayName(), roles, refreshTokenValidity);
@@ -56,7 +56,7 @@ public class JwtService implements JwtUseCase {
       String email = claims.getSubject();
       String displayName = claims.get("displayName", String.class);
       // TODO: 추후 Refresh Token에도 role 정보를 포함할지 결정 필요. 현재는 빈 리스트 전달.
-      return createToken(new AuthCmd(email, displayName, java.util.Collections.emptyList()));
+      return createToken(new CreateTokenCmd(email, displayName, java.util.Collections.emptyList()));
     } catch (Exception e) {
       throw new IllegalArgumentException("Invalid refresh token", e);
     }
