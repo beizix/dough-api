@@ -47,3 +47,10 @@
 ```bash
 ./gradlew spotlessCheck
 ```
+
+### 4. H2 데이터베이스 접속 (외부 클라이언트)
+애플리케이션 구동 시 `~/h2/vision` 경로에 데이터베이스 파일이 자동으로 생성됩니다. 외부 DB 클라이언트(IntelliJ, DBeaver 등)를 사용하여 접속할 수 있습니다.
+
+- **JDBC URL**: `jdbc:h2:file:~/h2/vision/vision;AUTO_SERVER=TRUE`
+- **User**: `sa`
+- **Password**: (없음)
