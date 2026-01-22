@@ -114,4 +114,28 @@ class JwtServiceTest {
     // Then
     assertThat(extractedDisplayName).isEqualTo(displayName);
   }
+
+  @Test
+  @DisplayName("Scenario: 성공 - 토큰에서 권한(Privileges) 추출")
+  void get_privileges_success() {
+    // Given
+    String email = "manager@example.com";
+    List<Role> roles = List.of(Role.MANAGER, Role.USER);
+    CreateTokenCmd cmd = new CreateTokenCmd(email, "Manager User", roles);
+
+    // When
+    AuthToken authToken = jwtService.createToken(cmd);
+
+    // Then
+    String accessToken = authToken.accessToken();
+    Claims claims = Jwts.parser()
+        .verifyWith(secretKey)
+        .build()
+        .parseSignedClaims(accessToken)
+        .getPayload();
+
+    @SuppressWarnings("unchecked")
+    List<String> extractedPrivileges = claims.get("privileges", List.class);
+    assertThat(extractedPrivileges).contains("ACCESS_MANAGER_API", "ACCESS_USER_API");
+  }
 }

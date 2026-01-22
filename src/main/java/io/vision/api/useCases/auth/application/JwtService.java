@@ -34,8 +34,13 @@ public class JwtService implements JwtUseCase {
   @Override
   public AuthToken createToken(CreateTokenCmd cmd) {
     var roles = cmd.roles().stream().map(Role::getAuthority).toList();
-    String accessToken = createToken(cmd.email(), cmd.displayName(), roles, accessTokenValidity);
-    String refreshToken = createToken(cmd.email(), cmd.displayName(), roles, refreshTokenValidity);
+    var privileges = cmd.roles().stream()
+        .flatMap(role -> role.getPrivileges().stream())
+        .map(Enum::name)
+        .distinct()
+        .toList();
+    String accessToken = createToken(cmd.email(), cmd.displayName(), roles, privileges, accessTokenValidity);
+    String refreshToken = createToken(cmd.email(), cmd.displayName(), roles, privileges, refreshTokenValidity);
     return new AuthToken(accessToken, refreshToken);
   }
 
@@ -56,7 +61,7 @@ public class JwtService implements JwtUseCase {
       Claims claims = parseClaims(cmd.refreshToken());
       String email = claims.getSubject();
       String displayName = claims.get("displayName", String.class);
-      // TODO: 추후 Refresh Token에도 role 정보를 포함할지 결정 필요. 현재는 빈 리스트 전달.
+      // TODO: 추후 Refresh Token에도 role/privilege 정보를 포함할지 결정 필요. 현재는 빈 리스트 전달.
       return createToken(new CreateTokenCmd(email, displayName, java.util.Collections.emptyList()));
     } catch (Exception e) {
       throw new IllegalArgumentException("Invalid refresh token", e);
@@ -99,7 +104,11 @@ public class JwtService implements JwtUseCase {
   }
 
   private String createToken(
-      String subject, String displayName, java.util.List<String> roles, long validity) {
+      String subject,
+      String displayName,
+      java.util.List<String> roles,
+      java.util.List<String> privileges,
+      long validity) {
     Date now = new Date();
     Date expiration = new Date(now.getTime() + validity);
 
@@ -107,6 +116,7 @@ public class JwtService implements JwtUseCase {
         .subject(subject)
         .claim("displayName", displayName)
         .claim("roles", roles)
+        .claim("privileges", privileges)
         .issuedAt(now)
         .expiration(expiration)
         .signWith(key)
