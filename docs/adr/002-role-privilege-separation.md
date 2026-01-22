@@ -6,13 +6,13 @@
 
 ## 배경 (Context)
 
-초기 설계에서는 `Role` Enum(`ROLE_USER`, `ROLE_MANAGER`)이 곧 사용자의 권한을 대변했다.
-즉, `ROLE_MANAGER`를 가진 사용자는 관리자 기능을 수행할 수 있고, `ROLE_USER`는 사용자 기능을 수행하는 식이었다.
+초기 설계에서는 `Role` Enum(`USER`, `MANAGER`)이 곧 사용자의 권한을 대변했다.
+즉, `MANAGER`를 가진 사용자는 관리자 기능을 수행할 수 있고, `USER`는 사용자 기능을 수행하는 식이었다.
 
 하지만 서비스가 확장됨에 따라 다음과 같은 요구사항이 발생할 수 있음을 인지했다.
 
-1.  **외부 시스템 연동**: 다른 회사나 서비스의 사용자(`ROLE_PARTNER` 등)가 우리 서비스의 일부 기능(예: 사용자 API)만 호출해야 할 수 있다.
-2.  **새로운 역할 정의**: `ROLE_SUPER_ADMIN`, `ROLE_OPERATOR` 등 세분화된 역할이 필요할 때, 단순히 Role 이름만으로 접근 제어를 하드코딩하면 유지보수가 어려워진다.
+1.  **외부 시스템 연동**: 다른 회사나 서비스의 사용자(`PARTNER` 등)가 우리 서비스의 일부 기능(예: 사용자 API)만 호출해야 할 수 있다.
+2.  **새로운 역할 정의**: `SUPER_ADMIN`, `OPERATOR` 등 세분화된 역할이 필요할 때, 단순히 Role 이름만으로 접근 제어를 하드코딩하면 유지보수가 어려워진다.
 
 따라서 **"사용자가 누구인가(Role)"**와 **"무엇을 할 수 있는가(Privilege)"**를 분리해야 할 필요성이 제기되었다.
 
@@ -38,10 +38,10 @@
 *   **구조**:
     ```java
     public enum Role {
-        ROLE_USER(Set.of(Privilege.ACCESS_USER_API)),
-        ROLE_MANAGER(Set.of(Privilege.ACCESS_MANAGER_API)),
+        USER(Set.of(Privilege.ACCESS_USER_API)),
+        MANAGER(Set.of(Privilege.ACCESS_MANAGER_API)),
         // 추후 확장 예시: 파트너사는 사용자 API 접근 권한만 가짐
-        // ROLE_PARTNER(Set.of(Privilege.ACCESS_USER_API))
+        // PARTNER(Set.of(Privilege.ACCESS_USER_API))
     }
     ```
 
@@ -49,7 +49,7 @@
 
 ### 긍정적 효과
 *   **유연성(Flexibility)**: 새로운 역할(Role)이 추가되더라도 코드를(특히 Security 설정이나 API 로직) 수정할 필요 없이, 해당 Role이 가질 `Privilege`만 정의하면 기존 로직이 그대로 동작한다.
-*   **재사용성(Reusability)**: `ACCESS_USER_API`와 같은 권한은 여러 Role(`ROLE_USER`, `ROLE_PARTNER` 등)에서 재사용될 수 있다.
+*   **재사용성(Reusability)**: `ACCESS_USER_API`와 같은 권한은 여러 Role(`USER`, `PARTNER` 등)에서 재사용될 수 있다.
 *   **명확성(Clarity)**: Role의 정의를 볼 때, 해당 역할이 시스템에서 어떤 권한들을 가지는지 명시적으로 파악할 수 있다.
 
 ### 부정적 효과 (또는 고려사항)

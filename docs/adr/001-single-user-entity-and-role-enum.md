@@ -31,8 +31,8 @@
 *   **정의**:
     ```java
     public enum Role {
-        ROLE_USER,
-        ROLE_MANAGER
+        USER,
+        MANAGER
     }
     ```
 *   **이유**:
