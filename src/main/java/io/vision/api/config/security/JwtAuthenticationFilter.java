@@ -6,7 +6,10 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
+import java.util.stream.Stream;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -32,12 +35,16 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         .ifPresent(
             token -> {
               String email = jwtUseCase.getSubject(token);
-              var privileges = jwtUseCase.getPrivileges(token).stream()
+              List<SimpleGrantedAuthority> authorities = Stream.concat(
+                      Stream.of(jwtUseCase.getRole(token)),
+                      jwtUseCase.getPrivileges(token).stream()
+                  )
+                  .filter(Objects::nonNull)
                   .map(SimpleGrantedAuthority::new)
                   .toList();
 
               UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(email, null,
-                  privileges);
+                  authorities);
               SecurityContextHolder.getContext().setAuthentication(authentication);
             });
 
