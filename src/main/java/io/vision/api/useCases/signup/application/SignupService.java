@@ -5,7 +5,6 @@ import io.vision.api.useCases.auth.application.model.CreateTokenCmd;
 import io.vision.api.useCases.auth.application.model.AuthToken;
 import io.vision.api.useCases.signup.application.model.SignupCmd;
 import io.vision.api.useCases.signup.application.model.SignupUser;
-import java.util.Collections;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -32,6 +31,6 @@ public class SignupService implements SignupUseCase {
     signupPortOut.save(user);
 
     return jwtUseCase.createToken(
-        new CreateTokenCmd(user.email(), user.displayName(), Collections.singletonList(user.role())));
+        new CreateTokenCmd(user.email(), user.displayName(), user.role()));
   }
 }

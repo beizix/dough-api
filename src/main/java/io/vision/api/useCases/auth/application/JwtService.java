@@ -33,14 +33,13 @@ public class JwtService implements JwtUseCase {
 
   @Override
   public AuthToken createToken(CreateTokenCmd cmd) {
-    var roles = cmd.roles().stream().map(Role::getAuthority).toList();
-    var privileges = cmd.roles().stream()
-        .flatMap(role -> role.getPrivileges().stream())
+    var role = cmd.role().getAuthority();
+    var privileges = cmd.role().getPrivileges().stream()
         .map(Enum::name)
         .distinct()
         .toList();
-    String accessToken = createToken(cmd.email(), cmd.displayName(), roles, privileges, accessTokenValidity);
-    String refreshToken = createToken(cmd.email(), cmd.displayName(), roles, privileges, refreshTokenValidity);
+    String accessToken = createToken(cmd.email(), cmd.displayName(), role, privileges, accessTokenValidity);
+    String refreshToken = createToken(cmd.email(), cmd.displayName(), role, privileges, refreshTokenValidity);
     return new AuthToken(accessToken, refreshToken);
   }
 
@@ -61,8 +60,8 @@ public class JwtService implements JwtUseCase {
       Claims claims = parseClaims(cmd.refreshToken());
       String email = claims.getSubject();
       String displayName = claims.get("displayName", String.class);
-      // TODO: 추후 Refresh Token에도 role/privilege 정보를 포함할지 결정 필요. 현재는 빈 리스트 전달.
-      return createToken(new CreateTokenCmd(email, displayName, java.util.Collections.emptyList()));
+
+      return createToken(new CreateTokenCmd(email, displayName, Role.USER));
     } catch (Exception e) {
       throw new IllegalArgumentException("Invalid refresh token", e);
     }
@@ -88,14 +87,13 @@ public class JwtService implements JwtUseCase {
   }
 
   @Override
-  @SuppressWarnings("unchecked")
-  public java.util.List<String> getRoles(String token) {
+  public String getRole(String token) {
     try {
       Claims claims = parseClaims(token);
-      return claims.get("roles", java.util.List.class);
+      return claims.get("role", String.class);
     } catch (Exception e) {
-      log.error("Failed to extract roles from token", e);
-      return java.util.Collections.emptyList();
+      log.error("Failed to extract role from token", e);
+      return null;
     }
   }
 
@@ -106,7 +104,7 @@ public class JwtService implements JwtUseCase {
   private String createToken(
       String subject,
       String displayName,
-      java.util.List<String> roles,
+      String role,
       java.util.List<String> privileges,
       long validity) {
     Date now = new Date();
@@ -115,7 +113,7 @@ public class JwtService implements JwtUseCase {
     return Jwts.builder()
         .subject(subject)
         .claim("displayName", displayName)
-        .claim("roles", roles)
+        .claim("role", role)
         .claim("privileges", privileges)
         .issuedAt(now)
         .expiration(expiration)

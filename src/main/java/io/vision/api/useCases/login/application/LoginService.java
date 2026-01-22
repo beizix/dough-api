@@ -19,16 +19,15 @@ public class LoginService implements LoginUseCase {
 
   @Override
   public AuthToken operate(LoginCmd cmd) {
-    LoginUser user =
-        loginPortOut
-            .loadUser(cmd.email())
-            .orElseThrow(() -> new IllegalArgumentException("User not found"));
+    LoginUser user = loginPortOut
+        .loadUser(cmd.email())
+        .orElseThrow(() -> new IllegalArgumentException("User not found"));
 
     if (!passwordEncoder.matches(cmd.password(), user.password())) {
       throw new IllegalArgumentException("Invalid password");
     }
 
     return jwtUseCase.createToken(
-        new CreateTokenCmd(user.email(), user.displayName(), java.util.Collections.singletonList(user.role())));
+        new CreateTokenCmd(user.email(), user.displayName(), user.role()));
   }
 }
