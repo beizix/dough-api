@@ -33,7 +33,7 @@ class SignupManagerWebAdapterTest extends WebMvcTestBase {
     when(signupUseCase.operate(any(SignupCmd.class))).thenReturn(mockToken);
 
     // When
-    mockMvc.perform(post("/api/v1/manager/signup")
+    mockMvc.perform(post("/api/v1/signup/manager")
         .content(json(req))
         .contentType("application/json"))
         .andExpect(status().isOk());

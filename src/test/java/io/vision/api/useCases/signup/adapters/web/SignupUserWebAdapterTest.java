@@ -36,7 +36,7 @@ class SignupUserWebAdapterTest extends WebMvcTestBase {
     // When
     mockMvc
         .perform(
-            post("/api/v1/user/signup")
+            post("/api/v1/signup/user")
                 .with(csrf())
                 .content(json(req))
                 .contentType("application/json"))
