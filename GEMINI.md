@@ -55,6 +55,7 @@
 - 모든 객체 생성은 `new` 키워드를 사용한 **생성자 호출 방식**으로 통일합니다. (Lombok `@Builder` 지양)
 - **Record Class**: DTO, Command, 도메인 불변 객체는 `record` 타입을 적극 활용합니다.
 - **Spring Boot 4.0.1 특이 사항**: `@WebMvcTest` 사용 시 `import org.springframework.boot.webmvc.test.autoconfigure.WebMvcTest;` 경로를 사용해야 합니다.
+- **Enum 매핑**: Entity에서 필드로 Enum을 사용할 경우, DB의 네이티브 ENUM 타입 사용을 지양하고 확장성을 확보하기 위해 반드시 `@Enumerated(EnumType.STRING)`과 `@Column(columnDefinition = "VARCHAR(255)")`를 함께 선언합니다.
 
 ---
 

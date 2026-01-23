@@ -39,7 +39,7 @@ public class UserEntity extends AuditEntity {
   @Column(nullable = false)
   private String displayName;
 
-  @Column(nullable = false)
+  @Column(nullable = false, columnDefinition = "VARCHAR(255)")
   @Enumerated(EnumType.STRING)
   private Role role;
 
