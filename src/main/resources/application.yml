@@ -1,14 +1,18 @@
 spring:
   application:
     name: vision
+  # 데이터베이스 설정
   datasource:
     url: jdbc:h2:file:~/h2/vision/vision;AUTO_SERVER=TRUE
     driver-class-name: org.h2.Driver
     username: sa
     password:
-  h2:
-    console:
-      enabled: true
+  # 파일 업로드 설정
+  servlet:
+    multipart:
+      max-file-size: 10MB          # 최대 파일 크기
+      max-request-size: 50MB       # 최대 요청 크기
+      file-size-threshold: 1MB     # 메모리에 저장될 임계 크기
   jpa:
     hibernate:
       ddl-auto: update
@@ -16,3 +20,8 @@ spring:
     properties:
       hibernate:
         format_sql: true
+
+app:
+  # 파일 업로드 설정
+  upload:
+    path: ${user.home}/vision/upload
