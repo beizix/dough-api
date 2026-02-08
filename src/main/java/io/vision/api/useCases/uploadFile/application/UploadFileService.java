@@ -10,7 +10,7 @@ import java.util.*;
 import lombok.RequiredArgsConstructor;
 import org.apache.tika.Tika;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
+import java.io.BufferedInputStream;
 
 @Service
 @RequiredArgsConstructor
@@ -19,55 +19,57 @@ public class UploadFileService implements UploadFileUseCase {
   private final SaveFileMetadataPortOut saveFileMetadataPortOut;
   private final Tika tika;
 
+  /**
+   * Tika를 이용한 파일 타입 감지(detect)는 파일의 앞부분(Magic Bytes)만 읽으므로,
+   * 유효성 검사 후 스트림을 초기화(reset)하기 위한 마킹 한계치를 64KB로 설정함.
+   */
+  private static final int MARK_READ_LIMIT = 64 * 1024;
+
   @Override
-  public Optional<UploadFile> operate(FileUploadType fileUploadType, MultipartFile multipartFile) {
-    if (multipartFile == null || multipartFile.isEmpty()) {
+  public Optional<UploadFile> operate(
+      FileUploadType fileUploadType,
+      InputStream inputStream,
+      String originalFilename,
+      long fileSize) {
+    if (inputStream == null || originalFilename == null || originalFilename.isEmpty()) {
       return Optional.empty();
     }
 
-    try {
-      validateFile(fileUploadType, multipartFile);
-    } catch (IOException e) {
-      throw new RuntimeException(e);
-    }
+    try (InputStream bis = new BufferedInputStream(inputStream)) {
+      bis.mark(MARK_READ_LIMIT);
+      validateFile(fileUploadType, bis, originalFilename);
+      bis.reset();
 
-    String originalFilename = Objects.requireNonNull(multipartFile.getOriginalFilename());
-    String subPath = getDirPath(fileUploadType.getSubPath());
-    String createFilename = getUUIDFilename(getFileExtension(originalFilename).orElse(null));
+      String subPath = getDirPath(fileUploadType.getSubPath());
+      String createFilename = getUUIDFilename(getFileExtension(originalFilename).orElse(null));
 
-    try (InputStream inputStream = multipartFile.getInputStream()) {
       getFileUploadStrategy(fileUploadType.getFileStorageType())
-          .operate(inputStream, subPath, createFilename);
+          .operate(bis, subPath, createFilename);
+
+      SaveFileMetadata saveFileMetadata =
+          saveFileMetadataPortOut
+              .operate(
+                  new SaveFileMetadataCmd(
+                      fileUploadType, subPath, createFilename, originalFilename, fileSize))
+              .orElseThrow();
+
+      return Optional.of(
+          new UploadFile(
+              saveFileMetadata.id(),
+              fileUploadType,
+              subPath,
+              createFilename,
+              originalFilename,
+              fileSize,
+              null));
     } catch (IOException e) {
       throw new RuntimeException(e);
     }
-
-    SaveFileMetadata saveFileMetadata =
-        saveFileMetadataPortOut
-            .operate(
-                new SaveFileMetadataCmd(
-                    fileUploadType,
-                    subPath,
-                    createFilename,
-                    multipartFile.getOriginalFilename(),
-                    multipartFile.getSize()))
-            .orElseThrow();
-
-    return Optional.of(
-        new UploadFile(
-            saveFileMetadata.id(),
-            fileUploadType,
-            subPath,
-            createFilename,
-            originalFilename,
-            multipartFile.getSize(),
-            null));
   }
 
-  private void validateFile(FileUploadType fileUploadType, MultipartFile multipartFile)
+  private void validateFile(
+      FileUploadType fileUploadType, InputStream inputStream, String originalFilename)
       throws IOException {
-    String originalFilename = Objects.requireNonNull(multipartFile).getOriginalFilename();
-
     // ✦ 파일 확장자 여부 체크
     String extension =
         getFileExtension(originalFilename)
@@ -83,14 +85,11 @@ public class UploadFileService implements UploadFileUseCase {
                 () -> new RuntimeException(String.format("'.%s' - 허용되지 않는 파일 확장자입니다.", extension)));
 
     // ✦ 파일 mime-type 체크
-    try (InputStream is = multipartFile.getInputStream()) {
-      String fileMimeType = tika.detect(is, originalFilename);
-      getMimeType(fileType, fileMimeType)
-          .orElseThrow(
-              () ->
-                  new RuntimeException(
-                      String.format("'%s' - 허용되지 않는 MIME Type 입니다.", fileMimeType)));
-    }
+    String fileMimeType = tika.detect(inputStream, originalFilename);
+    getMimeType(fileType, fileMimeType)
+        .orElseThrow(
+            () ->
+                new RuntimeException(String.format("'%s' - 허용되지 않는 MIME Type 입니다.", fileMimeType)));
   }
 
   private Optional<String> getFileExtension(String filename) {
