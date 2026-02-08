@@ -36,8 +36,8 @@ public class SaveToLocalStorageAdapter implements SaveToFileStoragePortOut {
     Path destinationFile =
         (filePath.resolve(Paths.get(createFilename)).normalize().toAbsolutePath());
 
+    // 상위 디렉토리로 이동하는 경로(Path Traversal) 시도는 차단
     if (!destinationFile.getParent().equals(filePath.toAbsolutePath())) {
-      // This is a security check
       throw new RuntimeException("Cannot store file outside current directory.");
     }
 
