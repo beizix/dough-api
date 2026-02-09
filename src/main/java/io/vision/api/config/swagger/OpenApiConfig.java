@@ -29,9 +29,18 @@ public class OpenApiConfig {
   }
 
   @Bean
+  public GroupedOpenApi commonApi() {
+    return GroupedOpenApi.builder()
+        .group("2. Shared API")
+        .pathsToMatch("/api/v1/upload/**")
+        .addOpenApiCustomizer(this::addSecurityItem)
+        .build();
+  }
+
+  @Bean
   public GroupedOpenApi userApi() {
     return GroupedOpenApi.builder()
-        .group("2. User API")
+        .group("3. User API")
         .pathsToMatch("/api/v1/user/**")
         .addOpenApiCustomizer(this::addSecurityItem)
         .build();
@@ -40,7 +49,7 @@ public class OpenApiConfig {
   @Bean
   public GroupedOpenApi managerApi() {
     return GroupedOpenApi.builder()
-        .group("3. Manager API")
+        .group("4. Manager API")
         .pathsToMatch("/api/v1/manager/**")
         .addOpenApiCustomizer(this::addSecurityItem)
         .build();
