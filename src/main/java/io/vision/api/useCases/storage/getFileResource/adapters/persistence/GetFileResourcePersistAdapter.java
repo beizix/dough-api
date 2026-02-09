@@ -16,6 +16,6 @@ public class GetFileResourcePersistAdapter implements GetFileResourcePortOut {
   @Override
   public GetFileResource operate(UUID fileUuid) {
     FileMetadataEntity metadata = fileMetadataRepository.findById(fileUuid).orElseThrow();
-    return new GetFileResource(metadata.getPath(), metadata.getName());
+    return new GetFileResource(metadata.getType(), metadata.getPath(), metadata.getName());
   }
 }

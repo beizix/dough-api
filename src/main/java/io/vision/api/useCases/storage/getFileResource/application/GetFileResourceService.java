@@ -17,7 +17,7 @@ public class GetFileResourceService implements GetFileResourceUseCase {
   @Override
   public String operate(UUID fileUuid) {
     GetFileResource fileResource = getFileResourcePortOut.operate(fileUuid);
-    return getResourceURLStrategy(FileStorageType.LOCAL)
+    return getResourceURLStrategy(fileResource.fileUploadType().getFileStorageType())
         .operate(fileResource.path(), fileResource.filename());
   }
 
