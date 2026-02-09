@@ -39,7 +39,7 @@ public class UserEntity extends AuditEntity {
   @Column(nullable = false, comment = "사용자 표기명")
   private String displayName;
 
-  @Column(nullable = false, length = 255, comment = "사용자 역할")
+  @Column(nullable = false, comment = "사용자 역할", columnDefinition = "VARCHAR(255)")
   @Enumerated(EnumType.STRING)
   private Role role;
 

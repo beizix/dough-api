@@ -25,7 +25,7 @@ public class FileMetadataEntity extends AuditEntity {
   @Column(nullable = false, length = 36, comment = "파일 UUID")
   private UUID id;
 
-  @Column(nullable = false, length = 255, comment = "파일 업로드 타입")
+  @Column(nullable = false, comment = "파일 업로드 타입", columnDefinition = "VARCHAR(255)")
   @Enumerated(EnumType.STRING)
   private FileUploadType type;
 
