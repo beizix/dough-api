@@ -5,18 +5,18 @@ import static org.assertj.core.api.Assertions.assertThat;
 import io.vision.api.common.adapters.persistence.repository.UserRepository;
 import io.vision.api.common.application.enums.Role;
 import io.vision.api.support.DataJpaTestBase;
-import io.vision.api.useCases.auth.signup.adapters.persistence.SignupPersistAdapter;
+import io.vision.api.useCases.auth.signup.adapters.persistence.ManageSignupPersistAdapter;
 import io.vision.api.useCases.auth.signup.application.domain.model.SignupUser;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Import;
 
-@Import(SignupPersistAdapter.class)
+@Import(ManageSignupPersistAdapter.class)
 class SignupPersistAdapterTest extends DataJpaTestBase {
 
   @Autowired
-  private SignupPersistAdapter signupPersistAdapter;
+  private ManageSignupPersistAdapter signupPersistAdapter;
 
   @Autowired
   private UserRepository userRepository;

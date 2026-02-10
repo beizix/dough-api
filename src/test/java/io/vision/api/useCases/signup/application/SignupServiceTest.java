@@ -13,7 +13,7 @@ import io.vision.api.useCases.auth.manageToken.application.domain.model.CreateTo
 import io.vision.api.useCases.auth.manageToken.application.domain.model.AuthToken;
 import io.vision.api.useCases.auth.signup.application.domain.SignupService;
 import io.vision.api.useCases.auth.signup.application.domain.model.SignupCmd;
-import io.vision.api.useCases.auth.signup.application.ports.SignupPortOut;
+import io.vision.api.useCases.auth.signup.application.ports.ManageSignupPortOut;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -29,7 +29,7 @@ class SignupServiceTest {
         private SignupService signupService;
 
         @Mock
-        private SignupPortOut signupPortOut;
+        private ManageSignupPortOut manageSignupPortOut;
 
         @Mock
         private PasswordEncoder passwordEncoder;
@@ -43,7 +43,7 @@ class SignupServiceTest {
                 // Given
                 SignupCmd cmd = new SignupCmd("test@vision.io", "rawPassword", "Test User", Role.USER);
 
-                given(signupPortOut.existsByEmailAndRole(cmd.email(), cmd.role())).willReturn(false);
+                given(manageSignupPortOut.existsByEmailAndRole(cmd.email(), cmd.role())).willReturn(false);
                 given(passwordEncoder.encode(cmd.password())).willReturn("encodedPassword");
                 given(manageAuthTokenUseCase.createToken(any(CreateTokenCmd.class)))
                                 .willReturn(new AuthToken("access", "refresh"));
@@ -55,7 +55,7 @@ class SignupServiceTest {
                 assertThat(token).isNotNull();
                 assertThat(token.accessToken()).isEqualTo("access");
 
-                verify(signupPortOut)
+                verify(manageSignupPortOut)
                                 .save(
                                                 argThat(
                                                                 user -> user.email().equals(cmd.email())
@@ -77,7 +77,7 @@ class SignupServiceTest {
         void signup_fail_duplicate_email() {
                 // Given
                 SignupCmd cmd = new SignupCmd("duplicate@vision.io", "password", "User", Role.USER);
-                given(signupPortOut.existsByEmailAndRole(cmd.email(), cmd.role())).willReturn(true);
+                given(manageSignupPortOut.existsByEmailAndRole(cmd.email(), cmd.role())).willReturn(true);
 
                 // When & Then
                 assertThatThrownBy(() -> signupService.operate(cmd))
