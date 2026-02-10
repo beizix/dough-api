@@ -7,7 +7,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import io.vision.api.support.WebMvcTestBase;
-import io.vision.api.useCases.auth.manageToken.adapters.web.AuthWebAdapter;
+import io.vision.api.useCases.auth.manageToken.adapters.web.ManageAuthTokenWebAdapter;
 import io.vision.api.useCases.auth.manageToken.adapters.web.model.RefreshReq;
 import io.vision.api.useCases.auth.manageToken.adapters.web.model.ValidateReq;
 import io.vision.api.useCases.auth.manageToken.application.domain.model.AuthToken;
@@ -17,8 +17,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.webmvc.test.autoconfigure.WebMvcTest;
 import org.springframework.http.MediaType;
 
-@WebMvcTest(AuthWebAdapter.class)
-class AuthWebAdapterTest extends WebMvcTestBase {
+@WebMvcTest(ManageAuthTokenWebAdapter.class)
+class ManageAuthTokenWebAdapterTest extends WebMvcTestBase {
 
   @Test
   @DisplayName("Scenario: 성공 - 유효한 리프레시 토큰으로 토큰 재발급")
