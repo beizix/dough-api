@@ -18,8 +18,9 @@
 | :--- | :--- | :--- | :--- |
 | **SaveFile** | 파일 저장 | 파일을 물리 저장소에 보관하고 메타데이터를 DB에 기록하는 전체 프로세스입니다. | `SaveFileUseCase` |
 | **FileMetadata** | 파일 메타데이터 | 파일의 UUID, 저장 경로, 물리 파일명 등 DB에 기록되는 논리적 정보입니다. | `FileMetadataEntity`, `SaveFileMetadata` |
-| **FileUploadType** | 파일 업로드 유형 | 업로드 목적에 따른 저장소 위치, 허용 확장자, MIME 타입 정책의 묶음입니다. | `FileUploadType` (Enum) |
+| **FileUploadType** | 파일 업로드 유형 | 업로드 목적에 따른 저장소 위치 및 허용 확장자 정책 묶음입니다. | `FileUploadType` (Enum) |
 | **FileStorageType** | 저장소 기술 유형 | `LOCAL`(로컬 디스크), `S3`(AWS) 등 물리적 저장 기술의 종류를 나타냅니다. | `FileStorageType` (Enum) |
+| **AcceptableFileType** | 허용 파일 유형 | 각 파일 카테고리(이미지, 엑셀 등)별로 허용되는 확장자와 MIME 타입의 정의입니다. | `AcceptableFileType` (Enum) |
 | **GetFileURL** | 파일 URL 조회 | 저장된 파일에 접근할 수 있는 경로(URL)를 생성하거나 조회하는 행위입니다. | `GetFileURLUseCase` |
 
 ## 3. 아키텍처 공통 (Architecture Common)
