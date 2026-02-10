@@ -77,8 +77,8 @@ class SaveFileServiceTest {
 
     // Then
     assertThat(result).isPresent();
-    assertThat(result.get().getId()).isEqualTo(expectedId);
-    assertThat(result.get().getOriginName()).isEqualTo(originalFilename);
+    assertThat(result.get().id()).isEqualTo(expectedId);
+    assertThat(result.get().originName()).isEqualTo(originalFilename);
 
     then(localStorageStrategy).should().operate(any(InputStream.class), anyString(), anyString());
     then(saveFileMetadataPortOut).should().operate(any(SaveFileMetadataCmd.class));

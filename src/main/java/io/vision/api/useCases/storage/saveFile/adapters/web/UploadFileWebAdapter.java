@@ -50,11 +50,11 @@ public class UploadFileWebAdapter {
             .orElseThrow(() -> new RuntimeException("파일 업로드에 실패했습니다."));
 
     return new UploadFileRes(
-        result.getId(),
-        result.getPath(),
-        result.getName(),
-        result.getOriginName(),
-        getFileUrlUseCase.operate(result.getId()));
+        result.id(),
+        result.path(),
+        result.name(),
+        result.originName(),
+        getFileUrlUseCase.operate(result.id()));
   }
 
   @Operation(summary = "Base64 파일 업로드", description = "Base64 인코딩된 문자열 형식으로 파일을 업로드합니다.")
@@ -72,10 +72,10 @@ public class UploadFileWebAdapter {
             .orElseThrow(() -> new RuntimeException("파일 업로드에 실패했습니다."));
 
     return new UploadFileRes(
-        result.getId(),
-        result.getPath(),
-        result.getName(),
-        result.getOriginName(),
-        getFileUrlUseCase.operate(result.getId()));
+        result.id(),
+        result.path(),
+        result.name(),
+        result.originName(),
+        getFileUrlUseCase.operate(result.id()));
   }
 }
