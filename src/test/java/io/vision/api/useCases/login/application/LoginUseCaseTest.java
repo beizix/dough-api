@@ -7,12 +7,15 @@ import static org.mockito.Mockito.verify;
 
 import io.vision.api.common.application.enums.Role;
 import io.vision.api.useCases.auth.application.AuthTokenUseCase;
-import io.vision.api.useCases.auth.application.model.CreateTokenCmd;
-import io.vision.api.useCases.auth.application.model.AuthToken;
-import io.vision.api.useCases.login.application.model.LoginCmd;
-import io.vision.api.useCases.login.application.model.LoginUser;
+import io.vision.api.useCases.auth.application.domain.model.CreateTokenCmd;
+import io.vision.api.useCases.auth.application.domain.model.AuthToken;
+import io.vision.api.useCases.login.application.domain.LoginService;
+import io.vision.api.useCases.login.application.domain.model.LoginCmd;
+import io.vision.api.useCases.login.application.domain.model.GetUser;
 import java.util.Optional;
 import java.util.UUID;
+
+import io.vision.api.useCases.login.application.ports.GetUserPortOut;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -28,7 +31,7 @@ class LoginUseCaseTest {
   private LoginService loginService;
 
   @Mock
-  private LoginPortOut loginPortOut;
+  private GetUserPortOut getUserPortOut;
 
   @Mock
   private PasswordEncoder passwordEncoder;
@@ -44,9 +47,9 @@ class LoginUseCaseTest {
     String password = "password";
     String encodedPassword = "encodedPassword";
     LoginCmd cmd = new LoginCmd(email, password);
-    LoginUser user = new LoginUser(UUID.randomUUID(), email, encodedPassword, "Test User", Role.USER);
+    GetUser user = new GetUser(UUID.randomUUID(), email, encodedPassword, "Test User", Role.USER);
 
-    given(loginPortOut.loadUser(email)).willReturn(Optional.of(user));
+    given(getUserPortOut.operate(email)).willReturn(Optional.of(user));
     given(passwordEncoder.matches(password, encodedPassword)).willReturn(true);
     given(authTokenUseCase.createToken(any(CreateTokenCmd.class)))
         .willReturn(new AuthToken("access", "refresh"));

@@ -6,18 +6,18 @@ import io.vision.api.common.adapters.persistence.entity.UserEntity;
 import io.vision.api.common.adapters.persistence.repository.UserRepository;
 import io.vision.api.common.application.enums.Role;
 import io.vision.api.support.DataJpaTestBase;
-import io.vision.api.useCases.login.application.model.LoginUser;
+import io.vision.api.useCases.login.application.domain.model.GetUser;
 import java.util.Optional;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Import;
 
-@Import({ LoginPersistAdapter.class })
+@Import({ GetUserPersistAdapter.class })
 class LoginPersistAdapterTest extends DataJpaTestBase {
 
   @Autowired
-  private LoginPersistAdapter loginPersistAdapter;
+  private GetUserPersistAdapter loginPersistAdapter;
 
   @Autowired
   private UserRepository userRepository;
@@ -30,7 +30,7 @@ class LoginPersistAdapterTest extends DataJpaTestBase {
     userRepository.save(new UserEntity(email, "password", "Persist User", Role.USER, null));
 
     // When
-    Optional<LoginUser> result = loginPersistAdapter.loadUser(email);
+    Optional<GetUser> result = loginPersistAdapter.operate(email);
 
     // Then
     assertThat(result).isPresent();

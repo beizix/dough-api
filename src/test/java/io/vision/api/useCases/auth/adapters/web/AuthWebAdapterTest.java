@@ -9,8 +9,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import io.vision.api.support.WebMvcTestBase;
 import io.vision.api.useCases.auth.adapters.web.model.RefreshReq;
 import io.vision.api.useCases.auth.adapters.web.model.ValidateReq;
-import io.vision.api.useCases.auth.application.model.AuthToken;
-import io.vision.api.useCases.auth.application.model.RefreshTokenCmd;
+import io.vision.api.useCases.auth.application.domain.model.AuthToken;
+import io.vision.api.useCases.auth.application.domain.model.RefreshTokenCmd;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.webmvc.test.autoconfigure.WebMvcTest;

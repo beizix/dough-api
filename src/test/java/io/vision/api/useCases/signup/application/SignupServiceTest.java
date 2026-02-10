@@ -9,9 +9,11 @@ import static org.mockito.Mockito.verify;
 
 import io.vision.api.common.application.enums.Role;
 import io.vision.api.useCases.auth.application.AuthTokenUseCase;
-import io.vision.api.useCases.auth.application.model.CreateTokenCmd;
-import io.vision.api.useCases.auth.application.model.AuthToken;
-import io.vision.api.useCases.signup.application.model.SignupCmd;
+import io.vision.api.useCases.auth.application.domain.model.CreateTokenCmd;
+import io.vision.api.useCases.auth.application.domain.model.AuthToken;
+import io.vision.api.useCases.signup.application.domain.SignupService;
+import io.vision.api.useCases.signup.application.domain.model.SignupCmd;
+import io.vision.api.useCases.signup.application.ports.SignupPortOut;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

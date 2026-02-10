@@ -1,7 +1,7 @@
 package io.vision.api.useCases.auth.adapters.persistence;
 
 import io.vision.api.common.adapters.persistence.repository.UserRepository;
-import io.vision.api.useCases.auth.application.RefreshTokenPortOut;
+import io.vision.api.useCases.auth.application.ports.RefreshTokenPortOut;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;

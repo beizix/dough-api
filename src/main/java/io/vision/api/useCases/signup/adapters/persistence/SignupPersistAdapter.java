@@ -3,8 +3,8 @@ package io.vision.api.useCases.signup.adapters.persistence;
 import io.vision.api.common.adapters.persistence.entity.UserEntity;
 import io.vision.api.common.adapters.persistence.repository.UserRepository;
 import io.vision.api.common.application.enums.Role;
-import io.vision.api.useCases.signup.application.SignupPortOut;
-import io.vision.api.useCases.signup.application.model.SignupUser;
+import io.vision.api.useCases.signup.application.ports.SignupPortOut;
+import io.vision.api.useCases.signup.application.domain.model.SignupUser;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
