@@ -62,21 +62,24 @@
 
 ### 3.4 S3 저장소 설정 (AWS S3)
 
-`app.storage.s3.enabled`가 `true`인 경우, `spring.cloud.aws` 하위의 AWS 자격 증명 및 S3 버킷 설정이 필요합니다. 상세 설정은 `application.yml`의 `cloud.aws` 섹션을 참조하십시오.
+`app.storage.s3.enabled`가 `true`인 경우, AWS S3 연동을 위해 다음 항목들이 `application.yml` 또는 시스템 프로퍼티를 통해 제공되어야 합니다.
 
-### 3.4 전략 전환 가이드
+#### 필수 설정 항목
 
-#### 로컬 모드 (기본)
-아무런 설정을 하지 않으면 로컬 저장소 모드로 동작하며, 사용자의 홈 디렉토리(`~/vision/upload`)를 기본 경로로 사용합니다.
+| 프로퍼티 | 설명 | 비고 |
+| :--- | :--- | :--- |
+| `spring.cloud.aws.credentials.access-key` | AWS IAM Access Key | **보안 주의** (아래 참조) |
+| `spring.cloud.aws.credentials.secret-key` | AWS IAM Secret Key | **보안 주의** (아래 참조) |
+| `spring.cloud.aws.s3.bucket` | S3 버킷 명 | 필수 |
+| `spring.cloud.aws.s3.folder` | 버킷 내 기본 저장 폴더 명 | 필수 |
+| `spring.cloud.aws.s3.domain` | S3 또는 CloudFront 도메인 주소 | URL 생성 시 사용 |
+| `spring.cloud.aws.region.static` | AWS 리전 (예: ap-northeast-2) | 기본값 존재 |
 
-#### S3 전용 모드
-S3만 사용하고 로컬 저장소 관련 빈(Bean)과 경로 검증을 비활성화하려면 다음과 같이 실행합니다.
+#### ⚠️ 보안 주의사항 (중요)
 
-```bash
-java -jar vision-api.jar \
-  -Dapp.storage.local.enabled=false \
-  -Dapp.storage.s3.enabled=true \
-  -Dspring.cloud.aws.credentials.access-key=... \
-  -Dspring.cloud.aws.credentials.secret-key=... \
-  -Dspring.cloud.aws.s3.bucket=...
-```
+*   **Access Key 및 Secret Key 보호**: `access-key`와 `secret-key`는 절대 `application.yml`이나 소스 코드에 **직접 문자열로 기술하여 형상 관리(Git)에 포함시키지 마십시오.**
+*   **권장 방법**: `bucket`, `folder`, `domain` 등 유출되어도 보안 위협이 낮은 정보는 `application.yml`에 기재할 수 있으나, 자격 증명 정보는 반드시 다음과 같은 방식을 사용해야 합니다.
+    *   **환경 변수**: OS 환경 변수를 통한 주입
+    *   **시스템 프로퍼티**: 애플리케이션 실행 시 `-D` 옵션으로 전달 (예: `-Dspring.cloud.aws.credentials.access-key=...`)
+    *   **Secrets Manager**: AWS Secrets Manager 또는 HashiCorp Vault와 같은 관리 도구 활용
+
