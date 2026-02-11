@@ -2,9 +2,3 @@ app:
   # 파일 업로드 설정
   upload:
     path: ${user.home}/vision/upload
-    tmpDir: ${user.home}/vision/upload/tmpdir    # 임시 파일 저장 경로
-
-spring:
-  servlet:
-    multipart:
-      location: ${app.upload.tmpDir}     # 멀티파트 파일 처리시 사용할 임시 저장 위치

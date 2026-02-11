@@ -19,20 +19,16 @@ public class FileStorageConfig implements WebMvcConfigurer {
   @Value("${app.upload.path:#{null}}")
   private String publicPath;
 
-  @Value("${app.upload.tmpDir:#{null}}")
+  @Value("${java.io.tmpdir}")
   private String tmpPath;
 
   @PostConstruct
   public void initialize() throws IOException {
     log.info("FileStorageConfig - initialize : app.upload.path is {}", publicPath);
-    log.info("FileStorageConfig - initialize : app.upload.tmpDir is {}", tmpPath);
+    log.info("FileStorageConfig - initialize : java.io.tmpdir is {}", tmpPath);
 
     if (publicPath != null && !publicPath.isBlank()) {
       createDirectory(publicPath);
-    }
-
-    if (tmpPath != null && !tmpPath.isBlank()) {
-      createDirectory(tmpPath);
     }
   }
 
