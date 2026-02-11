@@ -1,7 +1,6 @@
 package io.vision.api.config.storage;
 
 import jakarta.annotation.PostConstruct;
-import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import lombok.extern.slf4j.Slf4j;
@@ -17,37 +16,29 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 public class FileStorageConfig implements WebMvcConfigurer {
 
   @Value("${app.upload.path:#{null}}")
-  private String publicPath;
-
-  @Value("${java.io.tmpdir}")
-  private String tmpPath;
+  private String uploadPath;
 
   @PostConstruct
-  public void initialize() throws IOException {
-    log.info("FileStorageConfig - initialize : app.upload.path is {}", publicPath);
-    log.info("FileStorageConfig - initialize : java.io.tmpdir is {}", tmpPath);
-
-    if (publicPath != null && !publicPath.isBlank()) {
-      createDirectory(publicPath);
+  public void initialize() {
+    if (uploadPath == null || uploadPath.isBlank()) {
+      throw new IllegalStateException(
+          "로컬 저장소가 활성화(app.storage.local.enabled=true)되었으나, 필수 설정인 'app.upload.path'가 누락되었습니다.");
     }
-  }
 
-  private void createDirectory(String path) throws IOException {
-    try {
-      Files.createDirectories(Paths.get(path));
-    } catch (IOException e) {
-      throw new IOException("Could not initialize storage location: " + path, e);
+    if (!Files.exists(Paths.get(uploadPath))) {
+      log.warn("설정된 파일 보관 경로가 실제 파일 시스템에 존재하지 않습니다: {}. 경로가 없으면 파일 저장 시 오류가 발생할 수 있습니다.", uploadPath);
     }
   }
 
   @Override
   public void addResourceHandlers(ResourceHandlerRegistry registry) {
-    if (publicPath != null && !publicPath.isBlank()) {
-      String resourcePath = "file:" + Paths.get(publicPath).toAbsolutePath().toString() + "/";
+    if (uploadPath != null && !uploadPath.isBlank()) {
+      String resourcePath = "file:" + Paths.get(uploadPath).toAbsolutePath().toString() + "/";
       registry.addResourceHandler("/uploads/**")
           .addResourceLocations(resourcePath);
-      
+
       log.info("Mapped '/uploads/**' to local resource: {}", resourcePath);
     }
   }
+
 }
