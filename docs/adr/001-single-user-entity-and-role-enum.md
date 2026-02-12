@@ -27,7 +27,7 @@
 ### 2. Role Enum 도입
 권한을 단순 문자열(`String`)이 아닌 **`Enum`**으로 정의하여 관리한다.
 
-*   **위치**: `io.vision.api.common.application.enums.Role` (Hexagonal Architecture의 Application Layer)
+*   **위치**: `io.dough.api.common.application.enums.Role` (Hexagonal Architecture의 Application Layer)
 *   **정의**:
     ```java
     public enum Role {

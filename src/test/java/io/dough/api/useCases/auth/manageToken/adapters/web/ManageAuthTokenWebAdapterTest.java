@@ -1,0 +1,58 @@
+package io.dough.api.useCases.auth.manageToken.adapters.web;
+
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.BDDMockito.given;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+import io.dough.api.support.WebMvcTestBase;
+import io.dough.api.useCases.auth.manageToken.adapters.web.model.RefreshReq;
+import io.dough.api.useCases.auth.manageToken.adapters.web.model.ValidateReq;
+import io.dough.api.useCases.auth.manageToken.application.domain.model.AuthToken;
+import io.dough.api.useCases.auth.manageToken.application.domain.model.RefreshTokenCmd;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.webmvc.test.autoconfigure.WebMvcTest;
+import org.springframework.http.MediaType;
+
+@WebMvcTest(ManageAuthTokenWebAdapter.class)
+class ManageAuthTokenWebAdapterTest extends WebMvcTestBase {
+
+  @Test
+  @DisplayName("Scenario: 성공 - 유효한 리프레시 토큰으로 토큰 재발급")
+  void refresh_token_success() throws Exception {
+    // Given
+    RefreshReq req = new RefreshReq("valid_refresh_token");
+    AuthToken token = new AuthToken("new_access_token", "new_refresh_token");
+
+    given(manageAuthTokenUseCase.refreshToken(any(RefreshTokenCmd.class))).willReturn(token);
+
+    // When
+    mockMvc
+        .perform(
+            post("/api/v1/auth/refresh").contentType(MediaType.APPLICATION_JSON).content(json(req)))
+        // Then
+        .andExpect(status().isOk())
+        .andExpect(jsonPath("$.accessToken").value("new_access_token"))
+        .andExpect(jsonPath("$.refreshToken").value("new_refresh_token"));
+  }
+
+  @Test
+  @DisplayName("Scenario: 성공 - 토큰 유효성 검증")
+  void validate_token_success() throws Exception {
+    // Given
+    ValidateReq req = new ValidateReq("valid_access_token");
+    given(manageAuthTokenUseCase.validateToken(req.token())).willReturn(true);
+
+    // When
+    mockMvc
+        .perform(
+            post("/api/v1/auth/validate")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(json(req)))
+        // Then
+        .andExpect(status().isOk())
+        .andExpect(jsonPath("$.valid").value(true));
+  }
+}

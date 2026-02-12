@@ -17,7 +17,7 @@
 HTTP 요청 매핑, 파라미터 검증, 응답 상태 코드, 그리고 UseCase 호출 여부를 검증합니다.
 
 - **특징**: `@WebMvcTest`를 사용하며 보안 필터가 포함된 슬라이스 테스트를 수행합니다.
-- **Base Class**: `io.vision.api.support.WebMvcTestBase`
+- **Base Class**: `io.dough.api.support.WebMvcTestBase`
 - **검증 대상**:
   - URL 및 HTTP Method 매핑
   - RequestBody(DTO) 역직렬화 및 유효성 검사
@@ -37,7 +37,7 @@ HTTP 요청 매핑, 파라미터 검증, 응답 상태 코드, 그리고 UseCase
 실제 데이터베이스와의 연동 및 쿼리 동작을 검증합니다.
 
 - **특징**: `@DataJpaTest`를 사용하여 H2 인메모리 DB에서 테스트를 수행합니다.
-- **Base Class**: `io.vision.api.support.DataJpaTestBase`
+- **Base Class**: `io.dough.api.support.DataJpaTestBase`
 - **검증 대상**:
   - Entity 매핑 및 제약 조건 (Unique, Not Null 등)
   - Custom Repository 쿼리 동작
@@ -46,7 +46,7 @@ HTTP 요청 매핑, 파라미터 검증, 응답 상태 코드, 그리고 UseCase
 ### 2.4 Architecture Test (ArchUnit)
 패키지 간의 의존성 규칙이 헥사고날 아키텍처 원칙을 준수하는지 자동으로 검증합니다.
 
-- **핵심 클래스**: `io.vision.api.ApiArchTest`
+- **핵심 클래스**: `io.dough.api.ApiArchTest`
 - **검증 규칙**:
   - `application`(Core) 계층은 어떠한 외부 계층도 참조해서는 안 됨.
   - `web`과 `persistence` 어댑터는 서로를 직접 참조할 수 없음.
@@ -67,9 +67,9 @@ HTTP 요청 매핑, 파라미터 검증, 응답 상태 코드, 그리고 UseCase
 @DisplayName("Scenario: 성공 - 유효한 요청 시 사용자를 저장한다")
 void success_test() {
     // Given (준비: Mock 설정, 데이터 준비)
-    
+
     // When (실행: 테스트 대상 메서드 호출)
-    
+
     // Then (검증: 결과값 확인, Mock 호출 확인)
 }
 ```
@@ -99,5 +99,5 @@ void success_test() {
 ./gradlew test
 
 # 특정 테스트 클래스만 실행
-./gradlew test --tests io.vision.api.useCases.auth.signup..*
+./gradlew test --tests io.dough.api.useCases.auth.signup..*
 ```

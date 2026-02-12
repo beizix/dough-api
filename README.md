@@ -4,8 +4,10 @@
   <img src="./docs/img/dough.png" width="400" alt="Dough API Logo">
 </p>
 
-**Dough API**는 빵이나 피자의 토대가 되는 반죽처럼, 개발자가 어떤 창의적인 애플리케이션을 만들더라도 그 든든한 기초가 되어주는
-스프링 부트 기반 API 개발 프레임워크 입니다.
+**Dough API**는 빵이나 피자의 토대가 되는 반죽처럼, 개발자가 어떤 창의적인 애플리케이션을 만들더라도 그 든든한 기초가 되어주는 개발 프레임워크 입니다.
+
+본 프로젝트는 효율적인 파일 관리와 안전한 사용자 인증을 제공하는 백엔드 API 서비스 입니다. 헥사고날 아키텍처(Hexagonal Architecture)와 TDD(London
+School) 방식을 채택하여 높은 유지보수성과 테스트 신뢰도를 보장합니다.
 
 ## 🌟 주요 기능
 
@@ -24,10 +26,12 @@
 -   **Testing**: JUnit 5, Mockito, AssertJ (TDD)
 -   **Build Tool**: Gradle
 
+---
+
 ## 🚀 개발 및 실행 가이드
 
 ### 1. 애플리케이션 실행
-- **IDE 구동**: `io.vision.api.VisionApplication` 클래스의 `main` 메서드를 실행합니다.
+- **IDE 구동**: `io.dough.api.DoughApplication` 클래스의 `main` 메서드를 실행합니다.
 
 ### 2. H2 데이터베이스 접속
 -   **JDBC URL**: `jdbc:h2:file:~/h2/vision/vision;AUTO_SERVER=TRUE`
@@ -44,7 +48,7 @@
 
 ### 2. 프로젝트 구조 (Hexagonal Architecture)
 ```
-io.vision.api/
+io.dough.api/
 |-- common        # 공통 도메인, 엔티티, 리포지토리
 `-- useCases      # 유스케이스 기반 도메인 로직
     |-- auth      # 인증 (Login, Signup, JWT)
@@ -66,7 +70,7 @@ io.vision.api/
 
 #### 특정 테스트 케이스 실행
 ```bash
-./gradlew test --tests io.vision.api.config.security.SecurityConfigTest
+./gradlew test --tests io.dough.api.config.security.SecurityConfigTest
 ```
 
 ##  코드 스타일 관리 (Spotless)
