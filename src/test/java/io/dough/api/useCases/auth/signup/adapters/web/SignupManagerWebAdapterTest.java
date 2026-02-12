@@ -10,7 +10,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import io.dough.api.common.application.enums.Role;
 import io.dough.api.support.WebMvcTestBase;
 import io.dough.api.useCases.auth.manageToken.application.domain.model.AuthToken;
-import io.dough.api.useCases.auth.signup.adapters.web.model.SignupManagerReq;
+import io.dough.api.useCases.auth.signup.adapters.web.model.SignupManagerRequest;
 import io.dough.api.useCases.auth.signup.application.SignupUseCase;
 import io.dough.api.useCases.auth.signup.application.domain.model.SignupCmd;
 import org.junit.jupiter.api.DisplayName;
@@ -27,7 +27,7 @@ class SignupManagerWebAdapterTest extends WebMvcTestBase {
   @DisplayName("Scenario: 성공 - 유효한 관리자 가입 요청시 200 OK를 반환한다")
   void signup_manager_success() throws Exception {
     // Given
-    SignupManagerReq req = new SignupManagerReq("manager@vision.io", "password", "Manager User");
+    SignupManagerRequest req = new SignupManagerRequest("manager@vision.io", "password", "Manager User");
     AuthToken mockToken = new AuthToken("access-token", "refresh-token");
     when(signupUseCase.operate(any(SignupCmd.class))).thenReturn(mockToken);
 

@@ -7,9 +7,9 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.dough.api.useCases.file.getFileURL.application.GetFileURLUseCase;
 import io.dough.api.useCases.file.saveFile.adapters.web.model.Base64MultipartFile;
-import io.dough.api.useCases.file.saveFile.adapters.web.model.UploadBase64Req;
-import io.dough.api.useCases.file.saveFile.adapters.web.model.UploadFileRes;
-import io.dough.api.useCases.file.saveFile.adapters.web.model.UploadMultipartReq;
+import io.dough.api.useCases.file.saveFile.adapters.web.model.UploadBase64Request;
+import io.dough.api.useCases.file.saveFile.adapters.web.model.UploadFileResponse;
+import io.dough.api.useCases.file.saveFile.adapters.web.model.UploadMultipartRequest;
 import io.dough.api.useCases.file.saveFile.application.SaveFileUseCase;
 import io.dough.api.useCases.file.saveFile.application.domain.model.SaveFile;
 import jakarta.validation.Valid;
@@ -35,9 +35,9 @@ public class UploadFileWebAdapter {
   @ApiResponse(
       responseCode = "200",
       description = "업로드 성공",
-      content = @Content(schema = @Schema(implementation = UploadFileRes.class)))
+      content = @Content(schema = @Schema(implementation = UploadFileResponse.class)))
   @PostMapping(value = "/multipart", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-  public UploadFileRes uploadMultipart(@Valid @ModelAttribute UploadMultipartReq req)
+  public UploadFileResponse uploadMultipart(@Valid @ModelAttribute UploadMultipartRequest req)
       throws IOException {
 
     SaveFile result =
@@ -49,7 +49,7 @@ public class UploadFileWebAdapter {
                 req.file().getSize())
             .orElseThrow(() -> new RuntimeException("파일 업로드에 실패했습니다."));
 
-    return new UploadFileRes(
+    return new UploadFileResponse(
         result.id(),
         result.path(),
         result.name(),
@@ -61,9 +61,9 @@ public class UploadFileWebAdapter {
   @ApiResponse(
       responseCode = "200",
       description = "업로드 성공",
-      content = @Content(schema = @Schema(implementation = UploadFileRes.class)))
+      content = @Content(schema = @Schema(implementation = UploadFileResponse.class)))
   @PostMapping("/base64Data")
-  public UploadFileRes uploadBase64(@Valid @RequestBody UploadBase64Req req) throws IOException {
+  public UploadFileResponse uploadBase64(@Valid @RequestBody UploadBase64Request req) throws IOException {
     Base64MultipartFile file = new Base64MultipartFile(req.base64Data());
 
     SaveFile result =
@@ -71,7 +71,7 @@ public class UploadFileWebAdapter {
             .operate(req.type(), file.getInputStream(), file.getOriginalFilename(), file.getSize())
             .orElseThrow(() -> new RuntimeException("파일 업로드에 실패했습니다."));
 
-    return new UploadFileRes(
+    return new UploadFileResponse(
         result.id(),
         result.path(),
         result.name(),

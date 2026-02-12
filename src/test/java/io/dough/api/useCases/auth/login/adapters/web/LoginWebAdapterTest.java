@@ -8,7 +8,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import io.dough.api.support.WebMvcTestBase;
-import io.dough.api.useCases.auth.login.adapters.web.model.LoginReq;
+import io.dough.api.useCases.auth.login.adapters.web.model.LoginRequest;
 import io.dough.api.useCases.auth.login.application.LoginUseCase;
 import io.dough.api.useCases.auth.login.application.domain.model.LoginCmd;
 import io.dough.api.useCases.auth.manageToken.application.domain.model.AuthToken;
@@ -27,7 +27,7 @@ class LoginWebAdapterTest extends WebMvcTestBase {
   @DisplayName("Scenario: 성공 - 유효한 이메일/비번으로 로그인 요청 시 토큰이 반환된다")
   void login_success() throws Exception {
     // Given
-    LoginReq req = new LoginReq("test@test.com", "password123");
+    LoginRequest req = new LoginRequest("test@test.com", "password123");
     AuthToken token = new AuthToken("access_token_value", "refresh_token_value");
 
     given(loginUseCase.operate(any(LoginCmd.class))).willReturn(token);

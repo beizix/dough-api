@@ -4,8 +4,8 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import io.dough.api.useCases.auth.login.adapters.web.model.LoginReq;
-import io.dough.api.useCases.auth.login.adapters.web.model.LoginRes;
+import io.dough.api.useCases.auth.login.adapters.web.model.LoginRequest;
+import io.dough.api.useCases.auth.login.adapters.web.model.LoginResponse;
 import io.dough.api.useCases.auth.login.application.LoginUseCase;
 import io.dough.api.useCases.auth.login.application.domain.model.LoginCmd;
 import io.dough.api.useCases.auth.manageToken.application.domain.model.AuthToken;
@@ -24,9 +24,9 @@ public class LoginWebAdapter {
   @Operation(summary = "로그인", description = "사용자 로그인을 처리합니다.")
   @ApiResponse(responseCode = "200", description = "로그인 성공")
   @PostMapping("/api/v1/auth/login")
-  public LoginRes login(
-      @RequestBody @Parameter(description = "로그인 요청", required = true) LoginReq req) {
+  public LoginResponse login(
+      @RequestBody @Parameter(description = "로그인 요청", required = true) LoginRequest req) {
     AuthToken token = loginUseCase.operate(new LoginCmd(req.email(), req.password()));
-    return new LoginRes(token.accessToken(), token.refreshToken());
+    return new LoginResponse(token.accessToken(), token.refreshToken());
   }
 }

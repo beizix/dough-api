@@ -9,7 +9,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import io.dough.api.support.WebMvcTestBase;
 import io.dough.api.useCases.auth.manageToken.application.domain.model.AuthToken;
-import io.dough.api.useCases.auth.signup.adapters.web.model.SignupUserReq;
+import io.dough.api.useCases.auth.signup.adapters.web.model.SignupUserRequest;
 import io.dough.api.useCases.auth.signup.application.SignupUseCase;
 import io.dough.api.useCases.auth.signup.application.domain.model.SignupCmd;
 import org.junit.jupiter.api.DisplayName;
@@ -28,7 +28,7 @@ class SignupUserWebAdapterTest extends WebMvcTestBase {
   @WithMockUser
   void signup_user_success() throws Exception {
     // Given
-    SignupUserReq req = new SignupUserReq("user@vision.io", "password", "User Nickname");
+    SignupUserRequest req = new SignupUserRequest("user@vision.io", "password", "User Nickname");
     given(signupUseCase.operate(any(SignupCmd.class)))
         .willReturn(new AuthToken("access", "refresh"));
 

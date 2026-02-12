@@ -6,8 +6,8 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.dough.api.common.application.enums.Role;
 import io.dough.api.useCases.auth.manageToken.application.domain.model.AuthToken;
-import io.dough.api.useCases.auth.signup.adapters.web.model.SignupRes;
-import io.dough.api.useCases.auth.signup.adapters.web.model.SignupUserReq;
+import io.dough.api.useCases.auth.signup.adapters.web.model.SignupResponse;
+import io.dough.api.useCases.auth.signup.adapters.web.model.SignupUserRequest;
 import io.dough.api.useCases.auth.signup.application.SignupUseCase;
 import io.dough.api.useCases.auth.signup.application.domain.model.SignupCmd;
 import lombok.RequiredArgsConstructor;
@@ -25,11 +25,11 @@ public class SignupUserWebAdapter {
   @Operation(summary = "사용자 회원가입", description = "일반 사용자 계정을 생성하고 토큰을 발급합니다.")
   @ApiResponse(responseCode = "200", description = "회원가입 성공")
   @PostMapping("/api/v1/signup/user")
-  public SignupRes signupUser(
-      @RequestBody @Parameter(description = "사용자 가입 정보", required = true) SignupUserReq req) {
+  public SignupResponse signupUser(
+      @RequestBody @Parameter(description = "사용자 가입 정보", required = true) SignupUserRequest req) {
     AuthToken token =
         signupUseCase.operate(
             new SignupCmd(req.email(), req.password(), req.displayName(), Role.USER));
-    return new SignupRes(token.accessToken(), token.refreshToken());
+    return new SignupResponse(token.accessToken(), token.refreshToken());
   }
 }
