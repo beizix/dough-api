@@ -83,3 +83,23 @@
     *   **시스템 프로퍼티**: 애플리케이션 실행 시 `-D` 옵션으로 전달 (예: `-Dspring.cloud.aws.credentials.access-key=...`)
     *   **Secrets Manager**: AWS Secrets Manager 또는 HashiCorp Vault와 같은 관리 도구 활용
 
+## 4. 로깅 설정 (Logging)
+
+애플리케이션의 로그는 Logback을 통해 관리되며, `src/main/resources/logback-spring.xml`에서 상세 설정을 제어합니다.
+
+### 4.1 로그 출력 및 저장
+- **콘솔 출력**: 모든 환경에서 콘솔에 로그가 출력됩니다.
+- **파일 저장**: `local` 이외의 프로필(예: `prod`, `dev` 등)이 활성화되었을 때만 파일로 저장됩니다.
+- **경로 설정**: `app.logging.path` 프로퍼티를 통해 로그 저장 디렉토리를 지정할 수 있습니다. (기본값: `logs`)
+
+### 4.2 파일 로깅 정책
+- **저장 경로**: 애플리케이션 실행 디렉토리 하위의 `./logs/application.log`
+- **롤링 정책 (SizeAndTimeBasedRollingPolicy)**:
+  - **파일 크기**: 개별 로그 파일이 10MB를 초과하면 새로운 파일로 교체됩니다.
+  - **보관 기간**: 최대 30일간 보관합니다.
+  - **압축**: 보관된 로그는 `.gz` 형식으로 자동 압축되어 `logs/archived/` 폴더로 이동합니다.
+  - **전체 크기 제한**: 모든 로그 파일의 총합이 1GB를 초과하면 오래된 파일부터 삭제됩니다.
+
+### 4.3 프로필별 권장 설정
+- **Local**: `io.vision.api` 패키지의 로그 레벨이 `DEBUG`로 설정되어 상세한 개발 정보를 볼 수 있습니다.
+- **운영 (Non-local)**: 로그 레벨은 `INFO`가 기본이며, 콘솔과 파일에 동시에 기록됩니다.

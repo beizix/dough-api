@@ -43,3 +43,5 @@ app:
       enabled: true
     s3:
       enabled: false
+  logging:
+    path: logs
