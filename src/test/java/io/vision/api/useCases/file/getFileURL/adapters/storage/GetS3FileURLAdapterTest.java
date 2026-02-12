@@ -43,6 +43,8 @@ class GetS3FileURLAdapterTest {
     String result = getS3FileURLAdapter.operate(path, filename);
 
     // Then
-    assertThat(result).isEqualTo("https://" + cloudFrontDomain + "/" + bucketFolder + "/" + path + "/" + filename);
+    assertThat(result)
+        .isEqualTo(
+            "https://" + cloudFrontDomain + "/" + bucketFolder + "/" + path + "/" + filename);
   }
 }

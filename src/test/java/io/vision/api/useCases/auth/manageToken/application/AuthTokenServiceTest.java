@@ -11,15 +11,13 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 import io.vision.api.common.application.enums.Role;
 import io.vision.api.useCases.auth.manageToken.application.domain.ManageAuthTokenService;
-import io.vision.api.useCases.auth.manageToken.application.domain.model.CreateTokenCmd;
 import io.vision.api.useCases.auth.manageToken.application.domain.model.AuthToken;
+import io.vision.api.useCases.auth.manageToken.application.domain.model.CreateTokenCmd;
 import io.vision.api.useCases.auth.manageToken.application.domain.model.RefreshTokenCmd;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Optional;
 import javax.crypto.SecretKey;
-
-import io.vision.api.useCases.auth.manageToken.application.RefreshAuthToken;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -37,7 +35,8 @@ class AuthTokenServiceTest {
   @BeforeEach
   void setUp() {
     refreshAuthToken = mock(RefreshAuthToken.class);
-    authTokenService = new ManageAuthTokenService(secret, accessValidity, refreshValidity, refreshAuthToken);
+    authTokenService =
+        new ManageAuthTokenService(secret, accessValidity, refreshValidity, refreshAuthToken);
     secretKey = Keys.hmacShaKeyFor(secret.getBytes(StandardCharsets.UTF_8));
   }
 
@@ -70,7 +69,8 @@ class AuthTokenServiceTest {
     Thread.sleep(1001);
 
     // When
-    AuthToken refreshedToken = authTokenService.refreshToken(new RefreshTokenCmd(originalToken.refreshToken()));
+    AuthToken refreshedToken =
+        authTokenService.refreshToken(new RefreshTokenCmd(originalToken.refreshToken()));
 
     // Then
     assertThat(refreshedToken.accessToken()).isNotEqualTo(originalToken.accessToken());
@@ -85,9 +85,11 @@ class AuthTokenServiceTest {
     when(refreshAuthToken.get(anyString())).thenReturn(Optional.empty());
 
     // When & Then
-    org.junit.jupiter.api.Assertions.assertThrows(IllegalArgumentException.class, () -> {
-      authTokenService.refreshToken(new RefreshTokenCmd(token));
-    });
+    org.junit.jupiter.api.Assertions.assertThrows(
+        IllegalArgumentException.class,
+        () -> {
+          authTokenService.refreshToken(new RefreshTokenCmd(token));
+        });
   }
 
   @Test
@@ -146,11 +148,8 @@ class AuthTokenServiceTest {
 
     // Then
     String accessToken = authToken.accessToken();
-    Claims claims = Jwts.parser()
-        .verifyWith(secretKey)
-        .build()
-        .parseSignedClaims(accessToken)
-        .getPayload();
+    Claims claims =
+        Jwts.parser().verifyWith(secretKey).build().parseSignedClaims(accessToken).getPayload();
 
     assertThat(claims.getSubject()).isEqualTo(email);
 
@@ -187,11 +186,8 @@ class AuthTokenServiceTest {
 
     // Then
     String accessToken = authToken.accessToken();
-    Claims claims = Jwts.parser()
-        .verifyWith(secretKey)
-        .build()
-        .parseSignedClaims(accessToken)
-        .getPayload();
+    Claims claims =
+        Jwts.parser().verifyWith(secretKey).build().parseSignedClaims(accessToken).getPayload();
 
     @SuppressWarnings("unchecked")
     List<String> extractedPrivileges = claims.get("privileges", List.class);

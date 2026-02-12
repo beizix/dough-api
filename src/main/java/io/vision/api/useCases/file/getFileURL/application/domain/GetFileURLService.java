@@ -1,8 +1,8 @@
 package io.vision.api.useCases.file.getFileURL.application.domain;
 
-import io.vision.api.useCases.file.getFileURL.application.GetFileURLUseCase;
 import io.vision.api.useCases.file.getFileURL.application.GetFileMetadata;
 import io.vision.api.useCases.file.getFileURL.application.GetFileURL;
+import io.vision.api.useCases.file.getFileURL.application.GetFileURLUseCase;
 import io.vision.api.useCases.file.saveFile.application.domain.model.FileStorageType;
 import java.util.NoSuchElementException;
 import java.util.Set;
@@ -18,15 +18,15 @@ public class GetFileURLService implements GetFileURLUseCase {
 
   @Override
   public String operate(UUID fileUuid) {
-    io.vision.api.useCases.file.getFileURL.application.domain.model.GetFileURL fileResource = getFileMetadata.operate(fileUuid);
+    io.vision.api.useCases.file.getFileURL.application.domain.model.GetFileURL fileResource =
+        getFileMetadata.operate(fileUuid);
     return getResourceURLStrategy(fileResource.fileUploadType().getFileStorageType())
         .operate(fileResource.path(), fileResource.filename());
   }
 
   private GetFileURL getResourceURLStrategy(FileStorageType fileStorageType) {
     return getResourceURLStrategies.stream()
-        .filter(
-          getFileURL -> getFileURL.getStorageType().equals(fileStorageType))
+        .filter(getFileURL -> getFileURL.getStorageType().equals(fileStorageType))
         .findFirst()
         .orElseThrow(
             () ->

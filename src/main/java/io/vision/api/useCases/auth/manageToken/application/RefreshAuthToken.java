@@ -3,17 +3,15 @@ package io.vision.api.useCases.auth.manageToken.application;
 import io.vision.api.common.application.enums.Role;
 import java.util.Optional;
 
-/**
- * 리프레시 토큰의 저장 및 조회를 담당하는 출력 포트입니다.
- */
+/** 리프레시 토큰의 저장 및 조회를 담당하는 출력 포트입니다. */
 public interface RefreshAuthToken {
 
   /**
    * 리프레시 토큰을 통해 갱신 대상 사용자 정보를 조회하기 위한 모델입니다.
    *
-   * @param email       사용자 이메일
+   * @param email 사용자 이메일
    * @param displayName 사용자 표시 이름
-   * @param role        사용자 권한
+   * @param role 사용자 권한
    */
   record RefreshUser(String email, String displayName, Role role) {}
 
@@ -28,7 +26,7 @@ public interface RefreshAuthToken {
   /**
    * 리프레시 토큰을 저장하거나 업데이트합니다.
    *
-   * @param email        사용자 이메일
+   * @param email 사용자 이메일
    * @param refreshToken 발급된 리프레시 토큰
    */
   void save(String email, String refreshToken);

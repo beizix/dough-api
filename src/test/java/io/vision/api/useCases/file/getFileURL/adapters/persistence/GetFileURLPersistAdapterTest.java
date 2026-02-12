@@ -18,11 +18,9 @@ import org.springframework.context.annotation.Import;
 @Import(GetFileMetadataPersistAdapter.class)
 class GetFileURLPersistAdapterTest extends DataJpaTestBase {
 
-  @Autowired
-  private GetFileMetadataPersistAdapter adapter;
+  @Autowired private GetFileMetadataPersistAdapter adapter;
 
-  @Autowired
-  private FileMetadataRepository repository;
+  @Autowired private FileMetadataRepository repository;
 
   @Test
   @DisplayName("Scenario: 성공 - 파일 UUID로 리소스 정보를 조회한다")
@@ -33,14 +31,15 @@ class GetFileURLPersistAdapterTest extends DataJpaTestBase {
     String path = "/images/202602";
     String name = "uuid-image.png";
 
-    FileMetadataEntity entity = FileMetadataEntity.builder()
-        .id(fileId)
-        .type(type)
-        .path(path)
-        .name(name)
-        .originName("original.png")
-        .fileLength(1024L)
-        .build();
+    FileMetadataEntity entity =
+        FileMetadataEntity.builder()
+            .id(fileId)
+            .type(type)
+            .path(path)
+            .name(name)
+            .originName("original.png")
+            .fileLength(1024L)
+            .build();
 
     repository.save(entity);
 
@@ -61,7 +60,6 @@ class GetFileURLPersistAdapterTest extends DataJpaTestBase {
     UUID invalidId = UUID.randomUUID();
 
     // When & Then
-    assertThatThrownBy(() -> adapter.operate(invalidId))
-        .isInstanceOf(NoSuchElementException.class);
+    assertThatThrownBy(() -> adapter.operate(invalidId)).isInstanceOf(NoSuchElementException.class);
   }
 }

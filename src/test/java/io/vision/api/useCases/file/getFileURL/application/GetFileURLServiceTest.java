@@ -22,11 +22,9 @@ import org.mockito.junit.jupiter.MockitoExtension;
 @ExtendWith(MockitoExtension.class)
 class GetFileURLServiceTest {
 
-  @Mock
-  private GetFileMetadata getFileMetadata;
+  @Mock private GetFileMetadata getFileMetadata;
 
-  @Mock
-  private GetFileURL localUrlStrategy;
+  @Mock private GetFileURL localUrlStrategy;
 
   private GetFileURLService getFileResourceService;
 
@@ -35,10 +33,7 @@ class GetFileURLServiceTest {
     // 전략 Mock 설정
     lenient().when(localUrlStrategy.getStorageType()).thenReturn(FileStorageType.LOCAL);
 
-    getFileResourceService = new GetFileURLService(
-      getFileMetadata,
-        Set.of(localUrlStrategy)
-    );
+    getFileResourceService = new GetFileURLService(getFileMetadata, Set.of(localUrlStrategy));
   }
 
   @Test
@@ -50,7 +45,9 @@ class GetFileURLServiceTest {
     String filename = "uuid.png";
     FileUploadType fileType = FileUploadType.UPLOAD_IMG_TO_LOCAL; // LOCAL StorageType
 
-    io.vision.api.useCases.file.getFileURL.application.domain.model.GetFileURL fileResource = new io.vision.api.useCases.file.getFileURL.application.domain.model.GetFileURL(fileType, path, filename);
+    io.vision.api.useCases.file.getFileURL.application.domain.model.GetFileURL fileResource =
+        new io.vision.api.useCases.file.getFileURL.application.domain.model.GetFileURL(
+            fileType, path, filename);
     String expectedUrl = "/uploads/images/202602/uuid.png";
 
     given(getFileMetadata.operate(fileId)).willReturn(fileResource);
@@ -72,12 +69,14 @@ class GetFileURLServiceTest {
     UUID fileId = UUID.randomUUID();
     // FileUploadType을 Mocking하거나, 전략이 없는 새로운 타입이 필요하지만
     // 여기서는 전략 목록을 비워서 테스트
-    GetFileURLService noStrategyService = new GetFileURLService(
-      getFileMetadata,
-        Set.of() // Empty strategies
-    );
+    GetFileURLService noStrategyService =
+        new GetFileURLService(
+            getFileMetadata, Set.of() // Empty strategies
+            );
 
-    io.vision.api.useCases.file.getFileURL.application.domain.model.GetFileURL fileResource = new io.vision.api.useCases.file.getFileURL.application.domain.model.GetFileURL(FileUploadType.UPLOAD_IMG_TO_LOCAL, "/path", "file.png");
+    io.vision.api.useCases.file.getFileURL.application.domain.model.GetFileURL fileResource =
+        new io.vision.api.useCases.file.getFileURL.application.domain.model.GetFileURL(
+            FileUploadType.UPLOAD_IMG_TO_LOCAL, "/path", "file.png");
     given(getFileMetadata.operate(fileId)).willReturn(fileResource);
 
     // When & Then

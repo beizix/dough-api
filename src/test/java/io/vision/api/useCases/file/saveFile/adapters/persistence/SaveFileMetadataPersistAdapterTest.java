@@ -6,8 +6,8 @@ import io.vision.api.common.adapters.persistence.entity.FileMetadataEntity;
 import io.vision.api.common.adapters.persistence.repository.FileMetadataRepository;
 import io.vision.api.support.DataJpaTestBase;
 import io.vision.api.useCases.file.saveFile.application.domain.model.FileUploadType;
-import io.vision.api.useCases.file.saveFile.application.domain.model.SaveFileMetadataResult;
 import io.vision.api.useCases.file.saveFile.application.domain.model.SaveFileMetadataCmd;
+import io.vision.api.useCases.file.saveFile.application.domain.model.SaveFileMetadataResult;
 import java.util.Optional;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -17,23 +17,21 @@ import org.springframework.context.annotation.Import;
 @Import(SaveFileMetadataPersistAdapter.class)
 class SaveFileMetadataPersistAdapterTest extends DataJpaTestBase {
 
-  @Autowired
-  private SaveFileMetadataPersistAdapter adapter;
+  @Autowired private SaveFileMetadataPersistAdapter adapter;
 
-  @Autowired
-  private FileMetadataRepository repository;
+  @Autowired private FileMetadataRepository repository;
 
   @Test
   @DisplayName("Scenario: 성공 - 파일 메타데이터를 DB에 저장한다")
   void save_file_metadata_success() {
     // Given
-    SaveFileMetadataCmd cmd = new SaveFileMetadataCmd(
-        FileUploadType.UPLOAD_IMG_TO_LOCAL,
-        "/path/202602",
-        "uuid-name.png",
-        "original.png",
-        1024L
-    );
+    SaveFileMetadataCmd cmd =
+        new SaveFileMetadataCmd(
+            FileUploadType.UPLOAD_IMG_TO_LOCAL,
+            "/path/202602",
+            "uuid-name.png",
+            "original.png",
+            1024L);
 
     // When
     Optional<SaveFileMetadataResult> result = adapter.operate(cmd);

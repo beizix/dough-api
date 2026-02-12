@@ -1,11 +1,9 @@
 package io.vision.api.useCases.auth.login.application;
 
-import io.vision.api.useCases.auth.manageToken.application.domain.model.AuthToken;
 import io.vision.api.useCases.auth.login.application.domain.model.LoginCmd;
+import io.vision.api.useCases.auth.manageToken.application.domain.model.AuthToken;
 
-/**
- * 사용자 로그인을 처리하고 인증 토큰을 발급하는 유스케이스입니다.
- */
+/** 사용자 로그인을 처리하고 인증 토큰을 발급하는 유스케이스입니다. */
 public interface LoginUseCase {
 
   /**

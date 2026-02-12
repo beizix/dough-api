@@ -17,16 +17,15 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.mock.web.MockFilterChain;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 @ExtendWith(MockitoExtension.class)
 class JwtAuthenticationFilterTest {
 
   private JwtAuthenticationFilter filter;
 
-  @Mock
-  private ManageAuthTokenUseCase manageAuthTokenUseCase;
+  @Mock private ManageAuthTokenUseCase manageAuthTokenUseCase;
 
   private MockHttpServletRequest request;
   private MockHttpServletResponse response;

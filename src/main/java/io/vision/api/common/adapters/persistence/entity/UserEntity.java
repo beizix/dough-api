@@ -46,7 +46,8 @@ public class UserEntity extends AuditEntity {
   @Column(length = 1000, comment = "사용자 refresh 토큰")
   private String refreshToken;
 
-  public UserEntity(String email, String password, String displayName, Role role, String refreshToken) {
+  public UserEntity(
+      String email, String password, String displayName, Role role, String refreshToken) {
     this.email = email;
     this.password = password;
     this.displayName = displayName;

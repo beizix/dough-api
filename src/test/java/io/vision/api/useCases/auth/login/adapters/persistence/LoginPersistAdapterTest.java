@@ -6,7 +6,6 @@ import io.vision.api.common.adapters.persistence.entity.UserEntity;
 import io.vision.api.common.adapters.persistence.repository.UserRepository;
 import io.vision.api.common.application.enums.Role;
 import io.vision.api.support.DataJpaTestBase;
-import io.vision.api.useCases.auth.login.adapters.persistence.GetUserPersistAdapter;
 import io.vision.api.useCases.auth.login.application.domain.model.GetUserResult;
 import java.util.Optional;
 import org.junit.jupiter.api.DisplayName;
@@ -14,14 +13,12 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Import;
 
-@Import({ GetUserPersistAdapter.class })
+@Import({GetUserPersistAdapter.class})
 class LoginPersistAdapterTest extends DataJpaTestBase {
 
-  @Autowired
-  private GetUserPersistAdapter loginPersistAdapter;
+  @Autowired private GetUserPersistAdapter loginPersistAdapter;
 
-  @Autowired
-  private UserRepository userRepository;
+  @Autowired private UserRepository userRepository;
 
   @Test
   @DisplayName("Scenario: 성공 - 이메일로 사용자 정보를 로드한다")

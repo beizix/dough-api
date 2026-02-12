@@ -22,11 +22,9 @@ import org.springframework.test.util.ReflectionTestUtils;
 @ExtendWith(MockitoExtension.class)
 class SaveToS3StorageAdapterTest {
 
-  @InjectMocks
-  private SaveToS3StorageAdapter saveToS3StorageAdapter;
+  @InjectMocks private SaveToS3StorageAdapter saveToS3StorageAdapter;
 
-  @Mock
-  private S3Template s3Template;
+  @Mock private S3Template s3Template;
 
   private final String bucketName = "test-bucket";
   private final String bucketFolder = "test-folder";

@@ -5,7 +5,6 @@ import io.vision.api.useCases.file.saveFile.application.SaveToFileStorage;
 import io.vision.api.useCases.file.saveFile.application.domain.model.FileStorageType;
 import java.io.IOException;
 import java.io.InputStream;
-
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;

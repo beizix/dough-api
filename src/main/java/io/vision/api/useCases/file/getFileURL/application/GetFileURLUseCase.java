@@ -2,9 +2,7 @@ package io.vision.api.useCases.file.getFileURL.application;
 
 import java.util.UUID;
 
-/**
- * 특정 파일의 접근 가능한 URL을 조회합니다.
- */
+/** 특정 파일의 접근 가능한 URL을 조회합니다. */
 public interface GetFileURLUseCase {
 
   /**

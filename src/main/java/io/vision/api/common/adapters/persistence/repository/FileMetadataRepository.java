@@ -4,5 +4,4 @@ import io.vision.api.common.adapters.persistence.entity.FileMetadataEntity;
 import java.util.UUID;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface FileMetadataRepository
-    extends JpaRepository<FileMetadataEntity, UUID> {}
+public interface FileMetadataRepository extends JpaRepository<FileMetadataEntity, UUID> {}

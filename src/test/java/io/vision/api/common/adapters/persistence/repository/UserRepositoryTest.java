@@ -13,11 +13,9 @@ import org.springframework.boot.jpa.test.autoconfigure.TestEntityManager;
 
 class UserRepositoryTest extends DataJpaTestBase {
 
-  @Autowired
-  private UserRepository userRepository;
+  @Autowired private UserRepository userRepository;
 
-  @Autowired
-  private TestEntityManager em;
+  @Autowired private TestEntityManager em;
 
   @Test
   @DisplayName("Scenario: 성공 - UserEntity 저장 시 Audit 정보가 자동 주입된다")
@@ -41,8 +39,9 @@ class UserRepositoryTest extends DataJpaTestBase {
   @DisplayName("Scenario: 성공 - UserEntity 수정 시 updatedAt 정보가 자동 갱신된다")
   void testAuditing_onUpdate() throws InterruptedException {
     // Given
-    var savedUser = userRepository.save(
-        new UserEntity("test2@email.com", "password", "Test User 2", Role.USER, null));
+    var savedUser =
+        userRepository.save(
+            new UserEntity("test2@email.com", "password", "Test User 2", Role.USER, null));
     em.flush();
     em.clear();
 
@@ -65,8 +64,9 @@ class UserRepositoryTest extends DataJpaTestBase {
   @DisplayName("Scenario: 성공 - deleted가 true인 User는 조회되지 않는다")
   void testSQLRestriction_onSoftDelete() {
     // Given
-    var savedUser = userRepository.save(
-        new UserEntity("test3@email.com", "password", "Test User 3", Role.USER, null));
+    var savedUser =
+        userRepository.save(
+            new UserEntity("test3@email.com", "password", "Test User 3", Role.USER, null));
     em.flush();
     em.clear();
 
@@ -87,7 +87,9 @@ class UserRepositoryTest extends DataJpaTestBase {
   @DisplayName("Scenario: 성공 - refreshToken으로 User를 조회할 수 있다")
   void testFindByRefreshToken() {
     // Given
-    var user = new UserEntity("test4@email.com", "password", "Test User 4", Role.USER, "mock-refresh-token");
+    var user =
+        new UserEntity(
+            "test4@email.com", "password", "Test User 4", Role.USER, "mock-refresh-token");
     userRepository.save(user);
     em.flush();
     em.clear();

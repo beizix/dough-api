@@ -14,8 +14,7 @@ class FileStorageConfigTest {
 
   private FileStorageConfig fileStorageConfig;
 
-  @TempDir
-  Path tempDir;
+  @TempDir Path tempDir;
 
   @BeforeEach
   void setUp() {
@@ -33,8 +32,7 @@ class FileStorageConfigTest {
     ReflectionTestUtils.setField(fileStorageConfig, "uploadPath", uploadPath.toString());
 
     // When & Then
-    assertThatCode(() -> fileStorageConfig.initialize())
-        .doesNotThrowAnyException();
+    assertThatCode(() -> fileStorageConfig.initialize()).doesNotThrowAnyException();
   }
 
   @Test
@@ -69,7 +67,6 @@ class FileStorageConfigTest {
     ReflectionTestUtils.setField(fileStorageConfig, "uploadPath", nonExistentPath.toString());
 
     // When & Then
-    assertThatCode(() -> fileStorageConfig.initialize())
-        .doesNotThrowAnyException();
+    assertThatCode(() -> fileStorageConfig.initialize()).doesNotThrowAnyException();
   }
 }

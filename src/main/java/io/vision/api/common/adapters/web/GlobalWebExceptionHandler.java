@@ -18,11 +18,12 @@ public class GlobalWebExceptionHandler {
       NoSuchElementException e, HttpServletRequest request) {
     log.error("NoSuchElementException occurred: {}", e.getMessage());
 
-    ErrorResponse errorResponse = new ErrorResponse(
-        HttpStatus.BAD_REQUEST.value(),
-        HttpStatus.BAD_REQUEST.getReasonPhrase(),
-        e.getMessage(),
-        request.getRequestURI());
+    ErrorResponse errorResponse =
+        new ErrorResponse(
+            HttpStatus.BAD_REQUEST.value(),
+            HttpStatus.BAD_REQUEST.getReasonPhrase(),
+            e.getMessage(),
+            request.getRequestURI());
 
     return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse);
   }
@@ -32,11 +33,12 @@ public class GlobalWebExceptionHandler {
       IllegalArgumentException e, HttpServletRequest request) {
     log.error("IllegalArgumentException occurred: {}", e.getMessage());
 
-    ErrorResponse errorResponse = new ErrorResponse(
-        HttpStatus.BAD_REQUEST.value(),
-        HttpStatus.BAD_REQUEST.getReasonPhrase(),
-        e.getMessage(),
-        request.getRequestURI());
+    ErrorResponse errorResponse =
+        new ErrorResponse(
+            HttpStatus.BAD_REQUEST.value(),
+            HttpStatus.BAD_REQUEST.getReasonPhrase(),
+            e.getMessage(),
+            request.getRequestURI());
 
     return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse);
   }
@@ -46,11 +48,12 @@ public class GlobalWebExceptionHandler {
       Exception e, HttpServletRequest request) {
     log.error("Unhandled Exception occurred", e);
 
-    ErrorResponse errorResponse = new ErrorResponse(
-        HttpStatus.INTERNAL_SERVER_ERROR.value(),
-        HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase(),
-        e.getMessage(),
-        request.getRequestURI());
+    ErrorResponse errorResponse =
+        new ErrorResponse(
+            HttpStatus.INTERNAL_SERVER_ERROR.value(),
+            HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase(),
+            e.getMessage(),
+            request.getRequestURI());
 
     return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorResponse);
   }

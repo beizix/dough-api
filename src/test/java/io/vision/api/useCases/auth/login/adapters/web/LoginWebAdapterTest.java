@@ -8,11 +8,10 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import io.vision.api.support.WebMvcTestBase;
-import io.vision.api.useCases.auth.login.adapters.web.LoginWebAdapter;
-import io.vision.api.useCases.auth.manageToken.application.domain.model.AuthToken;
 import io.vision.api.useCases.auth.login.adapters.web.model.LoginReq;
 import io.vision.api.useCases.auth.login.application.LoginUseCase;
 import io.vision.api.useCases.auth.login.application.domain.model.LoginCmd;
+import io.vision.api.useCases.auth.manageToken.application.domain.model.AuthToken;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.webmvc.test.autoconfigure.WebMvcTest;

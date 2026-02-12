@@ -26,14 +26,13 @@ public class SignupManagerWebAdapter {
   }
 
   @Operation(summary = "관리자 가입", description = "새로운 관리자를 등록합니다.")
-  @ApiResponses(value = {
-      @ApiResponse(responseCode = "200", description = "가입 성공")
-  })
+  @ApiResponses(value = {@ApiResponse(responseCode = "200", description = "가입 성공")})
   @PostMapping("/api/v1/manager/signup")
   public SignupRes signupManager(
       @RequestBody @Parameter(description = "관리자 가입 정보", required = true) SignupManagerReq req) {
-    AuthToken token = signupUseCase.operate(
-        new SignupCmd(req.email(), req.password(), req.displayName(), Role.MANAGER));
+    AuthToken token =
+        signupUseCase.operate(
+            new SignupCmd(req.email(), req.password(), req.displayName(), Role.MANAGER));
     return new SignupRes(token.accessToken(), token.refreshToken());
   }
 }

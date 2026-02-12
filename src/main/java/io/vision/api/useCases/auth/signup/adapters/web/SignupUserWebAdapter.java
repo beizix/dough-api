@@ -27,8 +27,9 @@ public class SignupUserWebAdapter {
   @PostMapping("/api/v1/signup/user")
   public SignupRes signupUser(
       @RequestBody @Parameter(description = "사용자 가입 정보", required = true) SignupUserReq req) {
-    AuthToken token = signupUseCase.operate(
-        new SignupCmd(req.email(), req.password(), req.displayName(), Role.USER));
+    AuthToken token =
+        signupUseCase.operate(
+            new SignupCmd(req.email(), req.password(), req.displayName(), Role.USER));
     return new SignupRes(token.accessToken(), token.refreshToken());
   }
 }

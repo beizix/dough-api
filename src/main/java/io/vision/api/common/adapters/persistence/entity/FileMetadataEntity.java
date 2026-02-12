@@ -3,14 +3,13 @@ package io.vision.api.common.adapters.persistence.entity;
 import io.vision.api.common.adapters.persistence.component.AuditEntity;
 import io.vision.api.useCases.file.saveFile.application.domain.model.FileUploadType;
 import jakarta.persistence.*;
+import java.util.UUID;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.SQLRestriction;
-
-import java.util.UUID;
 
 @Entity
 @Table(name = "fileMetadata", comment = "업로드 파일 메타데이터 테이블")

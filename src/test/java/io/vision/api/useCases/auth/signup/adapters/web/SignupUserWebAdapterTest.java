@@ -9,7 +9,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import io.vision.api.support.WebMvcTestBase;
 import io.vision.api.useCases.auth.manageToken.application.domain.model.AuthToken;
-import io.vision.api.useCases.auth.signup.adapters.web.SignupUserWebAdapter;
 import io.vision.api.useCases.auth.signup.adapters.web.model.SignupUserReq;
 import io.vision.api.useCases.auth.signup.application.SignupUseCase;
 import io.vision.api.useCases.auth.signup.application.domain.model.SignupCmd;
@@ -22,8 +21,7 @@ import org.springframework.test.context.bean.override.mockito.MockitoBean;
 @WebMvcTest(SignupUserWebAdapter.class)
 class SignupUserWebAdapterTest extends WebMvcTestBase {
 
-  @MockitoBean
-  private SignupUseCase signupUseCase;
+  @MockitoBean private SignupUseCase signupUseCase;
 
   @Test
   @DisplayName("Scenario: 성공 - 사용자 회원가입 요청 시 토큰을 반환한다")

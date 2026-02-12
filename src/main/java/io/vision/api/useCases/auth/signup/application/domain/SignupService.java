@@ -1,8 +1,8 @@
 package io.vision.api.useCases.auth.signup.application.domain;
 
 import io.vision.api.useCases.auth.manageToken.application.ManageAuthTokenUseCase;
-import io.vision.api.useCases.auth.manageToken.application.domain.model.CreateTokenCmd;
 import io.vision.api.useCases.auth.manageToken.application.domain.model.AuthToken;
+import io.vision.api.useCases.auth.manageToken.application.domain.model.CreateTokenCmd;
 import io.vision.api.useCases.auth.signup.application.ManageSignup;
 import io.vision.api.useCases.auth.signup.application.SignupUseCase;
 import io.vision.api.useCases.auth.signup.application.domain.model.SignupCmd;

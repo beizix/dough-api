@@ -4,14 +4,13 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 import io.vision.api.useCases.auth.manageToken.application.ManageAuthTokenUseCase;
+import io.vision.api.useCases.auth.manageToken.application.RefreshAuthToken;
 import io.vision.api.useCases.auth.manageToken.application.domain.model.AuthToken;
 import io.vision.api.useCases.auth.manageToken.application.domain.model.CreateTokenCmd;
 import io.vision.api.useCases.auth.manageToken.application.domain.model.RefreshTokenCmd;
 import java.nio.charset.StandardCharsets;
 import java.util.Date;
 import javax.crypto.SecretKey;
-
-import io.vision.api.useCases.auth.manageToken.application.RefreshAuthToken;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -39,12 +38,11 @@ public class ManageAuthTokenService implements ManageAuthTokenUseCase {
   @Override
   public AuthToken createToken(CreateTokenCmd cmd) {
     var role = cmd.role().getAuthority();
-    var privileges = cmd.role().getPrivileges().stream()
-        .map(Enum::name)
-        .distinct()
-        .toList();
-    String accessToken = createToken(cmd.email(), cmd.displayName(), role, privileges, accessTokenValidity);
-    String refreshToken = createToken(cmd.email(), cmd.displayName(), role, privileges, refreshTokenValidity);
+    var privileges = cmd.role().getPrivileges().stream().map(Enum::name).distinct().toList();
+    String accessToken =
+        createToken(cmd.email(), cmd.displayName(), role, privileges, accessTokenValidity);
+    String refreshToken =
+        createToken(cmd.email(), cmd.displayName(), role, privileges, refreshTokenValidity);
 
     refreshAuthToken.save(cmd.email(), refreshToken);
 
@@ -67,8 +65,13 @@ public class ManageAuthTokenService implements ManageAuthTokenUseCase {
     try {
       validateToken(cmd.refreshToken());
 
-      return refreshAuthToken.get(cmd.refreshToken())
-          .map(refreshUser -> createToken(new CreateTokenCmd(refreshUser.email(), refreshUser.displayName(), refreshUser.role())))
+      return refreshAuthToken
+          .get(cmd.refreshToken())
+          .map(
+              refreshUser ->
+                  createToken(
+                      new CreateTokenCmd(
+                          refreshUser.email(), refreshUser.displayName(), refreshUser.role())))
           .orElseThrow(() -> new IllegalArgumentException("Invalid refresh token"));
     } catch (Exception e) {
       throw new IllegalArgumentException("Invalid refresh token", e);

@@ -6,16 +6,14 @@ import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
 
 import io.vision.api.common.application.enums.Role;
-import io.vision.api.useCases.auth.manageToken.application.ManageAuthTokenUseCase;
-import io.vision.api.useCases.auth.manageToken.application.domain.model.CreateTokenCmd;
-import io.vision.api.useCases.auth.manageToken.application.domain.model.AuthToken;
 import io.vision.api.useCases.auth.login.application.domain.LoginService;
-import io.vision.api.useCases.auth.login.application.domain.model.LoginCmd;
 import io.vision.api.useCases.auth.login.application.domain.model.GetUserResult;
+import io.vision.api.useCases.auth.login.application.domain.model.LoginCmd;
+import io.vision.api.useCases.auth.manageToken.application.ManageAuthTokenUseCase;
+import io.vision.api.useCases.auth.manageToken.application.domain.model.AuthToken;
+import io.vision.api.useCases.auth.manageToken.application.domain.model.CreateTokenCmd;
 import java.util.Optional;
 import java.util.UUID;
-
-import io.vision.api.useCases.auth.login.application.GetUser;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -27,17 +25,13 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @ExtendWith(MockitoExtension.class)
 class LoginUseCaseTest {
 
-  @InjectMocks
-  private LoginService loginService;
+  @InjectMocks private LoginService loginService;
 
-  @Mock
-  private GetUser getUser;
+  @Mock private GetUser getUser;
 
-  @Mock
-  private PasswordEncoder passwordEncoder;
+  @Mock private PasswordEncoder passwordEncoder;
 
-  @Mock
-  private ManageAuthTokenUseCase manageAuthTokenUseCase;
+  @Mock private ManageAuthTokenUseCase manageAuthTokenUseCase;
 
   @Test
   @DisplayName("Scenario: 성공 - 유효한 자격 증명으로 로그인 성공")
@@ -47,7 +41,8 @@ class LoginUseCaseTest {
     String password = "password";
     String encodedPassword = "encodedPassword";
     LoginCmd cmd = new LoginCmd(email, password);
-    GetUserResult user = new GetUserResult(UUID.randomUUID(), email, encodedPassword, "Test User", Role.USER);
+    GetUserResult user =
+        new GetUserResult(UUID.randomUUID(), email, encodedPassword, "Test User", Role.USER);
 
     given(getUser.operate(email)).willReturn(Optional.of(user));
     given(passwordEncoder.matches(password, encodedPassword)).willReturn(true);

@@ -1,12 +1,10 @@
 package io.vision.api.useCases.auth.manageToken.application;
 
-import io.vision.api.useCases.auth.manageToken.application.domain.model.CreateTokenCmd;
 import io.vision.api.useCases.auth.manageToken.application.domain.model.AuthToken;
+import io.vision.api.useCases.auth.manageToken.application.domain.model.CreateTokenCmd;
 import io.vision.api.useCases.auth.manageToken.application.domain.model.RefreshTokenCmd;
 
-/**
- * 인증 토큰(JWT)의 생성, 검증, 갱신 및 클레임 정보 추출을 담당하는 유스케이스입니다.
- */
+/** 인증 토큰(JWT)의 생성, 검증, 갱신 및 클레임 정보 추출을 담당하는 유스케이스입니다. */
 public interface ManageAuthTokenUseCase {
   /**
    * 사용자 정보를 기반으로 새로운 인증 토큰 세트를 생성합니다.

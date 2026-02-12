@@ -8,14 +8,13 @@ import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.BDDMockito.then;
 import static org.mockito.Mockito.lenient;
-import static org.mockito.Mockito.mock;
 
 import io.vision.api.useCases.file.saveFile.application.domain.SaveFileService;
 import io.vision.api.useCases.file.saveFile.application.domain.model.FileStorageType;
 import io.vision.api.useCases.file.saveFile.application.domain.model.FileUploadType;
-import io.vision.api.useCases.file.saveFile.application.domain.model.SaveFileMetadataResult;
-import io.vision.api.useCases.file.saveFile.application.domain.model.SaveFileMetadataCmd;
 import io.vision.api.useCases.file.saveFile.application.domain.model.SaveFile;
+import io.vision.api.useCases.file.saveFile.application.domain.model.SaveFileMetadataCmd;
+import io.vision.api.useCases.file.saveFile.application.domain.model.SaveFileMetadataResult;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -23,7 +22,6 @@ import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
-
 import org.apache.tika.Tika;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -35,14 +33,11 @@ import org.mockito.junit.jupiter.MockitoExtension;
 @ExtendWith(MockitoExtension.class)
 class SaveFileServiceTest {
 
-  @Mock
-  private SaveFileMetadata saveFileMetadata;
+  @Mock private SaveFileMetadata saveFileMetadata;
 
-  @Mock
-  private Tika tika;
+  @Mock private Tika tika;
 
-  @Mock
-  private SaveToFileStorage localStorageStrategy;
+  @Mock private SaveToFileStorage localStorageStrategy;
 
   private SaveFileService uploadFileService;
 
@@ -68,10 +63,14 @@ class SaveFileServiceTest {
 
     given(tika.detect(any(InputStream.class), eq(originalFilename))).willReturn("image/png");
     given(saveFileMetadata.operate(any(SaveFileMetadataCmd.class)))
-        .willReturn(Optional.of(new SaveFileMetadataResult(expectedId, type, "/path", "uuid.png", originalFilename, fileSize)));
+        .willReturn(
+            Optional.of(
+                new SaveFileMetadataResult(
+                    expectedId, type, "/path", "uuid.png", originalFilename, fileSize)));
 
     // When
-    Optional<SaveFile> result = uploadFileService.operate(type, inputStream, originalFilename, fileSize);
+    Optional<SaveFile> result =
+        uploadFileService.operate(type, inputStream, originalFilename, fileSize);
 
     // Then
     assertThat(result).isPresent();
@@ -90,8 +89,10 @@ class SaveFileServiceTest {
     String originalFilename = "testfile"; // No extension
 
     // When & Then
-    assertThatThrownBy(() ->
-        uploadFileService.operate(FileUploadType.UPLOAD_IMG_TO_LOCAL, inputStream, originalFilename, 100L))
+    assertThatThrownBy(
+            () ->
+                uploadFileService.operate(
+                    FileUploadType.UPLOAD_IMG_TO_LOCAL, inputStream, originalFilename, 100L))
         .isInstanceOf(RuntimeException.class)
         .hasMessageContaining("파일 확장자가 존재하지 않습니다");
   }
@@ -104,8 +105,10 @@ class SaveFileServiceTest {
     String originalFilename = "test.exe"; // Not allowed for USER_IMAGE
 
     // When & Then
-    assertThatThrownBy(() ->
-        uploadFileService.operate(FileUploadType.UPLOAD_IMG_TO_LOCAL, inputStream, originalFilename, 100L))
+    assertThatThrownBy(
+            () ->
+                uploadFileService.operate(
+                    FileUploadType.UPLOAD_IMG_TO_LOCAL, inputStream, originalFilename, 100L))
         .isInstanceOf(RuntimeException.class)
         .hasMessageContaining("허용되지 않는 파일 확장자입니다");
   }
@@ -118,11 +121,14 @@ class SaveFileServiceTest {
     String originalFilename = "test.png";
 
     // Tika가 실행 파일로 감지
-    given(tika.detect(any(InputStream.class), eq(originalFilename))).willReturn("application/x-dosexec");
+    given(tika.detect(any(InputStream.class), eq(originalFilename)))
+        .willReturn("application/x-dosexec");
 
     // When & Then
-    assertThatThrownBy(() ->
-        uploadFileService.operate(FileUploadType.UPLOAD_IMG_TO_LOCAL, inputStream, originalFilename, 100L))
+    assertThatThrownBy(
+            () ->
+                uploadFileService.operate(
+                    FileUploadType.UPLOAD_IMG_TO_LOCAL, inputStream, originalFilename, 100L))
         .isInstanceOf(RuntimeException.class)
         .hasMessageContaining("허용되지 않는 MIME Type 입니다");
   }
@@ -139,8 +145,10 @@ class SaveFileServiceTest {
     given(tika.detect(any(InputStream.class), eq(originalFilename))).willReturn("image/png");
 
     // When & Then
-    assertThatThrownBy(() ->
-        noStrategyService.operate(FileUploadType.UPLOAD_IMG_TO_LOCAL, inputStream, originalFilename, 100L))
+    assertThatThrownBy(
+            () ->
+                noStrategyService.operate(
+                    FileUploadType.UPLOAD_IMG_TO_LOCAL, inputStream, originalFilename, 100L))
         .isInstanceOf(NoSuchElementException.class)
         .hasMessageContaining("No file upload strategy found");
   }
@@ -152,9 +160,11 @@ class SaveFileServiceTest {
     InputStream inputStream = new ByteArrayInputStream("content".getBytes());
 
     // When & Then
-    assertThat(uploadFileService.operate(FileUploadType.UPLOAD_IMG_TO_LOCAL, null, "test.png", 100L))
+    assertThat(
+            uploadFileService.operate(FileUploadType.UPLOAD_IMG_TO_LOCAL, null, "test.png", 100L))
         .isEmpty();
-    assertThat(uploadFileService.operate(FileUploadType.UPLOAD_IMG_TO_LOCAL, inputStream, null, 100L))
+    assertThat(
+            uploadFileService.operate(FileUploadType.UPLOAD_IMG_TO_LOCAL, inputStream, null, 100L))
         .isEmpty();
     assertThat(uploadFileService.operate(FileUploadType.UPLOAD_IMG_TO_LOCAL, inputStream, "", 100L))
         .isEmpty();

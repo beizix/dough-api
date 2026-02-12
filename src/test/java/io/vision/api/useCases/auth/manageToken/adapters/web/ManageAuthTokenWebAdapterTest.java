@@ -7,7 +7,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import io.vision.api.support.WebMvcTestBase;
-import io.vision.api.useCases.auth.manageToken.adapters.web.ManageAuthTokenWebAdapter;
 import io.vision.api.useCases.auth.manageToken.adapters.web.model.RefreshReq;
 import io.vision.api.useCases.auth.manageToken.adapters.web.model.ValidateReq;
 import io.vision.api.useCases.auth.manageToken.application.domain.model.AuthToken;
