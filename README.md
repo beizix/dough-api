@@ -1,12 +1,17 @@
-# Vision API
+# Dough API
 
-Vision API는 효율적인 파일 관리와 안전한 사용자 인증을 제공하는 백엔드 서비스입니다. 헥사고날 아키텍처(Hexagonal Architecture)와 Outside-In TDD(London School) 방식을 채택하여 높은 유지보수성과 테스트 신뢰도를 보장합니다.
+<p align="center">
+  <img src="./docs/img/dough.png" width="400" alt="Dough API Logo">
+</p>
+
+**Dough API**는 빵이나 피자의 토대가 되는 반죽처럼, 개발자가 어떤 창의적인 애플리케이션을 만들더라도 그 든든한 기초가 되어주는
+스프링 부트 기반 API 개발 프레임워크 입니다.
 
 ## 🌟 주요 기능
 
--   **파일 스토리지 관리**: 로컬 파일 시스템 및 AWS S3 멀티 스토리지 지원
--   **사용자 인증 및 권한 관리**: Spring Security와 JWT를 이용한 보안 강화
 -   **RESTful API**: 표준화된 API 인터페이스 제공
+-   **사용자 인증 및 권한 관리**: Spring Security와 JWT를 이용한 보안 강화
+-   **파일 스토리지 관리**: 로컬 파일 시스템 및 AWS S3 멀티 스토리지 지원
 -   **강력한 유효성 검사**: Apache Tika를 활용한 파일 MIME-Type 검증
 
 ## 🛠 기술 스택
@@ -14,12 +19,10 @@ Vision API는 효율적인 파일 관리와 안전한 사용자 인증을 제공
 -   **Framework**: Spring Boot 4.0.1
 -   **Language**: Java 21
 -   **Architecture**: Hexagonal Architecture
--   **Database**: H2 (Default), JPA/Hibernate를 지원하는 모든 RDBMS와 연동 가능
+-   **Database**: H2 (Default), JPA/Hibernate를 지원하는 모든 RDBMS와 연동
 -   **Storage**: Local File System, AWS S3 (Object Storage)
 -   **Testing**: JUnit 5, Mockito, AssertJ (TDD)
 -   **Build Tool**: Gradle
-
----
 
 ## 🚀 개발 및 실행 가이드
 
