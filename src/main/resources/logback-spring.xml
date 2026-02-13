@@ -15,21 +15,23 @@
     </appender>
 
     <!-- File Appender: 정의 자체는 전역으로 하되, 사용 여부만 프로파일로 제어 -->
-    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>${LOG_FILE_PATH}/${LOG_FILE_NAME}.log</file>
-        <encoder>
-            <pattern>${FILE_LOG_PATTERN}</pattern>
-            <charset>utf8</charset>
-        </encoder>
-        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
-            <fileNamePattern>${LOG_FILE_PATH}/archived/${LOG_FILE_NAME}.%d{yyyy-MM-dd}.%i.log.gz</fileNamePattern>
-            <maxFileSize>10MB</maxFileSize>
-            <maxHistory>30</maxHistory>
-            <totalSizeCap>1GB</totalSizeCap>
-        </rollingPolicy>
-    </appender>
+    <springProfile name="default, prod, dev">
+        <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+            <file>${LOG_FILE_PATH}/${LOG_FILE_NAME}.log</file>
+            <encoder>
+                <pattern>${FILE_LOG_PATTERN}</pattern>
+                <charset>utf8</charset>
+            </encoder>
+            <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+                <fileNamePattern>${LOG_FILE_PATH}/archived/${LOG_FILE_NAME}.%d{yyyy-MM-dd}.%i.log.gz</fileNamePattern>
+                <maxFileSize>10MB</maxFileSize>
+                <maxHistory>30</maxHistory>
+                <totalSizeCap>1GB</totalSizeCap>
+            </rollingPolicy>
+        </appender>
+    </springProfile>
 
-    <!-- Local 프로파일: 콘솔 + 파일 모두 출력 -->
+    <!-- Local 프로파일: 콘솔만 출력 -->
     <springProfile name="local">
         <root level="INFO">
             <appender-ref ref="CONSOLE"/>
