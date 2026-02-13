@@ -8,6 +8,7 @@ import io.dough.api.useCases.auth.manageToken.application.RefreshAuthToken;
 import io.dough.api.useCases.auth.manageToken.application.domain.model.AuthToken;
 import io.dough.api.useCases.auth.manageToken.application.domain.model.CreateTokenCmd;
 import io.dough.api.useCases.auth.manageToken.application.domain.model.RefreshTokenCmd;
+import io.dough.api.common.application.utils.MessageUtils;
 import java.nio.charset.StandardCharsets;
 import java.util.Date;
 import javax.crypto.SecretKey;
@@ -23,26 +24,27 @@ public class ManageAuthTokenService implements ManageAuthTokenUseCase {
   private final long accessTokenValidity;
   private final long refreshTokenValidity;
   private final RefreshAuthToken refreshAuthToken;
+  private final MessageUtils messageUtils;
 
   public ManageAuthTokenService(
       @Value("${jwt.secret}") String secret,
       @Value("${jwt.access-token-validity}") long accessTokenValidity,
       @Value("${jwt.refresh-token-validity}") long refreshTokenValidity,
-      RefreshAuthToken refreshAuthToken) {
+      RefreshAuthToken refreshAuthToken,
+      MessageUtils messageUtils) {
     this.key = Keys.hmacShaKeyFor(secret.getBytes(StandardCharsets.UTF_8));
     this.accessTokenValidity = accessTokenValidity;
     this.refreshTokenValidity = refreshTokenValidity;
     this.refreshAuthToken = refreshAuthToken;
+    this.messageUtils = messageUtils;
   }
 
   @Override
   public AuthToken createToken(CreateTokenCmd cmd) {
     var role = cmd.role().getAuthority();
     var privileges = cmd.role().getPrivileges().stream().map(Enum::name).distinct().toList();
-    String accessToken =
-        createToken(cmd.email(), cmd.displayName(), role, privileges, accessTokenValidity);
-    String refreshToken =
-        createToken(cmd.email(), cmd.displayName(), role, privileges, refreshTokenValidity);
+    String accessToken = createToken(cmd.email(), cmd.displayName(), role, privileges, accessTokenValidity);
+    String refreshToken = createToken(cmd.email(), cmd.displayName(), role, privileges, refreshTokenValidity);
 
     refreshAuthToken.save(cmd.email(), refreshToken);
 
@@ -68,13 +70,13 @@ public class ManageAuthTokenService implements ManageAuthTokenUseCase {
       return refreshAuthToken
           .get(cmd.refreshToken())
           .map(
-              refreshUser ->
-                  createToken(
-                      new CreateTokenCmd(
-                          refreshUser.email(), refreshUser.displayName(), refreshUser.role())))
-          .orElseThrow(() -> new IllegalArgumentException("Invalid refresh token"));
+              refreshUser -> createToken(
+                  new CreateTokenCmd(
+                      refreshUser.email(), refreshUser.displayName(), refreshUser.role())))
+          .orElseThrow(
+              () -> new IllegalArgumentException(messageUtils.getMessage("exception.auth.invalid_refresh_token")));
     } catch (Exception e) {
-      throw new IllegalArgumentException("Invalid refresh token", e);
+      throw new IllegalArgumentException(messageUtils.getMessage("exception.auth.invalid_refresh_token"), e);
     }
   }
 
@@ -83,7 +85,7 @@ public class ManageAuthTokenService implements ManageAuthTokenUseCase {
     try {
       return parseClaims(token).getSubject();
     } catch (Exception e) {
-      throw new IllegalArgumentException("Invalid token", e);
+      throw new IllegalArgumentException(messageUtils.getMessage("exception.auth.invalid_token"), e);
     }
   }
 
@@ -93,7 +95,7 @@ public class ManageAuthTokenService implements ManageAuthTokenUseCase {
       Claims claims = parseClaims(token);
       return claims.get("displayName", String.class);
     } catch (Exception e) {
-      throw new IllegalArgumentException("Invalid token", e);
+      throw new IllegalArgumentException(messageUtils.getMessage("exception.auth.invalid_token"), e);
     }
   }
 

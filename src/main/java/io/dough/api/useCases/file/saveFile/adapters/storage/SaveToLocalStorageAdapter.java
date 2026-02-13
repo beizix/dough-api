@@ -1,5 +1,6 @@
 package io.dough.api.useCases.file.saveFile.adapters.storage;
 
+import io.dough.api.common.application.utils.MessageUtils;
 import io.dough.api.useCases.file.saveFile.application.SaveToFileStorage;
 import io.dough.api.useCases.file.saveFile.application.domain.model.FileStorageType;
 import java.io.IOException;
@@ -17,11 +18,9 @@ import org.springframework.stereotype.Component;
 @Component
 @RequiredArgsConstructor
 @Slf4j
-@ConditionalOnProperty(
-    name = "app.storage.local.enabled",
-    havingValue = "true",
-    matchIfMissing = true)
+@ConditionalOnProperty(name = "app.storage.local.enabled", havingValue = "true", matchIfMissing = true)
 public class SaveToLocalStorageAdapter implements SaveToFileStorage {
+  private final MessageUtils messageUtils;
 
   @Value("${app.upload.path}")
   private String localPath;
@@ -38,13 +37,12 @@ public class SaveToLocalStorageAdapter implements SaveToFileStorage {
     Path filePath = Paths.get(localPath, createSubPath);
     Files.createDirectories(filePath);
 
-    Path destinationFile =
-        (filePath.resolve(Paths.get(createFilename)).normalize().toAbsolutePath());
+    Path destinationFile = (filePath.resolve(Paths.get(createFilename)).normalize().toAbsolutePath());
 
     // 상위 디렉토리로 이동하는 경로(Path Traversal) 시도는 차단
     if (!destinationFile.getParent().equals(filePath.toAbsolutePath())) {
       throw new IllegalArgumentException(
-          String.format("[%s] 허용되지 않은 상위 디렉토리 접근 시도가 감지되었습니다.", createFilename));
+          messageUtils.getMessage("exception.file.path_traversal", new Object[] { createFilename }));
     }
 
     Files.copy(inputStream, destinationFile, StandardCopyOption.REPLACE_EXISTING);

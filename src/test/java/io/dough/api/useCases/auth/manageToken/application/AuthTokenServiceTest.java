@@ -1,7 +1,6 @@
 package io.dough.api.useCases.auth.manageToken.application;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -14,6 +13,7 @@ import io.dough.api.useCases.auth.manageToken.application.domain.ManageAuthToken
 import io.dough.api.useCases.auth.manageToken.application.domain.model.AuthToken;
 import io.dough.api.useCases.auth.manageToken.application.domain.model.CreateTokenCmd;
 import io.dough.api.useCases.auth.manageToken.application.domain.model.RefreshTokenCmd;
+import io.dough.api.common.application.utils.MessageUtils;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Optional;
@@ -26,6 +26,7 @@ class AuthTokenServiceTest {
 
   private ManageAuthTokenService authTokenService;
   private RefreshAuthToken refreshAuthToken;
+  private MessageUtils messageUtils;
   // 테스트용 키는 256비트(32자) 이상이어야 안전하게 HS256 알고리즘을 사용할 수 있습니다.
   private final String secret = "v-api-test-secret-key-must-be-long-enough-for-hs256";
   private final long accessValidity = 60000L; // 60초
@@ -35,8 +36,9 @@ class AuthTokenServiceTest {
   @BeforeEach
   void setUp() {
     refreshAuthToken = mock(RefreshAuthToken.class);
-    authTokenService =
-        new ManageAuthTokenService(secret, accessValidity, refreshValidity, refreshAuthToken);
+    messageUtils = mock(MessageUtils.class);
+    authTokenService = new ManageAuthTokenService(secret, accessValidity, refreshValidity, refreshAuthToken,
+        messageUtils);
     secretKey = Keys.hmacShaKeyFor(secret.getBytes(StandardCharsets.UTF_8));
   }
 
@@ -69,8 +71,7 @@ class AuthTokenServiceTest {
     Thread.sleep(1001);
 
     // When
-    AuthToken refreshedToken =
-        authTokenService.refreshToken(new RefreshTokenCmd(originalToken.refreshToken()));
+    AuthToken refreshedToken = authTokenService.refreshToken(new RefreshTokenCmd(originalToken.refreshToken()));
 
     // Then
     assertThat(refreshedToken.accessToken()).isNotEqualTo(originalToken.accessToken());
@@ -82,14 +83,15 @@ class AuthTokenServiceTest {
   void refresh_token_fail_not_in_db() {
     // Given
     String token = "invalid-token";
-    when(refreshAuthToken.get(anyString())).thenReturn(Optional.empty());
+    String errorMessage = "Invalid refresh token";
+    when(messageUtils.getMessage("exception.auth.invalid_refresh_token")).thenReturn(errorMessage);
 
     // When & Then
     org.junit.jupiter.api.Assertions.assertThrows(
         IllegalArgumentException.class,
         () -> {
           authTokenService.refreshToken(new RefreshTokenCmd(token));
-        });
+        }, errorMessage);
   }
 
   @Test
@@ -148,8 +150,7 @@ class AuthTokenServiceTest {
 
     // Then
     String accessToken = authToken.accessToken();
-    Claims claims =
-        Jwts.parser().verifyWith(secretKey).build().parseSignedClaims(accessToken).getPayload();
+    Claims claims = Jwts.parser().verifyWith(secretKey).build().parseSignedClaims(accessToken).getPayload();
 
     assertThat(claims.getSubject()).isEqualTo(email);
 
@@ -186,8 +187,7 @@ class AuthTokenServiceTest {
 
     // Then
     String accessToken = authToken.accessToken();
-    Claims claims =
-        Jwts.parser().verifyWith(secretKey).build().parseSignedClaims(accessToken).getPayload();
+    Claims claims = Jwts.parser().verifyWith(secretKey).build().parseSignedClaims(accessToken).getPayload();
 
     @SuppressWarnings("unchecked")
     List<String> extractedPrivileges = claims.get("privileges", List.class);

@@ -14,11 +14,11 @@ public class ApiArchTest {
   final JavaClasses classes =
       new ClassFileImporter()
           .withImportOption(new ImportOption.DoNotIncludeTests())
-          .importPackages("io.vision.api..");
+          .importPackages("io.dough.api..");
 
   final Architectures.LayeredArchitecture layeredArchitecture =
       layeredArchitecture()
-          .consideringOnlyDependenciesInAnyPackage("io.vision.api..")
+          .consideringOnlyDependenciesInAnyPackage("io.dough.api..")
           // `(외부) 인바운드 어뎁터` 계층 정의
           .layer("inboundAdapters")
           .definedBy("..adapters.web..")

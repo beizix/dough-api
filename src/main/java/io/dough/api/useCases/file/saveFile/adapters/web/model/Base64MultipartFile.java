@@ -1,5 +1,6 @@
 package io.dough.api.useCases.file.saveFile.adapters.web.model;
 
+import io.dough.api.common.application.utils.MessageUtils;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
@@ -20,7 +21,7 @@ public class Base64MultipartFile implements MultipartFile {
     // Expected format: data:image/png;base64,iVBORw0KGgo...
     String[] parts = base64String.split(",");
     if (parts.length != 2) {
-      throw new IllegalArgumentException("Invalid Base64 string format");
+      throw new IllegalArgumentException(MessageUtils.get("exception.file.invalid_base64"));
     }
 
     String contentTypePart = parts[0];

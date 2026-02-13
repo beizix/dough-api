@@ -6,6 +6,7 @@ import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
 
 import io.dough.api.common.application.enums.Role;
+import io.dough.api.common.application.utils.MessageUtils;
 import io.dough.api.useCases.auth.login.application.domain.LoginService;
 import io.dough.api.useCases.auth.login.application.domain.model.GetUserResult;
 import io.dough.api.useCases.auth.login.application.domain.model.LoginCmd;
@@ -25,13 +26,20 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @ExtendWith(MockitoExtension.class)
 class LoginUseCaseTest {
 
-  @InjectMocks private LoginService loginService;
+  @InjectMocks
+  private LoginService loginService;
 
-  @Mock private GetUser getUser;
+  @Mock
+  private GetUser getUser;
 
-  @Mock private PasswordEncoder passwordEncoder;
+  @Mock
+  private PasswordEncoder passwordEncoder;
 
-  @Mock private ManageAuthTokenUseCase manageAuthTokenUseCase;
+  @Mock
+  private ManageAuthTokenUseCase manageAuthTokenUseCase;
+
+  @Mock
+  private MessageUtils messageUtils;
 
   @Test
   @DisplayName("Scenario: 성공 - 유효한 자격 증명으로 로그인 성공")
@@ -41,8 +49,7 @@ class LoginUseCaseTest {
     String password = "password";
     String encodedPassword = "encodedPassword";
     LoginCmd cmd = new LoginCmd(email, password);
-    GetUserResult user =
-        new GetUserResult(UUID.randomUUID(), email, encodedPassword, "Test User", Role.USER);
+    GetUserResult user = new GetUserResult(UUID.randomUUID(), email, encodedPassword, "Test User", Role.USER);
 
     given(getUser.operate(email)).willReturn(Optional.of(user));
     given(passwordEncoder.matches(password, encodedPassword)).willReturn(true);
@@ -55,5 +62,39 @@ class LoginUseCaseTest {
     // Then
     assertThat(token).isNotNull();
     verify(manageAuthTokenUseCase).createToken(any(CreateTokenCmd.class));
+  }
+
+  @Test
+  @DisplayName("Scenario: 실패 - 존재하지 않는 사용자로 로그인 시도 시 예외가 발생한다")
+  void operate_fail_user_not_found() {
+    // Given
+    String email = "notfound@example.com";
+    LoginCmd cmd = new LoginCmd(email, "password");
+    given(getUser.operate(email)).willReturn(Optional.empty());
+    given(messageUtils.getMessage("exception.user.not_found")).willReturn("User not found");
+
+    // When & Then
+    org.assertj.core.api.Assertions.assertThatThrownBy(() -> loginService.operate(cmd))
+        .isInstanceOf(IllegalArgumentException.class)
+        .hasMessage("User not found");
+  }
+
+  @Test
+  @DisplayName("Scenario: 실패 - 잘못된 비밀번호로 로그인 시도 시 예외가 발생한다")
+  void operate_fail_invalid_password() {
+    // Given
+    String email = "test@example.com";
+    String password = "wrongPassword";
+    LoginCmd cmd = new LoginCmd(email, password);
+    GetUserResult user = new GetUserResult(UUID.randomUUID(), email, "encodedPassword", "Name", Role.USER);
+
+    given(getUser.operate(email)).willReturn(Optional.of(user));
+    given(passwordEncoder.matches(password, user.password())).willReturn(false);
+    given(messageUtils.getMessage("exception.auth.invalid_password")).willReturn("Invalid password");
+
+    // When & Then
+    org.assertj.core.api.Assertions.assertThatThrownBy(() -> loginService.operate(cmd))
+        .isInstanceOf(IllegalArgumentException.class)
+        .hasMessage("Invalid password");
   }
 }

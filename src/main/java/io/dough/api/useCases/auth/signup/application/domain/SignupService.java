@@ -10,6 +10,7 @@ import io.dough.api.useCases.auth.signup.application.domain.model.SignupUser;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import io.dough.api.common.application.utils.MessageUtils;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
@@ -19,12 +20,13 @@ public class SignupService implements SignupUseCase {
   private final ManageSignup manageSignup;
   private final PasswordEncoder passwordEncoder;
   private final ManageAuthTokenUseCase manageAuthTokenUseCase;
+  private final MessageUtils messageUtils;
 
   @Override
   @Transactional
   public AuthToken operate(SignupCmd cmd) {
     if (manageSignup.existsByEmailAndRole(cmd.email(), cmd.role())) {
-      throw new IllegalArgumentException("이미 해당 권한으로 가입된 이메일입니다.");
+      throw new IllegalArgumentException(messageUtils.getMessage("exception.auth.email_already_exists"));
     }
 
     String encodedPassword = passwordEncoder.encode(cmd.password());

@@ -10,6 +10,7 @@ import static org.mockito.BDDMockito.then;
 import static org.mockito.Mockito.lenient;
 
 import io.dough.api.useCases.file.saveFile.application.domain.SaveFileService;
+import io.dough.api.common.application.utils.MessageUtils;
 import io.dough.api.useCases.file.saveFile.application.domain.model.FileStorageType;
 import io.dough.api.useCases.file.saveFile.application.domain.model.FileUploadType;
 import io.dough.api.useCases.file.saveFile.application.domain.model.SaveFile;
@@ -33,11 +34,16 @@ import org.mockito.junit.jupiter.MockitoExtension;
 @ExtendWith(MockitoExtension.class)
 class SaveFileServiceTest {
 
-  @Mock private SaveFileMetadata saveFileMetadata;
+  @Mock
+  private SaveFileMetadata saveFileMetadata;
 
-  @Mock private Tika tika;
+  @Mock
+  private Tika tika;
 
-  @Mock private SaveToFileStorage localStorageStrategy;
+  @Mock
+  private SaveToFileStorage localStorageStrategy;
+  @Mock
+  private MessageUtils messageUtils;
 
   private SaveFileService uploadFileService;
 
@@ -48,7 +54,7 @@ class SaveFileServiceTest {
     lenient().when(localStorageStrategy.getStorageType()).thenReturn(FileStorageType.LOCAL);
     Set<SaveToFileStorage> strategies = Set.of(localStorageStrategy);
 
-    uploadFileService = new SaveFileService(strategies, saveFileMetadata, tika);
+    uploadFileService = new SaveFileService(strategies, saveFileMetadata, tika, messageUtils);
   }
 
   @Test
@@ -69,8 +75,7 @@ class SaveFileServiceTest {
                     expectedId, type, "/path", "uuid.png", originalFilename, fileSize)));
 
     // When
-    Optional<SaveFile> result =
-        uploadFileService.operate(type, inputStream, originalFilename, fileSize);
+    Optional<SaveFile> result = uploadFileService.operate(type, inputStream, originalFilename, fileSize);
 
     // Then
     assertThat(result).isPresent();
@@ -88,13 +93,15 @@ class SaveFileServiceTest {
     InputStream inputStream = new ByteArrayInputStream("content".getBytes());
     String originalFilename = "testfile"; // No extension
 
+    String errorMessage = "파일 확장자가 존재하지 않습니다";
+    given(messageUtils.getMessage(eq("exception.file.no_extension"), any(Object[].class))).willReturn(errorMessage);
+
     // When & Then
     assertThatThrownBy(
-            () ->
-                uploadFileService.operate(
-                    FileUploadType.UPLOAD_IMG_TO_LOCAL, inputStream, originalFilename, 100L))
+        () -> uploadFileService.operate(
+            FileUploadType.UPLOAD_IMG_TO_LOCAL, inputStream, originalFilename, 100L))
         .isInstanceOf(RuntimeException.class)
-        .hasMessageContaining("파일 확장자가 존재하지 않습니다");
+        .hasMessageContaining(errorMessage);
   }
 
   @Test
@@ -104,13 +111,16 @@ class SaveFileServiceTest {
     InputStream inputStream = new ByteArrayInputStream("content".getBytes());
     String originalFilename = "test.exe"; // Not allowed for USER_IMAGE
 
+    String errorMessage = "허용되지 않는 파일 확장자입니다";
+    given(messageUtils.getMessage(eq("exception.file.invalid_extension"), any(Object[].class)))
+        .willReturn(errorMessage);
+
     // When & Then
     assertThatThrownBy(
-            () ->
-                uploadFileService.operate(
-                    FileUploadType.UPLOAD_IMG_TO_LOCAL, inputStream, originalFilename, 100L))
+        () -> uploadFileService.operate(
+            FileUploadType.UPLOAD_IMG_TO_LOCAL, inputStream, originalFilename, 100L))
         .isInstanceOf(RuntimeException.class)
-        .hasMessageContaining("허용되지 않는 파일 확장자입니다");
+        .hasMessageContaining(errorMessage);
   }
 
   @Test
@@ -124,33 +134,37 @@ class SaveFileServiceTest {
     given(tika.detect(any(InputStream.class), eq(originalFilename)))
         .willReturn("application/x-dosexec");
 
+    String errorMessage = "허용되지 않는 MIME Type 입니다";
+    given(messageUtils.getMessage(eq("exception.file.invalid_mime_type"), any(Object[].class)))
+        .willReturn(errorMessage);
+
     // When & Then
     assertThatThrownBy(
-            () ->
-                uploadFileService.operate(
-                    FileUploadType.UPLOAD_IMG_TO_LOCAL, inputStream, originalFilename, 100L))
+        () -> uploadFileService.operate(
+            FileUploadType.UPLOAD_IMG_TO_LOCAL, inputStream, originalFilename, 100L))
         .isInstanceOf(RuntimeException.class)
-        .hasMessageContaining("허용되지 않는 MIME Type 입니다");
+        .hasMessageContaining(errorMessage);
   }
 
   @Test
   @DisplayName("Scenario: 실패 - 지원하지 않는 스토리지 타입인 경우 예외 발생")
   void upload_fail_no_strategy() throws IOException {
     // Given: 지원하는 전략이 비어있는 서비스 생성
-    SaveFileService noStrategyService = new SaveFileService(Set.of(), saveFileMetadata, tika);
+    SaveFileService noStrategyService = new SaveFileService(Set.of(), saveFileMetadata, tika, messageUtils);
 
     InputStream inputStream = new ByteArrayInputStream("content".getBytes());
     String originalFilename = "test.png";
 
     given(tika.detect(any(InputStream.class), eq(originalFilename))).willReturn("image/png");
+    String errorMessage = "No file upload strategy found";
+    given(messageUtils.getMessage(eq("exception.file.no_strategy"), any(Object[].class))).willReturn(errorMessage);
 
     // When & Then
     assertThatThrownBy(
-            () ->
-                noStrategyService.operate(
-                    FileUploadType.UPLOAD_IMG_TO_LOCAL, inputStream, originalFilename, 100L))
+        () -> noStrategyService.operate(
+            FileUploadType.UPLOAD_IMG_TO_LOCAL, inputStream, originalFilename, 100L))
         .isInstanceOf(NoSuchElementException.class)
-        .hasMessageContaining("No file upload strategy found");
+        .hasMessageContaining(errorMessage);
   }
 
   @Test
@@ -161,10 +175,10 @@ class SaveFileServiceTest {
 
     // When & Then
     assertThat(
-            uploadFileService.operate(FileUploadType.UPLOAD_IMG_TO_LOCAL, null, "test.png", 100L))
+        uploadFileService.operate(FileUploadType.UPLOAD_IMG_TO_LOCAL, null, "test.png", 100L))
         .isEmpty();
     assertThat(
-            uploadFileService.operate(FileUploadType.UPLOAD_IMG_TO_LOCAL, inputStream, null, 100L))
+        uploadFileService.operate(FileUploadType.UPLOAD_IMG_TO_LOCAL, inputStream, null, 100L))
         .isEmpty();
     assertThat(uploadFileService.operate(FileUploadType.UPLOAD_IMG_TO_LOCAL, inputStream, "", 100L))
         .isEmpty();

@@ -13,16 +13,24 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 import org.springframework.test.util.ReflectionTestUtils;
+import io.dough.api.common.application.utils.MessageUtils;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
 
 class SaveToLocalStorageAdapterTest {
 
   private SaveToLocalStorageAdapter saveToLocalStorageAdapter;
+  private MessageUtils messageUtils;
 
-  @TempDir Path tempDir;
+  @TempDir
+  Path tempDir;
 
   @BeforeEach
   void setUp() {
-    saveToLocalStorageAdapter = new SaveToLocalStorageAdapter();
+    messageUtils = mock(MessageUtils.class);
+    saveToLocalStorageAdapter = new SaveToLocalStorageAdapter(messageUtils);
     // tempDir/public 경로를 생성하고 주입
     Path localPath = tempDir.resolve("public");
     ReflectionTestUtils.setField(saveToLocalStorageAdapter, "localPath", localPath.toString());
@@ -78,9 +86,12 @@ class SaveToLocalStorageAdapterTest {
     String subPath = "images";
     String filename = "../../../etc/passwd";
 
+    String errorMessage = "허용되지 않은 상위 디렉토리 접근 시도";
+    when(messageUtils.getMessage(eq("exception.file.path_traversal"), any(Object[].class))).thenReturn(errorMessage);
+
     // When & Then
     assertThatThrownBy(() -> saveToLocalStorageAdapter.operate(inputStream, subPath, filename))
-        .isInstanceOf(RuntimeException.class)
-        .hasMessageContaining("허용되지 않은 상위 디렉토리 접근 시도");
+        .isInstanceOf(IllegalArgumentException.class)
+        .hasMessageContaining(errorMessage);
   }
 }
