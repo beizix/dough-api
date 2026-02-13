@@ -32,6 +32,6 @@ public class LoginService implements LoginUseCase {
     }
 
     return manageAuthTokenUseCase.createToken(
-        new CreateTokenCmd(user.email(), user.displayName(), user.role()));
+        new CreateTokenCmd(user.id(), user.email(), user.displayName(), user.role()));
   }
 }

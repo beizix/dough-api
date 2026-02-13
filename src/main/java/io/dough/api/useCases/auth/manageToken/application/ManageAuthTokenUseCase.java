@@ -47,6 +47,14 @@ public interface ManageAuthTokenUseCase {
   String getDisplayName(String token);
 
   /**
+   * 토큰에서 사용자의 이메일을 추출합니다.
+   *
+   * @param token 토큰 문자열
+   * @return 사용자 이메일
+   */
+  String getEmail(String token);
+
+  /**
    * 토큰에서 사용자의 권한(Role) 정보를 추출합니다.
    *
    * @param token 토큰 문자열

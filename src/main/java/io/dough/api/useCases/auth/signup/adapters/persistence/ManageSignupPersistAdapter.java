@@ -20,9 +20,10 @@ public class ManageSignupPersistAdapter implements ManageSignup {
   }
 
   @Override
-  public void save(SignupUser user) {
-    UserEntity entity =
-        new UserEntity(user.email(), user.password(), user.displayName(), user.role(), null);
-    userRepository.save(entity);
+  public SignupUser save(SignupUser user) {
+    UserEntity entity = new UserEntity(user.email(), user.password(), user.displayName(), user.role(), null);
+    UserEntity saved = userRepository.save(entity);
+    return new SignupUser(saved.getId(), saved.getEmail(), saved.getPassword(), saved.getDisplayName(),
+        saved.getRole());
   }
 }

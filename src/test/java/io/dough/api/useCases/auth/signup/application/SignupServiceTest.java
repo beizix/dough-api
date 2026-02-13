@@ -8,12 +8,14 @@ import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
 
 import io.dough.api.common.application.enums.Role;
+import io.dough.api.common.application.utils.MessageUtils;
 import io.dough.api.useCases.auth.manageToken.application.ManageAuthTokenUseCase;
 import io.dough.api.useCases.auth.manageToken.application.domain.model.AuthToken;
 import io.dough.api.useCases.auth.manageToken.application.domain.model.CreateTokenCmd;
-import io.dough.api.common.application.utils.MessageUtils;
 import io.dough.api.useCases.auth.signup.application.domain.SignupService;
 import io.dough.api.useCases.auth.signup.application.domain.model.SignupCmd;
+import io.dough.api.useCases.auth.signup.application.domain.model.SignupUser;
+import java.util.UUID;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -25,64 +27,64 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @ExtendWith(MockitoExtension.class)
 class SignupServiceTest {
 
-    @InjectMocks
-    private SignupService signupService;
+  @InjectMocks
+  private SignupService signupService;
 
-    @Mock
-    private ManageSignup manageSignup;
+  @Mock
+  private ManageSignup manageSignup;
 
-    @Mock
-    private PasswordEncoder passwordEncoder;
+  @Mock
+  private PasswordEncoder passwordEncoder;
 
-    @Mock
-    private ManageAuthTokenUseCase manageAuthTokenUseCase;
-    @Mock
-    private MessageUtils messageUtils;
+  @Mock
+  private ManageAuthTokenUseCase manageAuthTokenUseCase;
 
-    @Test
-    @DisplayName("Scenario: 성공 - 정상적인 회원가입 요청 시 사용자를 저장하고 토큰을 발급한다")
-    void signup_success() {
-        // Given
-        SignupCmd cmd = new SignupCmd("test@vision.io", "rawPassword", "Test User", Role.USER);
+  @Mock
+  private MessageUtils messageUtils;
 
-        given(manageSignup.existsByEmailAndRole(cmd.email(), cmd.role())).willReturn(false);
-        given(passwordEncoder.encode(cmd.password())).willReturn("encodedPassword");
-        given(manageAuthTokenUseCase.createToken(any(CreateTokenCmd.class)))
-                .willReturn(new AuthToken("access", "refresh"));
+  @Test
+  @DisplayName("Scenario: 성공 - 정상적인 회원가입 요청 시 사용자를 저장하고 토큰을 발급한다")
+  void signup_success() {
+    // Given
+    SignupCmd cmd = new SignupCmd("test@vision.io", "rawPassword", "Test User", Role.USER);
 
-        // When
-        AuthToken token = signupService.operate(cmd);
+    given(manageSignup.existsByEmailAndRole(cmd.email(), cmd.role())).willReturn(false);
+    given(passwordEncoder.encode(cmd.password())).willReturn("encodedPassword");
+    given(manageSignup.save(any(SignupUser.class))).willAnswer(invocation -> {
+      SignupUser user = invocation.getArgument(0);
+      return new SignupUser(UUID.randomUUID(), user.email(), user.password(), user.displayName(), user.role());
+    });
+    given(manageAuthTokenUseCase.createToken(any(CreateTokenCmd.class)))
+        .willReturn(new AuthToken("access", "refresh"));
 
-        // Then
-        assertThat(token).isNotNull();
-        assertThat(token.accessToken()).isEqualTo("access");
+    // When
+    AuthToken token = signupService.operate(cmd);
 
-        verify(manageSignup)
-                .save(
-                        argThat(
-                                user -> user.email().equals(cmd.email())
-                                        && user.password().equals("encodedPassword")
-                                        && user.displayName().equals(cmd.displayName())
-                                        && user.role().equals(cmd.role())));
+    // Then
+    assertThat(token).isNotNull();
+    assertThat(token.accessToken()).isEqualTo("access");
 
-        verify(manageAuthTokenUseCase)
-                .createToken(
-                        argThat(
-                                authCmd -> authCmd.email().equals(cmd.email()) && authCmd.role() == cmd.role()));
-    }
+    verify(manageSignup).save(argThat(user -> user.email().equals(cmd.email())
+        && user.password().equals("encodedPassword")
+        && user.displayName().equals(cmd.displayName())
+        && user.role().equals(cmd.role())));
 
-    @Test
-    @DisplayName("Scenario: 실패 - 이미 해당 권한으로 가입된 이메일로 가입 시도 시 예외가 발생한다")
-    void signup_fail_duplicate_email() {
-        // Given
-        SignupCmd cmd = new SignupCmd("duplicate@vision.io", "password", "User", Role.USER);
-        given(manageSignup.existsByEmailAndRole(cmd.email(), cmd.role())).willReturn(true);
-        String errorMessage = "이미 해당 권한으로 가입된 이메일입니다.";
-        given(messageUtils.getMessage("exception.auth.email_already_exists")).willReturn(errorMessage);
+    verify(manageAuthTokenUseCase).createToken(argThat(authCmd -> authCmd.email().equals(cmd.email())
+        && authCmd.role() == cmd.role()));
+  }
 
-        // When & Then
-        assertThatThrownBy(() -> signupService.operate(cmd))
-                .isInstanceOf(IllegalArgumentException.class)
-                .hasMessage(errorMessage);
-    }
+  @Test
+  @DisplayName("Scenario: 실패 - 이미 해당 권한으로 가입된 이메일로 가입 시도 시 예외가 발생한다")
+  void signup_fail_duplicate_email() {
+    // Given
+    SignupCmd cmd = new SignupCmd("duplicate@vision.io", "password", "User", Role.USER);
+    given(manageSignup.existsByEmailAndRole(cmd.email(), cmd.role())).willReturn(true);
+    String errorMessage = "이미 해당 권한으로 가입된 이메일입니다.";
+    given(messageUtils.getMessage("exception.auth.email_already_exists")).willReturn(errorMessage);
+
+    // When & Then
+    assertThatThrownBy(() -> signupService.operate(cmd))
+        .isInstanceOf(IllegalArgumentException.class)
+        .hasMessage(errorMessage);
+  }
 }

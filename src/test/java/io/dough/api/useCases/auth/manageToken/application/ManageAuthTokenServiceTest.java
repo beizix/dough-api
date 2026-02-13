@@ -17,6 +17,7 @@ import io.dough.api.common.application.utils.MessageUtils;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 import javax.crypto.SecretKey;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -46,26 +47,29 @@ class ManageAuthTokenServiceTest {
   @DisplayName("Scenario: 성공 - 토큰 생성 시 DB에 Refresh Token을 저장한다")
   void create_token_save_refresh_token() {
     // Given
-    CreateTokenCmd cmd = new CreateTokenCmd("test@example.com", "Test User", Role.USER);
+    UUID uuid = UUID.randomUUID();
+    String email = "test@example.com";
+    CreateTokenCmd cmd = new CreateTokenCmd(uuid, email, "Test User", Role.USER);
 
     // When
     AuthToken token = authTokenService.createToken(cmd);
 
     // Then
-    verify(refreshAuthToken).save("test@example.com", token.refreshToken());
+    verify(refreshAuthToken).save(uuid, token.refreshToken());
   }
 
   @Test
   @DisplayName("Scenario: 성공 - DB에 저장된 Refresh Token과 일치하면 토큰을 재발급한다")
   void refresh_token_success() throws InterruptedException {
     // Given
+    UUID uuid = UUID.randomUUID();
     String email = "manager@example.com";
     Role role = Role.MANAGER;
-    CreateTokenCmd createCmd = new CreateTokenCmd(email, "Manager User", role);
+    CreateTokenCmd createCmd = new CreateTokenCmd(uuid, email, "Manager User", role);
     AuthToken originalToken = authTokenService.createToken(createCmd);
 
     when(refreshAuthToken.get(originalToken.refreshToken()))
-        .thenReturn(Optional.of(new RefreshAuthToken.RefreshUser(email, "Manager User", role)));
+        .thenReturn(Optional.of(new RefreshAuthToken.RefreshUser(uuid, email, "Manager User", role)));
 
     // Ensure tokens have different timestamps
     Thread.sleep(1001);
@@ -98,7 +102,7 @@ class ManageAuthTokenServiceTest {
   @DisplayName("Scenario: 성공 - 유효한 토큰 검증 시 true를 반환한다")
   void validate_token_success() {
     // Given
-    CreateTokenCmd cmd = new CreateTokenCmd("test@example.com", "Test User", Role.USER);
+    CreateTokenCmd cmd = new CreateTokenCmd(UUID.randomUUID(), "test@example.com", "Test User", Role.USER);
     AuthToken token = authTokenService.createToken(cmd);
     String accessToken = token.accessToken();
 
@@ -123,27 +127,28 @@ class ManageAuthTokenServiceTest {
   }
 
   @Test
-  @DisplayName("Scenario: 성공 - 토큰에서 사용자 이메일(Subject) 추출")
+  @DisplayName("Scenario: 성공 - 토큰에서 사용자 식별자(Subject) 추출")
   void get_subject_success() {
     // Given
-    String email = "user@example.com";
-    CreateTokenCmd cmd = new CreateTokenCmd(email, "User", Role.USER);
+    UUID uuid = UUID.randomUUID();
+    CreateTokenCmd cmd = new CreateTokenCmd(uuid, "user@example.com", "User", Role.USER);
     AuthToken token = authTokenService.createToken(cmd);
 
     // When
     String subject = authTokenService.getSubject(token.accessToken());
 
     // Then
-    assertThat(subject).isEqualTo(email);
+    assertThat(subject).isEqualTo(uuid.toString());
   }
 
   @Test
   @DisplayName("Scenario: 성공 - 토큰에서 역할(Roles) 추출")
   void get_roles_success() {
     // Given
+    UUID uuid = UUID.randomUUID();
     String email = "manager@example.com";
     Role role = Role.MANAGER;
-    CreateTokenCmd cmd = new CreateTokenCmd(email, "Manager User", role);
+    CreateTokenCmd cmd = new CreateTokenCmd(uuid, email, "Manager User", role);
 
     // When
     AuthToken authToken = authTokenService.createToken(cmd);
@@ -152,7 +157,8 @@ class ManageAuthTokenServiceTest {
     String accessToken = authToken.accessToken();
     Claims claims = Jwts.parser().verifyWith(secretKey).build().parseSignedClaims(accessToken).getPayload();
 
-    assertThat(claims.getSubject()).isEqualTo(email);
+    assertThat(claims.getSubject()).isEqualTo(uuid.toString());
+    assertThat(claims.get("email", String.class)).isEqualTo(email);
 
     String extractedRole = claims.get("role", String.class);
     assertThat(extractedRole).isEqualTo("ROLE_MANAGER");
@@ -164,7 +170,7 @@ class ManageAuthTokenServiceTest {
     // Given
     String email = "user@example.com";
     String displayName = "Super User";
-    CreateTokenCmd cmd = new CreateTokenCmd(email, displayName, Role.USER);
+    CreateTokenCmd cmd = new CreateTokenCmd(UUID.randomUUID(), email, displayName, Role.USER);
     AuthToken token = authTokenService.createToken(cmd);
 
     // When
@@ -175,12 +181,27 @@ class ManageAuthTokenServiceTest {
   }
 
   @Test
+  @DisplayName("Scenario: 성공 - 토큰에서 이메일(Email) 추출")
+  void get_email_success() {
+    // Given
+    String email = "user@example.com";
+    CreateTokenCmd cmd = new CreateTokenCmd(UUID.randomUUID(), email, "User", Role.USER);
+    AuthToken token = authTokenService.createToken(cmd);
+
+    // When
+    String extractedEmail = authTokenService.getEmail(token.accessToken());
+
+    // Then
+    assertThat(extractedEmail).isEqualTo(email);
+  }
+
+  @Test
   @DisplayName("Scenario: 성공 - 토큰에서 권한(Privileges) 추출")
   void get_privileges_success() {
     // Given
     String email = "manager@example.com";
     Role role = Role.MANAGER;
-    CreateTokenCmd cmd = new CreateTokenCmd(email, "Manager User", role);
+    CreateTokenCmd cmd = new CreateTokenCmd(UUID.randomUUID(), email, "Manager User", role);
 
     // When
     AuthToken authToken = authTokenService.createToken(cmd);

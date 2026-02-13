@@ -3,6 +3,7 @@ package io.dough.api.useCases.auth.manageToken.adapters.persistence;
 import io.dough.api.common.adapters.persistence.repository.UserRepository;
 import io.dough.api.useCases.auth.manageToken.application.RefreshAuthToken;
 import java.util.Optional;
+import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,15 +20,14 @@ public class RefreshAuthTokenPersistAdapter implements RefreshAuthToken {
     return userRepository
         .findByRefreshToken(refreshToken)
         .map(
-            entity ->
-                new RefreshUser(entity.getEmail(), entity.getDisplayName(), entity.getRole()));
+            entity -> new RefreshUser(entity.getId(), entity.getEmail(), entity.getDisplayName(), entity.getRole()));
   }
 
   @Override
   @Transactional
-  public void save(String email, String refreshToken) {
+  public void save(UUID uuid, String refreshToken) {
     userRepository
-        .findByEmail(email)
+        .findById(uuid)
         .ifPresent(
             entity -> {
               // UserEntity에 setter가 있으므로 이를 활용합니다.

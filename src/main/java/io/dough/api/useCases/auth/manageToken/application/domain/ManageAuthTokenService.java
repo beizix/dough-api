@@ -43,10 +43,12 @@ public class ManageAuthTokenService implements ManageAuthTokenUseCase {
   public AuthToken createToken(CreateTokenCmd cmd) {
     var role = cmd.role().getAuthority();
     var privileges = cmd.role().getPrivileges().stream().map(Enum::name).distinct().toList();
-    String accessToken = createToken(cmd.email(), cmd.displayName(), role, privileges, accessTokenValidity);
-    String refreshToken = createToken(cmd.email(), cmd.displayName(), role, privileges, refreshTokenValidity);
+    String accessToken = createToken(cmd.uuid().toString(), cmd.email(), cmd.displayName(), role, privileges,
+        accessTokenValidity);
+    String refreshToken = createToken(cmd.uuid().toString(), cmd.email(), cmd.displayName(), role, privileges,
+        refreshTokenValidity);
 
-    refreshAuthToken.save(cmd.email(), refreshToken);
+    refreshAuthToken.save(cmd.uuid(), refreshToken);
 
     return new AuthToken(accessToken, refreshToken);
   }
@@ -72,7 +74,7 @@ public class ManageAuthTokenService implements ManageAuthTokenUseCase {
           .map(
               refreshUser -> createToken(
                   new CreateTokenCmd(
-                      refreshUser.email(), refreshUser.displayName(), refreshUser.role())))
+                      refreshUser.uuid(), refreshUser.email(), refreshUser.displayName(), refreshUser.role())))
           .orElseThrow(
               () -> new IllegalArgumentException(messageUtils.getMessage("exception.auth.invalid_refresh_token")));
     } catch (Exception e) {
@@ -94,6 +96,16 @@ public class ManageAuthTokenService implements ManageAuthTokenUseCase {
     try {
       Claims claims = parseClaims(token);
       return claims.get("displayName", String.class);
+    } catch (Exception e) {
+      throw new IllegalArgumentException(messageUtils.getMessage("exception.auth.invalid_token"), e);
+    }
+  }
+
+  @Override
+  public String getEmail(String token) {
+    try {
+      Claims claims = parseClaims(token);
+      return claims.get("email", String.class);
     } catch (Exception e) {
       throw new IllegalArgumentException(messageUtils.getMessage("exception.auth.invalid_token"), e);
     }
@@ -128,6 +140,7 @@ public class ManageAuthTokenService implements ManageAuthTokenUseCase {
 
   private String createToken(
       String subject,
+      String email,
       String displayName,
       String role,
       java.util.List<String> privileges,
@@ -137,6 +150,7 @@ public class ManageAuthTokenService implements ManageAuthTokenUseCase {
 
     return Jwts.builder()
         .subject(subject)
+        .claim("email", email)
         .claim("displayName", displayName)
         .claim("role", role)
         .claim("privileges", privileges)

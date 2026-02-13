@@ -30,11 +30,11 @@ public class SignupService implements SignupUseCase {
     }
 
     String encodedPassword = passwordEncoder.encode(cmd.password());
-    SignupUser user = new SignupUser(cmd.email(), encodedPassword, cmd.displayName(), cmd.role());
+    SignupUser user = new SignupUser(null, cmd.email(), encodedPassword, cmd.displayName(), cmd.role());
 
-    manageSignup.save(user);
+    SignupUser savedUser = manageSignup.save(user);
 
     return manageAuthTokenUseCase.createToken(
-        new CreateTokenCmd(user.email(), user.displayName(), user.role()));
+        new CreateTokenCmd(savedUser.id(), savedUser.email(), savedUser.displayName(), savedUser.role()));
   }
 }

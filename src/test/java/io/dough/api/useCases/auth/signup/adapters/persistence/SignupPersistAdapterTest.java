@@ -14,16 +14,17 @@ import org.springframework.context.annotation.Import;
 @Import(ManageSignupPersistAdapter.class)
 class SignupPersistAdapterTest extends DataJpaTestBase {
 
-  @Autowired private ManageSignupPersistAdapter signupPersistAdapter;
+  @Autowired
+  private ManageSignupPersistAdapter signupPersistAdapter;
 
-  @Autowired private UserRepository userRepository;
+  @Autowired
+  private UserRepository userRepository;
 
   @Test
   @DisplayName("Scenario: 성공 - SignupUser 모델을 저장하면 UserEntity로 변환되어 DB에 영속화된다")
   void save_user_success() {
     // Given
-    SignupUser user =
-        new SignupUser("persist@vision.io", "encodedPassword", "Persist User", Role.USER);
+    SignupUser user = new SignupUser(null, "persist@vision.io", "encodedPassword", "Persist User", Role.USER);
 
     // When
     signupPersistAdapter.save(user);
@@ -41,7 +42,7 @@ class SignupPersistAdapterTest extends DataJpaTestBase {
   void exists_by_email_and_role_true() {
     // Given
     String email = "exists@vision.io";
-    signupPersistAdapter.save(new SignupUser(email, "pass", "User", Role.USER));
+    signupPersistAdapter.save(new SignupUser(null, email, "pass", "User", Role.USER));
 
     // When
     boolean exists = signupPersistAdapter.existsByEmailAndRole(email, Role.USER);
