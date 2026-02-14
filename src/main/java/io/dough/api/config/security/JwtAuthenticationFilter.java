@@ -34,7 +34,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         .filter(manageAuthTokenUseCase::validateToken)
         .ifPresent(
             token -> {
-              String email = manageAuthTokenUseCase.getSubject(token);
+              String userUuid = manageAuthTokenUseCase.getSubject(token);
               List<SimpleGrantedAuthority> authorities =
                   Stream.concat(
                           Stream.of(manageAuthTokenUseCase.getRole(token)),
@@ -44,7 +44,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                       .toList();
 
               UsernamePasswordAuthenticationToken authentication =
-                  new UsernamePasswordAuthenticationToken(email, null, authorities);
+                  new UsernamePasswordAuthenticationToken(userUuid, null, authorities);
               SecurityContextHolder.getContext().setAuthentication(authentication);
             });
 

@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
-public class GetUserPersistAdapter implements LoadUser {
+public class LoadUserPersistAdapter implements LoadUser {
 
   private final UserRepository userRepository;
 

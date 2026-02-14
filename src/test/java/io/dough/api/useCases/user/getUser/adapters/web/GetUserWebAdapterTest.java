@@ -10,7 +10,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import io.dough.api.common.application.enums.Role;
 import io.dough.api.support.WebMvcTestBase;
-
 import io.dough.api.useCases.user.getUser.application.GetUserUseCase;
 import io.dough.api.useCases.user.getUser.application.domain.model.GetUserCmd;
 import io.dough.api.useCases.user.getUser.application.domain.model.UserDetail;
@@ -27,13 +26,14 @@ class GetUserWebAdapterTest extends WebMvcTestBase {
   private GetUserUseCase getUserUseCase;
 
   @Test
-  @DisplayName("Scenario: 성공 - 유효한 사용자 ID로 조회 시 사용자 정보를 반환한다")
+  @DisplayName("Scenario: 성공 - 로그인된 사용자의 상세 정보를 반환한다")
   void get_user_success() throws Exception {
     // Given
     UUID userId = UUID.randomUUID();
+    String email = "test@example.com";
     UserDetail expectedUser = new UserDetail(
         userId,
-        "test@example.com",
+        email,
         "Test User",
         Role.USER);
 
@@ -41,11 +41,12 @@ class GetUserWebAdapterTest extends WebMvcTestBase {
         .willReturn(expectedUser);
 
     // When & Then
-    mockMvc.perform(get("/api/v1/user/{id}", userId))
+    mockMvc.perform(get("/api/v1/user")
+        .principal(() -> userId.toString())) // Mocking ID as Principal
         .andDo(print())
         .andExpect(status().isOk())
         .andExpect(jsonPath("$.id").value(userId.toString()))
-        .andExpect(jsonPath("$.email").value("test@example.com"))
+        .andExpect(jsonPath("$.email").value(email))
         .andExpect(jsonPath("$.displayName").value("Test User"))
         .andExpect(jsonPath("$.role").value("USER"));
 

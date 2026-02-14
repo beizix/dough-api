@@ -12,11 +12,11 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Import;
 
-@Import(GetUserPersistAdapter.class)
-class GetUserPersistAdapterTest extends DataJpaTestBase {
+@Import(LoadUserPersistAdapter.class)
+class LoadUserPersistAdapterTest extends DataJpaTestBase {
 
   @Autowired
-  private GetUserPersistAdapter adapter;
+  private LoadUserPersistAdapter adapter;
   @Autowired
   private UserRepository userRepository;
 

@@ -25,7 +25,8 @@ class JwtAuthenticationFilterTest {
 
   private JwtAuthenticationFilter filter;
 
-  @Mock private ManageAuthTokenUseCase manageAuthTokenUseCase;
+  @Mock
+  private ManageAuthTokenUseCase manageAuthTokenUseCase;
 
   private MockHttpServletRequest request;
   private MockHttpServletResponse response;
@@ -50,14 +51,14 @@ class JwtAuthenticationFilterTest {
   void authentication_success() throws Exception {
     // Given
     String token = "valid-token";
-    String email = "test@example.com";
+    String userUuid = "123e4567-e89b-12d3-a456-426614174000"; // Example UUID
     String role = "ROLE_USER";
     var privileges = java.util.List.of("ACCESS_MANAGER_API");
 
     request.addHeader("Authorization", "Bearer " + token);
 
     given(manageAuthTokenUseCase.validateToken(token)).willReturn(true);
-    given(manageAuthTokenUseCase.getSubject(token)).willReturn(email);
+    given(manageAuthTokenUseCase.getSubject(token)).willReturn(userUuid);
     given(manageAuthTokenUseCase.getRole(token)).willReturn(role);
     given(manageAuthTokenUseCase.getPrivileges(token)).willReturn(privileges);
 
@@ -67,7 +68,7 @@ class JwtAuthenticationFilterTest {
     // Then
     var authentication = SecurityContextHolder.getContext().getAuthentication();
     assertThat(authentication).isNotNull();
-    assertThat(authentication.getName()).isEqualTo(email);
+    assertThat(authentication.getName()).isEqualTo(userUuid);
 
     // 검증: JwtUseCase에서 반환된 권한이 실제로 적용되었는지 확인
     assertThat(authentication.getAuthorities())
