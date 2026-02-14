@@ -24,14 +24,14 @@ public class LoginService implements LoginUseCase {
   @Override
   public AuthToken operate(LoginCmd cmd) {
     GetUserResult user = getUser
-        .operate(cmd.email())
-        .orElseThrow(() -> new IllegalArgumentException(messageUtils.getMessage("exception.user.not_found")));
+      .operate(cmd.email(), cmd.role())
+      .orElseThrow(() -> new IllegalArgumentException(messageUtils.getMessage("exception.user.not_found")));
 
     if (!passwordEncoder.matches(cmd.password(), user.password())) {
       throw new IllegalArgumentException(messageUtils.getMessage("exception.auth.invalid_password"));
     }
 
     return manageAuthTokenUseCase.createToken(
-        new CreateTokenCmd(user.id(), user.email(), user.displayName(), user.role()));
+      new CreateTokenCmd(user.id(), user.email(), user.displayName(), user.role()));
   }
 }

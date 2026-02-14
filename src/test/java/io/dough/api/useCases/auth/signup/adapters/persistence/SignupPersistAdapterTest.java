@@ -30,7 +30,7 @@ class SignupPersistAdapterTest extends DataJpaTestBase {
     signupPersistAdapter.save(user);
 
     // Then
-    var foundUser = userRepository.findByEmail(user.email());
+    var foundUser = userRepository.findByEmailAndRole(user.email(), user.role());
     assertThat(foundUser).isPresent();
     assertThat(foundUser.get().getEmail()).isEqualTo(user.email());
     assertThat(foundUser.get().getDisplayName()).isEqualTo(user.displayName());

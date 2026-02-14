@@ -18,8 +18,8 @@ import org.springframework.boot.webmvc.test.autoconfigure.WebMvcTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 
-@WebMvcTest(LoginWebAdapter.class)
-class LoginWebAdapterTest extends WebMvcTestBase {
+@WebMvcTest(LoginUserWebAdapter.class)
+class LoginUserWebAdapterTest extends WebMvcTestBase {
 
   @MockitoBean private LoginUseCase loginUseCase;
 
@@ -35,7 +35,7 @@ class LoginWebAdapterTest extends WebMvcTestBase {
     // When
     mockMvc
         .perform(
-            post("/api/v1/auth/login").contentType(MediaType.APPLICATION_JSON).content(json(req)))
+            post("/api/v1/auth/login/user").contentType(MediaType.APPLICATION_JSON).content(json(req)))
         .andExpect(status().isOk())
         .andExpect(jsonPath("$.accessToken").value("access_token_value"))
         .andExpect(jsonPath("$.refreshToken").value("refresh_token_value"));

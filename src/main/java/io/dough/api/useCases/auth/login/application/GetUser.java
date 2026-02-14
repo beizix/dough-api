@@ -1,5 +1,6 @@
 package io.dough.api.useCases.auth.login.application;
 
+import io.dough.api.common.application.enums.Role;
 import io.dough.api.useCases.auth.login.application.domain.model.GetUserResult;
 import java.util.Optional;
 
@@ -12,5 +13,5 @@ public interface GetUser {
    * @param email 조회할 사용자 이메일
    * @return 사용자 정보가 존재할 경우 LoginUser, 그렇지 않을 경우 Optional.empty()
    */
-  Optional<GetUserResult> operate(String email);
+  Optional<GetUserResult> operate(String email, Role role);
 }
