@@ -68,6 +68,7 @@ class GetMyProfileServiceTest {
 
     // Then
     assertThat(result.id()).isEqualTo(userId);
+    assertThat(result.profileImageId()).isEqualTo(imageId);
     assertThat(result.profileImageUrl()).isEqualTo(expectedUrl);
     verify(loadMyProfile).operate(userId);
     verify(getFileURLUseCase).operate(imageId);

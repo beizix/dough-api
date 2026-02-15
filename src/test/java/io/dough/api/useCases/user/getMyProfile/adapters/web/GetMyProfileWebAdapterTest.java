@@ -38,6 +38,7 @@ class GetMyProfileWebAdapterTest extends WebMvcTestBase {
             "Test User",
             Role.USER,
             LocalDateTime.now(),
+            null,
             "http://example.com/profile.png");
 
     given(getMyProfileUseCase.operate(any(GetMyProfileCmd.class))).willReturn(expectedUser);
@@ -53,6 +54,7 @@ class GetMyProfileWebAdapterTest extends WebMvcTestBase {
         .andExpect(jsonPath("$.displayName").value("Test User"))
         .andExpect(jsonPath("$.role").value("USER"))
         .andExpect(jsonPath("$.profileImageUrl").value("http://example.com/profile.png"))
+        .andExpect(jsonPath("$.profileImageId").value((Object) null))
         .andExpect(jsonPath("$.createdAt").exists());
 
     verify(getMyProfileUseCase).operate(any(GetMyProfileCmd.class));

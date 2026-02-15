@@ -10,4 +10,5 @@ public record GetMyProfileResponse(
     String displayName,
     Role role,
     LocalDateTime createdAt,
+    UUID profileImageId,
     String profileImageUrl) {}
