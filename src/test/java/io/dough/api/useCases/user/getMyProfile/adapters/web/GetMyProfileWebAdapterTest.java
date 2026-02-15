@@ -52,9 +52,7 @@ class GetMyProfileWebAdapterTest extends WebMvcTestBase {
         .andExpect(jsonPath("$.id").value(userId.toString()))
         .andExpect(jsonPath("$.email").value(email))
         .andExpect(jsonPath("$.displayName").value("Test User"))
-        .andExpect(jsonPath("$.role").value("USER"))
         .andExpect(jsonPath("$.profileImageUrl").value("http://example.com/profile.png"))
-        .andExpect(jsonPath("$.profileImageId").value((Object) null))
         .andExpect(jsonPath("$.createdAt").exists());
 
     verify(getMyProfileUseCase).operate(any(GetMyProfileCmd.class));

@@ -37,9 +37,7 @@ public class GetMyProfileWebAdapter {
             result.id(),
             result.email(),
             result.displayName(),
-            result.role(),
             result.createdAt(),
-            result.profileImageId(),
             result.profileImageUrl());
 
     return ResponseEntity.ok(response);
