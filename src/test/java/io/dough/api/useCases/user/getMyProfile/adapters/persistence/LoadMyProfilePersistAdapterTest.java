@@ -1,4 +1,4 @@
-package io.dough.api.useCases.user.getUser.adapters.persistence;
+package io.dough.api.useCases.user.getMyProfile.adapters.persistence;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -6,28 +6,28 @@ import io.dough.api.common.adapters.persistence.entity.UserEntity;
 import io.dough.api.common.adapters.persistence.repository.UserRepository;
 import io.dough.api.common.application.enums.Role;
 import io.dough.api.support.DataJpaTestBase;
-import io.dough.api.useCases.user.getUser.application.domain.model.UserLoaded;
+import io.dough.api.useCases.user.getMyProfile.application.domain.model.MyProfileLoaded;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Import;
 
-@Import(LoadUserPersistAdapter.class)
-class LoadUserPersistAdapterTest extends DataJpaTestBase {
+@Import(LoadMyProfilePersistAdapter.class)
+class LoadMyProfilePersistAdapterTest extends DataJpaTestBase {
 
-  @Autowired private LoadUserPersistAdapter adapter;
+  @Autowired private LoadMyProfilePersistAdapter adapter;
   @Autowired private UserRepository userRepository;
 
   @Test
-  @DisplayName("Scenario: 성공 - 저장된 사용자를 ID로 조회하면 올바른 UserLoaded 정보를 반환한다")
-  void load_user_success() {
+  @DisplayName("Scenario: 성공 - 저장된 사용자를 ID로 조회하면 올바른 MyProfileLoaded 정보를 반환한다")
+  void load_my_profile_success() {
     // Given
     UserEntity savedUser =
         userRepository.save(
             new UserEntity("test@example.com", "password", "Test User", Role.USER, "token"));
 
     // When
-    UserLoaded result = adapter.operate(savedUser.getId());
+    MyProfileLoaded result = adapter.operate(savedUser.getId());
 
     // Then
     assertThat(result).isNotNull();

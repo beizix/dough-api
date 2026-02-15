@@ -1,9 +1,9 @@
-package io.dough.api.useCases.user.getUser.adapters.web;
+package io.dough.api.useCases.user.getMyProfile.adapters.web;
 
-import io.dough.api.useCases.user.getUser.adapters.web.model.GetUserResponse;
-import io.dough.api.useCases.user.getUser.application.GetUserUseCase;
-import io.dough.api.useCases.user.getUser.application.domain.model.GetUserCmd;
-import io.dough.api.useCases.user.getUser.application.domain.model.UserDetail;
+import io.dough.api.useCases.user.getMyProfile.adapters.web.model.GetMyProfileResponse;
+import io.dough.api.useCases.user.getMyProfile.application.GetMyProfileUseCase;
+import io.dough.api.useCases.user.getMyProfile.application.domain.model.GetMyProfileCmd;
+import io.dough.api.useCases.user.getMyProfile.application.domain.model.MyProfile;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -15,25 +15,25 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@Tag(name = "사용자 조회", description = "사용자 상세 정보 조회 API")
+@Tag(name = "사용자 정보", description = "로그인한 사용자 관련 API")
 @RestController
-@RequestMapping("/api/v1/user/info")
+@RequestMapping("/api/v1/user/profile")
 @RequiredArgsConstructor
-public class GetUserWebAdapter {
+public class GetMyProfileWebAdapter {
 
-  private final GetUserUseCase getUserUseCase;
+  private final GetMyProfileUseCase getMyProfileUseCase;
 
   @Operation(summary = "내 정보 조회", description = "로그인된 사용자의 상세 정보를 조회합니다.")
   @ApiResponse(responseCode = "200", description = "성공")
   @GetMapping
-  public ResponseEntity<GetUserResponse> getUser(Principal principal) {
+  public ResponseEntity<GetMyProfileResponse> getMyProfile(Principal principal) {
     // Principal.getName() returns the UUID string as set in JwtAuthenticationFilter
     UUID userId = UUID.fromString(principal.getName());
-    GetUserCmd cmd = new GetUserCmd(userId);
-    UserDetail result = getUserUseCase.operate(cmd);
+    GetMyProfileCmd cmd = new GetMyProfileCmd(userId);
+    MyProfile result = getMyProfileUseCase.operate(cmd);
 
-    GetUserResponse response =
-        new GetUserResponse(
+    GetMyProfileResponse response =
+        new GetMyProfileResponse(
             result.id(),
             result.email(),
             result.displayName(),

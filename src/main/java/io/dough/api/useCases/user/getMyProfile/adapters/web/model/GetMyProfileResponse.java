@@ -1,12 +1,13 @@
-package io.dough.api.useCases.user.getUser.adapters.web.model;
+package io.dough.api.useCases.user.getMyProfile.adapters.web.model;
 
 import io.dough.api.common.application.enums.Role;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
-public record GetUserResponse(
+public record GetMyProfileResponse(
     UUID id,
     String email,
     String displayName,
     Role role,
-    java.time.LocalDateTime createdAt,
+    LocalDateTime createdAt,
     String profileImageUrl) {}

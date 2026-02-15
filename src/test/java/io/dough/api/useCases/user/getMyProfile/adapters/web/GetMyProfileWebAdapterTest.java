@@ -1,4 +1,4 @@
-package io.dough.api.useCases.user.getUser.adapters.web;
+package io.dough.api.useCases.user.getMyProfile.adapters.web;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
@@ -10,9 +10,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import io.dough.api.common.application.enums.Role;
 import io.dough.api.support.WebMvcTestBase;
-import io.dough.api.useCases.user.getUser.application.GetUserUseCase;
-import io.dough.api.useCases.user.getUser.application.domain.model.GetUserCmd;
-import io.dough.api.useCases.user.getUser.application.domain.model.UserDetail;
+import io.dough.api.useCases.user.getMyProfile.application.GetMyProfileUseCase;
+import io.dough.api.useCases.user.getMyProfile.application.domain.model.GetMyProfileCmd;
+import io.dough.api.useCases.user.getMyProfile.application.domain.model.MyProfile;
 import java.time.LocalDateTime;
 import java.util.UUID;
 import org.junit.jupiter.api.DisplayName;
@@ -20,19 +20,19 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.webmvc.test.autoconfigure.WebMvcTest;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 
-@WebMvcTest(GetUserWebAdapter.class)
-class GetUserWebAdapterTest extends WebMvcTestBase {
+@WebMvcTest(GetMyProfileWebAdapter.class)
+class GetMyProfileWebAdapterTest extends WebMvcTestBase {
 
-  @MockitoBean private GetUserUseCase getUserUseCase;
+  @MockitoBean private GetMyProfileUseCase getMyProfileUseCase;
 
   @Test
   @DisplayName("Scenario: 성공 - 로그인된 사용자의 상세 정보를 반환한다")
-  void get_user_success() throws Exception {
+  void get_my_profile_success() throws Exception {
     // Given
     UUID userId = UUID.randomUUID();
     String email = "test@example.com";
-    UserDetail expectedUser =
-        new UserDetail(
+    MyProfile expectedUser =
+        new MyProfile(
             userId,
             email,
             "Test User",
@@ -40,12 +40,12 @@ class GetUserWebAdapterTest extends WebMvcTestBase {
             LocalDateTime.now(),
             "http://example.com/profile.png");
 
-    given(getUserUseCase.operate(any(GetUserCmd.class))).willReturn(expectedUser);
+    given(getMyProfileUseCase.operate(any(GetMyProfileCmd.class))).willReturn(expectedUser);
 
     // When & Then
     mockMvc
         .perform(
-            get("/api/v1/user/info").principal(() -> userId.toString())) // Mocking ID as Principal
+            get("/api/v1/user/profile").principal(() -> userId.toString())) // Mocking ID as Principal
         .andDo(print())
         .andExpect(status().isOk())
         .andExpect(jsonPath("$.id").value(userId.toString()))
@@ -55,6 +55,6 @@ class GetUserWebAdapterTest extends WebMvcTestBase {
         .andExpect(jsonPath("$.profileImageUrl").value("http://example.com/profile.png"))
         .andExpect(jsonPath("$.createdAt").exists());
 
-    verify(getUserUseCase).operate(any(GetUserCmd.class));
+    verify(getMyProfileUseCase).operate(any(GetMyProfileCmd.class));
   }
 }
