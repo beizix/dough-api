@@ -82,14 +82,14 @@ io.dough.api/
         |       `-- model
         |           |-- <USE_CASE_NAME>Request.java
         |           `-- <USE_CASE_NAME>Response.java
-        `-- application
-            |-- <USE_CASE_NAME>UseCase.java (입력 포트)
-            |-- <BEHAVIOR>.java (출력 포트 - 행위 중심 네이밍)
-            `-- domain
-                |-- <USE_CASE_NAME>Service.java
-                `-- model
-                    |-- <USE_CASE_NAME>.java (도메인 모델)
-                    `-- <USE_CASE_NAME>Cmd.java (유스케이스 커맨드)
+        |-- application
+        |   |-- <USE_CASE_NAME>UseCase.java (입력 포트)
+        |   |-- <BEHAVIOR>.java (출력 포트 - 행위 중심 네이밍)
+        |   `-- <USE_CASE_NAME>Service.java (서비스/유스케이스 구현체 - 흐름 조율)
+        `-- domain
+            `-- model
+                |-- <USE_CASE_NAME>.java (도메인 모델)
+                `-- <USE_CASE_NAME>Cmd.java (유스케이스 커맨드)
 ```
 
 ## 헥사고날 계층과 컴포넌트
@@ -99,28 +99,29 @@ io.dough.api/
 가장 외부에 위치한 계층으로, 전역적인 애플리케이션 설정을 담당합니다. 이 계층은 다른 모든 계층(application, adapters 등)을 참조할 수 있습니다. 하지만 어떤 계층도 `config` 계층을 직접 참조해서는
 안 됩니다. `config/` 패키지가 이 계층의 기본 경로입니다.
 
-### `application` (애플리케이션의 핵심)
+### `application` (애플리케이션의 핵심 - 절차 및 조율)
 
-애플리케이션의 순수한 비즈니스 로직과 인터페이스(계약)를 정의합니다. 외부 세계(프레임워크, UI, DB 등)에 대한 의존성이 없습니다.
-**절대 원칙: Application Layer는 Web Layer(Req, Res)나 Persistence Layer(Entity, Dao)의 객체를 참조(Import)해서는 안 됩니다. 데이터 교환은 오직 `application/model` 에 정의된 객체로만 수행합니다.**
+애플리케이션의 흐름을 제어하고 유스케이스를 구현하는 계층입니다. 외부 세계(프레임워크, UI, DB 등)에 대한 의존성이 없습니다.
+**절대 원칙: Application Layer는 Web Layer(Req, Res)나 Persistence Layer(Entity, Dao)의 객체를 참조(Import)해서는 안 됩니다. 데이터 교환은 오직 `domain/model` 에 정의된 객체로만 수행합니다.**
 
 -   `application/<USE_CASE_NAME>UseCase.java`: **입력 포트(Input Port)**
   -   애플리케이션을 구동하는 방법을 정의하는 인터페이스입니다.
-  -   외부 어댑터(예: `web` 컨트롤러)가 이 인터페이스를 호출하여 비즈니스 로직을 실행합니다.
   -   메서드 이름은 무조건 `operate` 입니다.
 
 -   `application/<BEHAVIOR>.java`: **출력 포트(Output Port)**
-  -   **중요**: 더 이상 `<USE_CASE_NAME>PortOut.java` 형식을 사용하지 않습니다. 대신 `GetUser`, `SaveFile` 처럼 **행위 중심의 네이밍**을 사용합니다.
   -   애플리케이션이 외부 세계(DB, 외부 API 등)와 소통하는 방법을 정의하는 인터페이스입니다.
-  -   `persistence` 어댑터가 이 인터페이스를 구현합니다.
   -   메서드 이름은 무조건 `operate` 입니다.
-  -   Port 구현체에서 Entity 객체를 생성하는 경우 반드시 `생성자 패턴`을 따릅니다. setter 는 가급적 사용하지 않습니다.
 
--   `application/domain/<USE_CASE_NAME>Service.java`: **서비스/유스케이스 구현체**
-  -   실제 비즈니스 로직을 수행합니다. `application/domain` 패키지에 위치합니다.
+-   `application/<USE_CASE_NAME>Service.java`: **서비스/유스케이스 구현체**
+  -   실제 비즈니스 로직의 **절차(Step)**를 수행하고 트랜잭션을 관리합니다.
   -   `UseCase` 인터페이스를 구현하고, 출력 포트 인터페이스를 호출하여 필요한 데이터를 주고받습니다.
+  -   비즈니스 판단(Rule) 자체는 `domain` 모델에게 위임합니다.
 
--   `application/domain/model/`: **도메인 모델**
+### `domain` (비즈니스 핵심 로직 - 데이터와 규칙)
+
+실제 비즈니스 규칙과 도메인 모델을 정의합니다.
+
+-   `domain/model/`: **도메인 모델**
   -   비즈니스의 핵심 데이터와 규칙을 담는 모델 객체(커맨드 등)가 위치합니다.
 
 ### `adapters` (외부 세계와의 연결)
