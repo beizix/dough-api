@@ -41,14 +41,9 @@ class UpdatePasswordServiceTest {
   @Test
   @DisplayName("Scenario: 실패 - 신규 패스워드와 확인 패스워드가 일치하지 않으면 예외가 발생한다")
   void update_password_mismatch_fail() {
-    // Given
-    UpdatePasswordCmd cmd = new UpdatePasswordCmd(UUID.randomUUID(), "current", "new", "mismatch");
-
     // When & Then
-    assertThatThrownBy(() -> updatePasswordService.operate(cmd))
+    assertThatThrownBy(() -> new UpdatePasswordCmd(UUID.randomUUID(), "current", "new", "mismatch"))
         .isInstanceOf(IllegalArgumentException.class);
-    
-    verify(saveUser, never()).operate(any());
   }
 
   @Test
