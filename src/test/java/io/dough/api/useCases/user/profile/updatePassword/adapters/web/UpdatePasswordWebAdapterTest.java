@@ -8,7 +8,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import io.dough.api.support.WebMvcTestBase;
 import io.dough.api.useCases.user.profile.updatePassword.adapters.web.model.UpdatePasswordRequest;
 import io.dough.api.useCases.user.profile.updatePassword.application.UpdatePasswordUseCase;
-import io.dough.api.useCases.user.profile.updatePassword.domain.model.UpdatePasswordCmd;
+import io.dough.api.useCases.user.profile.updatePassword.domain.UpdatePasswordCmd;
 import java.util.List;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

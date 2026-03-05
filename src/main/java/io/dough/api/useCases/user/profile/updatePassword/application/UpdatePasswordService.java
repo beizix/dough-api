@@ -1,7 +1,7 @@
 package io.dough.api.useCases.user.profile.updatePassword.application;
 
-import io.dough.api.useCases.user.profile.updatePassword.domain.model.UpdatePassword;
-import io.dough.api.useCases.user.profile.updatePassword.domain.model.UpdatePasswordCmd;
+import io.dough.api.useCases.user.profile.updatePassword.domain.UpdatePassword;
+import io.dough.api.useCases.user.profile.updatePassword.domain.UpdatePasswordCmd;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;

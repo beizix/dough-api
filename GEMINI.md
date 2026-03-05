@@ -83,13 +83,14 @@ io.dough.api/
         |           |-- <USE_CASE_NAME>Request.java
         |           `-- <USE_CASE_NAME>Response.java
         |-- application
+        |   |-- model
+        |   |   `-- <NAME>Loaded.java (포트 DTO - 데이터 전달용 객체)
         |   |-- <USE_CASE_NAME>UseCase.java (입력 포트)
         |   |-- <BEHAVIOR>.java (출력 포트 - 행위 중심 네이밍)
-        |   `-- <USE_CASE_NAME>Service.java (서비스/유스케이스 구현체 - 흐름 조율)
+        |   `-- <USE_CASE_NAME>Service.java (서비스 구현체 - 흐름 조율)
         `-- domain
-            `-- model
-                |-- <USE_CASE_NAME>.java (도메인 모델)
-                `-- <USE_CASE_NAME>Cmd.java (유스케이스 커맨드)
+            |-- <USE_CASE_NAME>.java (도메인 모델)
+            `-- <USE_CASE_NAME>Cmd.java (유스케이스 커맨드)
 ```
 
 ## 헥사고날 계층과 컴포넌트
@@ -102,7 +103,7 @@ io.dough.api/
 ### `application` (애플리케이션의 핵심 - 절차 및 조율)
 
 애플리케이션의 흐름을 제어하고 유스케이스를 구현하는 계층입니다. 외부 세계(프레임워크, UI, DB 등)에 대한 의존성이 없습니다.
-**절대 원칙: Application Layer는 Web Layer(Req, Res)나 Persistence Layer(Entity, Dao)의 객체를 참조(Import)해서는 안 됩니다. 데이터 교환은 오직 `domain/model` 에 정의된 객체로만 수행합니다.**
+**절대 원칙: Application Layer는 Web Layer(Req, Res)나 Persistence Layer(Entity, Dao)의 객체를 참조(Import)해서는 안 됩니다. 데이터 교환은 오직 `application` 또는 `domain` 에 정의된 객체로만 수행합니다.**
 
 -   `application/<USE_CASE_NAME>UseCase.java`: **입력 포트(Input Port)**
   -   애플리케이션을 구동하는 방법을 정의하는 인터페이스입니다.
@@ -112,17 +113,21 @@ io.dough.api/
   -   애플리케이션이 외부 세계(DB, 외부 API 등)와 소통하는 방법을 정의하는 인터페이스입니다.
   -   메서드 이름은 무조건 `operate` 입니다.
 
--   `application/<USE_CASE_NAME>Service.java`: **서비스/유스케이스 구현체**
+-   `application/model/`: **포트 DTO**
+  -   포트 인터페이스에서 데이터 전달을 위해 사용되는 객체(예: `ProfileLoaded`)가 위치합니다.
+
+-   `application/<USE_CASE_NAME>Service.java`: **서비스 구현체**
   -   실제 비즈니스 로직의 **절차(Step)**를 수행하고 트랜잭션을 관리합니다.
   -   `UseCase` 인터페이스를 구현하고, 출력 포트 인터페이스를 호출하여 필요한 데이터를 주고받습니다.
   -   비즈니스 판단(Rule) 자체는 `domain` 모델에게 위임합니다.
 
 ### `domain` (비즈니스 핵심 로직 - 데이터와 규칙)
 
-실제 비즈니스 규칙과 도메인 모델을 정의합니다.
+실제 비즈니스 규칙과 도메인 모델을 정의합니다. **`model` 서브 패키지는 생성하지 않고 `domain` 패키지 바로 아래에 위치시킵니다.**
 
--   `domain/model/`: **도메인 모델**
-  -   비즈니스의 핵심 데이터와 규칙을 담는 모델 객체(커맨드 등)가 위치합니다.
+-   `domain/`: **도메인 모델 및 커맨드**
+  -   비즈니스의 핵심 데이터와 규칙을 담는 모델 객체(`Profile`, `UpdatePassword` 등)와 유스케이스 실행에 필요한 커맨드 객체(`GetProfileCmd` 등)가 위치합니다.
+  -   **도메인 모델은 애플리케이션 계층의 객체(Port DTO 등)를 참조해서는 안 됩니다.**
 
 ### `adapters` (외부 세계와의 연결)
 

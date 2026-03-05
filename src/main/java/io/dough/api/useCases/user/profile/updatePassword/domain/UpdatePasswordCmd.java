@@ -1,4 +1,4 @@
-package io.dough.api.useCases.user.profile.updatePassword.domain.model;
+package io.dough.api.useCases.user.profile.updatePassword.domain;
 
 import io.dough.api.common.application.utils.MessageUtils;
 import java.util.UUID;

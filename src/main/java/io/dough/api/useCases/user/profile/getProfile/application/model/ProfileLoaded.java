@@ -1,4 +1,4 @@
-package io.dough.api.useCases.user.profile.getProfile.application.domain.model;
+package io.dough.api.useCases.user.profile.getProfile.application.model;
 
 import io.dough.api.common.application.enums.Role;
 import java.time.LocalDateTime;

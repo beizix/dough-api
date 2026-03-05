@@ -7,7 +7,7 @@ import io.dough.api.common.adapters.persistence.repository.UserRepository;
 import io.dough.api.common.application.enums.Role;
 import io.dough.api.support.DataJpaTestBase;
 import io.dough.api.useCases.user.profile.getProfile.adapters.persistence.LoadProfilePersistAdapter;
-import io.dough.api.useCases.user.profile.getProfile.application.domain.model.ProfileLoaded;
+import io.dough.api.useCases.user.profile.getProfile.application.model.ProfileLoaded;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
