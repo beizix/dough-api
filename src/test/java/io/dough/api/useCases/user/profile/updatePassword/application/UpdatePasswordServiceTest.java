@@ -1,4 +1,4 @@
-package io.dough.api.useCases.user.profile.updatePassword.application.domain;
+package io.dough.api.useCases.user.profile.updatePassword.application;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
@@ -7,10 +7,8 @@ import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 
 import io.dough.api.common.application.utils.MessageUtils;
-import io.dough.api.useCases.user.profile.updatePassword.application.GetUser;
-import io.dough.api.useCases.user.profile.updatePassword.application.SaveUser;
-import io.dough.api.useCases.user.profile.updatePassword.application.domain.model.UpdatePassword;
-import io.dough.api.useCases.user.profile.updatePassword.application.domain.model.UpdatePasswordCmd;
+import io.dough.api.useCases.user.profile.updatePassword.domain.model.UpdatePassword;
+import io.dough.api.useCases.user.profile.updatePassword.domain.model.UpdatePasswordCmd;
 import java.util.UUID;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;

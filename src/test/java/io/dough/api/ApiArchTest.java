@@ -19,26 +19,26 @@ public class ApiArchTest {
   final Architectures.LayeredArchitecture layeredArchitecture =
       layeredArchitecture()
           .consideringOnlyDependenciesInAnyPackage("io.dough.api..")
-          // `(외부) 인바운드 어뎁터` 계층 정의
+          // `(외부) 인바운드 어댑터` 계층 정의
           .layer("inboundAdapters")
           .definedBy("..adapters.web..")
-          // `(내부) 코어` 계층 정의
-          .layer("core")
-          .definedBy("..application..")
-          // `(외부) 아웃바운드 어뎁터` 계층 정의
+          // `애플리케이션 계층` 정의
+          .layer("application")
+          .definedBy("..domain..", "..application..")
+          // `(외부) 아웃바운드 어댑터` 계층 정의
           .layer("outboundAdapters")
           .definedBy("..adapters.persistence..", "..adapters.ai..", "..adapters.storage..")
           // `(설정) 구성 요소` 계층 정의
           .layer("config")
           .definedBy("..config..");
 
-  @DisplayName("`(외부) 인바운드 어뎁터` 계층은 오직 `(내부) 코어` 계층 만 참조할 수 있다.")
+  @DisplayName("`(외부) 인바운드 어댑터` 계층은 오직 `애플리케이션 계층` 만 참조할 수 있다.")
   @Test
   void webLayerMayOnlyAccessToApplication() {
-    layeredArchitecture.whereLayer("inboundAdapters").mayOnlyAccessLayers("core").check(classes);
+    layeredArchitecture.whereLayer("inboundAdapters").mayOnlyAccessLayers("application").check(classes);
   }
 
-  @DisplayName("`(외부) 인바운드 어뎁터` 계층은 오직 `(설정) 구성 요소` 계층 만 접근을 허용 한다.")
+  @DisplayName("`(외부) 인바운드 어댑터` 계층은 오직 `(설정) 구성 요소` 계층 만 접근을 허용 한다.")
   @Test
   void webLayerMayOnlyBeAccessedByLayers() {
     layeredArchitecture
@@ -47,32 +47,32 @@ public class ApiArchTest {
         .check(classes);
   }
 
-  @DisplayName("`(외부) 아웃바운드 어덥터` 계층은 오직 `(내부) 코어` 계층 만 참조할 수 있다.")
+  @DisplayName("`(외부) 아웃바운드 어댑터` 계층은 오직 `애플리케이션 계층` 만 참조할 수 있다.")
   @Test
   void persistenceLayerMayOnlyAccessToApplication() {
-    layeredArchitecture.whereLayer("outboundAdapters").mayOnlyAccessLayers("core").check(classes);
+    layeredArchitecture.whereLayer("outboundAdapters").mayOnlyAccessLayers("application").check(classes);
   }
 
-  @DisplayName("`(외부) 아웃바운드 어덥터` 계층은 오직 `(내부) 코어` 과 `(설정) 구성 요소` 계층 만 접근을 허용 한다.")
+  @DisplayName("`(외부) 아웃바운드 어댑터` 계층은 오직 `애플리케이션 계층` 과 `(설정) 구성 요소` 계층 만 접근을 허용 한다.")
   @Test
   void mayOnlyBeAccessedByLayers() {
     layeredArchitecture
         .whereLayer("outboundAdapters")
-        .mayOnlyBeAccessedByLayers("core", "config")
+        .mayOnlyBeAccessedByLayers("application", "config")
         .check(classes);
   }
 
-  @DisplayName("`(내부) 코어` 계층은 어느 계층도 참조 하지 않는다(중요).")
+  @DisplayName("`애플리케이션 계층`은 어느 계층도 참조 하지 않는다(중요).")
   @Test
   void applicationMayNotAccessAnyLayer() {
-    layeredArchitecture.whereLayer("core").mayNotAccessAnyLayer().check(classes);
+    layeredArchitecture.whereLayer("application").mayNotAccessAnyLayer().check(classes);
   }
 
-  @DisplayName("`(내부) 코어` 계층은 모든 계층의 접근을 허용 한다.")
+  @DisplayName("`애플리케이션 계층`은 모든 계층의 접근을 허용 한다.")
   @Test
   void applicationLayerMayOnlyBeAccessedByLayers() {
     layeredArchitecture
-        .whereLayer("core")
+        .whereLayer("application")
         .mayOnlyBeAccessedByLayers("inboundAdapters", "outboundAdapters", "config")
         .check(classes);
   }
@@ -82,7 +82,7 @@ public class ApiArchTest {
   void configMayOnlyAccessLayers() {
     layeredArchitecture
         .whereLayer("config")
-        .mayOnlyAccessLayers("inboundAdapters", "core", "outboundAdapters")
+        .mayOnlyAccessLayers("inboundAdapters", "application", "outboundAdapters")
         .check(classes);
   }
 
