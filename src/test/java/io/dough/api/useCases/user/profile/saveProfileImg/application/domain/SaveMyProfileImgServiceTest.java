@@ -9,7 +9,7 @@ import static org.mockito.Mockito.verify;
 import io.dough.api.useCases.file.getFileURL.application.GetFileURLUseCase;
 import io.dough.api.useCases.file.saveFile.application.SaveFileUseCase;
 import io.dough.api.useCases.file.saveFile.domain.FileUploadType;
-import io.dough.api.useCases.file.saveFile.application.model.SaveFile;
+import io.dough.api.useCases.file.saveFile.domain.SaveFile;
 import io.dough.api.useCases.user.profile.saveProfileImg.application.SaveProfileImgService;
 import io.dough.api.useCases.user.profile.saveProfileImg.application.UpdateUserProfileImg;
 import io.dough.api.useCases.user.profile.saveProfileImg.domain.SaveProfileImgCmd;

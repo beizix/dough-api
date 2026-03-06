@@ -1,6 +1,4 @@
-package io.dough.api.useCases.file.saveFile.application.model;
-
-import io.dough.api.useCases.file.saveFile.domain.FileUploadType;
+package io.dough.api.useCases.file.saveFile.domain;
 
 import java.util.UUID;
 

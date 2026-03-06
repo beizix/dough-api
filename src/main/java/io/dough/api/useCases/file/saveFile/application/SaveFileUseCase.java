@@ -1,7 +1,7 @@
 package io.dough.api.useCases.file.saveFile.application;
 
 import io.dough.api.useCases.file.saveFile.domain.FileUploadType;
-import io.dough.api.useCases.file.saveFile.application.model.SaveFile;
+import io.dough.api.useCases.file.saveFile.domain.SaveFile;
 import java.io.InputStream;
 
 /** 주어진 입력 스트림을 비즈니스 규칙에 따라 저장소에 업로드하고, 파일 메타데이터를 생성합니다. */
