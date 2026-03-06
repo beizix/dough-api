@@ -5,8 +5,8 @@ import io.dough.api.useCases.auth.manageToken.adapters.web.model.RefreshResponse
 import io.dough.api.useCases.auth.manageToken.adapters.web.model.ValidateRequest;
 import io.dough.api.useCases.auth.manageToken.adapters.web.model.ValidateResponse;
 import io.dough.api.useCases.auth.manageToken.application.ManageAuthTokenUseCase;
-import io.dough.api.useCases.auth.manageToken.application.domain.model.AuthToken;
-import io.dough.api.useCases.auth.manageToken.application.domain.model.RefreshTokenCmd;
+import io.dough.api.useCases.auth.manageToken.domain.AuthToken;
+import io.dough.api.useCases.auth.manageToken.domain.RefreshTokenCmd;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;

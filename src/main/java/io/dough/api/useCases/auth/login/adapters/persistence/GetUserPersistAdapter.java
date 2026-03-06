@@ -3,7 +3,7 @@ package io.dough.api.useCases.auth.login.adapters.persistence;
 import io.dough.api.common.adapters.persistence.repository.UserRepository;
 import io.dough.api.common.application.enums.Role;
 import io.dough.api.useCases.auth.login.application.GetUser;
-import io.dough.api.useCases.auth.login.application.domain.model.GetUserResult;
+import io.dough.api.useCases.auth.login.application.model.GetUserResult;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;

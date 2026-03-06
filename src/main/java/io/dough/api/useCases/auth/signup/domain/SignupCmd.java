@@ -1,4 +1,4 @@
-package io.dough.api.useCases.auth.signup.application.domain.model;
+package io.dough.api.useCases.auth.signup.domain;
 
 import io.dough.api.common.application.enums.Role;
 

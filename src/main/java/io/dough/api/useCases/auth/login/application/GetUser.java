@@ -1,7 +1,7 @@
 package io.dough.api.useCases.auth.login.application;
 
 import io.dough.api.common.application.enums.Role;
-import io.dough.api.useCases.auth.login.application.domain.model.GetUserResult;
+import io.dough.api.useCases.auth.login.application.model.GetUserResult;
 import java.util.Optional;
 
 /** 로그인 유스케이스에서 요구하는 사용자 정보 조회를 정의한 출력 포트입니다. */

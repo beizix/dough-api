@@ -6,12 +6,11 @@ import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
 
 import io.dough.api.common.application.enums.Role;
-import io.dough.api.useCases.auth.login.application.domain.LoginService;
-import io.dough.api.useCases.auth.login.application.domain.model.GetUserResult;
-import io.dough.api.useCases.auth.login.application.domain.model.LoginCmd;
+import io.dough.api.useCases.auth.login.application.model.GetUserResult;
+import io.dough.api.useCases.auth.login.domain.LoginCmd;
 import io.dough.api.useCases.auth.manageToken.application.ManageAuthTokenUseCase;
-import io.dough.api.useCases.auth.manageToken.application.domain.model.AuthToken;
-import io.dough.api.useCases.auth.manageToken.application.domain.model.CreateTokenCmd;
+import io.dough.api.useCases.auth.manageToken.domain.AuthToken;
+import io.dough.api.useCases.auth.manageToken.domain.CreateTokenCmd;
 import java.util.Optional;
 import java.util.UUID;
 import org.junit.jupiter.api.DisplayName;

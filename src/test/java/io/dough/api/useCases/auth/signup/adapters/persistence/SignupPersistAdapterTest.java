@@ -5,7 +5,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import io.dough.api.common.adapters.persistence.repository.UserRepository;
 import io.dough.api.common.application.enums.Role;
 import io.dough.api.support.DataJpaTestBase;
-import io.dough.api.useCases.auth.signup.application.domain.model.SignupUser;
+import io.dough.api.useCases.auth.signup.application.model.SignupUser;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

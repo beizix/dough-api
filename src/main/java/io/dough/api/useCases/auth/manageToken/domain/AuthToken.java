@@ -1,4 +1,4 @@
-package io.dough.api.useCases.auth.manageToken.application.domain.model;
+package io.dough.api.useCases.auth.manageToken.domain;
 
 /**
  * 인증 성공 후 발급되는 토큰 세트입니다.

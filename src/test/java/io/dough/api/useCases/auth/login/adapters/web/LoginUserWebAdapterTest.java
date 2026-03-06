@@ -10,8 +10,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import io.dough.api.support.WebMvcTestBase;
 import io.dough.api.useCases.auth.login.adapters.web.model.LoginRequest;
 import io.dough.api.useCases.auth.login.application.LoginUseCase;
-import io.dough.api.useCases.auth.login.application.domain.model.LoginCmd;
-import io.dough.api.useCases.auth.manageToken.application.domain.model.AuthToken;
+import io.dough.api.useCases.auth.login.domain.LoginCmd;
+import io.dough.api.useCases.auth.manageToken.domain.AuthToken;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.webmvc.test.autoconfigure.WebMvcTest;

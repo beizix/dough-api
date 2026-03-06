@@ -8,10 +8,10 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import io.dough.api.support.WebMvcTestBase;
-import io.dough.api.useCases.auth.manageToken.application.domain.model.AuthToken;
+import io.dough.api.useCases.auth.manageToken.domain.AuthToken;
 import io.dough.api.useCases.auth.signup.adapters.web.model.SignupUserRequest;
 import io.dough.api.useCases.auth.signup.application.SignupUseCase;
-import io.dough.api.useCases.auth.signup.application.domain.model.SignupCmd;
+import io.dough.api.useCases.auth.signup.domain.SignupCmd;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.webmvc.test.autoconfigure.WebMvcTest;

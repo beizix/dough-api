@@ -1,4 +1,4 @@
-package io.dough.api.useCases.auth.manageToken.application.domain.model;
+package io.dough.api.useCases.auth.manageToken.domain;
 
 /**
  * 토큰 갱신 요청 시 사용되는 리프레시 토큰 정보를 담은 커맨드 객체입니다.

@@ -1,4 +1,4 @@
-package io.dough.api.useCases.auth.manageToken.application.domain.model;
+package io.dough.api.useCases.auth.manageToken.domain;
 
 import io.dough.api.common.application.enums.Role;
 import java.util.UUID;

@@ -6,10 +6,9 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import io.dough.api.common.application.enums.Role;
-import io.dough.api.useCases.auth.manageToken.application.domain.ManageAuthTokenService;
-import io.dough.api.useCases.auth.manageToken.application.domain.model.AuthToken;
-import io.dough.api.useCases.auth.manageToken.application.domain.model.CreateTokenCmd;
-import io.dough.api.useCases.auth.manageToken.application.domain.model.RefreshTokenCmd;
+import io.dough.api.useCases.auth.manageToken.domain.AuthToken;
+import io.dough.api.useCases.auth.manageToken.domain.CreateTokenCmd;
+import io.dough.api.useCases.auth.manageToken.domain.RefreshTokenCmd;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;

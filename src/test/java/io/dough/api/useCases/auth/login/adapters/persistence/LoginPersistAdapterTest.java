@@ -6,7 +6,7 @@ import io.dough.api.common.adapters.persistence.entity.UserEntity;
 import io.dough.api.common.adapters.persistence.repository.UserRepository;
 import io.dough.api.common.application.enums.Role;
 import io.dough.api.support.DataJpaTestBase;
-import io.dough.api.useCases.auth.login.application.domain.model.GetUserResult;
+import io.dough.api.useCases.auth.login.application.model.GetUserResult;
 import java.util.Optional;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

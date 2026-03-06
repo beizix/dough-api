@@ -1,7 +1,7 @@
 package io.dough.api.useCases.auth.signup.application;
 
 import io.dough.api.common.application.enums.Role;
-import io.dough.api.useCases.auth.signup.application.domain.model.SignupUser;
+import io.dough.api.useCases.auth.signup.application.model.SignupUser;
 
 /** 회원가입 유스케이스에서 요구하는 영속성 작업을 정의한 출력 포트입니다. */
 public interface ManageSignup {
