@@ -2,7 +2,7 @@ package io.dough.api.useCases.user.profile.saveProfileImg.adapters.web;
 
 import io.dough.api.useCases.user.profile.saveProfileImg.adapters.web.model.SaveProfileImgResponse;
 import io.dough.api.useCases.user.profile.saveProfileImg.application.SaveProfileImgUseCase;
-import io.dough.api.useCases.user.profile.saveProfileImg.application.domain.model.SaveProfileImgCmd;
+import io.dough.api.useCases.user.profile.saveProfileImg.domain.SaveProfileImgCmd;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;

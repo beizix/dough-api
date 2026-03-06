@@ -2,8 +2,8 @@ package io.dough.api.useCases.user.profile.saveProfile.adapters.web;
 
 import io.dough.api.useCases.user.profile.saveProfile.adapters.web.model.SaveProfileRequest;
 import io.dough.api.useCases.user.profile.saveProfile.application.SaveProfileUseCase;
-import io.dough.api.useCases.user.profile.saveProfile.application.domain.model.SaveProfileCmd;
-import io.dough.api.useCases.user.profile.saveProfile.application.domain.model.SavedProfile;
+import io.dough.api.useCases.user.profile.saveProfile.domain.SaveProfileCmd;
+import io.dough.api.useCases.user.profile.saveProfile.domain.SavedProfile;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;

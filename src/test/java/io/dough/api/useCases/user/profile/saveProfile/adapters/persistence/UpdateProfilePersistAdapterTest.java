@@ -7,8 +7,8 @@ import io.dough.api.common.adapters.persistence.entity.UserEntity;
 import io.dough.api.common.adapters.persistence.repository.UserRepository;
 import io.dough.api.common.application.enums.Role;
 import io.dough.api.support.DataJpaTestBase;
-import io.dough.api.useCases.user.profile.saveProfile.application.domain.model.SaveProfileCmd;
-import io.dough.api.useCases.user.profile.saveProfile.application.domain.model.SavedProfile;
+import io.dough.api.useCases.user.profile.saveProfile.domain.SaveProfileCmd;
+import io.dough.api.useCases.user.profile.saveProfile.domain.SavedProfile;
 import jakarta.persistence.EntityManager;
 import java.util.UUID;
 import org.junit.jupiter.api.DisplayName;
@@ -30,7 +30,7 @@ class UpdateProfilePersistAdapterTest extends DataJpaTestBase {
     UserEntity existingUser =
         userRepository.save(
             new UserEntity("old.email@example.com", "password", "Old Name", Role.USER, "token"));
-    
+
     // Explicitly flush to ensure createdAt is persisted and not null before update
     entityManager.flush();
     entityManager.clear(); // Detach entity to ensure it's reloaded from DB

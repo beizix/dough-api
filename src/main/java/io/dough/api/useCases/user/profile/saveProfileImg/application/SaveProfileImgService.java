@@ -1,12 +1,10 @@
-package io.dough.api.useCases.user.profile.saveProfileImg.application.domain;
+package io.dough.api.useCases.user.profile.saveProfileImg.application;
 
 import io.dough.api.useCases.file.getFileURL.application.GetFileURLUseCase;
 import io.dough.api.useCases.file.saveFile.application.SaveFileUseCase;
 import io.dough.api.useCases.file.saveFile.application.domain.model.FileUploadType;
-import io.dough.api.useCases.user.profile.saveProfileImg.application.SaveProfileImgUseCase;
-import io.dough.api.useCases.user.profile.saveProfileImg.application.UpdateUserProfileImg;
-import io.dough.api.useCases.user.profile.saveProfileImg.application.domain.model.SaveProfileImgCmd;
-import io.dough.api.useCases.user.profile.saveProfileImg.application.domain.model.SavedProfileImg;
+import io.dough.api.useCases.user.profile.saveProfileImg.domain.SaveProfileImgCmd;
+import io.dough.api.useCases.user.profile.saveProfileImg.domain.SavedProfileImg;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

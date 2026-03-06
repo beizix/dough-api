@@ -1,7 +1,7 @@
 package io.dough.api.useCases.user.profile.saveProfile.application;
 
-import io.dough.api.useCases.user.profile.saveProfile.application.domain.model.SaveProfileCmd;
-import io.dough.api.useCases.user.profile.saveProfile.application.domain.model.SavedProfile;
+import io.dough.api.useCases.user.profile.saveProfile.domain.SaveProfileCmd;
+import io.dough.api.useCases.user.profile.saveProfile.domain.SavedProfile;
 
 public interface UpdateProfile {
   SavedProfile operate(SaveProfileCmd cmd);

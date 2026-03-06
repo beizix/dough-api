@@ -5,10 +5,10 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
 
-import io.dough.api.useCases.user.profile.saveProfile.application.SaveProfileUseCase;
+import io.dough.api.useCases.user.profile.saveProfile.application.SaveProfileService;
 import io.dough.api.useCases.user.profile.saveProfile.application.UpdateProfile;
-import io.dough.api.useCases.user.profile.saveProfile.application.domain.model.SaveProfileCmd;
-import io.dough.api.useCases.user.profile.saveProfile.application.domain.model.SavedProfile;
+import io.dough.api.useCases.user.profile.saveProfile.domain.SaveProfileCmd;
+import io.dough.api.useCases.user.profile.saveProfile.domain.SavedProfile;
 import java.time.LocalDateTime;
 import java.util.UUID;
 import org.junit.jupiter.api.DisplayName;

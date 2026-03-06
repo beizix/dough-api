@@ -1,4 +1,4 @@
-package io.dough.api.useCases.user.profile.saveProfileImg.application.domain.model;
+package io.dough.api.useCases.user.profile.saveProfileImg.domain;
 
 import java.util.UUID;
 
