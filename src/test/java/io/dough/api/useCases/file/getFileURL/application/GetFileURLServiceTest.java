@@ -6,7 +6,7 @@ import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.lenient;
 import static org.mockito.Mockito.verify;
 
-import io.dough.api.useCases.file.getFileURL.application.domain.GetFileURLService;
+import io.dough.api.useCases.file.getFileURL.application.model.FileMetadata;
 import io.dough.api.useCases.file.saveFile.application.model.FileStorageType;
 import io.dough.api.useCases.file.saveFile.domain.FileUploadType;
 import java.util.NoSuchElementException;
@@ -45,8 +45,8 @@ class GetFileURLServiceTest {
     String filename = "uuid.png";
     FileUploadType fileType = FileUploadType.UPLOAD_IMG_TO_LOCAL; // LOCAL StorageType
 
-    io.dough.api.useCases.file.getFileURL.application.domain.model.GetFileURL fileResource =
-        new io.dough.api.useCases.file.getFileURL.application.domain.model.GetFileURL(
+    FileMetadata fileResource =
+        new FileMetadata(
             fileType, path, filename);
     String expectedUrl = "/uploads/images/202602/uuid.png";
 
@@ -74,8 +74,8 @@ class GetFileURLServiceTest {
             getFileMetadata, Set.of() // Empty strategies
             );
 
-    io.dough.api.useCases.file.getFileURL.application.domain.model.GetFileURL fileResource =
-        new io.dough.api.useCases.file.getFileURL.application.domain.model.GetFileURL(
+    FileMetadata fileResource =
+        new FileMetadata(
             FileUploadType.UPLOAD_IMG_TO_LOCAL, "/path", "file.png");
     given(getFileMetadata.operate(fileId)).willReturn(fileResource);
 

@@ -1,8 +1,6 @@
-package io.dough.api.useCases.file.getFileURL.application.domain;
+package io.dough.api.useCases.file.getFileURL.application;
 
-import io.dough.api.useCases.file.getFileURL.application.GetFileMetadata;
-import io.dough.api.useCases.file.getFileURL.application.GetFileURL;
-import io.dough.api.useCases.file.getFileURL.application.GetFileURLUseCase;
+import io.dough.api.useCases.file.getFileURL.application.model.FileMetadata;
 import io.dough.api.useCases.file.saveFile.application.model.FileStorageType;
 import java.util.NoSuchElementException;
 import java.util.Set;
@@ -18,10 +16,10 @@ public class GetFileURLService implements GetFileURLUseCase {
 
   @Override
   public String operate(UUID fileUuid) {
-    io.dough.api.useCases.file.getFileURL.application.domain.model.GetFileURL fileResource =
+    FileMetadata fileMetadata =
         getFileMetadata.operate(fileUuid);
-    return getResourceURLStrategy(fileResource.fileUploadType().getFileStorageType())
-        .operate(fileResource.path(), fileResource.filename());
+    return getResourceURLStrategy(fileMetadata.fileUploadType().getFileStorageType())
+        .operate(fileMetadata.path(), fileMetadata.filename());
   }
 
   private GetFileURL getResourceURLStrategy(FileStorageType fileStorageType) {

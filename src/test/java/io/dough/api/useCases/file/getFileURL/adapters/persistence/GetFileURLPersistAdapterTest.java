@@ -6,7 +6,7 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import io.dough.api.common.adapters.persistence.entity.FileMetadataEntity;
 import io.dough.api.common.adapters.persistence.repository.FileMetadataRepository;
 import io.dough.api.support.DataJpaTestBase;
-import io.dough.api.useCases.file.getFileURL.application.domain.model.GetFileURL;
+import io.dough.api.useCases.file.getFileURL.application.model.FileMetadata;
 import io.dough.api.useCases.file.saveFile.domain.FileUploadType;
 import java.util.NoSuchElementException;
 import java.util.UUID;
@@ -44,7 +44,7 @@ class GetFileURLPersistAdapterTest extends DataJpaTestBase {
     repository.save(entity);
 
     // When
-    GetFileURL result = adapter.operate(fileId);
+    FileMetadata result = adapter.operate(fileId);
 
     // Then
     assertThat(result).isNotNull();
