@@ -6,7 +6,6 @@ import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 
-import io.dough.api.common.application.utils.MessageUtils;
 import io.dough.api.useCases.user.profile.updatePassword.domain.UpdatePassword;
 import io.dough.api.useCases.user.profile.updatePassword.domain.UpdatePasswordCmd;
 import java.util.UUID;
@@ -26,15 +25,8 @@ class UpdatePasswordServiceTest {
   @Mock private GetUser getUser;
   @Mock private SaveUser saveUser;
   @Mock private PasswordEncoder passwordEncoder;
-  @Mock private MessageSource messageSource;
 
   @InjectMocks private UpdatePasswordService updatePasswordService;
-
-  @BeforeEach
-  void setUp() {
-    MessageUtils messageUtils = new MessageUtils(messageSource);
-    messageUtils.init();
-  }
 
   @Test
   @DisplayName("Scenario: 실패 - 신규 패스워드와 확인 패스워드가 일치하지 않으면 예외가 발생한다")

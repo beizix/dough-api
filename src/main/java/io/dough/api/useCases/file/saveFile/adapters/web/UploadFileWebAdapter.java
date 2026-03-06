@@ -1,6 +1,5 @@
 package io.dough.api.useCases.file.saveFile.adapters.web;
 
-import io.dough.api.common.application.utils.MessageUtils;
 import io.dough.api.useCases.file.getFileURL.application.GetFileURLUseCase;
 import io.dough.api.useCases.file.saveFile.adapters.web.model.Base64MultipartFile;
 import io.dough.api.useCases.file.saveFile.adapters.web.model.UploadBase64Request;
@@ -31,7 +30,6 @@ public class UploadFileWebAdapter {
 
   private final SaveFileUseCase saveFileUseCase;
   private final GetFileURLUseCase getFileUrlUseCase;
-  private final MessageUtils messageUtils;
 
   @Operation(summary = "Multipart 파일 업로드", description = "Multipart/form-data 형식으로 파일을 업로드합니다.")
   @ApiResponse(
@@ -49,9 +47,7 @@ public class UploadFileWebAdapter {
                 req.file().getInputStream(),
                 req.file().getOriginalFilename(),
                 req.file().getSize())
-            .orElseThrow(
-                () ->
-                    new RuntimeException(messageUtils.getMessage("exception.file.upload_failed")));
+            .orElseThrow(() -> new RuntimeException("exception.file.upload_failed"));
 
     return new UploadFileResponse(
         result.id(),
@@ -74,9 +70,7 @@ public class UploadFileWebAdapter {
     SaveFile result =
         saveFileUseCase
             .operate(req.type(), file.getInputStream(), file.getOriginalFilename(), file.getSize())
-            .orElseThrow(
-                () ->
-                    new RuntimeException(messageUtils.getMessage("exception.file.upload_failed")));
+            .orElseThrow(() -> new RuntimeException("exception.file.upload_failed"));
 
     return new UploadFileResponse(
         result.id(),

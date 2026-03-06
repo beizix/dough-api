@@ -6,7 +6,6 @@ import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
 
 import io.dough.api.common.application.enums.Role;
-import io.dough.api.common.application.utils.MessageUtils;
 import io.dough.api.useCases.auth.login.application.domain.LoginService;
 import io.dough.api.useCases.auth.login.application.domain.model.GetUserResult;
 import io.dough.api.useCases.auth.login.application.domain.model.LoginCmd;
@@ -33,8 +32,6 @@ class LoginUseCaseTest {
   @Mock private PasswordEncoder passwordEncoder;
 
   @Mock private ManageAuthTokenUseCase manageAuthTokenUseCase;
-
-  @Mock private MessageUtils messageUtils;
 
   @Test
   @DisplayName("Scenario: 성공 - 유효한 자격 증명으로 로그인 성공")
@@ -69,12 +66,11 @@ class LoginUseCaseTest {
     Role role = Role.USER;
     LoginCmd cmd = new LoginCmd(email, "password", role);
     given(getUser.operate(email, role)).willReturn(Optional.empty());
-    given(messageUtils.getMessage("exception.user.not_found")).willReturn("User not found");
 
     // When & Then
     org.assertj.core.api.Assertions.assertThatThrownBy(() -> loginService.operate(cmd))
         .isInstanceOf(IllegalArgumentException.class)
-        .hasMessage("User not found");
+        .hasMessage("exception.user.not_found");
   }
 
   @Test
@@ -90,12 +86,10 @@ class LoginUseCaseTest {
 
     given(getUser.operate(email, role)).willReturn(Optional.of(user));
     given(passwordEncoder.matches(password, user.password())).willReturn(false);
-    given(messageUtils.getMessage("exception.auth.invalid_password"))
-        .willReturn("Invalid password");
 
     // When & Then
     org.assertj.core.api.Assertions.assertThatThrownBy(() -> loginService.operate(cmd))
         .isInstanceOf(IllegalArgumentException.class)
-        .hasMessage("Invalid password");
+        .hasMessage("exception.auth.invalid_password");
   }
 }

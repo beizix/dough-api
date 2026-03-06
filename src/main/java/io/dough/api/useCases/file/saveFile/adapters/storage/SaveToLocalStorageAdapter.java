@@ -1,6 +1,5 @@
 package io.dough.api.useCases.file.saveFile.adapters.storage;
 
-import io.dough.api.common.application.utils.MessageUtils;
 import io.dough.api.useCases.file.saveFile.application.SaveToFileStorage;
 import io.dough.api.useCases.file.saveFile.application.domain.model.FileStorageType;
 import java.io.IOException;
@@ -23,7 +22,6 @@ import org.springframework.stereotype.Component;
     havingValue = "true",
     matchIfMissing = true)
 public class SaveToLocalStorageAdapter implements SaveToFileStorage {
-  private final MessageUtils messageUtils;
 
   @Value("${app.upload.path}")
   private String localPath;
@@ -45,8 +43,7 @@ public class SaveToLocalStorageAdapter implements SaveToFileStorage {
 
     // 상위 디렉토리로 이동하는 경로(Path Traversal) 시도는 차단
     if (!destinationFile.getParent().equals(filePath.toAbsolutePath())) {
-      throw new IllegalArgumentException(
-          messageUtils.getMessage("exception.file.path_traversal", new Object[] {createFilename}));
+      throw new IllegalArgumentException("exception.file.path_traversal");
     }
 
     Files.copy(inputStream, destinationFile, StandardCopyOption.REPLACE_EXISTING);

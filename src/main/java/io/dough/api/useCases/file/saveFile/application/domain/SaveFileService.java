@@ -1,6 +1,5 @@
 package io.dough.api.useCases.file.saveFile.application.domain;
 
-import io.dough.api.common.application.utils.MessageUtils;
 import io.dough.api.useCases.file.saveFile.application.SaveFileMetadata;
 import io.dough.api.useCases.file.saveFile.application.SaveFileUseCase;
 import io.dough.api.useCases.file.saveFile.application.SaveToFileStorage;
@@ -25,7 +24,6 @@ public class SaveFileService implements SaveFileUseCase {
   private final Set<SaveToFileStorage> fileUploadStrategies;
   private final SaveFileMetadata saveFileMetadata;
   private final Tika tika;
-  private final MessageUtils messageUtils;
 
   /**
    * Tika를 이용한 파일 타입 감지(detect)는 파일의 앞부분(Magic Bytes)만 읽으므로, 유효성 검사 후 스트림을 초기화(reset)하기 위한 마킹 한계치를
@@ -70,10 +68,7 @@ public class SaveFileService implements SaveFileUseCase {
               originalFilename,
               fileSize));
     } catch (IOException e) {
-      throw new RuntimeException(
-          messageUtils.getMessage(
-              "exception.file.unexpected_error", new Object[] {originalFilename}),
-          e);
+      throw new RuntimeException("exception.file.unexpected_error", e);
     }
   }
 
@@ -83,29 +78,17 @@ public class SaveFileService implements SaveFileUseCase {
     // ✦ 파일 확장자 여부 체크
     String extension =
         getFileExtension(originalFilename)
-            .orElseThrow(
-                () ->
-                    new IllegalArgumentException(
-                        messageUtils.getMessage(
-                            "exception.file.no_extension", new Object[] {originalFilename})));
+            .orElseThrow(() -> new IllegalArgumentException("exception.file.no_extension"));
 
     // ✦ 파일 확장자 체크
     AcceptableFileType fileType =
         getFileTypeMatchingExtension(fileUploadType, extension)
-            .orElseThrow(
-                () ->
-                    new IllegalArgumentException(
-                        messageUtils.getMessage(
-                            "exception.file.invalid_extension", new Object[] {extension})));
+            .orElseThrow(() -> new IllegalArgumentException("exception.file.invalid_extension"));
 
     // ✦ 파일 mime-type 체크
     String fileMimeType = tika.detect(inputStream, originalFilename);
     getMimeType(fileType, fileMimeType)
-        .orElseThrow(
-            () ->
-                new IllegalArgumentException(
-                    messageUtils.getMessage(
-                        "exception.file.invalid_mime_type", new Object[] {fileMimeType})));
+        .orElseThrow(() -> new IllegalArgumentException("exception.file.invalid_mime_type"));
   }
 
   private Optional<String> getFileExtension(String filename) {
@@ -141,10 +124,6 @@ public class SaveFileService implements SaveFileUseCase {
     return fileUploadStrategies.stream()
         .filter(saveToFileStorage -> saveToFileStorage.getStorageType().equals(fileStorageType))
         .findFirst()
-        .orElseThrow(
-            () ->
-                new NoSuchElementException(
-                    messageUtils.getMessage(
-                        "exception.file.no_strategy", new Object[] {fileStorageType.name()})));
+        .orElseThrow(() -> new NoSuchElementException("exception.file.no_strategy"));
   }
 }

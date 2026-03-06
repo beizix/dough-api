@@ -1,6 +1,5 @@
 package io.dough.api.useCases.auth.manageToken.application.domain;
 
-import io.dough.api.common.application.utils.MessageUtils;
 import io.dough.api.useCases.auth.manageToken.application.ManageAuthTokenUseCase;
 import io.dough.api.useCases.auth.manageToken.application.RefreshAuthToken;
 import io.dough.api.useCases.auth.manageToken.application.domain.model.AuthToken;
@@ -24,19 +23,16 @@ public class ManageAuthTokenService implements ManageAuthTokenUseCase {
   private final long accessTokenValidity;
   private final long refreshTokenValidity;
   private final RefreshAuthToken refreshAuthToken;
-  private final MessageUtils messageUtils;
 
   public ManageAuthTokenService(
       @Value("${jwt.secret}") String secret,
       @Value("${jwt.access-token-validity}") long accessTokenValidity,
       @Value("${jwt.refresh-token-validity}") long refreshTokenValidity,
-      RefreshAuthToken refreshAuthToken,
-      MessageUtils messageUtils) {
+      RefreshAuthToken refreshAuthToken) {
     this.key = Keys.hmacShaKeyFor(secret.getBytes(StandardCharsets.UTF_8));
     this.accessTokenValidity = accessTokenValidity;
     this.refreshTokenValidity = refreshTokenValidity;
     this.refreshAuthToken = refreshAuthToken;
-    this.messageUtils = messageUtils;
   }
 
   @Override
@@ -91,13 +87,9 @@ public class ManageAuthTokenService implements ManageAuthTokenUseCase {
                           refreshUser.email(),
                           refreshUser.displayName(),
                           refreshUser.role())))
-          .orElseThrow(
-              () ->
-                  new IllegalArgumentException(
-                      messageUtils.getMessage("exception.auth.invalid_refresh_token")));
+          .orElseThrow(() -> new IllegalArgumentException("exception.auth.invalid_refresh_token"));
     } catch (Exception e) {
-      throw new IllegalArgumentException(
-          messageUtils.getMessage("exception.auth.invalid_refresh_token"), e);
+      throw new IllegalArgumentException("exception.auth.invalid_refresh_token", e);
     }
   }
 
@@ -106,8 +98,7 @@ public class ManageAuthTokenService implements ManageAuthTokenUseCase {
     try {
       return parseClaims(token).getSubject();
     } catch (Exception e) {
-      throw new IllegalArgumentException(
-          messageUtils.getMessage("exception.auth.invalid_token"), e);
+      throw new IllegalArgumentException("exception.auth.invalid_token", e);
     }
   }
 
@@ -117,8 +108,7 @@ public class ManageAuthTokenService implements ManageAuthTokenUseCase {
       Claims claims = parseClaims(token);
       return claims.get("displayName", String.class);
     } catch (Exception e) {
-      throw new IllegalArgumentException(
-          messageUtils.getMessage("exception.auth.invalid_token"), e);
+      throw new IllegalArgumentException("exception.auth.invalid_token", e);
     }
   }
 
@@ -128,8 +118,7 @@ public class ManageAuthTokenService implements ManageAuthTokenUseCase {
       Claims claims = parseClaims(token);
       return claims.get("email", String.class);
     } catch (Exception e) {
-      throw new IllegalArgumentException(
-          messageUtils.getMessage("exception.auth.invalid_token"), e);
+      throw new IllegalArgumentException("exception.auth.invalid_token", e);
     }
   }
 

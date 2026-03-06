@@ -6,7 +6,6 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import io.dough.api.common.application.enums.Role;
-import io.dough.api.common.application.utils.MessageUtils;
 import io.dough.api.useCases.auth.manageToken.application.domain.ManageAuthTokenService;
 import io.dough.api.useCases.auth.manageToken.application.domain.model.AuthToken;
 import io.dough.api.useCases.auth.manageToken.application.domain.model.CreateTokenCmd;
@@ -27,7 +26,6 @@ class ManageAuthTokenServiceTest {
 
   private ManageAuthTokenService authTokenService;
   private RefreshAuthToken refreshAuthToken;
-  private MessageUtils messageUtils;
   // 테스트용 키는 256비트(32자) 이상이어야 안전하게 HS256 알고리즘을 사용할 수 있습니다.
   private final String secret = "v-api-test-secret-key-must-be-long-enough-for-hs256";
   private final long accessValidity = 60000L; // 60초
@@ -37,10 +35,8 @@ class ManageAuthTokenServiceTest {
   @BeforeEach
   void setUp() {
     refreshAuthToken = mock(RefreshAuthToken.class);
-    messageUtils = mock(MessageUtils.class);
     authTokenService =
-        new ManageAuthTokenService(
-            secret, accessValidity, refreshValidity, refreshAuthToken, messageUtils);
+        new ManageAuthTokenService(secret, accessValidity, refreshValidity, refreshAuthToken);
     secretKey = Keys.hmacShaKeyFor(secret.getBytes(StandardCharsets.UTF_8));
   }
 
@@ -90,8 +86,6 @@ class ManageAuthTokenServiceTest {
   void refresh_token_fail_not_in_db() {
     // Given
     String token = "invalid-token";
-    String errorMessage = "Invalid refresh token";
-    when(messageUtils.getMessage("exception.auth.invalid_refresh_token")).thenReturn(errorMessage);
 
     // When & Then
     org.junit.jupiter.api.Assertions.assertThrows(
@@ -99,7 +93,7 @@ class ManageAuthTokenServiceTest {
         () -> {
           authTokenService.refreshToken(new RefreshTokenCmd(token));
         },
-        errorMessage);
+        "exception.auth.invalid_refresh_token");
   }
 
   @Test

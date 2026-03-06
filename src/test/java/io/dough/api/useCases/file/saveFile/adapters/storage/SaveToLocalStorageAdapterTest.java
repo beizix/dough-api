@@ -2,12 +2,8 @@ package io.dough.api.useCases.file.saveFile.adapters.storage;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 
-import io.dough.api.common.application.utils.MessageUtils;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -22,14 +18,12 @@ import org.springframework.test.util.ReflectionTestUtils;
 class SaveToLocalStorageAdapterTest {
 
   private SaveToLocalStorageAdapter saveToLocalStorageAdapter;
-  private MessageUtils messageUtils;
 
   @TempDir Path tempDir;
 
   @BeforeEach
   void setUp() {
-    messageUtils = mock(MessageUtils.class);
-    saveToLocalStorageAdapter = new SaveToLocalStorageAdapter(messageUtils);
+    saveToLocalStorageAdapter = new SaveToLocalStorageAdapter();
     // tempDir/public 경로를 생성하고 주입
     Path localPath = tempDir.resolve("public");
     ReflectionTestUtils.setField(saveToLocalStorageAdapter, "localPath", localPath.toString());
@@ -85,13 +79,9 @@ class SaveToLocalStorageAdapterTest {
     String subPath = "images";
     String filename = "../../../etc/passwd";
 
-    String errorMessage = "허용되지 않은 상위 디렉토리 접근 시도";
-    when(messageUtils.getMessage(eq("exception.file.path_traversal"), any(Object[].class)))
-        .thenReturn(errorMessage);
-
     // When & Then
     assertThatThrownBy(() -> saveToLocalStorageAdapter.operate(inputStream, subPath, filename))
         .isInstanceOf(IllegalArgumentException.class)
-        .hasMessageContaining(errorMessage);
+        .hasMessageContaining("exception.file.path_traversal");
   }
 }

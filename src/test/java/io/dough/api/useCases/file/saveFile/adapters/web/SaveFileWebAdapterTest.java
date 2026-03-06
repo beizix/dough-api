@@ -12,7 +12,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import io.dough.api.common.application.utils.MessageUtils;
 import io.dough.api.support.WebMvcTestBase;
 import io.dough.api.useCases.file.getFileURL.application.GetFileURLUseCase;
 import io.dough.api.useCases.file.saveFile.application.SaveFileUseCase;
@@ -34,8 +33,6 @@ class SaveFileWebAdapterTest extends WebMvcTestBase {
   @MockitoBean private SaveFileUseCase saveFileUseCase;
 
   @MockitoBean private GetFileURLUseCase getFileUrlUseCase;
-
-  @MockitoBean private MessageUtils messageUtils;
 
   @Test
   @DisplayName("Scenario: 성공 - Multipart 파일을 업로드한다")

@@ -8,7 +8,6 @@ import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
 
 import io.dough.api.common.application.enums.Role;
-import io.dough.api.common.application.utils.MessageUtils;
 import io.dough.api.useCases.auth.manageToken.application.ManageAuthTokenUseCase;
 import io.dough.api.useCases.auth.manageToken.application.domain.model.AuthToken;
 import io.dough.api.useCases.auth.manageToken.application.domain.model.CreateTokenCmd;
@@ -34,8 +33,6 @@ class SignupServiceTest {
   @Mock private PasswordEncoder passwordEncoder;
 
   @Mock private ManageAuthTokenUseCase manageAuthTokenUseCase;
-
-  @Mock private MessageUtils messageUtils;
 
   @Test
   @DisplayName("Scenario: 성공 - 정상적인 회원가입 요청 시 사용자를 저장하고 토큰을 발급한다")
@@ -87,12 +84,10 @@ class SignupServiceTest {
     // Given
     SignupCmd cmd = new SignupCmd("duplicate@dough.io", "password", "User", Role.USER);
     given(manageSignup.existsByEmailAndRole(cmd.email(), cmd.role())).willReturn(true);
-    String errorMessage = "이미 해당 권한으로 가입된 이메일입니다.";
-    given(messageUtils.getMessage("exception.auth.email_already_exists")).willReturn(errorMessage);
 
     // When & Then
     assertThatThrownBy(() -> signupService.operate(cmd))
         .isInstanceOf(IllegalArgumentException.class)
-        .hasMessage(errorMessage);
+        .hasMessage("exception.auth.email_already_exists");
   }
 }
