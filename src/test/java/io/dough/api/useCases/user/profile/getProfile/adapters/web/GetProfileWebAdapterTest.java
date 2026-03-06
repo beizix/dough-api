@@ -9,10 +9,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import io.dough.api.support.WebMvcTestBase;
-import io.dough.api.useCases.user.profile.getProfile.adapters.web.GetProfileWebAdapter;
 import io.dough.api.useCases.user.profile.getProfile.application.GetProfileUseCase;
 import io.dough.api.useCases.user.profile.getProfile.domain.GetProfileCmd;
-import io.dough.api.useCases.user.profile.getProfile.domain.Profile;
+import io.dough.api.useCases.user.profile.getProfile.domain.UserProfile;
 import java.time.LocalDateTime;
 import java.util.UUID;
 import org.junit.jupiter.api.DisplayName;
@@ -31,8 +30,8 @@ class GetProfileWebAdapterTest extends WebMvcTestBase {
     // Given
     UUID userId = UUID.randomUUID();
     String email = "test@example.com";
-    Profile expectedUser =
-        new Profile(
+    UserProfile expectedUser =
+        new UserProfile(
             userId,
             email,
             "Test User",

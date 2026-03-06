@@ -55,7 +55,7 @@ class UpdatePasswordTest {
     private final PasswordEncoder passwordEncoder = mock(PasswordEncoder.class);
     private final UUID id = UUID.randomUUID();
     private final String encodedPassword = "encodedOldPass";
-    private final UpdatePassword domain = new UpdatePassword(id, encodedPassword);
+    private final UpdatedPassword domain = new UpdatedPassword(id, encodedPassword);
 
     @Test
     @DisplayName("verify 성공: 원문 비밀번호가 인코딩된 비밀번호와 일치하면 통과한다")
@@ -90,7 +90,7 @@ class UpdatePasswordTest {
       given(passwordEncoder.encode(newRawPassword)).willReturn(newEncodedPassword);
 
       // When
-      UpdatePassword updated = domain.update(newRawPassword, passwordEncoder);
+      UpdatedPassword updated = domain.update(newRawPassword, passwordEncoder);
 
       // Then
       assertThat(updated.id()).isEqualTo(id);

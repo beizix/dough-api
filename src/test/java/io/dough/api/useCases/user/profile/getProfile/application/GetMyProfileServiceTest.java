@@ -7,7 +7,7 @@ import static org.mockito.Mockito.verify;
 import io.dough.api.common.application.enums.Role;
 import io.dough.api.useCases.file.getFileURL.application.GetFileURLUseCase;
 import io.dough.api.useCases.user.profile.getProfile.domain.GetProfileCmd;
-import io.dough.api.useCases.user.profile.getProfile.domain.Profile;
+import io.dough.api.useCases.user.profile.getProfile.domain.UserProfile;
 import io.dough.api.useCases.user.profile.getProfile.application.model.ProfileLoaded;
 import java.util.UUID;
 import org.junit.jupiter.api.DisplayName;
@@ -39,7 +39,7 @@ class GetMyProfileServiceTest {
     given(loadProfile.operate(userId)).willReturn(loadedUser);
 
     // When
-    Profile result = getMyProfileService.operate(cmd);
+    UserProfile result = getMyProfileService.operate(cmd);
 
     // Then
     assertThat(result.id()).isEqualTo(userId);
@@ -63,7 +63,7 @@ class GetMyProfileServiceTest {
     given(getFileURLUseCase.operate(imageId)).willReturn(expectedUrl);
 
     // When
-    Profile result = getMyProfileService.operate(cmd);
+    UserProfile result = getMyProfileService.operate(cmd);
 
     // Then
     assertThat(result.id()).isEqualTo(userId);

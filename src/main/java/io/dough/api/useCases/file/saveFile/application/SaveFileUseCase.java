@@ -1,7 +1,7 @@
 package io.dough.api.useCases.file.saveFile.application;
 
 import io.dough.api.useCases.file.saveFile.domain.FileUploadType;
-import io.dough.api.useCases.file.saveFile.domain.SaveFile;
+import io.dough.api.useCases.file.saveFile.domain.SavedFile;
 import java.io.InputStream;
 
 /** 주어진 입력 스트림을 비즈니스 규칙에 따라 저장소에 업로드하고, 파일 메타데이터를 생성합니다. */
@@ -16,7 +16,7 @@ public interface SaveFileUseCase {
    * @param fileSize 파일 크기 (byte)
    * @return 업로드 성공 시 생성된 파일 정보
    */
-  SaveFile operate(
+  SavedFile operate(
       FileUploadType fileUploadType,
       InputStream inputStream,
       String originalFilename,

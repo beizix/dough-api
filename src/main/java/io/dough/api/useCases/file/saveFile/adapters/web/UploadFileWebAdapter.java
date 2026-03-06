@@ -6,7 +6,7 @@ import io.dough.api.useCases.file.saveFile.adapters.web.model.UploadBase64Reques
 import io.dough.api.useCases.file.saveFile.adapters.web.model.UploadFileResponse;
 import io.dough.api.useCases.file.saveFile.adapters.web.model.UploadMultipartRequest;
 import io.dough.api.useCases.file.saveFile.application.SaveFileUseCase;
-import io.dough.api.useCases.file.saveFile.domain.SaveFile;
+import io.dough.api.useCases.file.saveFile.domain.SavedFile;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -40,7 +40,7 @@ public class UploadFileWebAdapter {
   public UploadFileResponse uploadMultipart(@Valid @ModelAttribute UploadMultipartRequest req)
       throws IOException {
 
-    SaveFile result =
+    SavedFile result =
         saveFileUseCase.operate(
             req.type(),
             req.file().getInputStream(),
@@ -65,7 +65,7 @@ public class UploadFileWebAdapter {
       throws IOException {
     Base64MultipartFile file = new Base64MultipartFile(req.base64Data());
 
-    SaveFile result =
+    SavedFile result =
         saveFileUseCase.operate(
             req.type(), file.getInputStream(), file.getOriginalFilename(), file.getSize());
 

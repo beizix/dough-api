@@ -16,7 +16,7 @@ import io.dough.api.support.WebMvcTestBase;
 import io.dough.api.useCases.file.getFileURL.application.GetFileURLUseCase;
 import io.dough.api.useCases.file.saveFile.application.SaveFileUseCase;
 import io.dough.api.useCases.file.saveFile.domain.FileUploadType;
-import io.dough.api.useCases.file.saveFile.domain.SaveFile;
+import io.dough.api.useCases.file.saveFile.domain.SavedFile;
 import java.io.InputStream;
 import java.util.UUID;
 import org.junit.jupiter.api.DisplayName;
@@ -42,11 +42,11 @@ class SaveFileWebAdapterTest extends WebMvcTestBase {
             "file", "test.png", MediaType.IMAGE_PNG_VALUE, "test content".getBytes());
     FileUploadType type = FileUploadType.UPLOAD_IMG_TO_LOCAL;
     UUID fileId = UUID.randomUUID();
-    SaveFile saveFile = new SaveFile(fileId, type, "/path/to/file", "saved.png", "test.png", 100L);
+    SavedFile savedFile = new SavedFile(fileId, type, "/path/to/file", "saved.png", "test.png", 100L);
     String resourceUrl = "/uploads/path/to/file/saved.png";
 
     given(saveFileUseCase.operate(eq(type), any(InputStream.class), anyString(), anyLong()))
-        .willReturn(saveFile);
+        .willReturn(savedFile);
     given(getFileUrlUseCase.operate(fileId)).willReturn(resourceUrl);
 
     // When & Then
@@ -82,11 +82,11 @@ class SaveFileWebAdapterTest extends WebMvcTestBase {
             .formatted(type.name(), base64Data);
 
     UUID fileId = UUID.randomUUID();
-    SaveFile saveFile = new SaveFile(fileId, type, "/path/to/file", "saved.png", "image.png", 100L);
+    SavedFile savedFile = new SavedFile(fileId, type, "/path/to/file", "saved.png", "image.png", 100L);
     String resourceUrl = "/uploads/path/to/file/saved.png";
 
     given(saveFileUseCase.operate(eq(type), any(InputStream.class), anyString(), anyLong()))
-        .willReturn(saveFile);
+        .willReturn(savedFile);
     given(getFileUrlUseCase.operate(fileId)).willReturn(resourceUrl);
 
     // When & Then

@@ -11,7 +11,7 @@ import static org.mockito.Mockito.lenient;
 
 import io.dough.api.useCases.file.saveFile.application.model.FileStorageType;
 import io.dough.api.useCases.file.saveFile.domain.FileUploadType;
-import io.dough.api.useCases.file.saveFile.domain.SaveFile;
+import io.dough.api.useCases.file.saveFile.domain.SavedFile;
 import io.dough.api.useCases.file.saveFile.application.model.SaveFileMetadataCmd;
 import io.dough.api.useCases.file.saveFile.application.model.SaveFileMetadataResult;
 import java.io.ByteArrayInputStream;
@@ -68,7 +68,7 @@ class SaveFileServiceTest {
                     expectedId, type, "/path", "uuid.png", originalFilename, fileSize)));
 
     // When
-    SaveFile result = uploadFileService.operate(type, inputStream, originalFilename, fileSize);
+    SavedFile result = uploadFileService.operate(type, inputStream, originalFilename, fileSize);
 
     // Then
     assertThat(result).isNotNull();

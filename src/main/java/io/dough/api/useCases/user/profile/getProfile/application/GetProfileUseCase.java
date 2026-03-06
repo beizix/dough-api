@@ -1,8 +1,8 @@
 package io.dough.api.useCases.user.profile.getProfile.application;
 
 import io.dough.api.useCases.user.profile.getProfile.domain.GetProfileCmd;
-import io.dough.api.useCases.user.profile.getProfile.domain.Profile;
+import io.dough.api.useCases.user.profile.getProfile.domain.UserProfile;
 
 public interface GetProfileUseCase {
-  Profile operate(GetProfileCmd cmd);
+  UserProfile operate(GetProfileCmd cmd);
 }

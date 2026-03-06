@@ -6,17 +6,16 @@ import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 
-import io.dough.api.useCases.user.profile.updatePassword.domain.UpdatePassword;
+import io.dough.api.useCases.user.profile.updatePassword.domain.UpdatedPassword;
 import io.dough.api.useCases.user.profile.updatePassword.domain.UpdatePasswordCmd;
 import java.util.UUID;
-import org.junit.jupiter.api.BeforeEach;
+
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.context.MessageSource;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 @ExtendWith(MockitoExtension.class)
@@ -42,7 +41,7 @@ class UpdatePasswordServiceTest {
     // Given
     UUID userId = UUID.randomUUID();
     UpdatePasswordCmd cmd = new UpdatePasswordCmd(userId, "wrongCurrent", "new", "new");
-    UpdatePassword domainModel = new UpdatePassword(userId, "encodedCurrent");
+    UpdatedPassword domainModel = new UpdatedPassword(userId, "encodedCurrent");
 
     given(getUser.operate(userId)).willReturn(domainModel);
     given(passwordEncoder.matches("wrongCurrent", "encodedCurrent")).willReturn(false);
@@ -60,7 +59,7 @@ class UpdatePasswordServiceTest {
     // Given
     UUID userId = UUID.randomUUID();
     UpdatePasswordCmd cmd = new UpdatePasswordCmd(userId, "current", "new", "new");
-    UpdatePassword domainModel = new UpdatePassword(userId, "encodedCurrent");
+    UpdatedPassword domainModel = new UpdatedPassword(userId, "encodedCurrent");
 
     given(getUser.operate(userId)).willReturn(domainModel);
     given(passwordEncoder.matches("current", "encodedCurrent")).willReturn(true);
@@ -70,6 +69,6 @@ class UpdatePasswordServiceTest {
     updatePasswordService.operate(cmd);
 
     // Then
-    verify(saveUser).operate(any(UpdatePassword.class));
+    verify(saveUser).operate(any(UpdatedPassword.class));
   }
 }

@@ -9,7 +9,7 @@ import static org.mockito.Mockito.verify;
 import io.dough.api.useCases.file.getFileURL.application.GetFileURLUseCase;
 import io.dough.api.useCases.file.saveFile.application.SaveFileUseCase;
 import io.dough.api.useCases.file.saveFile.domain.FileUploadType;
-import io.dough.api.useCases.file.saveFile.domain.SaveFile;
+import io.dough.api.useCases.file.saveFile.domain.SavedFile;
 import io.dough.api.useCases.user.profile.saveProfileImg.application.SaveProfileImgService;
 import io.dough.api.useCases.user.profile.saveProfileImg.application.UpdateUserProfileImg;
 import io.dough.api.useCases.user.profile.saveProfileImg.domain.SaveProfileImgCmd;
@@ -44,8 +44,8 @@ class SaveMyProfileImgServiceTest {
         new SaveProfileImgCmd(userId, inputStream, "profile.png", (long) content.length);
 
     UUID savedFileId = UUID.randomUUID();
-    SaveFile mockSaveFile =
-        new SaveFile(
+    SavedFile mockSavedFile =
+        new SavedFile(
             savedFileId,
             FileUploadType.MY_PROFILE_IMG,
             "/user/profile/img",
@@ -61,7 +61,7 @@ class SaveMyProfileImgServiceTest {
                 any(),
                 eq("profile.png"),
                 eq((long) content.length)))
-        .willReturn(mockSaveFile);
+        .willReturn(mockSavedFile);
     given(getFileURLUseCase.operate(savedFileId)).willReturn(expectedUrl);
 
     // When

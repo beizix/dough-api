@@ -9,8 +9,8 @@ import java.util.Set;
 import io.dough.api.useCases.file.saveFile.application.model.*;
 import io.dough.api.useCases.file.saveFile.domain.AcceptableFileType;
 import io.dough.api.useCases.file.saveFile.domain.FileUploadType;
-import io.dough.api.useCases.file.saveFile.domain.SaveFile;
-import io.dough.api.useCases.file.saveFile.domain.UploadFile;
+import io.dough.api.useCases.file.saveFile.domain.SavedFile;
+import io.dough.api.useCases.file.saveFile.domain.FileToUpload;
 import lombok.RequiredArgsConstructor;
 import org.apache.tika.Tika;
 import org.springframework.stereotype.Service;
@@ -25,7 +25,7 @@ public class SaveFileService implements SaveFileUseCase {
   private static final int MARK_READ_LIMIT = 64 * 1024;
 
   @Override
-  public SaveFile operate(
+  public SavedFile operate(
       FileUploadType fileUploadType,
       InputStream inputStream,
       String originalFilename,
@@ -36,21 +36,21 @@ public class SaveFileService implements SaveFileUseCase {
     }
 
     // ✦ 도메인 객체 생성 및 기본 확장자 검증
-    UploadFile uploadFile = new UploadFile(fileUploadType, originalFilename, fileSize);
+    FileToUpload fileToUpload = new FileToUpload(fileUploadType, originalFilename, fileSize);
 
     try (InputStream bis = new BufferedInputStream(inputStream)) {
       bis.mark(MARK_READ_LIMIT);
 
       // ✦ 도메인 유효성 검증 (확장자 및 MIME 타입)
-      AcceptableFileType acceptableFileType = uploadFile.validateExtension();
+      AcceptableFileType acceptableFileType = fileToUpload.validateExtension();
       String detectedMimeType = tika.detect(bis, originalFilename);
-      uploadFile.validateMimeType(acceptableFileType, detectedMimeType);
+      fileToUpload.validateMimeType(acceptableFileType, detectedMimeType);
 
       bis.reset();
 
       // ✦ 인프라 서비스 조율 (파일 저장소 업로드)
       getFileUploadStrategy(fileUploadType.getFileStorageType())
-          .operate(bis, uploadFile.subPath(), uploadFile.createFilename());
+          .operate(bis, fileToUpload.subPath(), fileToUpload.createFilename());
 
       // ✦ 인프라 서비스 조율 (메타데이터 저장)
       SaveFileMetadataResult metadata =
@@ -58,17 +58,17 @@ public class SaveFileService implements SaveFileUseCase {
               .operate(
                   new SaveFileMetadataCmd(
                       fileUploadType,
-                      uploadFile.subPath(),
-                      uploadFile.createFilename(),
+                      fileToUpload.subPath(),
+                      fileToUpload.createFilename(),
                       originalFilename,
                       fileSize))
               .orElseThrow();
 
-      return new SaveFile(
+      return new SavedFile(
           metadata.id(),
           fileUploadType,
-          uploadFile.subPath(),
-          uploadFile.createFilename(),
+          fileToUpload.subPath(),
+          fileToUpload.createFilename(),
           originalFilename,
           fileSize);
 

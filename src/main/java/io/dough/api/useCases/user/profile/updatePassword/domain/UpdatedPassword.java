@@ -3,7 +3,7 @@ package io.dough.api.useCases.user.profile.updatePassword.domain;
 import java.util.UUID;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-public record UpdatePassword(
+public record UpdatedPassword(
     UUID id,
     String encodedPassword
 ) {
@@ -14,7 +14,7 @@ public record UpdatePassword(
     }
   }
 
-  public UpdatePassword update(String newRawPassword, PasswordEncoder passwordEncoder) {
-    return new UpdatePassword(this.id, passwordEncoder.encode(newRawPassword));
+  public UpdatedPassword update(String newRawPassword, PasswordEncoder passwordEncoder) {
+    return new UpdatedPassword(this.id, passwordEncoder.encode(newRawPassword));
   }
 }

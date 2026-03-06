@@ -12,5 +12,5 @@ import java.util.UUID;
  * @param originName 원본 파일명
  * @param fileLength 파일 크기
  */
-public record SaveFile(
+public record SavedFile(
   UUID id, FileUploadType type, String path, String name, String originName, Long fileLength) {}

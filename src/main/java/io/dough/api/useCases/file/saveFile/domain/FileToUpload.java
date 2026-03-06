@@ -9,7 +9,7 @@ import java.util.UUID;
 /**
  * 업로드할 파일의 도메인 로직을 담당하는 객체
  */
-public record UploadFile(
+public record FileToUpload(
     FileUploadType type,
     String originalFilename,
     long fileSize,
@@ -17,7 +17,7 @@ public record UploadFile(
     String createFilename,
     String subPath
 ) {
-  public UploadFile(FileUploadType type, String originalFilename, long fileSize) {
+  public FileToUpload(FileUploadType type, String originalFilename, long fileSize) {
     this(
         type,
         originalFilename,

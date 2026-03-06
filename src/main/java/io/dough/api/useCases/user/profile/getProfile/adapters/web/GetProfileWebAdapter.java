@@ -3,7 +3,7 @@ package io.dough.api.useCases.user.profile.getProfile.adapters.web;
 import io.dough.api.useCases.user.profile.getProfile.adapters.web.model.GetProfileResponse;
 import io.dough.api.useCases.user.profile.getProfile.application.GetProfileUseCase;
 import io.dough.api.useCases.user.profile.getProfile.domain.GetProfileCmd;
-import io.dough.api.useCases.user.profile.getProfile.domain.Profile;
+import io.dough.api.useCases.user.profile.getProfile.domain.UserProfile;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -30,7 +30,7 @@ public class GetProfileWebAdapter {
     // Principal.getName() returns the UUID string as set in JwtAuthenticationFilter
     UUID userId = UUID.fromString(principal.getName());
     GetProfileCmd cmd = new GetProfileCmd(userId);
-    Profile result = getProfileUseCase.operate(cmd);
+    UserProfile result = getProfileUseCase.operate(cmd);
 
     GetProfileResponse response =
         new GetProfileResponse(
