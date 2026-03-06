@@ -1,6 +1,5 @@
 package io.dough.api.useCases.user.profile.updatePassword.domain;
 
-import io.dough.api.common.application.utils.MessageUtils;
 import java.util.UUID;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
@@ -11,7 +10,7 @@ public record UpdatePassword(
 
   public void verify(String rawPassword, PasswordEncoder passwordEncoder) {
     if (!passwordEncoder.matches(rawPassword, this.encodedPassword)) {
-      throw new IllegalArgumentException(MessageUtils.get("error.password.current.incorrect"));
+      throw new IllegalArgumentException("error.password.current.incorrect");
     }
   }
 

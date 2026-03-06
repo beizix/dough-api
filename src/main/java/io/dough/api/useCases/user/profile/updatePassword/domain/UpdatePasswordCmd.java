@@ -1,6 +1,5 @@
 package io.dough.api.useCases.user.profile.updatePassword.domain;
 
-import io.dough.api.common.application.utils.MessageUtils;
 import java.util.UUID;
 
 public record UpdatePasswordCmd(
@@ -12,7 +11,7 @@ public record UpdatePasswordCmd(
 
   public UpdatePasswordCmd {
     if (!newPassword.equals(newPasswordConfirm)) {
-      throw new IllegalArgumentException(MessageUtils.get("error.password.mismatch"));
+      throw new IllegalArgumentException("error.password.mismatch");
     }
   }
 }
