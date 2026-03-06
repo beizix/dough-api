@@ -1,7 +1,7 @@
 package io.dough.api.common.adapters.persistence.entity;
 
 import io.dough.api.common.adapters.persistence.component.AuditEntity;
-import io.dough.api.useCases.file.saveFile.application.domain.model.FileUploadType;
+import io.dough.api.useCases.file.saveFile.domain.FileUploadType;
 import jakarta.persistence.*;
 import java.util.UUID;
 import lombok.AllArgsConstructor;

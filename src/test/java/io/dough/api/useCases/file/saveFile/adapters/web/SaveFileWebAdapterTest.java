@@ -15,8 +15,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import io.dough.api.support.WebMvcTestBase;
 import io.dough.api.useCases.file.getFileURL.application.GetFileURLUseCase;
 import io.dough.api.useCases.file.saveFile.application.SaveFileUseCase;
-import io.dough.api.useCases.file.saveFile.application.domain.model.FileUploadType;
-import io.dough.api.useCases.file.saveFile.application.domain.model.SaveFile;
+import io.dough.api.useCases.file.saveFile.domain.FileUploadType;
+import io.dough.api.useCases.file.saveFile.application.model.SaveFile;
 import java.io.InputStream;
 import java.util.UUID;
 import org.junit.jupiter.api.DisplayName;

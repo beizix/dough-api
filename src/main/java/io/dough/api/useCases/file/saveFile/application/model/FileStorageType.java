@@ -1,4 +1,4 @@
-package io.dough.api.useCases.file.saveFile.application.domain.model;
+package io.dough.api.useCases.file.saveFile.application.model;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

@@ -1,4 +1,6 @@
-package io.dough.api.useCases.file.saveFile.application.domain.model;
+package io.dough.api.useCases.file.saveFile.application.model;
+
+import io.dough.api.useCases.file.saveFile.domain.FileUploadType;
 
 /**
  * 파일 메타데이터 저장을 위한 커맨드 객체입니다.
@@ -10,4 +12,4 @@ package io.dough.api.useCases.file.saveFile.application.domain.model;
  * @param fileLength 파일 크기 (bytes)
  */
 public record SaveFileMetadataCmd(
-    FileUploadType type, String path, String name, String originName, Long fileLength) {}
+  FileUploadType type, String path, String name, String originName, Long fileLength) {}

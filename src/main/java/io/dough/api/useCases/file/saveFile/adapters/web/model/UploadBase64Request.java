@@ -1,6 +1,6 @@
 package io.dough.api.useCases.file.saveFile.adapters.web.model;
 
-import io.dough.api.useCases.file.saveFile.application.domain.model.FileUploadType;
+import io.dough.api.useCases.file.saveFile.domain.FileUploadType;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotNull;
 

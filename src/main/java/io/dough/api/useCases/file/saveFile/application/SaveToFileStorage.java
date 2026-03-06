@@ -1,6 +1,6 @@
 package io.dough.api.useCases.file.saveFile.application;
 
-import io.dough.api.useCases.file.saveFile.application.domain.model.FileStorageType;
+import io.dough.api.useCases.file.saveFile.application.model.FileStorageType;
 import java.io.IOException;
 import java.io.InputStream;
 

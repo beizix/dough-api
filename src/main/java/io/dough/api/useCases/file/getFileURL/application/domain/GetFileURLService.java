@@ -3,7 +3,7 @@ package io.dough.api.useCases.file.getFileURL.application.domain;
 import io.dough.api.useCases.file.getFileURL.application.GetFileMetadata;
 import io.dough.api.useCases.file.getFileURL.application.GetFileURL;
 import io.dough.api.useCases.file.getFileURL.application.GetFileURLUseCase;
-import io.dough.api.useCases.file.saveFile.application.domain.model.FileStorageType;
+import io.dough.api.useCases.file.saveFile.application.model.FileStorageType;
 import java.util.NoSuchElementException;
 import java.util.Set;
 import java.util.UUID;

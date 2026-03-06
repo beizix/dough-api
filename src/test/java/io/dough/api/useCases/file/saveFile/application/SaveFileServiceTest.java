@@ -9,12 +9,11 @@ import static org.mockito.BDDMockito.given;
 import static org.mockito.BDDMockito.then;
 import static org.mockito.Mockito.lenient;
 
-import io.dough.api.useCases.file.saveFile.application.domain.SaveFileService;
-import io.dough.api.useCases.file.saveFile.application.domain.model.FileStorageType;
-import io.dough.api.useCases.file.saveFile.application.domain.model.FileUploadType;
-import io.dough.api.useCases.file.saveFile.application.domain.model.SaveFile;
-import io.dough.api.useCases.file.saveFile.application.domain.model.SaveFileMetadataCmd;
-import io.dough.api.useCases.file.saveFile.application.domain.model.SaveFileMetadataResult;
+import io.dough.api.useCases.file.saveFile.application.model.FileStorageType;
+import io.dough.api.useCases.file.saveFile.domain.FileUploadType;
+import io.dough.api.useCases.file.saveFile.application.model.SaveFile;
+import io.dough.api.useCases.file.saveFile.application.model.SaveFileMetadataCmd;
+import io.dough.api.useCases.file.saveFile.application.model.SaveFileMetadataResult;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;

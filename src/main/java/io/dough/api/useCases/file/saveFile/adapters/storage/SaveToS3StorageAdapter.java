@@ -2,7 +2,7 @@ package io.dough.api.useCases.file.saveFile.adapters.storage;
 
 import io.awspring.cloud.s3.S3Template;
 import io.dough.api.useCases.file.saveFile.application.SaveToFileStorage;
-import io.dough.api.useCases.file.saveFile.application.domain.model.FileStorageType;
+import io.dough.api.useCases.file.saveFile.application.model.FileStorageType;
 import java.io.IOException;
 import java.io.InputStream;
 import lombok.RequiredArgsConstructor;

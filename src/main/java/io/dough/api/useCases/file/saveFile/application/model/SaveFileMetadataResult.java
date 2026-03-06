@@ -1,4 +1,6 @@
-package io.dough.api.useCases.file.saveFile.application.domain.model;
+package io.dough.api.useCases.file.saveFile.application.model;
+
+import io.dough.api.useCases.file.saveFile.domain.FileUploadType;
 
 import java.util.UUID;
 
@@ -13,4 +15,4 @@ import java.util.UUID;
  * @param fileLength 파일 크기 (bytes)
  */
 public record SaveFileMetadataResult(
-    UUID id, FileUploadType type, String path, String name, String originName, Long fileLength) {}
+  UUID id, FileUploadType type, String path, String name, String originName, Long fileLength) {}

@@ -6,7 +6,7 @@ import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.verify;
 
 import io.awspring.cloud.s3.S3Template;
-import io.dough.api.useCases.file.saveFile.application.domain.model.FileStorageType;
+import io.dough.api.useCases.file.saveFile.application.model.FileStorageType;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
