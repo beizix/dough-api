@@ -21,19 +21,18 @@ public class SaveProfileImgService implements SaveProfileImgUseCase {
 
   @Override
   public Optional<SavedProfileImg> operate(SaveProfileImgCmd cmd) {
-    return saveFileUseCase
-        .operate(
+    var file =
+        saveFileUseCase.operate(
             FileUploadType.MY_PROFILE_IMG,
             cmd.inputStream(),
             cmd.originalFilename(),
-            cmd.fileSize())
-        .map(
-            file -> {
-              updateUserProfileImg.operate(cmd.userId(), file.id());
-              String referURL = getFileURLUseCase.operate(file.id());
+            cmd.fileSize());
 
-              return new SavedProfileImg(
-                  file.id(), file.name(), file.originName(), file.fileLength(), referURL);
-            });
+    updateUserProfileImg.operate(cmd.userId(), file.id());
+    String referURL = getFileURLUseCase.operate(file.id());
+
+    return Optional.of(
+        new SavedProfileImg(
+            file.id(), file.name(), file.originName(), file.fileLength(), referURL));
   }
 }

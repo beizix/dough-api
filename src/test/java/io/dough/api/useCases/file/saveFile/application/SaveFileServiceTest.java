@@ -69,13 +69,12 @@ class SaveFileServiceTest {
                     expectedId, type, "/path", "uuid.png", originalFilename, fileSize)));
 
     // When
-    Optional<SaveFile> result =
-        uploadFileService.operate(type, inputStream, originalFilename, fileSize);
+    SaveFile result = uploadFileService.operate(type, inputStream, originalFilename, fileSize);
 
     // Then
-    assertThat(result).isPresent();
-    assertThat(result.get().id()).isEqualTo(expectedId);
-    assertThat(result.get().originName()).isEqualTo(originalFilename);
+    assertThat(result).isNotNull();
+    assertThat(result.id()).isEqualTo(expectedId);
+    assertThat(result.originName()).isEqualTo(originalFilename);
 
     then(localStorageStrategy).should().operate(any(InputStream.class), anyString(), anyString());
     then(saveFileMetadata).should().operate(any(SaveFileMetadataCmd.class));
@@ -154,19 +153,29 @@ class SaveFileServiceTest {
   }
 
   @Test
-  @DisplayName("Scenario: 예외 - 입력값이 유효하지 않은 경우 Empty 반환")
+  @DisplayName("Scenario: 실패 - 입력값이 유효하지 않은 경우 예외 발생")
   void upload_fail_invalid_input() {
     // Given
     InputStream inputStream = new ByteArrayInputStream("content".getBytes());
 
     // When & Then
-    assertThat(
-            uploadFileService.operate(FileUploadType.UPLOAD_IMG_TO_LOCAL, null, "test.png", 100L))
-        .isEmpty();
-    assertThat(
-            uploadFileService.operate(FileUploadType.UPLOAD_IMG_TO_LOCAL, inputStream, null, 100L))
-        .isEmpty();
-    assertThat(uploadFileService.operate(FileUploadType.UPLOAD_IMG_TO_LOCAL, inputStream, "", 100L))
-        .isEmpty();
+    assertThatThrownBy(
+            () ->
+                uploadFileService.operate(FileUploadType.UPLOAD_IMG_TO_LOCAL, null, "test.png", 100L))
+        .isInstanceOf(IllegalArgumentException.class)
+        .hasMessage("exception.file.invalid_input");
+
+    assertThatThrownBy(
+            () ->
+                uploadFileService.operate(
+                    FileUploadType.UPLOAD_IMG_TO_LOCAL, inputStream, null, 100L))
+        .isInstanceOf(IllegalArgumentException.class)
+        .hasMessage("exception.file.invalid_input");
+
+    assertThatThrownBy(
+            () ->
+                uploadFileService.operate(FileUploadType.UPLOAD_IMG_TO_LOCAL, inputStream, "", 100L))
+        .isInstanceOf(IllegalArgumentException.class)
+        .hasMessage("exception.file.invalid_input");
   }
 }

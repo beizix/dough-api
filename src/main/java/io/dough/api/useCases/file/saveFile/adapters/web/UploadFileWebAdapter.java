@@ -41,13 +41,11 @@ public class UploadFileWebAdapter {
       throws IOException {
 
     SaveFile result =
-        saveFileUseCase
-            .operate(
-                req.type(),
-                req.file().getInputStream(),
-                req.file().getOriginalFilename(),
-                req.file().getSize())
-            .orElseThrow(() -> new RuntimeException("exception.file.upload_failed"));
+        saveFileUseCase.operate(
+            req.type(),
+            req.file().getInputStream(),
+            req.file().getOriginalFilename(),
+            req.file().getSize());
 
     return new UploadFileResponse(
         result.id(),
@@ -68,9 +66,8 @@ public class UploadFileWebAdapter {
     Base64MultipartFile file = new Base64MultipartFile(req.base64Data());
 
     SaveFile result =
-        saveFileUseCase
-            .operate(req.type(), file.getInputStream(), file.getOriginalFilename(), file.getSize())
-            .orElseThrow(() -> new RuntimeException("exception.file.upload_failed"));
+        saveFileUseCase.operate(
+            req.type(), file.getInputStream(), file.getOriginalFilename(), file.getSize());
 
     return new UploadFileResponse(
         result.id(),

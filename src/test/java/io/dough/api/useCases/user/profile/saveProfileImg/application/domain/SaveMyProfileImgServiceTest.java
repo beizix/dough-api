@@ -61,7 +61,7 @@ class SaveMyProfileImgServiceTest {
                 any(),
                 eq("profile.png"),
                 eq((long) content.length)))
-        .willReturn(Optional.of(mockSaveFile));
+        .willReturn(mockSaveFile);
     given(getFileURLUseCase.operate(savedFileId)).willReturn(expectedUrl);
 
     // When

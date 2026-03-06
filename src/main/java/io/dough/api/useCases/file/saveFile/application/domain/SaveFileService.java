@@ -32,13 +32,13 @@ public class SaveFileService implements SaveFileUseCase {
   private static final int MARK_READ_LIMIT = 64 * 1024;
 
   @Override
-  public Optional<SaveFile> operate(
+  public SaveFile operate(
       FileUploadType fileUploadType,
       InputStream inputStream,
       String originalFilename,
       long fileSize) {
     if (inputStream == null || originalFilename == null || originalFilename.isEmpty()) {
-      return Optional.empty();
+      throw new IllegalArgumentException("exception.file.invalid_input");
     }
 
     try (InputStream bis = new BufferedInputStream(inputStream)) {
@@ -59,14 +59,13 @@ public class SaveFileService implements SaveFileUseCase {
                       fileUploadType, subPath, createFilename, originalFilename, fileSize))
               .orElseThrow();
 
-      return Optional.of(
-          new SaveFile(
-              saveFileMetadata.id(),
-              fileUploadType,
-              subPath,
-              createFilename,
-              originalFilename,
-              fileSize));
+      return new SaveFile(
+          saveFileMetadata.id(),
+          fileUploadType,
+          subPath,
+          createFilename,
+          originalFilename,
+          fileSize);
     } catch (IOException e) {
       throw new RuntimeException("exception.file.unexpected_error", e);
     }

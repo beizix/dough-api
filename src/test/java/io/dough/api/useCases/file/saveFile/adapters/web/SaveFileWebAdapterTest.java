@@ -18,7 +18,6 @@ import io.dough.api.useCases.file.saveFile.application.SaveFileUseCase;
 import io.dough.api.useCases.file.saveFile.application.domain.model.FileUploadType;
 import io.dough.api.useCases.file.saveFile.application.domain.model.SaveFile;
 import java.io.InputStream;
-import java.util.Optional;
 import java.util.UUID;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -47,7 +46,7 @@ class SaveFileWebAdapterTest extends WebMvcTestBase {
     String resourceUrl = "/uploads/path/to/file/saved.png";
 
     given(saveFileUseCase.operate(eq(type), any(InputStream.class), anyString(), anyLong()))
-        .willReturn(Optional.of(saveFile));
+        .willReturn(saveFile);
     given(getFileUrlUseCase.operate(fileId)).willReturn(resourceUrl);
 
     // When & Then
@@ -87,7 +86,7 @@ class SaveFileWebAdapterTest extends WebMvcTestBase {
     String resourceUrl = "/uploads/path/to/file/saved.png";
 
     given(saveFileUseCase.operate(eq(type), any(InputStream.class), anyString(), anyLong()))
-        .willReturn(Optional.of(saveFile));
+        .willReturn(saveFile);
     given(getFileUrlUseCase.operate(fileId)).willReturn(resourceUrl);
 
     // When & Then
