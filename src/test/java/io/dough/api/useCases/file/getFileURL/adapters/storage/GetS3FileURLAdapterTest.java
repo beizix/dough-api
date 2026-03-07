@@ -2,7 +2,7 @@ package io.dough.api.useCases.file.getFileURL.adapters.storage;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import io.dough.api.useCases.file.saveFile.domain.FileStorageType;
+import io.dough.api.useCases.shared.domain.file.FileStorageType;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

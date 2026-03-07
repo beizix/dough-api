@@ -6,6 +6,9 @@ import java.io.InputStream;
 import java.util.NoSuchElementException;
 import java.util.Set;
 
+import io.dough.api.useCases.shared.domain.file.AcceptableFileType;
+import io.dough.api.useCases.shared.domain.file.FileStorageType;
+import io.dough.api.useCases.shared.domain.file.FileUploadType;
 import io.dough.api.useCases.file.saveFile.application.model.*;
 import io.dough.api.useCases.file.saveFile.domain.*;
 import lombok.RequiredArgsConstructor;

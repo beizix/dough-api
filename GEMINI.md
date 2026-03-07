@@ -60,18 +60,19 @@
 
 # 헥사고날 아키텍처 파일 구조
 
-파일은 개발 진행 단계에 따라 순차적으로 생성되지만, 최종적인 디렉터리 구조는 아래 규칙을 따릅니다. **특히 엔티티와 리포지토리는 공통 패키지(`common`)에서 관리합니다.**
+파일은 개발 진행 단계에 따라 순차적으로 생성되지만, 최종적인 디렉터리 구조는 아래 규칙을 따릅니다. **특히 엔티티와 리포지토리는 공유 패키지(`shared`)에서 관리합니다.**
 
 ```
 io.dough.api/
-|-- common
-|   `-- adapters
-|       `-- persistence
-|           |-- entity
-|           |   `-- <NAME>Entity.java (모든 엔티티는 AuditEntity를 상속받고, @SQLRestriction(value = "deleted = false")를 추가해야 합니다.)
-|           `-- repository
-|               `-- <NAME>Repository.java
+|-- config
 `-- useCases
+    |-- shared (useCases 내에서 공유되는 자원)
+    |   `-- adapters
+    |       `-- persistence
+    |           |-- entity
+    |           |   `-- <NAME>Entity.java (모든 엔티티는 AuditEntity를 상속받고, @SQLRestriction(value = "deleted = false")를 추가해야 합니다.)
+    |           `-- repository
+    |               `-- <NAME>Repository.java
     `-- <USE_CASE_NAME>
         |-- adapters
         |   |-- persistence
@@ -188,7 +189,7 @@ io.dough.api/
 ### 2. 진행 방식
 - 한 번에 모든 계층의 코드를 만들지 않습니다.
 - 각 단계가 끝날 때마다 사용자에게 테스트 성공 여부를 보고하고, 다음 단계(내부 계층 테스트 작성)로 진행할지 확인합니다.
-- **네이밍 및 구조**: 반드시 `WebAdapter`, `PersistAdapter` 명칭을 사용하며, 엔티티와 리포지토리는 `common` 패키지 하위에 생성합니다.
+- **네이밍 및 구조**: 반드시 `WebAdapter`, `PersistAdapter` 명칭을 사용하며, 엔티티와 리포지토리는 `useCases.shared` 패키지 하위에 생성합니다.
 
 ---
 

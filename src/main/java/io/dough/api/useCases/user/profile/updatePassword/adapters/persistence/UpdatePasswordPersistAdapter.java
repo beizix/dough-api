@@ -1,7 +1,7 @@
 package io.dough.api.useCases.user.profile.updatePassword.adapters.persistence;
 
-import io.dough.api.common.adapters.persistence.entity.UserEntity;
-import io.dough.api.common.adapters.persistence.repository.UserRepository;
+import io.dough.api.useCases.shared.adapters.persistence.entity.UserEntity;
+import io.dough.api.useCases.shared.adapters.persistence.repository.UserRepository;
 import io.dough.api.useCases.user.profile.updatePassword.application.GetUser;
 import io.dough.api.useCases.user.profile.updatePassword.application.SaveUser;
 import io.dough.api.useCases.user.profile.updatePassword.domain.UpdatedPassword;

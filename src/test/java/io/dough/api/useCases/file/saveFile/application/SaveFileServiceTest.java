@@ -9,8 +9,8 @@ import static org.mockito.BDDMockito.given;
 import static org.mockito.BDDMockito.then;
 import static org.mockito.Mockito.lenient;
 
-import io.dough.api.useCases.file.saveFile.domain.FileStorageType;
-import io.dough.api.useCases.file.saveFile.domain.FileUploadType;
+import io.dough.api.useCases.shared.domain.file.FileStorageType;
+import io.dough.api.useCases.shared.domain.file.FileUploadType;
 import io.dough.api.useCases.file.saveFile.domain.SavedFile;
 import io.dough.api.useCases.file.saveFile.application.model.SaveFileMetadataCmd;
 import io.dough.api.useCases.file.saveFile.application.model.SaveFileMetadataResult;

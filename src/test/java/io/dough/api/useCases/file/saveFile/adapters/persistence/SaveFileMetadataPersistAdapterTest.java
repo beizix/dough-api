@@ -2,10 +2,10 @@ package io.dough.api.useCases.file.saveFile.adapters.persistence;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import io.dough.api.common.adapters.persistence.entity.FileMetadataEntity;
-import io.dough.api.common.adapters.persistence.repository.FileMetadataRepository;
+import io.dough.api.useCases.shared.adapters.persistence.entity.FileMetadataEntity;
+import io.dough.api.useCases.shared.adapters.persistence.repository.FileMetadataRepository;
 import io.dough.api.support.DataJpaTestBase;
-import io.dough.api.useCases.file.saveFile.domain.FileUploadType;
+import io.dough.api.useCases.shared.domain.file.FileUploadType;
 import io.dough.api.useCases.file.saveFile.application.model.SaveFileMetadataCmd;
 import io.dough.api.useCases.file.saveFile.application.model.SaveFileMetadataResult;
 import java.util.Optional;

@@ -1,7 +1,7 @@
 package io.dough.api.useCases.user.profile.saveProfile.adapters.persistence;
 
-import io.dough.api.common.adapters.persistence.entity.UserEntity;
-import io.dough.api.common.adapters.persistence.repository.UserRepository;
+import io.dough.api.useCases.shared.adapters.persistence.entity.UserEntity;
+import io.dough.api.useCases.shared.adapters.persistence.repository.UserRepository;
 import io.dough.api.useCases.user.profile.saveProfile.application.UpdateProfile;
 import io.dough.api.useCases.user.profile.saveProfile.domain.SaveProfileCmd;
 import io.dough.api.useCases.user.profile.saveProfile.domain.SavedProfile;

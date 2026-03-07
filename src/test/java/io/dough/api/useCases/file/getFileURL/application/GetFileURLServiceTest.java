@@ -7,8 +7,8 @@ import static org.mockito.Mockito.lenient;
 import static org.mockito.Mockito.verify;
 
 import io.dough.api.useCases.file.getFileURL.application.model.FileMetadata;
-import io.dough.api.useCases.file.saveFile.domain.FileStorageType;
-import io.dough.api.useCases.file.saveFile.domain.FileUploadType;
+import io.dough.api.useCases.shared.domain.file.FileStorageType;
+import io.dough.api.useCases.shared.domain.file.FileUploadType;
 import java.util.NoSuchElementException;
 import java.util.Set;
 import java.util.UUID;

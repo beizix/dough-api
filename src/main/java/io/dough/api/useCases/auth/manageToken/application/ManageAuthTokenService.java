@@ -1,6 +1,6 @@
 package io.dough.api.useCases.auth.manageToken.application;
 
-import io.dough.api.useCases.auth.manageToken.domain.AuthToken;
+import io.dough.api.useCases.shared.domain.auth.AuthToken;
 import io.dough.api.useCases.auth.manageToken.domain.CreateTokenCmd;
 import io.dough.api.useCases.auth.manageToken.domain.RefreshTokenCmd;
 import io.jsonwebtoken.Claims;

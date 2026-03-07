@@ -1,6 +1,6 @@
 package io.dough.api.useCases.auth.login.domain;
 
-import io.dough.api.common.domain.Role;
+import io.dough.api.useCases.shared.domain.auth.Role;
 
 /**
  * 로그인 요청 정보를 담은 커맨드 객체입니다.

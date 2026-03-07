@@ -1,6 +1,6 @@
 package io.dough.api.useCases.auth.login.application;
 
-import io.dough.api.common.domain.Role;
+import io.dough.api.useCases.shared.domain.auth.Role;
 import io.dough.api.useCases.auth.login.application.model.GetUserResult;
 import java.util.Optional;
 

@@ -1,6 +1,6 @@
 package io.dough.api.useCases.user.profile.getProfile.application.model;
 
-import io.dough.api.common.domain.Role;
+import io.dough.api.useCases.shared.domain.auth.Role;
 import java.time.LocalDateTime;
 import java.util.UUID;
 

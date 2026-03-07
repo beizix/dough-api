@@ -2,9 +2,9 @@ package io.dough.api.useCases.auth.login.adapters.persistence;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import io.dough.api.common.adapters.persistence.entity.UserEntity;
-import io.dough.api.common.adapters.persistence.repository.UserRepository;
-import io.dough.api.common.domain.Role;
+import io.dough.api.useCases.shared.adapters.persistence.entity.UserEntity;
+import io.dough.api.useCases.shared.adapters.persistence.repository.UserRepository;
+import io.dough.api.useCases.shared.domain.auth.Role;
 import io.dough.api.support.DataJpaTestBase;
 import io.dough.api.useCases.auth.login.application.model.GetUserResult;
 import java.util.Optional;

@@ -1,6 +1,6 @@
 package io.dough.api.useCases.auth.signup.application.model;
 
-import io.dough.api.common.domain.Role;
+import io.dough.api.useCases.shared.domain.auth.Role;
 import java.util.UUID;
 
 /**

@@ -1,6 +1,6 @@
 package io.dough.api.useCases.auth.signup.application;
 
-import io.dough.api.useCases.auth.manageToken.domain.AuthToken;
+import io.dough.api.useCases.shared.domain.auth.AuthToken;
 import io.dough.api.useCases.auth.signup.domain.SignupCmd;
 
 /** 새로운 사용자를 시스템에 등록하고(회원가입), 인증 토큰을 발급합니다. */

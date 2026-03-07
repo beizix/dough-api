@@ -1,6 +1,6 @@
 package io.dough.api.useCases.auth.manageToken.adapters.persistence;
 
-import io.dough.api.common.adapters.persistence.repository.UserRepository;
+import io.dough.api.useCases.shared.adapters.persistence.repository.UserRepository;
 import io.dough.api.useCases.auth.manageToken.application.RefreshAuthToken;
 import java.util.Optional;
 import java.util.UUID;

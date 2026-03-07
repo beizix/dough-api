@@ -1,6 +1,6 @@
 package io.dough.api.useCases.file.getFileURL.application;
 
-import io.dough.api.useCases.file.saveFile.domain.FileStorageType;
+import io.dough.api.useCases.shared.domain.file.FileStorageType;
 
 /** 애플리케이션 계층에서 저장소 계층(로컬, S3 등)으로 파일의 접근 URL 생성을 요청하는 출력 포트입니다. */
 public interface GetFileURL {

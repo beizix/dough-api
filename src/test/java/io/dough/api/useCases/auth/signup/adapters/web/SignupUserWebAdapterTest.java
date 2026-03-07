@@ -8,7 +8,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import io.dough.api.support.WebMvcTestBase;
-import io.dough.api.useCases.auth.manageToken.domain.AuthToken;
+import io.dough.api.useCases.shared.domain.auth.AuthToken;
 import io.dough.api.useCases.auth.signup.adapters.web.model.SignupUserRequest;
 import io.dough.api.useCases.auth.signup.application.SignupUseCase;
 import io.dough.api.useCases.auth.signup.domain.SignupCmd;

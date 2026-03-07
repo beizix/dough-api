@@ -7,9 +7,9 @@ import static org.mockito.ArgumentMatchers.argThat;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
 
-import io.dough.api.common.domain.Role;
+import io.dough.api.useCases.shared.domain.auth.Role;
 import io.dough.api.useCases.auth.manageToken.application.ManageAuthTokenUseCase;
-import io.dough.api.useCases.auth.manageToken.domain.AuthToken;
+import io.dough.api.useCases.shared.domain.auth.AuthToken;
 import io.dough.api.useCases.auth.manageToken.domain.CreateTokenCmd;
 import io.dough.api.useCases.auth.signup.domain.SignupCmd;
 import io.dough.api.useCases.auth.signup.application.model.SignupUser;

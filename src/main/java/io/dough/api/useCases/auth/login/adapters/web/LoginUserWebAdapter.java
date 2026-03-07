@@ -1,11 +1,11 @@
 package io.dough.api.useCases.auth.login.adapters.web;
 
-import io.dough.api.common.domain.Role;
+import io.dough.api.useCases.shared.domain.auth.Role;
 import io.dough.api.useCases.auth.login.adapters.web.model.LoginRequest;
 import io.dough.api.useCases.auth.login.adapters.web.model.LoginResponse;
 import io.dough.api.useCases.auth.login.application.LoginUseCase;
 import io.dough.api.useCases.auth.login.domain.LoginCmd;
-import io.dough.api.useCases.auth.manageToken.domain.AuthToken;
+import io.dough.api.useCases.shared.domain.auth.AuthToken;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;

@@ -1,5 +1,8 @@
 package io.dough.api.useCases.file.saveFile.domain;
 
+import io.dough.api.useCases.shared.domain.file.AcceptableFileType;
+import io.dough.api.useCases.shared.domain.file.FileUploadType;
+
 import java.nio.file.Path;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
