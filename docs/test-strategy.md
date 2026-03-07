@@ -46,7 +46,7 @@ HTTP 요청 매핑, 파라미터 검증, 응답 상태 코드, 그리고 UseCase
 ### 2.4 Architecture Test (ArchUnit)
 패키지 간의 의존성 규칙이 헥사고날 아키텍처 원칙을 준수하는지 자동으로 검증합니다.
 
-- **핵심 클래스**: `io.dough.api.ApiArchTest`
+- **핵심 클래스**: `io.dough.api.AppArchTest`
 - **검증 규칙**:
   - `application`(Core) 계층은 어떠한 외부 계층도 참조해서는 안 됨.
   - `web`과 `persistence` 어댑터는 서로를 직접 참조할 수 없음.

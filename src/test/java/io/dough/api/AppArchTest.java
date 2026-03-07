@@ -9,7 +9,7 @@ import com.tngtech.archunit.library.Architectures;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-public class ApiArchTest {
+public class AppArchTest {
 
   final JavaClasses classes =
       new ClassFileImporter()
