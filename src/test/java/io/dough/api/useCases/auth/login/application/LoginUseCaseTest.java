@@ -5,7 +5,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
 
-import io.dough.api.common.application.enums.Role;
+import io.dough.api.common.domain.Role;
 import io.dough.api.useCases.auth.login.application.model.GetUserResult;
 import io.dough.api.useCases.auth.login.domain.LoginCmd;
 import io.dough.api.useCases.auth.manageToken.application.ManageAuthTokenUseCase;

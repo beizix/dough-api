@@ -1,7 +1,7 @@
 package io.dough.api.common.adapters.persistence.entity;
 
 import io.dough.api.common.adapters.persistence.component.AuditEntity;
-import io.dough.api.common.application.enums.Role;
+import io.dough.api.common.domain.Role;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;

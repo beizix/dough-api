@@ -1,7 +1,7 @@
 package io.dough.api.useCases.file.getFileURL.adapters.storage;
 
 import io.dough.api.useCases.file.getFileURL.application.GetFileURL;
-import io.dough.api.useCases.file.saveFile.application.model.FileStorageType;
+import io.dough.api.useCases.file.saveFile.domain.FileStorageType;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;

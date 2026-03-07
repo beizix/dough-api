@@ -5,7 +5,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import io.dough.api.common.application.enums.Role;
+import io.dough.api.common.domain.Role;
 import io.dough.api.useCases.auth.manageToken.domain.AuthToken;
 import io.dough.api.useCases.auth.manageToken.domain.CreateTokenCmd;
 import io.dough.api.useCases.auth.manageToken.domain.RefreshTokenCmd;

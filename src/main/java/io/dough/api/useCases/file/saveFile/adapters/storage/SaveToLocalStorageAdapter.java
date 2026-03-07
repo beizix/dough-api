@@ -1,7 +1,7 @@
 package io.dough.api.useCases.file.saveFile.adapters.storage;
 
 import io.dough.api.useCases.file.saveFile.application.SaveToFileStorage;
-import io.dough.api.useCases.file.saveFile.application.model.FileStorageType;
+import io.dough.api.useCases.file.saveFile.domain.FileStorageType;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;

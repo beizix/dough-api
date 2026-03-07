@@ -7,7 +7,7 @@ import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import io.dough.api.common.application.enums.Role;
+import io.dough.api.common.domain.Role;
 import io.dough.api.support.WebMvcTestBase;
 import io.dough.api.useCases.auth.manageToken.domain.AuthToken;
 import io.dough.api.useCases.auth.signup.adapters.web.model.SignupManagerRequest;

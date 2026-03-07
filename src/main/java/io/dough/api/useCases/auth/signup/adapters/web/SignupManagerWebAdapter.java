@@ -1,6 +1,6 @@
 package io.dough.api.useCases.auth.signup.adapters.web;
 
-import io.dough.api.common.application.enums.Role;
+import io.dough.api.common.domain.Role;
 import io.dough.api.useCases.auth.manageToken.domain.AuthToken;
 import io.dough.api.useCases.auth.signup.adapters.web.model.SignupManagerRequest;
 import io.dough.api.useCases.auth.signup.adapters.web.model.SignupResponse;

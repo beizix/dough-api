@@ -3,7 +3,6 @@ package io.dough.api.useCases.file.saveFile.domain;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import java.util.Set;
 
-import io.dough.api.useCases.file.saveFile.application.model.FileStorageType;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 

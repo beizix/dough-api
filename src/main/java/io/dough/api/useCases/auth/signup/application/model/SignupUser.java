@@ -1,6 +1,6 @@
 package io.dough.api.useCases.auth.signup.application.model;
 
-import io.dough.api.common.application.enums.Role;
+import io.dough.api.common.domain.Role;
 import java.util.UUID;
 
 /**

@@ -7,10 +7,7 @@ import java.util.NoSuchElementException;
 import java.util.Set;
 
 import io.dough.api.useCases.file.saveFile.application.model.*;
-import io.dough.api.useCases.file.saveFile.domain.AcceptableFileType;
-import io.dough.api.useCases.file.saveFile.domain.FileUploadType;
-import io.dough.api.useCases.file.saveFile.domain.SavedFile;
-import io.dough.api.useCases.file.saveFile.domain.FileToUpload;
+import io.dough.api.useCases.file.saveFile.domain.*;
 import lombok.RequiredArgsConstructor;
 import org.apache.tika.Tika;
 import org.springframework.stereotype.Service;

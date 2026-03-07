@@ -1,6 +1,6 @@
 package io.dough.api.useCases.auth.signup.domain;
 
-import io.dough.api.common.application.enums.Role;
+import io.dough.api.common.domain.Role;
 
 /**
  * 회원가입에 필요한 사용자 정보를 담은 커맨드 객체입니다.

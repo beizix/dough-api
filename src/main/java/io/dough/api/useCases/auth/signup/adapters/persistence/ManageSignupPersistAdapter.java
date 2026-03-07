@@ -2,7 +2,7 @@ package io.dough.api.useCases.auth.signup.adapters.persistence;
 
 import io.dough.api.common.adapters.persistence.entity.UserEntity;
 import io.dough.api.common.adapters.persistence.repository.UserRepository;
-import io.dough.api.common.application.enums.Role;
+import io.dough.api.common.domain.Role;
 import io.dough.api.useCases.auth.signup.application.ManageSignup;
 import io.dough.api.useCases.auth.signup.application.model.SignupUser;
 import lombok.RequiredArgsConstructor;

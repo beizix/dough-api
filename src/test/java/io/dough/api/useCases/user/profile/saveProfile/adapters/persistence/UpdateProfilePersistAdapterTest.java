@@ -5,7 +5,7 @@ import static org.assertj.core.api.Assertions.catchThrowable;
 
 import io.dough.api.common.adapters.persistence.entity.UserEntity;
 import io.dough.api.common.adapters.persistence.repository.UserRepository;
-import io.dough.api.common.application.enums.Role;
+import io.dough.api.common.domain.Role;
 import io.dough.api.support.DataJpaTestBase;
 import io.dough.api.useCases.user.profile.saveProfile.domain.SaveProfileCmd;
 import io.dough.api.useCases.user.profile.saveProfile.domain.SavedProfile;

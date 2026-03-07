@@ -3,6 +3,9 @@ package io.dough.api.common.application.enums;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.Set;
+
+import io.dough.api.common.domain.Privilege;
+import io.dough.api.common.domain.Role;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 

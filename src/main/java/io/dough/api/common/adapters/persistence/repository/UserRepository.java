@@ -1,7 +1,7 @@
 package io.dough.api.common.adapters.persistence.repository;
 
 import io.dough.api.common.adapters.persistence.entity.UserEntity;
-import io.dough.api.common.application.enums.Role;
+import io.dough.api.common.domain.Role;
 import java.util.Optional;
 import java.util.UUID;
 import org.springframework.data.jpa.repository.JpaRepository;

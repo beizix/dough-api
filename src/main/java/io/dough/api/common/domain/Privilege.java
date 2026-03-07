@@ -1,4 +1,4 @@
-package io.dough.api.common.application.enums;
+package io.dough.api.common.domain;
 
 public enum Privilege {
   ACCESS_USER_API,
