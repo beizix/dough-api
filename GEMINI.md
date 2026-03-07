@@ -45,10 +45,9 @@
 - **어댑터 패턴 적용 (Adapters)**: 기술적인 역할(Controller, Repository)보다는 아키텍처 역할(Adapter)을 강조하는 네이밍을 사용합니다.
   - **Web Layer**: `...Controller` 대신 `...WebAdapter` 사용
   - **Persistence Layer**: `...Dao`, `...Repository` 대신 `...PersistAdapter` 사용
-- **유스케이스 맥락 반영 (Context Specific)**: 클래스 및 메서드 명은 해당 유스케이스의 의도를 명확히 드러내야 합니다.
+- **유스케이스 맥락 반영 (Context Specific)**: 유스케이스 명칭은 비지니스의 책임을 명확히 드러내야 합니다.
   - ❌ Bad: `User`, `UserPersistenceAdapter`, `UserService`
   - ⭕ Good: `LoginUser`, `LoginUserPersistAdapter`, `LoginService`, `LoginWebAdapter`
-- **일반 명사 지양**: 도메인 모델, 어댑터, 포트 등 모든 구성 요소에서 `Data`, `Info`, `Manager` 같은 모호한 접미사나 `User` 같은 단순 명사 사용을 피합니다.
 
 # Java 코딩 규칙
 
@@ -107,11 +106,11 @@ io.dough.api/
 
 -   `application/<USE_CASE_NAME>UseCase.java`: **입력 포트(Input Port)**
   -   애플리케이션을 구동하는 방법을 정의하는 인터페이스입니다.
-  -   메서드 이름은 무조건 `operate` 입니다.
+  -   유즈케이스의 맥락은 클래스명에서 표현되니 단일 메서드로 구성된다면 메서드 이름은 `operate` 로 지정합니다.
 
 -   `application/<BEHAVIOR>.java`: **출력 포트(Output Port)**
   -   애플리케이션이 외부 세계(DB, 외부 API 등)와 소통하는 방법을 정의하는 인터페이스입니다.
-  -   메서드 이름은 무조건 `operate` 입니다.
+  -   유즈케이스의 맥락은 클래스명에서 표현되니 단일 메서드로 구성된다면 메서드 이름은 `operate` 로 지정합니다.
 
 -   `application/model/`: **포트 DTO**
   -   포트 인터페이스에서 데이터 전달을 위해 사용되는 객체(예: `ProfileLoaded`)가 위치합니다.
