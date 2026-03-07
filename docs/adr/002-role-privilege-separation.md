@@ -23,7 +23,7 @@
 ### 1. Privilege Enum 도입
 실제 실행 가능한 '권한'을 정의하는 `Privilege` Enum을 도입한다.
 
-*   **위치**: `io.dough.api.common.domain.auth.Privilege`
+*   **위치**: `io.dough.api.useCases.shared.domain.auth.Privilege`
 *   **정의**:
     ```java
     public enum Privilege {
