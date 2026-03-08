@@ -1,4 +1,4 @@
-package io.dough.api.useCases.auth.manageToken.adapters.web.model;
+package io.dough.api.useCases.auth.resolveToken.adapters.web.model;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 

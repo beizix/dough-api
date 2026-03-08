@@ -1,9 +1,11 @@
-package io.dough.api.useCases.auth.manageToken.application;
+package io.dough.api.useCases.auth.resolveToken.application;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import io.dough.api.useCases.auth.issueToken.application.IssueTokenService;
+import io.dough.api.useCases.auth.issueToken.application.RefreshAuthToken;
 import io.dough.api.useCases.shared.domain.auth.Role;
-import io.dough.api.useCases.auth.manageToken.domain.CreateTokenCmd;
+import io.dough.api.useCases.auth.issueToken.domain.CreateTokenCmd;
 import java.util.UUID;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;

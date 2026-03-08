@@ -1,8 +1,8 @@
 package io.dough.api.useCases.auth.signup.application;
 
-import io.dough.api.useCases.auth.manageToken.application.IssueTokenUseCase;
+import io.dough.api.useCases.auth.issueToken.application.IssueTokenUseCase;
 import io.dough.api.useCases.shared.domain.auth.AuthToken;
-import io.dough.api.useCases.auth.manageToken.domain.CreateTokenCmd;
+import io.dough.api.useCases.auth.issueToken.domain.CreateTokenCmd;
 import io.dough.api.useCases.auth.signup.domain.SignupCmd;
 import io.dough.api.useCases.auth.signup.application.model.SignupUser;
 import lombok.RequiredArgsConstructor;

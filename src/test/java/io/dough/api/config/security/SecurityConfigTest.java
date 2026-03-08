@@ -5,7 +5,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import io.dough.api.support.SecurityConfigTestWebAdapter;
-import io.dough.api.useCases.auth.manageToken.application.ResolveTokenUseCase;
+import io.dough.api.useCases.auth.resolveToken.application.ResolveTokenUseCase;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

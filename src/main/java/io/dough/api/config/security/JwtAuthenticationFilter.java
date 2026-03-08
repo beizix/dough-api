@@ -1,6 +1,6 @@
 package io.dough.api.config.security;
 
-import io.dough.api.useCases.auth.manageToken.application.ResolveTokenUseCase;
+import io.dough.api.useCases.auth.resolveToken.application.ResolveTokenUseCase;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

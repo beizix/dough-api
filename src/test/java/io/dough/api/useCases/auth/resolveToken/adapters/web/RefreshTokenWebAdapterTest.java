@@ -1,4 +1,4 @@
-package io.dough.api.useCases.auth.manageToken.adapters.web;
+package io.dough.api.useCases.auth.resolveToken.adapters.web;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
@@ -7,17 +7,17 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import io.dough.api.support.WebMvcTestBase;
-import io.dough.api.useCases.auth.manageToken.adapters.web.model.RefreshRequest;
-import io.dough.api.useCases.auth.manageToken.adapters.web.model.ValidateRequest;
+import io.dough.api.useCases.auth.issueToken.adapters.web.RefreshTokenWebAdapter;
+import io.dough.api.useCases.auth.issueToken.adapters.web.model.RefreshRequest;
 import io.dough.api.useCases.shared.domain.auth.AuthToken;
-import io.dough.api.useCases.auth.manageToken.domain.RefreshTokenCmd;
+import io.dough.api.useCases.auth.issueToken.domain.RefreshTokenCmd;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.webmvc.test.autoconfigure.WebMvcTest;
 import org.springframework.http.MediaType;
 
-@WebMvcTest(ManageAuthTokenWebAdapter.class)
-class ManageAuthTokenWebAdapterTest extends WebMvcTestBase {
+@WebMvcTest(RefreshTokenWebAdapter.class)
+class RefreshTokenWebAdapterTest extends WebMvcTestBase {
 
   @Test
   @DisplayName("Scenario: 성공 - 유효한 리프레시 토큰으로 토큰 재발급")
@@ -36,23 +36,5 @@ class ManageAuthTokenWebAdapterTest extends WebMvcTestBase {
         .andExpect(status().isOk())
         .andExpect(jsonPath("$.accessToken").value("new_access_token"))
         .andExpect(jsonPath("$.refreshToken").value("new_refresh_token"));
-  }
-
-  @Test
-  @DisplayName("Scenario: 성공 - 토큰 유효성 검증")
-  void validate_token_success() throws Exception {
-    // Given
-    ValidateRequest req = new ValidateRequest("valid_access_token");
-    given(resolveTokenUseCase.validateToken(req.token())).willReturn(true);
-
-    // When
-    mockMvc
-        .perform(
-            post("/api/v1/auth/validate")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(json(req)))
-        // Then
-        .andExpect(status().isOk())
-        .andExpect(jsonPath("$.valid").value(true));
   }
 }

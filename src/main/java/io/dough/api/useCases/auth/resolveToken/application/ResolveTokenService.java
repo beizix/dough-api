@@ -1,4 +1,4 @@
-package io.dough.api.useCases.auth.manageToken.application;
+package io.dough.api.useCases.auth.resolveToken.application;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;

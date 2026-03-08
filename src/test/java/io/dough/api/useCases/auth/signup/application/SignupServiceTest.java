@@ -8,9 +8,9 @@ import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
 
 import io.dough.api.useCases.shared.domain.auth.Role;
-import io.dough.api.useCases.auth.manageToken.application.IssueTokenUseCase;
+import io.dough.api.useCases.auth.issueToken.application.IssueTokenUseCase;
 import io.dough.api.useCases.shared.domain.auth.AuthToken;
-import io.dough.api.useCases.auth.manageToken.domain.CreateTokenCmd;
+import io.dough.api.useCases.auth.issueToken.domain.CreateTokenCmd;
 import io.dough.api.useCases.auth.signup.domain.SignupCmd;
 import io.dough.api.useCases.auth.signup.application.model.SignupUser;
 import java.util.UUID;

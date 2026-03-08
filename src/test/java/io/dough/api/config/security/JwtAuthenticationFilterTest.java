@@ -6,7 +6,7 @@ import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 
-import io.dough.api.useCases.auth.manageToken.application.ResolveTokenUseCase;
+import io.dough.api.useCases.auth.resolveToken.application.ResolveTokenUseCase;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;

@@ -1,7 +1,7 @@
 package io.dough.api.support;
 
-import io.dough.api.useCases.auth.manageToken.application.IssueTokenUseCase;
-import io.dough.api.useCases.auth.manageToken.application.ResolveTokenUseCase;
+import io.dough.api.useCases.auth.issueToken.application.IssueTokenUseCase;
+import io.dough.api.useCases.auth.resolveToken.application.ResolveTokenUseCase;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.webmvc.test.autoconfigure.AutoConfigureMockMvc;
 import org.springframework.test.context.ActiveProfiles;

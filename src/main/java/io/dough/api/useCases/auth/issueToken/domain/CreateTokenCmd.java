@@ -1,4 +1,4 @@
-package io.dough.api.useCases.auth.manageToken.domain;
+package io.dough.api.useCases.auth.issueToken.domain;
 
 import io.dough.api.useCases.shared.domain.auth.Role;
 import java.util.UUID;

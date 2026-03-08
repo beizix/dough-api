@@ -1,8 +1,9 @@
-package io.dough.api.useCases.auth.manageToken.application;
+package io.dough.api.useCases.auth.issueToken.application;
 
+import io.dough.api.useCases.auth.resolveToken.application.ResolveTokenUseCase;
 import io.dough.api.useCases.shared.domain.auth.AuthToken;
-import io.dough.api.useCases.auth.manageToken.domain.CreateTokenCmd;
-import io.dough.api.useCases.auth.manageToken.domain.RefreshTokenCmd;
+import io.dough.api.useCases.auth.issueToken.domain.CreateTokenCmd;
+import io.dough.api.useCases.auth.issueToken.domain.RefreshTokenCmd;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 import java.nio.charset.StandardCharsets;
@@ -38,7 +39,7 @@ public class IssueTokenService implements IssueTokenUseCase {
   public AuthToken createToken(CreateTokenCmd cmd) {
     var role = cmd.role().getAuthority();
     var privileges = cmd.role().getPrivileges().stream().map(Enum::name).distinct().toList();
-    
+
     String accessToken = createTokenString(
         cmd.uuid().toString(), cmd.email(), cmd.displayName(), role, privileges, accessTokenValidity);
     String refreshToken = createTokenString(

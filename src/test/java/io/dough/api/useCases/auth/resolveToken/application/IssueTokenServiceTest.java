@@ -1,15 +1,16 @@
-package io.dough.api.useCases.auth.manageToken.application;
+package io.dough.api.useCases.auth.resolveToken.application;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import io.dough.api.useCases.auth.issueToken.application.IssueTokenService;
+import io.dough.api.useCases.auth.issueToken.application.RefreshAuthToken;
 import io.dough.api.useCases.shared.domain.auth.Role;
 import io.dough.api.useCases.shared.domain.auth.AuthToken;
-import io.dough.api.useCases.auth.manageToken.domain.CreateTokenCmd;
-import io.dough.api.useCases.auth.manageToken.domain.RefreshTokenCmd;
+import io.dough.api.useCases.auth.issueToken.domain.CreateTokenCmd;
+import io.dough.api.useCases.auth.issueToken.domain.RefreshTokenCmd;
 import java.util.Optional;
 import java.util.UUID;
 import org.junit.jupiter.api.BeforeEach;

@@ -2,9 +2,9 @@ package io.dough.api.useCases.auth.login.application;
 
 import io.dough.api.useCases.auth.login.application.model.GetUserResult;
 import io.dough.api.useCases.auth.login.domain.LoginCmd;
-import io.dough.api.useCases.auth.manageToken.application.IssueTokenUseCase;
+import io.dough.api.useCases.auth.issueToken.application.IssueTokenUseCase;
 import io.dough.api.useCases.shared.domain.auth.AuthToken;
-import io.dough.api.useCases.auth.manageToken.domain.CreateTokenCmd;
+import io.dough.api.useCases.auth.issueToken.domain.CreateTokenCmd;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;

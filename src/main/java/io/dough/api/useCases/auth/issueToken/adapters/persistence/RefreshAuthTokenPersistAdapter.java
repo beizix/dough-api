@@ -1,7 +1,7 @@
-package io.dough.api.useCases.auth.manageToken.adapters.persistence;
+package io.dough.api.useCases.auth.issueToken.adapters.persistence;
 
 import io.dough.api.useCases.shared.adapters.persistence.repository.UserRepository;
-import io.dough.api.useCases.auth.manageToken.application.RefreshAuthToken;
+import io.dough.api.useCases.auth.issueToken.application.RefreshAuthToken;
 import java.util.Optional;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
