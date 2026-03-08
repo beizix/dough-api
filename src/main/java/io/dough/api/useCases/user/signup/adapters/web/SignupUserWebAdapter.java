@@ -28,8 +28,7 @@ public class SignupUserWebAdapter {
   public SignupResponse signupUser(
       @RequestBody @Parameter(description = "사용자 가입 정보", required = true) SignupUserRequest req) {
     AuthToken token =
-        signupUseCase.operate(
-            new SignupCmd(req.email(), req.password(), req.displayName(), Role.USER));
+        signupUseCase.operate(new SignupCmd(req.email(), req.password(), req.displayName()));
     return new SignupResponse(token.accessToken(), token.refreshToken());
   }
 }
