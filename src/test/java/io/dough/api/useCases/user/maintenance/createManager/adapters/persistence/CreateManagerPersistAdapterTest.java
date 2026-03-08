@@ -23,7 +23,7 @@ class CreateManagerPersistAdapterTest extends DataJpaTestBase {
   @DisplayName("Scenario: 성공 - 매니저 정보를 저장하고 도메인 모델을 반환한다")
   void save_manager_success() {
     // Given
-    CreateManagerCmd cmd = new CreateManagerCmd("manager@dough.io", "새매니저", "encodedPassword");
+    CreateManagerCmd cmd = new CreateManagerCmd("manager@dough.io", "새매니저", "encodedPassword1");
 
     // When
     ManagerCreated result = createManagerPersistAdapter.operate(cmd);

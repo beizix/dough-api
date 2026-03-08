@@ -30,12 +30,12 @@ class CreateManagerServiceTest {
   @DisplayName("Scenario: 성공 - 매니저 생성 시 비밀번호를 암호화하고 영속성 포트를 호출한다")
   void create_manager_success() {
     // Given
-    CreateManagerCmd cmd = new CreateManagerCmd("manager@dough.io", "새매니저", "rawPassword");
+    CreateManagerCmd cmd = new CreateManagerCmd("manager@dough.io", "새매니저", "rawPassword1");
     ManagerCreated expected =
         new ManagerCreated(
             UUID.randomUUID(), "manager@dough.io", "새매니저", Role.MANAGER, LocalDateTime.now());
     
-    given(passwordEncoder.encode("rawPassword")).willReturn("encodedPassword");
+    given(passwordEncoder.encode("rawPassword1")).willReturn("encodedPassword1");
     given(saveManager.operate(any(CreateManagerCmd.class))).willReturn(expected);
 
     // When
@@ -43,7 +43,7 @@ class CreateManagerServiceTest {
 
     // Then
     assertThat(actual).isEqualTo(expected);
-    verify(passwordEncoder).encode("rawPassword");
+    verify(passwordEncoder).encode("rawPassword1");
     verify(saveManager).operate(any(CreateManagerCmd.class));
   }
 }
