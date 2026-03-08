@@ -51,14 +51,17 @@
 -   **[도메인 용어 사전](./docs/domain-glossary.md)**: 프로젝트에서 사용하는 핵심 비즈니스 용어 정의
 -   **[에러 핸들링 가이드](./docs/error-handling.md)**: 공통 에러 응답 규격 및 예외 처리 전략
 -   **[테스트 전략](./docs/test-strategy.md)**: Outside-In TDD 접근 방식 및 계층별 테스트 원칙
+-   **[AI 프롬프트 가이드](./docs/prompt-guide.md)**: AI를 활용한 신규 기능 개발 시의 CRUD 상황별 프롬프트 템플릿 안내
 
 ### 2. 프로젝트 구조 (Hexagonal Architecture)
 ```
 io.dough.api/
-|-- common        # 공통 도메인, 엔티티, 리포지토리
+|-- config        # 전역 설정 (Security, Swagger, Message 등)
 `-- useCases      # 유스케이스 기반 도메인 로직
+    |-- shared    # 공통 도메인, 엔티티, 리포지토리 (useCases 내 공유)
     |-- auth      # 인증 (Login, Signup, JWT)
-    `-- file      # 파일 처리 (Save, GetURL)
+    |-- file      # 파일 처리 (Save, GetURL)
+    `-- user      # 사용자 관리 (Profile, Maintenance)
 ```
 
 상세한 아키텍처 결정 사항(ADR) 등은 [docs](./docs/) 디렉토리에서 확인할 수 있습니다.
