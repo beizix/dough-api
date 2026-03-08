@@ -1,4 +1,4 @@
-package io.dough.api.useCases.auth.signup.domain;
+package io.dough.api.useCases.user.signup.domain;
 
 import io.dough.api.useCases.shared.domain.auth.PasswordValidator;
 import io.dough.api.useCases.shared.domain.auth.Role;

@@ -1,4 +1,4 @@
-package io.dough.api.useCases.auth.signup.application.model;
+package io.dough.api.useCases.user.signup.application.model;
 
 import io.dough.api.useCases.shared.domain.auth.Role;
 import java.util.UUID;

@@ -1,8 +1,8 @@
 package io.dough.api.config.init;
 
 import io.dough.api.useCases.shared.domain.auth.Role;
-import io.dough.api.useCases.auth.signup.application.SignupUseCase;
-import io.dough.api.useCases.auth.signup.domain.SignupCmd;
+import io.dough.api.useCases.user.signup.application.SignupUseCase;
+import io.dough.api.useCases.user.signup.domain.SignupCmd;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;

@@ -1,11 +1,12 @@
-package io.dough.api.useCases.auth.signup.adapters.persistence;
+package io.dough.api.useCases.user.signup.adapters.persistence;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 import io.dough.api.useCases.shared.adapters.persistence.repository.UserRepository;
 import io.dough.api.useCases.shared.domain.auth.Role;
 import io.dough.api.support.DataJpaTestBase;
-import io.dough.api.useCases.auth.signup.application.model.SignupUser;
+import io.dough.api.useCases.user.signup.adapters.persistence.ManageSignupPersistAdapter;
+import io.dough.api.useCases.user.signup.application.model.SignupUser;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

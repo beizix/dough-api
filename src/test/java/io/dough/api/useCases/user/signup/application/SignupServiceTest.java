@@ -1,4 +1,4 @@
-package io.dough.api.useCases.auth.signup.application;
+package io.dough.api.useCases.user.signup.application;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -11,8 +11,10 @@ import io.dough.api.useCases.shared.domain.auth.Role;
 import io.dough.api.useCases.auth.issueToken.application.IssueTokenUseCase;
 import io.dough.api.useCases.shared.domain.auth.AuthToken;
 import io.dough.api.useCases.auth.issueToken.domain.CreateTokenCmd;
-import io.dough.api.useCases.auth.signup.domain.SignupCmd;
-import io.dough.api.useCases.auth.signup.application.model.SignupUser;
+import io.dough.api.useCases.user.signup.application.ManageSignup;
+import io.dough.api.useCases.user.signup.application.SignupService;
+import io.dough.api.useCases.user.signup.domain.SignupCmd;
+import io.dough.api.useCases.user.signup.application.model.SignupUser;
 import java.util.UUID;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

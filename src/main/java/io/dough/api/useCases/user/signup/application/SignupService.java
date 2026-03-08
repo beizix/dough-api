@@ -1,10 +1,10 @@
-package io.dough.api.useCases.auth.signup.application;
+package io.dough.api.useCases.user.signup.application;
 
 import io.dough.api.useCases.auth.issueToken.application.IssueTokenUseCase;
 import io.dough.api.useCases.shared.domain.auth.AuthToken;
 import io.dough.api.useCases.auth.issueToken.domain.CreateTokenCmd;
-import io.dough.api.useCases.auth.signup.domain.SignupCmd;
-import io.dough.api.useCases.auth.signup.application.model.SignupUser;
+import io.dough.api.useCases.user.signup.domain.SignupCmd;
+import io.dough.api.useCases.user.signup.application.model.SignupUser;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;

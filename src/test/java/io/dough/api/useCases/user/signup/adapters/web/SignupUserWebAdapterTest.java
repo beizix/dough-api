@@ -1,4 +1,4 @@
-package io.dough.api.useCases.auth.signup.adapters.web;
+package io.dough.api.useCases.user.signup.adapters.web;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
@@ -9,13 +9,13 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import io.dough.api.support.WebMvcTestBase;
 import io.dough.api.useCases.shared.domain.auth.AuthToken;
-import io.dough.api.useCases.auth.signup.adapters.web.model.SignupUserRequest;
-import io.dough.api.useCases.auth.signup.application.SignupUseCase;
-import io.dough.api.useCases.auth.signup.domain.SignupCmd;
+import io.dough.api.useCases.user.signup.adapters.web.SignupUserWebAdapter;
+import io.dough.api.useCases.user.signup.adapters.web.model.SignupUserRequest;
+import io.dough.api.useCases.user.signup.application.SignupUseCase;
+import io.dough.api.useCases.user.signup.domain.SignupCmd;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.webmvc.test.autoconfigure.WebMvcTest;
-import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 
 @WebMvcTest(SignupUserWebAdapter.class)
