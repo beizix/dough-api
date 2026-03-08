@@ -7,7 +7,7 @@ sequenceDiagram
     autonumber
     participant Client as Web Client
     participant Adapter as ManageAuthTokenWebAdapter
-    participant UseCase as ManageAuthTokenUseCase (ManageAuthTokenService)
+    participant UseCase as IssueTokenUseCase (ManageAuthTokenService)
     participant PortOut as RefreshTokenPortOut (Adapter)
     participant DB as Redis/Database
     participant JWT as JWT Library

@@ -11,7 +11,7 @@ sequenceDiagram
     participant PortOut as ManageSignupPortOut (Adapter)
     participant DB as Database
     participant Crypto as PasswordEncoder
-    participant TokenUC as ManageAuthTokenUseCase
+    participant TokenUC as IssueTokenUseCase
 
     Client->>Adapter: POST /api/v1/signup/user (email, password, ...)
     Adapter->>UseCase: operate(SignupCmd)
@@ -46,5 +46,5 @@ sequenceDiagram
 1.  **중복 가입 검증**: `ManageSignupPortOut`을 통해 요청된 이메일과 권한(Role)이 이미 존재하는지 확인하여 중복 가입을 방지합니다.
 2.  **보안 강화**: `PasswordEncoder`를 사용하여 비밀번호를 평문으로 저장하지 않고 안전하게 암호화합니다.
 3.  **영속화**: 암호화된 비밀번호와 사용자 정보를 DB에 저장합니다. 이 과정은 `@Transactional`로 묶여 있어 전체 과정의 원자성을 보장합니다.
-4.  **자동 로그인 처리**: 사용자 편의를 위해 가입 완료 직후 `ManageAuthTokenUseCase`를 호출하여 인증 토큰을 발급합니다.
+4.  **자동 로그인 처리**: 사용자 편의를 위해 가입 완료 직후 `IssueTokenUseCase`를 호출하여 인증 토큰을 발급합니다.
 5.  **응답**: 발급된 토큰과 함께 성공 응답을 클라이언트에 전달합니다.

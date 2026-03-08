@@ -10,7 +10,8 @@
 | **Role** | 역할 | 사용자의 권한 그룹. `USER`, `MANAGER`, `ADMIN` 등으로 구분됩니다. | `Role` (Enum) |
 | **Privilege** | 특권 | 역할 내에 포함된 더 세부적인 실행 권한 단위입니다. | `Privilege` (Enum) |
 | **AuthToken** | 인증 토큰 | JWT 기반의 보안 토큰 세트. `AccessToken`과 `RefreshToken`으로 구성됩니다. | `AuthToken` |
-| **ManageAuthToken** | 인증 토큰 관리 | 토큰의 생성, 검증, 갱신, 정보 추출을 아우르는 일련의 행위입니다. | `ManageAuthTokenUseCase` |
+| **IssueToken** | 인증 토큰 발급 | 새로운 JWT 토큰 세트를 생성하거나 갱신하는 행위입니다. | `IssueTokenUseCase` |
+| **ResolveToken** | 인증 토큰 해석 | 토큰의 유효성을 검증하고 내부 클레임 정보를 추출하는 행위입니다. | `ResolveTokenUseCase` |
 
 ## 2. 파일 관리 (File Management)
 

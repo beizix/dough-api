@@ -26,7 +26,7 @@ class ManageAuthTokenWebAdapterTest extends WebMvcTestBase {
     RefreshRequest req = new RefreshRequest("valid_refresh_token");
     AuthToken token = new AuthToken("new_access_token", "new_refresh_token");
 
-    given(manageAuthTokenUseCase.refreshToken(any(RefreshTokenCmd.class))).willReturn(token);
+    given(issueTokenUseCase.refreshToken(any(RefreshTokenCmd.class))).willReturn(token);
 
     // When
     mockMvc
@@ -43,7 +43,7 @@ class ManageAuthTokenWebAdapterTest extends WebMvcTestBase {
   void validate_token_success() throws Exception {
     // Given
     ValidateRequest req = new ValidateRequest("valid_access_token");
-    given(manageAuthTokenUseCase.validateToken(req.token())).willReturn(true);
+    given(resolveTokenUseCase.validateToken(req.token())).willReturn(true);
 
     // When
     mockMvc

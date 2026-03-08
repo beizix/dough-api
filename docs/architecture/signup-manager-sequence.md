@@ -11,7 +11,7 @@ sequenceDiagram
     participant PortOut as ManageSignupPortOut (Adapter)
     participant DB as Database
     participant Crypto as PasswordEncoder
-    participant TokenUC as ManageAuthTokenUseCase
+    participant TokenUC as IssueTokenUseCase
 
     Client->>Adapter: POST /api/v1/manager/signup (email, password, ...)
     Adapter->>UseCase: operate(SignupCmd with Role.MANAGER)

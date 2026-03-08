@@ -6,7 +6,7 @@ import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 
-import io.dough.api.useCases.auth.manageToken.application.ManageAuthTokenUseCase;
+import io.dough.api.useCases.auth.manageToken.application.ResolveTokenUseCase;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -25,7 +25,7 @@ class JwtAuthenticationFilterTest {
 
   private JwtAuthenticationFilter filter;
 
-  @Mock private ManageAuthTokenUseCase manageAuthTokenUseCase;
+  @Mock private ResolveTokenUseCase resolveTokenUseCase;
 
   private MockHttpServletRequest request;
   private MockHttpServletResponse response;
@@ -33,7 +33,7 @@ class JwtAuthenticationFilterTest {
 
   @BeforeEach
   void setUp() {
-    filter = new JwtAuthenticationFilter(manageAuthTokenUseCase);
+    filter = new JwtAuthenticationFilter(resolveTokenUseCase);
     request = new MockHttpServletRequest();
     response = new MockHttpServletResponse();
     filterChain = new MockFilterChain();
@@ -56,10 +56,10 @@ class JwtAuthenticationFilterTest {
 
     request.addHeader("Authorization", "Bearer " + token);
 
-    given(manageAuthTokenUseCase.validateToken(token)).willReturn(true);
-    given(manageAuthTokenUseCase.getSubject(token)).willReturn(userUuid);
-    given(manageAuthTokenUseCase.getRole(token)).willReturn(role);
-    given(manageAuthTokenUseCase.getPrivileges(token)).willReturn(privileges);
+    given(resolveTokenUseCase.validateToken(token)).willReturn(true);
+    given(resolveTokenUseCase.getSubject(token)).willReturn(userUuid);
+    given(resolveTokenUseCase.getRole(token)).willReturn(role);
+    given(resolveTokenUseCase.getPrivileges(token)).willReturn(privileges);
 
     // When
     filter.doFilterInternal(request, response, filterChain);
@@ -74,8 +74,8 @@ class JwtAuthenticationFilterTest {
         .extracting(GrantedAuthority::getAuthority)
         .containsExactlyInAnyOrder("ROLE_USER", "ACCESS_MANAGER_API");
 
-    verify(manageAuthTokenUseCase).getRole(token);
-    verify(manageAuthTokenUseCase).getPrivileges(token);
+    verify(resolveTokenUseCase).getRole(token);
+    verify(resolveTokenUseCase).getPrivileges(token);
   }
 
   @Test
@@ -87,6 +87,6 @@ class JwtAuthenticationFilterTest {
     // Then
     var authentication = SecurityContextHolder.getContext().getAuthentication();
     assertThat(authentication).isNull();
-    verify(manageAuthTokenUseCase, never()).validateToken(any());
+    verify(resolveTokenUseCase, never()).validateToken(any());
   }
 }

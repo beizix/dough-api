@@ -8,7 +8,7 @@ import static org.mockito.Mockito.verify;
 import io.dough.api.useCases.shared.domain.auth.Role;
 import io.dough.api.useCases.auth.login.application.model.GetUserResult;
 import io.dough.api.useCases.auth.login.domain.LoginCmd;
-import io.dough.api.useCases.auth.manageToken.application.ManageAuthTokenUseCase;
+import io.dough.api.useCases.auth.manageToken.application.IssueTokenUseCase;
 import io.dough.api.useCases.shared.domain.auth.AuthToken;
 import io.dough.api.useCases.auth.manageToken.domain.CreateTokenCmd;
 import java.util.Optional;
@@ -30,7 +30,7 @@ class LoginUseCaseTest {
 
   @Mock private PasswordEncoder passwordEncoder;
 
-  @Mock private ManageAuthTokenUseCase manageAuthTokenUseCase;
+  @Mock private IssueTokenUseCase issueTokenUseCase;
 
   @Test
   @DisplayName("Scenario: 성공 - 유효한 자격 증명으로 로그인 성공")
@@ -46,7 +46,7 @@ class LoginUseCaseTest {
 
     given(getUser.operate(email, role)).willReturn(Optional.of(user));
     given(passwordEncoder.matches(password, encodedPassword)).willReturn(true);
-    given(manageAuthTokenUseCase.createToken(any(CreateTokenCmd.class)))
+    given(issueTokenUseCase.createToken(any(CreateTokenCmd.class)))
         .willReturn(new AuthToken("access", "refresh"));
 
     // When
@@ -54,7 +54,7 @@ class LoginUseCaseTest {
 
     // Then
     assertThat(token).isNotNull();
-    verify(manageAuthTokenUseCase).createToken(any(CreateTokenCmd.class));
+    verify(issueTokenUseCase).createToken(any(CreateTokenCmd.class));
   }
 
   @Test

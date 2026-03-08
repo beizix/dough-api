@@ -8,7 +8,7 @@ import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
 
 import io.dough.api.useCases.shared.domain.auth.Role;
-import io.dough.api.useCases.auth.manageToken.application.ManageAuthTokenUseCase;
+import io.dough.api.useCases.auth.manageToken.application.IssueTokenUseCase;
 import io.dough.api.useCases.shared.domain.auth.AuthToken;
 import io.dough.api.useCases.auth.manageToken.domain.CreateTokenCmd;
 import io.dough.api.useCases.auth.signup.domain.SignupCmd;
@@ -31,7 +31,7 @@ class SignupServiceTest {
 
   @Mock private PasswordEncoder passwordEncoder;
 
-  @Mock private ManageAuthTokenUseCase manageAuthTokenUseCase;
+  @Mock private IssueTokenUseCase issueTokenUseCase;
 
   @Test
   @DisplayName("Scenario: 성공 - 정상적인 회원가입 요청 시 사용자를 저장하고 토큰을 발급한다")
@@ -52,7 +52,7 @@ class SignupServiceTest {
                   user.displayName(),
                   user.role());
             });
-    given(manageAuthTokenUseCase.createToken(any(CreateTokenCmd.class)))
+    given(issueTokenUseCase.createToken(any(CreateTokenCmd.class)))
         .willReturn(new AuthToken("access", "refresh"));
 
     // When
@@ -71,7 +71,7 @@ class SignupServiceTest {
                         && user.displayName().equals(cmd.displayName())
                         && user.role().equals(cmd.role())));
 
-    verify(manageAuthTokenUseCase)
+    verify(issueTokenUseCase)
         .createToken(
             argThat(
                 authCmd -> authCmd.email().equals(cmd.email()) && authCmd.role() == cmd.role()));

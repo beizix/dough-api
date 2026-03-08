@@ -7,7 +7,7 @@ sequenceDiagram
     autonumber
     participant Client as Web Client (Frontend)
     participant Adapter as ManageAuthTokenWebAdapter
-    participant UseCase as ManageAuthTokenUseCase
+    participant UseCase as ResolveTokenUseCase
     participant JWT as JWT Library/Provider
 
     Note over Client, JWT: 앱 초기화 또는 보호된 페이지 진입 시 발생
@@ -35,7 +35,7 @@ sequenceDiagram
 ## 주요 단계 설명
 
 1.  **검증 요청**: 클라이언트(SPA 등)가 보관 중인 액세스 토큰의 유효성을 묻습니다.
-2.  **서명 확인**: `ManageAuthTokenUseCase`는 시스템의 Secret Key를 사용하여 토큰이 변조되지 않았는지 확인합니다.
+2.  **서명 확인**: `ResolveTokenUseCase`는 시스템의 Secret Key를 사용하여 토큰이 변조되지 않았는지 확인합니다.
 3.  **만료 체크**: 토큰의 `exp` 클레임을 확인하여 현재 시간 기준으로 만료되었는지 판단합니다.
 4.  **결과 반환**: 단순히 유효 여부(`true/false`)를 반환하여 클라이언트가 이후 UI 흐름을 결정할 수 있게 합니다.
 

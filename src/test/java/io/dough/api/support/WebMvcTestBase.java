@@ -1,6 +1,7 @@
 package io.dough.api.support;
 
-import io.dough.api.useCases.auth.manageToken.application.ManageAuthTokenUseCase;
+import io.dough.api.useCases.auth.manageToken.application.IssueTokenUseCase;
+import io.dough.api.useCases.auth.manageToken.application.ResolveTokenUseCase;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.webmvc.test.autoconfigure.AutoConfigureMockMvc;
 import org.springframework.test.context.ActiveProfiles;
@@ -16,7 +17,8 @@ public abstract class WebMvcTestBase {
 
   @Autowired protected ObjectMapper objectMapper;
 
-  @MockitoBean protected ManageAuthTokenUseCase manageAuthTokenUseCase;
+  @MockitoBean protected IssueTokenUseCase issueTokenUseCase;
+  @MockitoBean protected ResolveTokenUseCase resolveTokenUseCase;
 
   protected String json(Object obj) throws Exception {
     return objectMapper.writeValueAsString(obj);

@@ -1,6 +1,6 @@
 package io.dough.api.config.security;
 
-import io.dough.api.useCases.auth.manageToken.application.ManageAuthTokenUseCase;
+import io.dough.api.useCases.auth.manageToken.application.ResolveTokenUseCase;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -21,7 +21,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
 @RequiredArgsConstructor
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
-  private final ManageAuthTokenUseCase manageAuthTokenUseCase;
+  private final ResolveTokenUseCase resolveTokenUseCase;
 
   @Override
   protected void doFilterInternal(
@@ -31,14 +31,14 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     Optional<String> tokenOptional = resolveToken(request);
 
     tokenOptional
-        .filter(manageAuthTokenUseCase::validateToken)
+        .filter(resolveTokenUseCase::validateToken)
         .ifPresent(
             token -> {
-              String userUuid = manageAuthTokenUseCase.getSubject(token);
+              String userUuid = resolveTokenUseCase.getSubject(token);
               List<SimpleGrantedAuthority> authorities =
                   Stream.concat(
-                          Stream.of(manageAuthTokenUseCase.getRole(token)),
-                          manageAuthTokenUseCase.getPrivileges(token).stream())
+                          Stream.of(resolveTokenUseCase.getRole(token)),
+                          resolveTokenUseCase.getPrivileges(token).stream())
                       .filter(Objects::nonNull)
                       .map(SimpleGrantedAuthority::new)
                       .toList();

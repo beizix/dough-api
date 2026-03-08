@@ -2,7 +2,7 @@ package io.dough.api.useCases.auth.login.application;
 
 import io.dough.api.useCases.auth.login.application.model.GetUserResult;
 import io.dough.api.useCases.auth.login.domain.LoginCmd;
-import io.dough.api.useCases.auth.manageToken.application.ManageAuthTokenUseCase;
+import io.dough.api.useCases.auth.manageToken.application.IssueTokenUseCase;
 import io.dough.api.useCases.shared.domain.auth.AuthToken;
 import io.dough.api.useCases.auth.manageToken.domain.CreateTokenCmd;
 import lombok.RequiredArgsConstructor;
@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 public class LoginService implements LoginUseCase {
 
   private final GetUser getUser;
-  private final ManageAuthTokenUseCase manageAuthTokenUseCase;
+  private final IssueTokenUseCase issueTokenUseCase;
   private final PasswordEncoder passwordEncoder;
 
   @Override
@@ -28,7 +28,7 @@ public class LoginService implements LoginUseCase {
       throw new IllegalArgumentException("exception.auth.invalid_password");
     }
 
-    return manageAuthTokenUseCase.createToken(
+    return issueTokenUseCase.createToken(
         new CreateTokenCmd(user.id(), user.email(), user.displayName(), user.role()));
   }
 }
