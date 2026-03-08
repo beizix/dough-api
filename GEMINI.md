@@ -210,7 +210,7 @@ io.dough.api/
 - **Annotation:** `@WebMvcTest(TargetController.class)`
 - **Mocking:** `UseCase` 인터페이스를 `@MockitoBean`으로 주입받습니다.
 - **검증(Verify):** `Mockito.verify()`를 사용하여 컨트롤러가 `UseCase`를 올바른 파라미터로 호출했는지 검증합니다.
-- **Security:** `@WithMockUser`를 사용하여 인증된 사용자를 시뮬레이션합니다.
+- **Security:** `@WithMockUser`는 사용하지 않습니다. (보안 필터가 제외된 상태로 테스트를 진행합니다)
 
 ```java
 // 예시

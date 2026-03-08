@@ -24,7 +24,6 @@ class GetUserDetailWebAdapterTest extends WebMvcTestBase {
   @MockitoBean private GetUserUseCase getUserUseCase;
 
   @Test
-  @WithMockUser(roles = "MANAGER")
   @DisplayName("Scenario: 성공 - 사용자 ID로 상세 조회 시 UseCase가 호출된다")
   void get_user_success() throws Exception {
     // Given

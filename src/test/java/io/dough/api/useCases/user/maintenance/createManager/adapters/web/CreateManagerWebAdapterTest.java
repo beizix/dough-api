@@ -26,7 +26,6 @@ class CreateManagerWebAdapterTest extends WebMvcTestBase {
   @MockitoBean private CreateManagerUseCase createManagerUseCase;
 
   @Test
-  @WithMockUser(roles = "MANAGER")
   @DisplayName("Scenario: 성공 - 매니저 생성 요청 시 UseCase가 호출된다")
   void create_manager_success() throws Exception {
     // Given

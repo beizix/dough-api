@@ -26,7 +26,6 @@ class GetUsersWebAdapterTest extends WebMvcTestBase {
   @MockitoBean private GetUsersUseCase getUsersUseCase;
 
   @Test
-  @WithMockUser(roles = "MANAGER")
   @DisplayName("Scenario: 성공 - 사용자 목록 조회 시 필터와 페이징 정보가 UseCase로 전달된다")
   void get_users_success() throws Exception {
     // Given

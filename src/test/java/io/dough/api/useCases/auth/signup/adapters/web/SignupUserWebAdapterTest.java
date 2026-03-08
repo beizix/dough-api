@@ -25,7 +25,6 @@ class SignupUserWebAdapterTest extends WebMvcTestBase {
 
   @Test
   @DisplayName("Scenario: 성공 - 사용자 회원가입 요청 시 토큰을 반환한다")
-  @WithMockUser
   void signup_user_success() throws Exception {
     // Given
     SignupUserRequest req = new SignupUserRequest("user@dough.io", "password", "User Nickname");
