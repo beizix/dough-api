@@ -19,7 +19,7 @@
 데이터 유효성 검증과 가입/등록 직후의 추가 행위(토큰 발급 등)가 포함된 요청 예시입니다.
 
 ```markdown
-[ 신규 목록 기능 구현 요청: 헥사고날 TDD 기반 ]
+[ 신규 기능 구현 요청: 헥사고날 TDD 기반 ]
 
 **1. 유스케이스 정의**
 - **이름 (USE_CASE_NAME):** CreateManager
@@ -54,7 +54,7 @@
 - 전체 테스트 케이스 실행 및 패스 확인.
 ```
 
-### 2.2 단건 조회
+### 2.2 단건 조회 (READ)
 ```markdown
 [ 신규 기능 구현 요청: 헥사고날 아키텍처 기반 ]
 
@@ -83,9 +83,9 @@
    - 전체 테스트 케이스 실행 및 패스 확인.
 ```
 
-### 2.3 단건 수정
+### 2.3 단건 수정 (UPDATE)
 ```markdown
-[ 신규 목록 기능 구현 요청: 헥사고날 TDD 기반 ]
+[ 신규 기능 구현 요청: 헥사고날 TDD 기반 ]
 
 **1. 유스케이스 정의**
 - **이름 (USE_CASE_NAME):** UpdateManager
@@ -120,11 +120,48 @@
 - 전체 테스트 케이스 실행 및 패스 확인.
 ```
 
-### 2.3 목록 조회 (List / Search)
+### 2.4 단건 삭제 (DELETE)
+```markdown
+[ 신규 기능 구현 요청: 헥사고날 TDD 기반 ]
+
+**1. 유스케이스 정의**
+- **이름 (USE_CASE_NAME):** RemoveManager
+- **설명:** 매니저 삭제 기능
+
+**2. 아키텍처 및 패키지 구조**
+- **생성 위치:** io.dough.api.useCases.user.maintenance 하위
+- **원칙:** 헥사고날 아키텍처 준수 (adapters.web, adapters.persistence, application, domain 계층 분리)
+- **공유 자원:** shared 패키지의 엔티티 및 리포지토리 활용
+
+**3. 엔드포인트 정보 (Web Adapter)**
+- **URL / Method:** `DELETE` `/api/v1/manager/users/manager`
+- **Swagger Tag:** `사용자 관리`
+- **요청 바디:** id (String)
+
+**4. 계층별 세부 구현 요구사항**
+- **TDD (Outside-In):**
+  - WebAdapterTest (MockMvc 기반, 컴파일 에러 해결 및 UseCase 호출 검증)
+  - ServiceTest (순수 단위 테스트, Output Port 호출 검증)
+  - PersistAdapterTest (DataJpaTest 기반, 실제 DB 연동 검증)
+- **도메인 계층 (Domain):**
+  - Command: id (UUID)
+  - Model: 삭제 여부 boolean 속성과 deletedAt 을 담은 결과 객체 정의.
+- **애플리케이션 계층 (Application):**
+  - 입력 포트(UseCase) 및 출력 포트(PortOut) 인터페이스 정의.
+  - 서비스에서 포트를 통한 흐름 제어
+- **영속성 계층 (Persistence):**
+  - UserRepository.java 을 이용한 soft delete 구현
+
+
+**5. 최종 검증**
+- 전체 테스트 케이스 실행 및 패스 확인.
+```
+
+### 2.5 목록 조회 (List / Search)
 페이징 처리와 동적 필터링(`Specification`)이 포함된 목록 조회 요청 예시입니다.
 
 ```markdown
-[ 신규 목록 기능 구현 요청: 헥사고날 TDD 기반 ]
+[ 신규 기능 구현 요청: 헥사고날 TDD 기반 ]
 
 **1. 유스케이스 정의**
 - **이름 (USE_CASE_NAME):** GetUsers
@@ -161,34 +198,3 @@
 **5. 최종 검증**
 - 전체 테스트 케이스 실행 및 패스 확인.
 ```
-
-
-
-
-
-### 2.3 단건 조회/수정/삭제 (Read/Update/Delete)
-식별자(ID) 기반의 처리와 예외 케이스(Not Found) 처리가 강조된 요청 예시입니다.
-
-```markdown
-[ 신규 수정 기능 구현 요청: 헥사고날 TDD 기반 ]
-
-**1. 유스케이스 정의**
-- **이름 (USE_CASE_NAME):** `UpdateItem`
-- **설명:** 아이템 정보 수정
-
-**2. 엔드포인트 정보**
-- **URL / Method:** `PATCH` `/api/v1/items/{id}`
-
-**3. 계층별 요구사항**
-- **예외 처리**: 존재하지 않는 ID 요청 시 `IllegalArgumentException`을 발생시키고, 적절한 에러 메시지를 반환한다.
-- **도메인 계층**: `UpdateItemCmd`를 사용하며, 도메인 모델 내부에 비즈니스 변경 규칙(예: 특정 상태에서는 수정 불가)을 구현한다.
-- **영속성 계층**:Dirty Checking을 활용하거나 명시적인 Save를 수행한다.
-```
-
----
-
-## 3. 프롬프트 작성 시 주의사항
-
-1.  **컴파일 에러 환영**: "먼저 실패하는 테스트를 작성해줘. 컴파일 에러가 나는 것은 당연하니 걱정마."라고 말해주면 AI가 더 과감하게 TDD를 수행합니다.
-2.  **명확한 타입 지정**: 특히 Enum(`Role`, `Status`)이나 UUID 등 식별자 타입을 명시하면 코드 생성의 정확도가 높아집니다.
-3.  **의존성 체크**: "도메인 레이어에서 Spring이나 JPA 관련 import가 발생하면 즉시 지적해줘."와 같은 제약을 추가하면 아키텍처 품질이 올라갑니다.
