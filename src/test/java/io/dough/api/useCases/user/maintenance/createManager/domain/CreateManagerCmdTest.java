@@ -36,7 +36,7 @@ class CreateManagerCmdTest {
     // Then
     assertThatThrownBy(() -> new CreateManagerCmd(email, displayName, invalidPassword))
         .isInstanceOf(IllegalArgumentException.class)
-        .hasMessageContaining("비밀번호는 영문과 숫자를 포함하여 최소 8자 이상이어야 합니다.");
+        .hasMessageContaining("exception.auth.invalid_password_format");
   }
 
   @Test
