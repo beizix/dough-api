@@ -1,5 +1,6 @@
 package io.dough.api.useCases.auth.signup.domain;
 
+import io.dough.api.useCases.shared.domain.auth.PasswordValidator;
 import io.dough.api.useCases.shared.domain.auth.Role;
 
 /**
@@ -10,4 +11,8 @@ import io.dough.api.useCases.shared.domain.auth.Role;
  * @param displayName 서비스에서 표시될 사용자 이름
  * @param role 부여할 권한 (USER, MANAGER 등)
  */
-public record SignupCmd(String email, String password, String displayName, Role role) {}
+public record SignupCmd(String email, String password, String displayName, Role role) {
+  public SignupCmd {
+    PasswordValidator.validate(password);
+  }
+}

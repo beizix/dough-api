@@ -29,7 +29,7 @@ class UpdatePasswordWebAdapterTest extends WebMvcTestBase {
   @DisplayName("Scenario: 성공 - 사용자 패스워드 변경 요청 시 유스케이스가 호출된다")
   void update_password_user_success() throws Exception {
     // Given
-    UpdatePasswordRequest request = new UpdatePasswordRequest("currentPass", "newPass", "newPass");
+    UpdatePasswordRequest request = new UpdatePasswordRequest("currentPass", "newPassword123!", "newPassword123!");
     UsernamePasswordAuthenticationToken principal = new UsernamePasswordAuthenticationToken(
         USER_ID, null, List.of(new SimpleGrantedAuthority("ACCESS_USER_API")));
 
@@ -48,7 +48,7 @@ class UpdatePasswordWebAdapterTest extends WebMvcTestBase {
   @DisplayName("Scenario: 성공 - 매니저 패스워드 변경 요청 시 유스케이스가 호출된다")
   void update_password_manager_success() throws Exception {
     // Given
-    UpdatePasswordRequest request = new UpdatePasswordRequest("currentPass", "newPass", "newPass");
+    UpdatePasswordRequest request = new UpdatePasswordRequest("currentPass", "newPassword123!", "newPassword123!");
     UsernamePasswordAuthenticationToken principal = new UsernamePasswordAuthenticationToken(
         USER_ID, null, List.of(new SimpleGrantedAuthority("ACCESS_MANAGER_API")));
 

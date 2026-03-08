@@ -31,7 +31,7 @@ class UpdatePasswordServiceTest {
   @DisplayName("Scenario: 실패 - 신규 패스워드와 확인 패스워드가 일치하지 않으면 예외가 발생한다")
   void update_password_mismatch_fail() {
     // When & Then
-    assertThatThrownBy(() -> new UpdatePasswordCmd(UUID.randomUUID(), "current", "new", "mismatch"))
+    assertThatThrownBy(() -> new UpdatePasswordCmd(UUID.randomUUID(), "current", "newPass123!", "mismatch"))
         .isInstanceOf(IllegalArgumentException.class);
   }
 
@@ -40,7 +40,7 @@ class UpdatePasswordServiceTest {
   void update_password_current_incorrect_fail() {
     // Given
     UUID userId = UUID.randomUUID();
-    UpdatePasswordCmd cmd = new UpdatePasswordCmd(userId, "wrongCurrent", "new", "new");
+    UpdatePasswordCmd cmd = new UpdatePasswordCmd(userId, "wrongCurrent", "newPass123!", "newPass123!");
     UpdatedPassword domainModel = new UpdatedPassword(userId, "encodedCurrent");
 
     given(getUser.operate(userId)).willReturn(domainModel);
@@ -58,12 +58,12 @@ class UpdatePasswordServiceTest {
   void update_password_success() {
     // Given
     UUID userId = UUID.randomUUID();
-    UpdatePasswordCmd cmd = new UpdatePasswordCmd(userId, "current", "new", "new");
+    UpdatePasswordCmd cmd = new UpdatePasswordCmd(userId, "current", "newPass123!", "newPass123!");
     UpdatedPassword domainModel = new UpdatedPassword(userId, "encodedCurrent");
 
     given(getUser.operate(userId)).willReturn(domainModel);
     given(passwordEncoder.matches("current", "encodedCurrent")).willReturn(true);
-    given(passwordEncoder.encode("new")).willReturn("encodedNew");
+    given(passwordEncoder.encode("newPass123!")).willReturn("encodedNew");
 
     // When
     updatePasswordService.operate(cmd);
