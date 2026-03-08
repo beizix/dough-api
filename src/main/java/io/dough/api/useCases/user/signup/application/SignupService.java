@@ -14,14 +14,14 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class SignupService implements SignupUseCase {
 
-  private final ManageSignup manageSignup;
+  private final RegisterUser registerUser;
   private final PasswordEncoder passwordEncoder;
   private final IssueTokenUseCase issueTokenUseCase;
 
   @Override
   @Transactional
   public AuthToken operate(SignupCmd cmd) {
-    if (manageSignup.existsByEmailAndRole(cmd.email(), cmd.role())) {
+    if (registerUser.existsByEmailAndRole(cmd.email(), cmd.role())) {
       throw new IllegalArgumentException("exception.auth.email_already_exists");
     }
 
@@ -29,7 +29,7 @@ public class SignupService implements SignupUseCase {
     SignupUser user =
         new SignupUser(null, cmd.email(), encodedPassword, cmd.displayName(), cmd.role());
 
-    SignupUser savedUser = manageSignup.save(user);
+    SignupUser savedUser = registerUser.save(user);
 
     return issueTokenUseCase.createToken(
         new CreateTokenCmd(

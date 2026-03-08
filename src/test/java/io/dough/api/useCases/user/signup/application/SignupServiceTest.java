@@ -7,12 +7,9 @@ import static org.mockito.ArgumentMatchers.argThat;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
 
-import io.dough.api.useCases.shared.domain.auth.Role;
 import io.dough.api.useCases.auth.issueToken.application.IssueTokenUseCase;
 import io.dough.api.useCases.shared.domain.auth.AuthToken;
 import io.dough.api.useCases.auth.issueToken.domain.CreateTokenCmd;
-import io.dough.api.useCases.user.signup.application.ManageSignup;
-import io.dough.api.useCases.user.signup.application.SignupService;
 import io.dough.api.useCases.user.signup.domain.SignupCmd;
 import io.dough.api.useCases.user.signup.application.model.SignupUser;
 import java.util.UUID;
@@ -29,7 +26,7 @@ class SignupServiceTest {
 
   @InjectMocks private SignupService signupService;
 
-  @Mock private ManageSignup manageSignup;
+  @Mock private RegisterUser registerUser;
 
   @Mock private PasswordEncoder passwordEncoder;
 
@@ -41,9 +38,9 @@ class SignupServiceTest {
     // Given
     SignupCmd cmd = new SignupCmd("test@dough.io", "rawPassword123!", "Test User");
 
-    given(manageSignup.existsByEmailAndRole(cmd.email(), cmd.role())).willReturn(false);
+    given(registerUser.existsByEmailAndRole(cmd.email(), cmd.role())).willReturn(false);
     given(passwordEncoder.encode(cmd.password())).willReturn("encodedPassword");
-    given(manageSignup.save(any(SignupUser.class)))
+    given(registerUser.save(any(SignupUser.class)))
         .willAnswer(
             invocation -> {
               SignupUser user = invocation.getArgument(0);
@@ -64,7 +61,7 @@ class SignupServiceTest {
     assertThat(token).isNotNull();
     assertThat(token.accessToken()).isEqualTo("access");
 
-    verify(manageSignup)
+    verify(registerUser)
         .save(
             argThat(
                 user ->
@@ -84,7 +81,7 @@ class SignupServiceTest {
   void signup_fail_duplicate_email() {
     // Given
     SignupCmd cmd = new SignupCmd("duplicate@dough.io", "password123!", "User");
-    given(manageSignup.existsByEmailAndRole(cmd.email(), cmd.role())).willReturn(true);
+    given(registerUser.existsByEmailAndRole(cmd.email(), cmd.role())).willReturn(true);
 
     // When & Then
     assertThatThrownBy(() -> signupService.operate(cmd))

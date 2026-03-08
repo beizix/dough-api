@@ -5,7 +5,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 /** 리프레시 토큰의 저장 및 조회를 담당하는 출력 포트입니다. */
-public interface RefreshAuthToken {
+public interface HandleTokenRefresh {
 
   /**
    * 리프레시 토큰을 통해 갱신 대상 사용자 정보를 조회하기 위한 모델입니다.

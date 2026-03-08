@@ -19,19 +19,19 @@ public class IssueTokenService implements IssueTokenUseCase {
   private final SecretKey key;
   private final long accessTokenValidity;
   private final long refreshTokenValidity;
-  private final RefreshAuthToken refreshAuthToken;
+  private final HandleTokenRefresh handleTokenRefresh;
   private final ResolveTokenUseCase resolveTokenUseCase;
 
   public IssueTokenService(
       @Value("${jwt.secret}") String secret,
       @Value("${jwt.access-token-validity}") long accessTokenValidity,
       @Value("${jwt.refresh-token-validity}") long refreshTokenValidity,
-      RefreshAuthToken refreshAuthToken,
+      HandleTokenRefresh handleTokenRefresh,
       ResolveTokenUseCase resolveTokenUseCase) {
     this.key = Keys.hmacShaKeyFor(secret.getBytes(StandardCharsets.UTF_8));
     this.accessTokenValidity = accessTokenValidity;
     this.refreshTokenValidity = refreshTokenValidity;
-    this.refreshAuthToken = refreshAuthToken;
+    this.handleTokenRefresh = handleTokenRefresh;
     this.resolveTokenUseCase = resolveTokenUseCase;
   }
 
@@ -45,7 +45,7 @@ public class IssueTokenService implements IssueTokenUseCase {
     String refreshToken = createTokenString(
         cmd.uuid().toString(), cmd.email(), cmd.displayName(), role, privileges, refreshTokenValidity);
 
-    refreshAuthToken.save(cmd.uuid(), refreshToken);
+    handleTokenRefresh.save(cmd.uuid(), refreshToken);
 
     return new AuthToken(accessToken, refreshToken);
   }
@@ -56,7 +56,7 @@ public class IssueTokenService implements IssueTokenUseCase {
       throw new IllegalArgumentException("exception.auth.invalid_refresh_token");
     }
 
-    return refreshAuthToken
+    return handleTokenRefresh
         .get(cmd.refreshToken())
         .map(user -> createToken(new CreateTokenCmd(user.uuid(), user.email(), user.displayName(), user.role())))
         .orElseThrow(() -> new IllegalArgumentException("exception.auth.invalid_refresh_token"));

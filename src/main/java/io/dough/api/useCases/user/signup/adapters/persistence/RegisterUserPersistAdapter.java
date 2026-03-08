@@ -3,14 +3,14 @@ package io.dough.api.useCases.user.signup.adapters.persistence;
 import io.dough.api.useCases.shared.adapters.persistence.entity.UserEntity;
 import io.dough.api.useCases.shared.adapters.persistence.repository.UserRepository;
 import io.dough.api.useCases.shared.domain.auth.Role;
-import io.dough.api.useCases.user.signup.application.ManageSignup;
+import io.dough.api.useCases.user.signup.application.RegisterUser;
 import io.dough.api.useCases.user.signup.application.model.SignupUser;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
-public class ManageSignupPersistAdapter implements ManageSignup {
+public class RegisterUserPersistAdapter implements RegisterUser {
 
   private final UserRepository userRepository;
 

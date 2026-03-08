@@ -1,7 +1,7 @@
 package io.dough.api.useCases.auth.issueToken.adapters.persistence;
 
 import io.dough.api.useCases.shared.adapters.persistence.repository.UserRepository;
-import io.dough.api.useCases.auth.issueToken.application.RefreshAuthToken;
+import io.dough.api.useCases.auth.issueToken.application.HandleTokenRefresh;
 import java.util.Optional;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
@@ -10,7 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Component
 @RequiredArgsConstructor
-public class RefreshAuthTokenPersistAdapter implements RefreshAuthToken {
+public class HandleTokenRefreshPersistAdapter implements HandleTokenRefresh {
 
   private final UserRepository userRepository;
 

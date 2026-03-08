@@ -6,7 +6,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import io.dough.api.useCases.auth.issueToken.application.IssueTokenService;
-import io.dough.api.useCases.auth.issueToken.application.RefreshAuthToken;
+import io.dough.api.useCases.auth.issueToken.application.HandleTokenRefresh;
 import io.dough.api.useCases.shared.domain.auth.Role;
 import io.dough.api.useCases.shared.domain.auth.AuthToken;
 import io.dough.api.useCases.auth.issueToken.domain.CreateTokenCmd;
@@ -20,7 +20,7 @@ import org.junit.jupiter.api.Test;
 class IssueTokenServiceTest {
 
   private IssueTokenService issueTokenService;
-  private RefreshAuthToken refreshAuthToken;
+  private HandleTokenRefresh handleTokenRefresh;
   private ResolveTokenUseCase resolveTokenUseCase;
 
   private final String secret = "v-api-test-secret-key-must-be-long-enough-for-hs256";
@@ -29,9 +29,9 @@ class IssueTokenServiceTest {
 
   @BeforeEach
   void setUp() {
-    refreshAuthToken = mock(RefreshAuthToken.class);
+    handleTokenRefresh = mock(HandleTokenRefresh.class);
     resolveTokenUseCase = mock(ResolveTokenUseCase.class);
-    issueTokenService = new IssueTokenService(secret, accessValidity, refreshValidity, refreshAuthToken, resolveTokenUseCase);
+    issueTokenService = new IssueTokenService(secret, accessValidity, refreshValidity, handleTokenRefresh, resolveTokenUseCase);
   }
 
   @Test
@@ -46,7 +46,7 @@ class IssueTokenServiceTest {
 
     // Then
     assertThat(token).isNotNull();
-    verify(refreshAuthToken).save(uuid, token.refreshToken());
+    verify(handleTokenRefresh).save(uuid, token.refreshToken());
   }
 
   @Test
@@ -59,14 +59,14 @@ class IssueTokenServiceTest {
     Role role = Role.USER;
 
     when(resolveTokenUseCase.validateToken(refreshToken)).thenReturn(true);
-    when(refreshAuthToken.get(refreshToken))
-        .thenReturn(Optional.of(new RefreshAuthToken.RefreshUser(uuid, email, "User", role)));
+    when(handleTokenRefresh.get(refreshToken))
+        .thenReturn(Optional.of(new HandleTokenRefresh.RefreshUser(uuid, email, "User", role)));
 
     // When
     AuthToken newToken = issueTokenService.refreshToken(new RefreshTokenCmd(refreshToken));
 
     // Then
     assertThat(newToken).isNotNull();
-    verify(refreshAuthToken).save(uuid, newToken.refreshToken());
+    verify(handleTokenRefresh).save(uuid, newToken.refreshToken());
   }
 }
