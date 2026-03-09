@@ -1,5 +1,7 @@
 package io.dough.api.useCases.user.signup.domain;
 
+import io.dough.api.useCases.shared.domain.auth.DisplayNameValidator;
+import io.dough.api.useCases.shared.domain.auth.EmailValidator;
 import io.dough.api.useCases.shared.domain.auth.PasswordValidator;
 import io.dough.api.useCases.shared.domain.auth.Role;
 
@@ -13,6 +15,8 @@ import io.dough.api.useCases.shared.domain.auth.Role;
  */
 public record SignupCmd(String email, String password, String displayName) {
   public SignupCmd {
+    EmailValidator.validate(email);
+    DisplayNameValidator.validate(displayName);
     PasswordValidator.validate(password);
   }
 

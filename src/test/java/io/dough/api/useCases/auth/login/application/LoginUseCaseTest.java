@@ -37,7 +37,7 @@ class LoginUseCaseTest {
   void operate_success() {
     // Given
     String email = "test@example.com";
-    String password = "password";
+    String password = "password123!";
     String encodedPassword = "encodedPassword";
     Role role = Role.USER;
     LoginCmd cmd = new LoginCmd(email, password, role);
@@ -63,7 +63,7 @@ class LoginUseCaseTest {
     // Given
     String email = "notfound@example.com";
     Role role = Role.USER;
-    LoginCmd cmd = new LoginCmd(email, "password", role);
+    LoginCmd cmd = new LoginCmd(email, "password123!", role);
     given(getUser.operate(email, role)).willReturn(Optional.empty());
 
     // When & Then
@@ -77,7 +77,7 @@ class LoginUseCaseTest {
   void operate_fail_invalid_password() {
     // Given
     String email = "test@example.com";
-    String password = "wrongPassword";
+    String password = "wrongPassword123!";
     Role role = Role.USER;
     LoginCmd cmd = new LoginCmd(email, password, role);
     GetUserResult user =

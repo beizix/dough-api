@@ -1,5 +1,7 @@
 package io.dough.api.useCases.auth.issueToken.domain;
 
+import io.dough.api.useCases.shared.domain.auth.DisplayNameValidator;
+import io.dough.api.useCases.shared.domain.auth.EmailValidator;
 import io.dough.api.useCases.shared.domain.auth.Role;
 import java.util.UUID;
 
@@ -11,4 +13,9 @@ import java.util.UUID;
  * @param displayName 사용자 표시 이름
  * @param role 사용자 권한
  */
-public record CreateTokenCmd(UUID uuid, String email, String displayName, Role role) {}
+public record CreateTokenCmd(UUID uuid, String email, String displayName, Role role) {
+  public CreateTokenCmd {
+    EmailValidator.validate(email);
+    DisplayNameValidator.validate(displayName);
+  }
+}
