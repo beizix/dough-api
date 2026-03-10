@@ -2,6 +2,7 @@ package io.dough.api.useCases.user.maintenance.createManager.adapters.persistenc
 
 import io.dough.api.useCases.shared.adapters.persistence.entity.UserEntity;
 import io.dough.api.useCases.shared.adapters.persistence.repository.UserRepository;
+import io.dough.api.useCases.shared.domain.auth.Role;
 import io.dough.api.useCases.user.maintenance.createManager.application.SaveManager;
 import io.dough.api.useCases.user.maintenance.createManager.domain.CreateManagerCmd;
 import io.dough.api.useCases.user.maintenance.createManager.domain.ManagerCreated;
@@ -13,6 +14,11 @@ import org.springframework.stereotype.Component;
 public class CreateManagerPersistAdapter implements SaveManager {
 
   private final UserRepository userRepository;
+
+  @Override
+  public boolean existsByEmailAndRole(String email, Role role) {
+    return userRepository.existsByEmailAndRole(email, role);
+  }
 
   @Override
   public ManagerCreated operate(CreateManagerCmd cmd) {

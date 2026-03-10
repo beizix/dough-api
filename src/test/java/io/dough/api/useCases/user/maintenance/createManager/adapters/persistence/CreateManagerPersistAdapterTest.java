@@ -34,4 +34,19 @@ class CreateManagerPersistAdapterTest extends DataJpaTestBase {
     assertThat(result.role()).isEqualTo(Role.MANAGER);
     assertThat(userRepository.findByEmailAndRole("manager@dough.io", Role.MANAGER)).isPresent();
   }
+
+  @Test
+  @DisplayName("Scenario: 성공 - 이메일과 권한으로 사용자가 존재하는지 확인한다")
+  void exists_by_email_and_role_success() {
+    // Given
+    String email = "manager@dough.io";
+    Role role = Role.MANAGER;
+    createManagerPersistAdapter.operate(new CreateManagerCmd(email, "매니저", "password123"));
+
+    // When
+    boolean exists = createManagerPersistAdapter.existsByEmailAndRole(email, role);
+
+    // Then
+    assertThat(exists).isTrue();
+  }
 }

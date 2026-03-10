@@ -1,7 +1,9 @@
 package io.dough.api.useCases.user.maintenance.createManager.application;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
 
@@ -34,7 +36,8 @@ class CreateManagerServiceTest {
     ManagerCreated expected =
         new ManagerCreated(
             UUID.randomUUID(), "manager@dough.io", "새매니저", Role.MANAGER, LocalDateTime.now());
-    
+
+    given(saveManager.existsByEmailAndRole(cmd.email(), cmd.role())).willReturn(false);
     given(passwordEncoder.encode("rawPassword1")).willReturn("encodedPassword1");
     given(saveManager.operate(any(CreateManagerCmd.class))).willReturn(expected);
 
@@ -43,7 +46,22 @@ class CreateManagerServiceTest {
 
     // Then
     assertThat(actual).isEqualTo(expected);
+    verify(saveManager).existsByEmailAndRole(cmd.email(), cmd.role());
     verify(passwordEncoder).encode("rawPassword1");
     verify(saveManager).operate(any(CreateManagerCmd.class));
+  }
+
+  @Test
+  @DisplayName("Scenario: 실패 - 이미 동일한 이메일과 권한을 가진 매니저가 존재하면 예외가 발생한다")
+  void create_manager_fail_already_exists() {
+    // Given
+    CreateManagerCmd cmd = new CreateManagerCmd("manager@dough.io", "새매니저", "rawPassword1");
+
+    given(saveManager.existsByEmailAndRole(cmd.email(), cmd.role())).willReturn(true);
+
+    // When & Then
+    assertThatThrownBy(() -> createManagerService.operate(cmd))
+        .isInstanceOf(IllegalArgumentException.class)
+        .hasMessage("exception.auth.email_already_exists");
   }
 }

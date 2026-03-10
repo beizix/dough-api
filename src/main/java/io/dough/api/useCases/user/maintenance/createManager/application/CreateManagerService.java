@@ -17,6 +17,10 @@ public class CreateManagerService implements CreateManagerUseCase {
 
   @Override
   public ManagerCreated operate(CreateManagerCmd cmd) {
+    if (saveManager.existsByEmailAndRole(cmd.email(), cmd.role())) {
+      throw new IllegalArgumentException("exception.auth.email_already_exists");
+    }
+
     CreateManagerCmd encodedCmd =
         new CreateManagerCmd(
             cmd.email(), cmd.displayName(), passwordEncoder.encode(cmd.password()), cmd.role());
