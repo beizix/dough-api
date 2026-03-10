@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-@Tag(name = "로그인", description = "로그인 관련 API")
+@Tag(name = "Auth", description = "인증 관련 API")
 @RestController
 @RequiredArgsConstructor
 public class LoginManagerWebAdapter {
