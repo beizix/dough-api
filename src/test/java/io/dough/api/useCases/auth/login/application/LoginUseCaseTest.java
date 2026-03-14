@@ -10,7 +10,7 @@ import io.dough.api.useCases.auth.issueToken.application.model.AuthToken;
 import io.dough.api.useCases.auth.issueToken.application.model.CreateTokenCmd;
 import io.dough.api.useCases.auth.login.application.model.LoginCmd;
 import io.dough.api.useCases.auth.login.application.model.LoginToken;
-import io.dough.api.useCases.auth.login.domain.LoginUser;
+import io.dough.api.useCases.auth.login.domain.AuthenticatableUser;
 import io.dough.api.useCases.shared.domain.auth.Role;
 import java.util.Optional;
 import java.util.UUID;
@@ -43,7 +43,7 @@ class LoginUseCaseTest {
     Role role = Role.USER;
     LoginCmd cmd = new LoginCmd(email, password, role);
     UUID userId = UUID.randomUUID();
-    LoginUser user = new LoginUser(userId, email, encodedPassword, "Test User", role);
+    AuthenticatableUser user = new AuthenticatableUser(userId, email, encodedPassword, "Test User", role);
 
     AuthToken tokenIssuer = new AuthToken("access_token", "refresh_token");
 
@@ -84,7 +84,7 @@ class LoginUseCaseTest {
     String password = "wrongPassword123!";
     Role role = Role.USER;
     LoginCmd cmd = new LoginCmd(email, password, role);
-    LoginUser user = new LoginUser(UUID.randomUUID(), email, "encodedPassword", "Name", role);
+    AuthenticatableUser user = new AuthenticatableUser(UUID.randomUUID(), email, "encodedPassword", "Name", role);
 
     given(getUser.operate(email, role)).willReturn(Optional.of(user));
     given(passwordEncoder.matches(password, user.password())).willReturn(false);

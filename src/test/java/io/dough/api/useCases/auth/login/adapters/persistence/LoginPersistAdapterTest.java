@@ -3,7 +3,7 @@ package io.dough.api.useCases.auth.login.adapters.persistence;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import io.dough.api.support.DataJpaTestBase;
-import io.dough.api.useCases.auth.login.domain.LoginUser;
+import io.dough.api.useCases.auth.login.domain.AuthenticatableUser;
 import io.dough.api.useCases.shared.adapters.persistence.entity.UserEntity;
 import io.dough.api.useCases.shared.adapters.persistence.repository.UserRepository;
 import io.dough.api.useCases.shared.domain.auth.Role;
@@ -29,7 +29,7 @@ class LoginPersistAdapterTest extends DataJpaTestBase {
     userRepository.save(new UserEntity(email, "password", "Persist User", role, null));
 
     // When
-    Optional<LoginUser> result = loginPersistAdapter.operate(email, role);
+    Optional<AuthenticatableUser> result = loginPersistAdapter.operate(email, role);
 
     // Then
     assertThat(result).isPresent();

@@ -1,6 +1,6 @@
 package io.dough.api.useCases.auth.login.application;
 
-import io.dough.api.useCases.auth.login.domain.LoginUser;
+import io.dough.api.useCases.auth.login.domain.AuthenticatableUser;
 import io.dough.api.useCases.shared.domain.auth.Role;
 import java.util.Optional;
 
@@ -13,5 +13,5 @@ public interface GetUser {
    * @param email 조회할 사용자 이메일
    * @return 사용자 정보가 존재할 경우 LoginUser, 그렇지 않을 경우 Optional.empty()
    */
-  Optional<LoginUser> operate(String email, Role role);
+  Optional<AuthenticatableUser> operate(String email, Role role);
 }

@@ -5,7 +5,7 @@ import io.dough.api.useCases.auth.issueToken.application.model.AuthToken;
 import io.dough.api.useCases.auth.issueToken.application.model.CreateTokenCmd;
 import io.dough.api.useCases.auth.login.application.model.LoginCmd;
 import io.dough.api.useCases.auth.login.application.model.LoginToken;
-import io.dough.api.useCases.auth.login.domain.LoginUser;
+import io.dough.api.useCases.auth.login.domain.AuthenticatableUser;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -20,7 +20,7 @@ public class LoginService implements LoginUseCase {
 
   @Override
   public LoginToken operate(LoginCmd cmd) {
-    LoginUser user =
+    AuthenticatableUser user =
         getUser
             .operate(cmd.email(), cmd.role())
             .orElseThrow(() -> new IllegalArgumentException("exception.user.not_found"));
