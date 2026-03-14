@@ -28,16 +28,16 @@ class RefreshTokenWebAdapterTest extends WebMvcTestBase {
   void refresh_token_success() throws Exception {
     // Given
     RefreshRequest req = new RefreshRequest("valid_refresh_token");
-    AuthToken token = new AuthToken(
-        new SecretKeySpec("secretsecretsecretsecretsecretsecret".getBytes(), "HmacSHA256"),
-        UUID.randomUUID(),
-        "test@example.com",
-        "Test User",
-        Role.USER,
-        new Date(),
-        3600000,
-        7200000
-    );
+    AuthToken token =
+        new AuthToken(
+            new SecretKeySpec("secretsecretsecretsecretsecretsecret".getBytes(), "HmacSHA256"),
+            UUID.randomUUID(),
+            "test@example.com",
+            "Test User",
+            Role.USER,
+            new Date(),
+            3600000,
+            7200000);
 
     given(issueTokenUseCase.refreshToken(any(RefreshTokenCmd.class))).willReturn(token);
 

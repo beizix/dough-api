@@ -2,10 +2,10 @@ package io.dough.api.useCases.auth.resolveToken.application;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import io.dough.api.useCases.auth.issueToken.application.IssueTokenService;
 import io.dough.api.useCases.auth.issueToken.application.HandleTokenRefresh;
-import io.dough.api.useCases.shared.domain.auth.Role;
+import io.dough.api.useCases.auth.issueToken.application.IssueTokenService;
 import io.dough.api.useCases.auth.issueToken.application.model.CreateTokenCmd;
+import io.dough.api.useCases.shared.domain.auth.Role;
 import java.util.UUID;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -23,7 +23,9 @@ class ResolveTokenServiceTest {
   void setUp() {
     resolveTokenService = new ResolveTokenService(secret);
     // IssueTokenService는 단순 유틸리티성으로 토큰 생성을 위해 사용 (모킹 대신 실제 객체 사용 가능)
-    issueTokenService = new IssueTokenService(secret, 60000L, 120000L, Mockito.mock(HandleTokenRefresh.class), resolveTokenService);
+    issueTokenService =
+        new IssueTokenService(
+            secret, 60000L, 120000L, Mockito.mock(HandleTokenRefresh.class), resolveTokenService);
   }
 
   @Test

@@ -16,8 +16,7 @@ public class GetFileURLService implements GetFileURLUseCase {
 
   @Override
   public String operate(UUID fileUuid) {
-    FileMetadata fileMetadata =
-        getFileMetadata.operate(fileUuid);
+    FileMetadata fileMetadata = getFileMetadata.operate(fileUuid);
     return getResourceURLStrategy(fileMetadata.fileUploadType().getFileStorageType())
         .operate(fileMetadata.path(), fileMetadata.filename());
   }

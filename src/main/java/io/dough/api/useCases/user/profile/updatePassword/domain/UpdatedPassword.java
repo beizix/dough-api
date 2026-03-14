@@ -3,10 +3,7 @@ package io.dough.api.useCases.user.profile.updatePassword.domain;
 import java.util.UUID;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-public record UpdatedPassword(
-    UUID id,
-    String encodedPassword
-) {
+public record UpdatedPassword(UUID id, String encodedPassword) {
 
   public void verify(String rawPassword, PasswordEncoder passwordEncoder) {
     if (!passwordEncoder.matches(rawPassword, this.encodedPassword)) {

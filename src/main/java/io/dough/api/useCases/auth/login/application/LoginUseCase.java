@@ -1,7 +1,7 @@
 package io.dough.api.useCases.auth.login.application;
 
-import io.dough.api.useCases.auth.login.application.model.LoginToken;
 import io.dough.api.useCases.auth.login.application.model.LoginCmd;
+import io.dough.api.useCases.auth.login.application.model.LoginToken;
 
 /** 사용자 로그인을 처리하고 인증 토큰을 발급하는 유스케이스입니다. */
 public interface LoginUseCase {

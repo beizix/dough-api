@@ -42,25 +42,25 @@ class SignupServiceTest {
     // Given
     SignupCmd cmd = new SignupCmd("test@dough.io", "rawPassword123!", "Test User");
     UUID userId = UUID.randomUUID();
-    SignupUser savedUser = new SignupUser(userId, cmd.email(), "encodedPassword", cmd.displayName(), Role.USER);
-    
-    AuthToken authToken = new AuthToken(
-        new SecretKeySpec("secretsecretsecretsecretsecretsecret".getBytes(), "HmacSHA256"),
-        userId,
-        cmd.email(),
-        cmd.displayName(),
-        Role.USER,
-        new Date(),
-        3600000,
-        7200000
-    );
+    SignupUser savedUser =
+        new SignupUser(userId, cmd.email(), "encodedPassword", cmd.displayName(), Role.USER);
+
+    AuthToken authToken =
+        new AuthToken(
+            new SecretKeySpec("secretsecretsecretsecretsecretsecret".getBytes(), "HmacSHA256"),
+            userId,
+            cmd.email(),
+            cmd.displayName(),
+            Role.USER,
+            new Date(),
+            3600000,
+            7200000);
 
     given(registerUser.existsByEmailAndRole(cmd.email(), cmd.role())).willReturn(false);
     given(passwordEncoder.encode(cmd.password())).willReturn("encodedPassword");
     given(registerUser.save(cmd.email(), "encodedPassword", cmd.displayName(), cmd.role()))
         .willReturn(savedUser);
-    given(issueTokenUseCase.createToken(any(CreateTokenCmd.class)))
-        .willReturn(authToken);
+    given(issueTokenUseCase.createToken(any(CreateTokenCmd.class))).willReturn(authToken);
 
     // When
     SignupToken token = signupService.operate(cmd);
@@ -74,9 +74,10 @@ class SignupServiceTest {
     verify(issueTokenUseCase)
         .createToken(
             argThat(
-                authCmd -> authCmd.uuid().equals(userId) 
-                    && authCmd.email().equals(cmd.email()) 
-                    && authCmd.role() == cmd.role()));
+                authCmd ->
+                    authCmd.uuid().equals(userId)
+                        && authCmd.email().equals(cmd.email())
+                        && authCmd.role() == cmd.role()));
   }
 
   @Test

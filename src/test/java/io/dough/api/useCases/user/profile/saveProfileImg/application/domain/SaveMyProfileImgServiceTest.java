@@ -2,14 +2,13 @@ package io.dough.api.useCases.user.profile.saveProfileImg.application.domain;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
 
 import io.dough.api.useCases.file.getFileURL.application.GetFileURLUseCase;
 import io.dough.api.useCases.file.saveFile.application.SaveFileUseCase;
-import io.dough.api.useCases.shared.domain.file.FileUploadType;
 import io.dough.api.useCases.file.saveFile.application.model.SavedFile;
+import io.dough.api.useCases.shared.domain.file.FileUploadType;
 import io.dough.api.useCases.user.profile.saveProfileImg.application.SaveProfileImgService;
 import io.dough.api.useCases.user.profile.saveProfileImg.application.UpdateUserProfileImg;
 import io.dough.api.useCases.user.profile.saveProfileImg.application.model.SaveProfileImgCmd;
@@ -55,7 +54,9 @@ class SaveMyProfileImgServiceTest {
 
     String expectedUrl = "http://example.com/files/" + savedFileId;
 
-    given(saveFileUseCase.operate(any(io.dough.api.useCases.file.saveFile.application.model.SaveFileCmd.class)))
+    given(
+            saveFileUseCase.operate(
+                any(io.dough.api.useCases.file.saveFile.application.model.SaveFileCmd.class)))
         .willReturn(mockSavedFile);
     given(getFileURLUseCase.operate(savedFileId)).willReturn(expectedUrl);
 

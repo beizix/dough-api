@@ -57,10 +57,13 @@ class RemoveManagerPersistAdapterTest extends DataJpaTestBase {
     assertThat(userRepository.findById(savedManagerId)).isEmpty();
 
     // 2. 네이티브 쿼리를 통해 @SQLRestriction을 우회하여 Soft Delete 상태 검증
-    Object[] row = (Object[]) entityManager.createNativeQuery(
-        "SELECT deleted, deleted_at, deleted_by FROM users WHERE id = :id")
-        .setParameter("id", savedManagerId)
-        .getSingleResult();
+    Object[] row =
+        (Object[])
+            entityManager
+                .createNativeQuery(
+                    "SELECT deleted, deleted_at, deleted_by FROM users WHERE id = :id")
+                .setParameter("id", savedManagerId)
+                .getSingleResult();
 
     assertThat((Boolean) row[0]).isTrue();
     assertThat(row[1]).isNotNull();

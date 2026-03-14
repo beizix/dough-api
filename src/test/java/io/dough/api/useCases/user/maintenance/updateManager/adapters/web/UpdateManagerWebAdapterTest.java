@@ -28,7 +28,8 @@ class UpdateManagerWebAdapterTest extends WebMvcTestBase {
   @DisplayName("Scenario: 성공 - 매니저 정보 수정 요청 시 UseCase가 호출된다")
   void update_manager_success() throws Exception {
     // Given
-    UpdateManagerRequest request = new UpdateManagerRequest("manager@dough.io", "수정된이름", "newPass123!");
+    UpdateManagerRequest request =
+        new UpdateManagerRequest("manager@dough.io", "수정된이름", "newPass123!");
     ManagerUpdated managerUpdated =
         new ManagerUpdated(
             UUID.randomUUID(), "manager@dough.io", "수정된이름", Role.MANAGER, LocalDateTime.now());

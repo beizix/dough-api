@@ -3,7 +3,6 @@ package io.dough.api.useCases.shared.domain.auth;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.Set;
-
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 

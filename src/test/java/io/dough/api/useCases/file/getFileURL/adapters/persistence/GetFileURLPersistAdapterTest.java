@@ -3,10 +3,10 @@ package io.dough.api.useCases.file.getFileURL.adapters.persistence;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
-import io.dough.api.useCases.shared.adapters.persistence.entity.FileMetadataEntity;
-import io.dough.api.useCases.shared.adapters.persistence.repository.FileMetadataRepository;
 import io.dough.api.support.DataJpaTestBase;
 import io.dough.api.useCases.file.getFileURL.application.model.FileMetadata;
+import io.dough.api.useCases.shared.adapters.persistence.entity.FileMetadataEntity;
+import io.dough.api.useCases.shared.adapters.persistence.repository.FileMetadataRepository;
 import io.dough.api.useCases.shared.domain.file.FileUploadType;
 import java.util.NoSuchElementException;
 import java.util.UUID;

@@ -23,7 +23,8 @@ class UpdateManagerPersistAdapterTest extends DataJpaTestBase {
 
   @BeforeEach
   void setUp() {
-    userRepository.save(new UserEntity("manager@dough.io", "oldPass123!", "옛날이름", Role.MANAGER, null));
+    userRepository.save(
+        new UserEntity("manager@dough.io", "oldPass123!", "옛날이름", Role.MANAGER, null));
   }
 
   @Test
@@ -39,7 +40,8 @@ class UpdateManagerPersistAdapterTest extends DataJpaTestBase {
     assertThat(result.email()).isEqualTo("manager@dough.io");
     assertThat(result.displayName()).isEqualTo("수정된이름");
 
-    UserEntity updatedUser = userRepository.findByEmailAndRole("manager@dough.io", Role.MANAGER).orElseThrow();
+    UserEntity updatedUser =
+        userRepository.findByEmailAndRole("manager@dough.io", Role.MANAGER).orElseThrow();
     assertThat(updatedUser.getDisplayName()).isEqualTo("수정된이름");
     assertThat(updatedUser.getPassword()).isEqualTo("newPass123!");
   }

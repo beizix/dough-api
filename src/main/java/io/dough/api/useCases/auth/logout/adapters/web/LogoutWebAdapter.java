@@ -1,10 +1,10 @@
 package io.dough.api.useCases.auth.logout.adapters.web;
 
+import io.dough.api.useCases.auth.logout.application.LogoutUseCase;
+import io.dough.api.useCases.auth.logout.application.model.LogoutCmd;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import io.dough.api.useCases.auth.logout.application.LogoutUseCase;
-import io.dough.api.useCases.auth.logout.application.model.LogoutCmd;
 import java.security.Principal;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;

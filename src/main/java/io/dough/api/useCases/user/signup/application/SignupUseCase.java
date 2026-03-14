@@ -1,6 +1,5 @@
 package io.dough.api.useCases.user.signup.application;
 
-import io.dough.api.useCases.auth.issueToken.domain.AuthToken;
 import io.dough.api.useCases.user.signup.application.model.SignupCmd;
 import io.dough.api.useCases.user.signup.application.model.SignupToken;
 

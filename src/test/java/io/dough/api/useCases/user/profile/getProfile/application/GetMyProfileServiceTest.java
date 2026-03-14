@@ -4,11 +4,11 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
 
-import io.dough.api.useCases.shared.domain.auth.Role;
 import io.dough.api.useCases.file.getFileURL.application.GetFileURLUseCase;
+import io.dough.api.useCases.shared.domain.auth.Role;
 import io.dough.api.useCases.user.profile.getProfile.application.model.GetProfileCmd;
-import io.dough.api.useCases.user.profile.getProfile.application.model.UserProfile;
 import io.dough.api.useCases.user.profile.getProfile.application.model.ProfileLoaded;
+import io.dough.api.useCases.user.profile.getProfile.application.model.UserProfile;
 import java.util.UUID;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

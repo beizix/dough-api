@@ -1,7 +1,7 @@
 package io.dough.api.useCases.user.profile.updatePassword.application;
 
-import io.dough.api.useCases.user.profile.updatePassword.domain.UpdatedPassword;
 import io.dough.api.useCases.user.profile.updatePassword.application.model.UpdatePasswordCmd;
+import io.dough.api.useCases.user.profile.updatePassword.domain.UpdatedPassword;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -27,7 +27,8 @@ class UpdatePasswordService implements UpdatePasswordUseCase {
     currentPasswordModel.verify(command.currentPassword(), passwordEncoder);
 
     // 4. 새로운 패스워드로 도메인 모델 생성 (도메인 모델에 위임)
-    UpdatedPassword updatedPasswordModel = currentPasswordModel.update(command.newPassword(), passwordEncoder);
+    UpdatedPassword updatedPasswordModel =
+        currentPasswordModel.update(command.newPassword(), passwordEncoder);
 
     // 5. 저장 요청
     saveUser.operate(updatedPasswordModel);

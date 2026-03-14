@@ -1,12 +1,11 @@
 package io.dough.api.useCases.auth.login.adapters.web;
 
-import io.dough.api.useCases.auth.login.application.model.LoginToken;
-import io.dough.api.useCases.shared.domain.auth.Role;
 import io.dough.api.useCases.auth.login.adapters.web.model.LoginRequest;
 import io.dough.api.useCases.auth.login.adapters.web.model.LoginResponse;
 import io.dough.api.useCases.auth.login.application.LoginUseCase;
 import io.dough.api.useCases.auth.login.application.model.LoginCmd;
-import io.dough.api.useCases.auth.issueToken.domain.AuthToken;
+import io.dough.api.useCases.auth.login.application.model.LoginToken;
+import io.dough.api.useCases.shared.domain.auth.Role;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -28,7 +27,8 @@ public class LoginManagerWebAdapter {
   @PostMapping("/api/v1/auth/login/manager")
   public LoginResponse operate(
       @RequestBody @Parameter(description = "로그인 요청", required = true) LoginRequest req) {
-    LoginToken token = loginUseCase.operate(new LoginCmd(req.email(), req.password(), Role.MANAGER));
+    LoginToken token =
+        loginUseCase.operate(new LoginCmd(req.email(), req.password(), Role.MANAGER));
     return new LoginResponse(token.accessToken(), token.refreshToken());
   }
 }

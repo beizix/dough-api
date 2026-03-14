@@ -2,7 +2,6 @@ package io.dough.api.useCases.shared.domain.file;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import java.util.Set;
-
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 

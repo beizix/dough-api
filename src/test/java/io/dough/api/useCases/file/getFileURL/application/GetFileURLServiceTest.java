@@ -45,9 +45,7 @@ class GetFileURLServiceTest {
     String filename = "uuid.png";
     FileUploadType fileType = FileUploadType.UPLOAD_IMG_TO_LOCAL; // LOCAL StorageType
 
-    FileMetadata fileResource =
-        new FileMetadata(
-            fileType, path, filename);
+    FileMetadata fileResource = new FileMetadata(fileType, path, filename);
     String expectedUrl = "/uploads/images/202602/uuid.png";
 
     given(getFileMetadata.operate(fileId)).willReturn(fileResource);
@@ -75,8 +73,7 @@ class GetFileURLServiceTest {
             );
 
     FileMetadata fileResource =
-        new FileMetadata(
-            FileUploadType.UPLOAD_IMG_TO_LOCAL, "/path", "file.png");
+        new FileMetadata(FileUploadType.UPLOAD_IMG_TO_LOCAL, "/path", "file.png");
     given(getFileMetadata.operate(fileId)).willReturn(fileResource);
 
     // When & Then

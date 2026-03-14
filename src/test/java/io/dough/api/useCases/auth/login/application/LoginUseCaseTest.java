@@ -45,24 +45,22 @@ class LoginUseCaseTest {
     Role role = Role.USER;
     LoginCmd cmd = new LoginCmd(email, password, role);
     UUID userId = UUID.randomUUID();
-    LoginUser user =
-        new LoginUser(userId, email, encodedPassword, "Test User", role);
+    LoginUser user = new LoginUser(userId, email, encodedPassword, "Test User", role);
 
-    AuthToken authToken = new AuthToken(
-        new SecretKeySpec("secretsecretsecretsecretsecretsecret".getBytes(), "HmacSHA256"),
-        userId,
-        email,
-        "Test User",
-        Role.USER,
-        new Date(),
-        3600000,
-        7200000
-    );
+    AuthToken authToken =
+        new AuthToken(
+            new SecretKeySpec("secretsecretsecretsecretsecretsecret".getBytes(), "HmacSHA256"),
+            userId,
+            email,
+            "Test User",
+            Role.USER,
+            new Date(),
+            3600000,
+            7200000);
 
     given(getUser.operate(email, role)).willReturn(Optional.of(user));
     given(passwordEncoder.matches(password, encodedPassword)).willReturn(true);
-    given(issueTokenUseCase.createToken(any(CreateTokenCmd.class)))
-        .willReturn(authToken);
+    given(issueTokenUseCase.createToken(any(CreateTokenCmd.class))).willReturn(authToken);
 
     // When
     LoginToken token = loginService.operate(cmd);
@@ -97,8 +95,7 @@ class LoginUseCaseTest {
     String password = "wrongPassword123!";
     Role role = Role.USER;
     LoginCmd cmd = new LoginCmd(email, password, role);
-    LoginUser user =
-        new LoginUser(UUID.randomUUID(), email, "encodedPassword", "Name", role);
+    LoginUser user = new LoginUser(UUID.randomUUID(), email, "encodedPassword", "Name", role);
 
     given(getUser.operate(email, role)).willReturn(Optional.of(user));
     given(passwordEncoder.matches(password, user.password())).willReturn(false);

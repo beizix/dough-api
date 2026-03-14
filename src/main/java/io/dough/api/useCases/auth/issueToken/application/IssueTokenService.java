@@ -5,12 +5,11 @@ import io.dough.api.useCases.auth.issueToken.application.model.RefreshTokenCmd;
 import io.dough.api.useCases.auth.issueToken.domain.AuthToken;
 import io.dough.api.useCases.auth.resolveToken.application.ResolveTokenUseCase;
 import io.jsonwebtoken.security.Keys;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Service;
-
-import javax.crypto.SecretKey;
 import java.nio.charset.StandardCharsets;
 import java.util.Date;
+import javax.crypto.SecretKey;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
 
 @Service
 public class IssueTokenService implements IssueTokenUseCase {
@@ -22,11 +21,11 @@ public class IssueTokenService implements IssueTokenUseCase {
   private final ResolveTokenUseCase resolveTokenUseCase;
 
   public IssueTokenService(
-    @Value("${jwt.secret}") String secret,
-    @Value("${jwt.access-token-validity}") long accessTokenValidity,
-    @Value("${jwt.refresh-token-validity}") long refreshTokenValidity,
-    HandleTokenRefresh handleTokenRefresh,
-    ResolveTokenUseCase resolveTokenUseCase) {
+      @Value("${jwt.secret}") String secret,
+      @Value("${jwt.access-token-validity}") long accessTokenValidity,
+      @Value("${jwt.refresh-token-validity}") long refreshTokenValidity,
+      HandleTokenRefresh handleTokenRefresh,
+      ResolveTokenUseCase resolveTokenUseCase) {
     this.key = Keys.hmacShaKeyFor(secret.getBytes(StandardCharsets.UTF_8));
     this.accessTokenValidity = accessTokenValidity;
     this.refreshTokenValidity = refreshTokenValidity;
@@ -36,7 +35,16 @@ public class IssueTokenService implements IssueTokenUseCase {
 
   @Override
   public AuthToken createToken(CreateTokenCmd cmd) {
-    AuthToken authToken = new AuthToken(key, cmd.uuid(), cmd.email(), cmd.displayName(), cmd.role(), new Date(), accessTokenValidity, refreshTokenValidity);
+    AuthToken authToken =
+        new AuthToken(
+            key,
+            cmd.uuid(),
+            cmd.email(),
+            cmd.displayName(),
+            cmd.role(),
+            new Date(),
+            accessTokenValidity,
+            refreshTokenValidity);
     handleTokenRefresh.save(cmd.uuid(), authToken.getRefreshToken());
 
     return authToken;
@@ -49,8 +57,11 @@ public class IssueTokenService implements IssueTokenUseCase {
     }
 
     return handleTokenRefresh
-      .get(cmd.refreshToken())
-      .map(user -> createToken(new CreateTokenCmd(user.uuid(), user.email(), user.displayName(), user.role())))
-      .orElseThrow(() -> new IllegalArgumentException("exception.auth.invalid_refresh_token"));
+        .get(cmd.refreshToken())
+        .map(
+            user ->
+                createToken(
+                    new CreateTokenCmd(user.uuid(), user.email(), user.displayName(), user.role())))
+        .orElseThrow(() -> new IllegalArgumentException("exception.auth.invalid_refresh_token"));
   }
 }

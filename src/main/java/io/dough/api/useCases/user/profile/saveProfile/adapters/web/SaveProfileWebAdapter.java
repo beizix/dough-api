@@ -37,8 +37,7 @@ public class SaveProfileWebAdapter {
       @RequestBody @Parameter(description = "업데이트할 프로필 정보", required = true)
           SaveProfileRequest request) {
     UUID loginUserId = UUID.fromString(principal.getName());
-    SaveProfileCmd cmd =
-        new SaveProfileCmd(loginUserId, request.email(), request.displayName());
+    SaveProfileCmd cmd = new SaveProfileCmd(loginUserId, request.email(), request.displayName());
     return saveProfileUseCase.operate(cmd);
   }
 }

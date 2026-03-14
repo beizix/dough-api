@@ -26,11 +26,14 @@ public class SignupService implements SignupUseCase {
       throw new IllegalArgumentException("exception.auth.email_already_exists");
     }
 
-    SignupUser savedUser = registerUser.save(cmd.email(), passwordEncoder.encode(cmd.password()), cmd.displayName(), cmd.role());
+    SignupUser savedUser =
+        registerUser.save(
+            cmd.email(), passwordEncoder.encode(cmd.password()), cmd.displayName(), cmd.role());
 
-    AuthToken authToken = issueTokenUseCase.createToken(
-      new CreateTokenCmd(
-        savedUser.id(), savedUser.email(), savedUser.displayName(), savedUser.role()));
+    AuthToken authToken =
+        issueTokenUseCase.createToken(
+            new CreateTokenCmd(
+                savedUser.id(), savedUser.email(), savedUser.displayName(), savedUser.role()));
 
     return new SignupToken(authToken.getAccessToken(), authToken.getRefreshToken());
   }

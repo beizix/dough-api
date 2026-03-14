@@ -1,9 +1,6 @@
 package io.dough.api.useCases.file.saveFile.adapters.web;
 
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyLong;
-import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.multipart;
@@ -15,9 +12,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import io.dough.api.support.WebMvcTestBase;
 import io.dough.api.useCases.file.getFileURL.application.GetFileURLUseCase;
 import io.dough.api.useCases.file.saveFile.application.SaveFileUseCase;
-import io.dough.api.useCases.shared.domain.file.FileUploadType;
 import io.dough.api.useCases.file.saveFile.application.model.SavedFile;
-import java.io.InputStream;
+import io.dough.api.useCases.shared.domain.file.FileUploadType;
 import java.util.UUID;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -42,10 +38,13 @@ class SaveFileWebAdapterTest extends WebMvcTestBase {
             "file", "test.png", MediaType.IMAGE_PNG_VALUE, "test content".getBytes());
     FileUploadType type = FileUploadType.UPLOAD_IMG_TO_LOCAL;
     UUID fileId = UUID.randomUUID();
-    SavedFile savedFile = new SavedFile(fileId, type, "/path/to/file", "saved.png", "test.png", 100L);
+    SavedFile savedFile =
+        new SavedFile(fileId, type, "/path/to/file", "saved.png", "test.png", 100L);
     String resourceUrl = "/uploads/path/to/file/saved.png";
 
-    given(saveFileUseCase.operate(any(io.dough.api.useCases.file.saveFile.application.model.SaveFileCmd.class)))
+    given(
+            saveFileUseCase.operate(
+                any(io.dough.api.useCases.file.saveFile.application.model.SaveFileCmd.class)))
         .willReturn(savedFile);
     given(getFileUrlUseCase.operate(fileId)).willReturn(resourceUrl);
 
@@ -58,7 +57,8 @@ class SaveFileWebAdapterTest extends WebMvcTestBase {
         .andExpect(jsonPath("$.originName").value("test.png"))
         .andExpect(jsonPath("$.referURL").value(resourceUrl));
 
-    verify(saveFileUseCase).operate(any(io.dough.api.useCases.file.saveFile.application.model.SaveFileCmd.class));
+    verify(saveFileUseCase)
+        .operate(any(io.dough.api.useCases.file.saveFile.application.model.SaveFileCmd.class));
     verify(getFileUrlUseCase).operate(fileId);
   }
 
@@ -82,10 +82,13 @@ class SaveFileWebAdapterTest extends WebMvcTestBase {
             .formatted(type.name(), base64Data);
 
     UUID fileId = UUID.randomUUID();
-    SavedFile savedFile = new SavedFile(fileId, type, "/path/to/file", "saved.png", "image.png", 100L);
+    SavedFile savedFile =
+        new SavedFile(fileId, type, "/path/to/file", "saved.png", "image.png", 100L);
     String resourceUrl = "/uploads/path/to/file/saved.png";
 
-    given(saveFileUseCase.operate(any(io.dough.api.useCases.file.saveFile.application.model.SaveFileCmd.class)))
+    given(
+            saveFileUseCase.operate(
+                any(io.dough.api.useCases.file.saveFile.application.model.SaveFileCmd.class)))
         .willReturn(savedFile);
     given(getFileUrlUseCase.operate(fileId)).willReturn(resourceUrl);
 
@@ -100,7 +103,8 @@ class SaveFileWebAdapterTest extends WebMvcTestBase {
         .andExpect(jsonPath("$.id").exists())
         .andExpect(jsonPath("$.referURL").value(resourceUrl));
 
-    verify(saveFileUseCase).operate(any(io.dough.api.useCases.file.saveFile.application.model.SaveFileCmd.class));
+    verify(saveFileUseCase)
+        .operate(any(io.dough.api.useCases.file.saveFile.application.model.SaveFileCmd.class));
     verify(getFileUrlUseCase).operate(fileId);
   }
 }

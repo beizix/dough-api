@@ -32,8 +32,7 @@ class LogoutWebAdapterTest extends WebMvcTestBase {
     when(principal.getName()).thenReturn(userId.toString());
 
     // When
-    mockMvc.perform(post("/api/v1/auth/logout").principal(principal))
-        .andExpect(status().isOk());
+    mockMvc.perform(post("/api/v1/auth/logout").principal(principal)).andExpect(status().isOk());
 
     // Then
     verify(logoutUseCase).operate(any());

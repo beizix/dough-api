@@ -23,7 +23,8 @@ class LogoutPersistAdapterTest extends DataJpaTestBase {
   @DisplayName("Scenario: 성공 - 로그아웃 시 사용자의 리프레시 토큰이 null로 업데이트된다")
   void logout_persistence_success() {
     // Given
-    UserEntity user = new UserEntity("logout@dough.io", "pass", "User", Role.USER, "existing-refresh-token");
+    UserEntity user =
+        new UserEntity("logout@dough.io", "pass", "User", Role.USER, "existing-refresh-token");
     UserEntity savedUser = userRepository.save(user);
     UUID userId = savedUser.getId();
 

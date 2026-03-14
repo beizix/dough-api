@@ -9,5 +9,4 @@ public record UserProfile(
     String displayName,
     LocalDateTime createdAt,
     UUID profileImageId,
-    String profileImageUrl
-) {}
+    String profileImageUrl) {}

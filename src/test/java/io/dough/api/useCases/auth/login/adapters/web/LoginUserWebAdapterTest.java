@@ -11,7 +11,6 @@ import io.dough.api.support.WebMvcTestBase;
 import io.dough.api.useCases.auth.login.adapters.web.model.LoginRequest;
 import io.dough.api.useCases.auth.login.application.LoginUseCase;
 import io.dough.api.useCases.auth.login.application.model.LoginCmd;
-import io.dough.api.useCases.auth.issueToken.domain.AuthToken;
 import io.dough.api.useCases.auth.login.application.model.LoginToken;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

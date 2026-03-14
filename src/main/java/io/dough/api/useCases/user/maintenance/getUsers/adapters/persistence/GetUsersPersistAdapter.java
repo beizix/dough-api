@@ -32,9 +32,7 @@ public class GetUsersPersistAdapter implements LoadUsers {
 
     List<UserForList> userList =
         userPage.getContent().stream()
-            .map(
-                u ->
-                    new UserForList(u.getId(), u.getEmail(), u.getDisplayName(), u.getRole()))
+            .map(u -> new UserForList(u.getId(), u.getEmail(), u.getDisplayName(), u.getRole()))
             .toList();
 
     PageInfo pageInfo =
@@ -73,9 +71,9 @@ public class GetUsersPersistAdapter implements LoadUsers {
     String[] sortParts = cmd.sort().split(": ");
     Sort sort = Sort.unsorted();
     if (sortParts.length == 2) {
-        String property = sortParts[0];
-        Sort.Direction direction = Sort.Direction.fromString(sortParts[1]);
-        sort = Sort.by(direction, property);
+      String property = sortParts[0];
+      Sort.Direction direction = Sort.Direction.fromString(sortParts[1]);
+      sort = Sort.by(direction, property);
     }
 
     return PageRequest.of(cmd.page(), cmd.size(), sort);

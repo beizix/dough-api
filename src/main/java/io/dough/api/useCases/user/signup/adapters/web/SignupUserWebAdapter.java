@@ -25,9 +25,9 @@ public class SignupUserWebAdapter {
   @ApiResponse(responseCode = "200", description = "회원가입 성공")
   @PostMapping("/api/v1/signup/user")
   public SignupResponse signupUser(
-    @RequestBody @Parameter(description = "사용자 가입 정보", required = true) SignupUserRequest req) {
+      @RequestBody @Parameter(description = "사용자 가입 정보", required = true) SignupUserRequest req) {
     SignupToken token =
-      signupUseCase.operate(new SignupCmd(req.email(), req.password(), req.displayName()));
+        signupUseCase.operate(new SignupCmd(req.email(), req.password(), req.displayName()));
     return new SignupResponse(token.accessToken(), token.refreshToken());
   }
 }

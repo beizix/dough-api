@@ -1,16 +1,14 @@
 package io.dough.api.useCases.file.saveFile.application;
 
+import io.dough.api.useCases.file.saveFile.application.model.*;
+import io.dough.api.useCases.file.saveFile.domain.*;
+import io.dough.api.useCases.shared.domain.file.FileStorageType;
+import io.dough.api.useCases.shared.domain.file.FileUploadType;
 import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.NoSuchElementException;
 import java.util.Set;
-import java.util.stream.Collectors;
-
-import io.dough.api.useCases.shared.domain.file.FileStorageType;
-import io.dough.api.useCases.shared.domain.file.FileUploadType;
-import io.dough.api.useCases.file.saveFile.application.model.*;
-import io.dough.api.useCases.file.saveFile.domain.*;
 import lombok.RequiredArgsConstructor;
 import org.apache.tika.Tika;
 import org.springframework.stereotype.Service;
@@ -32,7 +30,8 @@ public class SaveFileService implements SaveFileUseCase {
     long fileSize = cmd.fileSize();
 
     // ✦ 도메인 객체 생성 및 기본 확장자 검증
-    FileToUpload fileToUpload = new FileToUpload(originalFilename, fileSize, fileUploadType.getSubPath());
+    FileToUpload fileToUpload =
+        new FileToUpload(originalFilename, fileSize, fileUploadType.getSubPath());
 
     fileToUpload.validateExtension(cmd.getAllowedExtensions());
 
@@ -50,15 +49,16 @@ public class SaveFileService implements SaveFileUseCase {
           .operate(bis, fileToUpload.subPath(), fileToUpload.createFilename());
 
       // ✦ 인프라 서비스 조율 (메타데이터 저장)
-      SaveFileMetadataResult metadata = saveFileMetadata
-          .operate(
-              new SaveFileMetadataCmd(
-                  fileUploadType,
-                  fileToUpload.subPath(),
-                  fileToUpload.createFilename(),
-                  originalFilename,
-                  fileSize))
-          .orElseThrow();
+      SaveFileMetadataResult metadata =
+          saveFileMetadata
+              .operate(
+                  new SaveFileMetadataCmd(
+                      fileUploadType,
+                      fileToUpload.subPath(),
+                      fileToUpload.createFilename(),
+                      originalFilename,
+                      fileSize))
+              .orElseThrow();
 
       return new SavedFile(
           metadata.id(),

@@ -12,4 +12,4 @@ import io.dough.api.useCases.shared.domain.file.FileUploadType;
  * @param fileLength 파일 크기 (bytes)
  */
 public record SaveFileMetadataCmd(
-  FileUploadType type, String path, String name, String originName, Long fileLength) {}
+    FileUploadType type, String path, String name, String originName, Long fileLength) {}

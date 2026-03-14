@@ -28,18 +28,19 @@ class UpdatePasswordWebAdapter {
       summary = "사용자 패스워드 변경",
       description = "현재 패스워드를 확인하고 신규 패스워드로 변경합니다.",
       responses = {
-          @ApiResponse(responseCode = "200", description = "성공"),
-          @ApiResponse(responseCode = "400", description = "잘못된 요청 (패스워드 불일치 등)", content = @Content(schema = @Schema(implementation = Void.class)))
-      }
-  )
+        @ApiResponse(responseCode = "200", description = "성공"),
+        @ApiResponse(
+            responseCode = "400",
+            description = "잘못된 요청 (패스워드 불일치 등)",
+            content = @Content(schema = @Schema(implementation = Void.class)))
+      })
   public void updatePassword(
-      @RequestBody UpdatePasswordRequest request,
-      @Parameter(hidden = true) Principal principal) {
-    updatePasswordUseCase.operate(new UpdatePasswordCmd(
-        UUID.fromString(principal.getName()),
-        request.currentPassword(),
-        request.newPassword(),
-        request.newPasswordConfirm()
-    ));
+      @RequestBody UpdatePasswordRequest request, @Parameter(hidden = true) Principal principal) {
+    updatePasswordUseCase.operate(
+        new UpdatePasswordCmd(
+            UUID.fromString(principal.getName()),
+            request.currentPassword(),
+            request.newPassword(),
+            request.newPasswordConfirm()));
   }
 }

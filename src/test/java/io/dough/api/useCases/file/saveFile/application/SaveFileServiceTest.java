@@ -9,12 +9,12 @@ import static org.mockito.BDDMockito.given;
 import static org.mockito.BDDMockito.then;
 import static org.mockito.Mockito.lenient;
 
-import io.dough.api.useCases.shared.domain.file.FileStorageType;
-import io.dough.api.useCases.shared.domain.file.FileUploadType;
 import io.dough.api.useCases.file.saveFile.application.model.SaveFileCmd;
 import io.dough.api.useCases.file.saveFile.application.model.SaveFileMetadataCmd;
 import io.dough.api.useCases.file.saveFile.application.model.SaveFileMetadataResult;
 import io.dough.api.useCases.file.saveFile.application.model.SavedFile;
+import io.dough.api.useCases.shared.domain.file.FileStorageType;
+import io.dough.api.useCases.shared.domain.file.FileUploadType;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -91,9 +91,11 @@ class SaveFileServiceTest {
     // When & Then
     assertThatThrownBy(
             () -> {
-                  SaveFileCmd cmd = new SaveFileCmd(FileUploadType.UPLOAD_IMG_TO_LOCAL, inputStream, originalFilename, 100L);
-                  uploadFileService.operate(cmd);
-                })
+              SaveFileCmd cmd =
+                  new SaveFileCmd(
+                      FileUploadType.UPLOAD_IMG_TO_LOCAL, inputStream, originalFilename, 100L);
+              uploadFileService.operate(cmd);
+            })
         .isInstanceOf(RuntimeException.class)
         .hasMessageContaining("exception.file.no_extension");
   }
@@ -108,9 +110,11 @@ class SaveFileServiceTest {
     // When & Then
     assertThatThrownBy(
             () -> {
-                  SaveFileCmd cmd = new SaveFileCmd(FileUploadType.UPLOAD_IMG_TO_LOCAL, inputStream, originalFilename, 100L);
-                  uploadFileService.operate(cmd);
-                })
+              SaveFileCmd cmd =
+                  new SaveFileCmd(
+                      FileUploadType.UPLOAD_IMG_TO_LOCAL, inputStream, originalFilename, 100L);
+              uploadFileService.operate(cmd);
+            })
         .isInstanceOf(RuntimeException.class)
         .hasMessageContaining("exception.file.invalid_extension");
   }
@@ -129,9 +133,11 @@ class SaveFileServiceTest {
     // When & Then
     assertThatThrownBy(
             () -> {
-                  SaveFileCmd cmd = new SaveFileCmd(FileUploadType.UPLOAD_IMG_TO_LOCAL, inputStream, originalFilename, 100L);
-                  uploadFileService.operate(cmd);
-                })
+              SaveFileCmd cmd =
+                  new SaveFileCmd(
+                      FileUploadType.UPLOAD_IMG_TO_LOCAL, inputStream, originalFilename, 100L);
+              uploadFileService.operate(cmd);
+            })
         .isInstanceOf(RuntimeException.class)
         .hasMessageContaining("exception.file.invalid_mime_type");
   }
@@ -150,9 +156,11 @@ class SaveFileServiceTest {
     // When & Then
     assertThatThrownBy(
             () -> {
-                  SaveFileCmd cmd = new SaveFileCmd(FileUploadType.UPLOAD_IMG_TO_LOCAL, inputStream, originalFilename, 100L);
-                  noStrategyService.operate(cmd);
-                })
+              SaveFileCmd cmd =
+                  new SaveFileCmd(
+                      FileUploadType.UPLOAD_IMG_TO_LOCAL, inputStream, originalFilename, 100L);
+              noStrategyService.operate(cmd);
+            })
         .isInstanceOf(NoSuchElementException.class)
         .hasMessageContaining("exception.file.no_strategy");
   }
@@ -166,25 +174,28 @@ class SaveFileServiceTest {
     // When & Then
     assertThatThrownBy(
             () -> {
-                  SaveFileCmd cmd = new SaveFileCmd(FileUploadType.UPLOAD_IMG_TO_LOCAL, null, "test.png", 100L);
-                  uploadFileService.operate(cmd);
-                })
+              SaveFileCmd cmd =
+                  new SaveFileCmd(FileUploadType.UPLOAD_IMG_TO_LOCAL, null, "test.png", 100L);
+              uploadFileService.operate(cmd);
+            })
         .isInstanceOf(IllegalArgumentException.class)
         .hasMessage("exception.file.invalid_input");
 
     assertThatThrownBy(
             () -> {
-                  SaveFileCmd cmd = new SaveFileCmd(FileUploadType.UPLOAD_IMG_TO_LOCAL, inputStream, null, 100L);
-                  uploadFileService.operate(cmd);
-                })
+              SaveFileCmd cmd =
+                  new SaveFileCmd(FileUploadType.UPLOAD_IMG_TO_LOCAL, inputStream, null, 100L);
+              uploadFileService.operate(cmd);
+            })
         .isInstanceOf(IllegalArgumentException.class)
         .hasMessage("exception.file.invalid_input");
 
     assertThatThrownBy(
             () -> {
-                  SaveFileCmd cmd = new SaveFileCmd(FileUploadType.UPLOAD_IMG_TO_LOCAL, inputStream, "", 100L);
-                  uploadFileService.operate(cmd);
-                })
+              SaveFileCmd cmd =
+                  new SaveFileCmd(FileUploadType.UPLOAD_IMG_TO_LOCAL, inputStream, "", 100L);
+              uploadFileService.operate(cmd);
+            })
         .isInstanceOf(IllegalArgumentException.class)
         .hasMessage("exception.file.invalid_input");
   }

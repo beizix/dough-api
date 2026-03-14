@@ -17,16 +17,20 @@ class UpdatePasswordPersistAdapter implements GetUser, SaveUser {
 
   @Override
   public UpdatedPassword operate(UUID userId) {
-    UserEntity userEntity = userRepository.findById(userId)
-        .orElseThrow(() -> new IllegalArgumentException("User not found"));
+    UserEntity userEntity =
+        userRepository
+            .findById(userId)
+            .orElseThrow(() -> new IllegalArgumentException("User not found"));
 
     return new UpdatedPassword(userEntity.getId(), userEntity.getPassword());
   }
 
   @Override
   public void operate(UpdatedPassword updatedPassword) {
-    UserEntity userEntity = userRepository.findById(updatedPassword.id())
-        .orElseThrow(() -> new IllegalArgumentException("User not found"));
+    UserEntity userEntity =
+        userRepository
+            .findById(updatedPassword.id())
+            .orElseThrow(() -> new IllegalArgumentException("User not found"));
 
     userEntity.setPassword(updatedPassword.encodedPassword());
     userRepository.save(userEntity);

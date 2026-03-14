@@ -1,14 +1,5 @@
 package io.dough.api.useCases.shared.adapters.web;
 
-import io.dough.api.support.WebMvcTestBase;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
-import org.springframework.boot.webmvc.test.autoconfigure.WebMvcTest;
-import org.springframework.context.MessageSource;
-import org.springframework.test.context.bean.override.mockito.MockitoBean;
-
-import java.util.Locale;
-
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.BDDMockito.given;
@@ -16,11 +7,18 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import io.dough.api.support.WebMvcTestBase;
+import java.util.Locale;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.webmvc.test.autoconfigure.WebMvcTest;
+import org.springframework.context.MessageSource;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
+
 @WebMvcTest(controllers = {ExceptionTestController.class, GlobalWebExceptionHandler.class})
 class GlobalWebExceptionHandlerTest extends WebMvcTestBase {
 
-  @MockitoBean
-  private MessageSource messageSource;
+  @MockitoBean private MessageSource messageSource;
 
   @Test
   @DisplayName("Scenario: 성공 - NoSuchElementException 발생 시 400 응답과 메시지를 반환한다")
@@ -32,7 +30,8 @@ class GlobalWebExceptionHandlerTest extends WebMvcTestBase {
         .willReturn(resolvedMessage);
 
     // When & Then
-    mockMvc.perform(get("/test/no-such-element").param("message", errorCode))
+    mockMvc
+        .perform(get("/test/no-such-element").param("message", errorCode))
         .andExpect(status().isBadRequest())
         .andExpect(jsonPath("$.status").value(400))
         .andExpect(jsonPath("$.error").value("Bad Request"))
@@ -50,7 +49,8 @@ class GlobalWebExceptionHandlerTest extends WebMvcTestBase {
         .willReturn(resolvedMessage);
 
     // When & Then
-    mockMvc.perform(get("/test/illegal-argument").param("message", errorCode))
+    mockMvc
+        .perform(get("/test/illegal-argument").param("message", errorCode))
         .andExpect(status().isBadRequest())
         .andExpect(jsonPath("$.status").value(400))
         .andExpect(jsonPath("$.error").value("Bad Request"))
@@ -65,7 +65,8 @@ class GlobalWebExceptionHandlerTest extends WebMvcTestBase {
     String message = "예상치 못한 서버 에러";
 
     // When & Then
-    mockMvc.perform(get("/test/unhandled-exception").param("message", message))
+    mockMvc
+        .perform(get("/test/unhandled-exception").param("message", message))
         .andExpect(status().isInternalServerError())
         .andExpect(jsonPath("$.status").value(500))
         .andExpect(jsonPath("$.error").value("Internal Server Error"))
@@ -82,7 +83,8 @@ class GlobalWebExceptionHandlerTest extends WebMvcTestBase {
         .willThrow(new RuntimeException("Message not found"));
 
     // When & Then
-    mockMvc.perform(get("/test/no-such-element").param("message", originalMessage))
+    mockMvc
+        .perform(get("/test/no-such-element").param("message", originalMessage))
         .andExpect(status().isBadRequest())
         .andExpect(jsonPath("$.message").value(originalMessage));
   }
@@ -91,7 +93,8 @@ class GlobalWebExceptionHandlerTest extends WebMvcTestBase {
   @DisplayName("Scenario: 성공 - 예외 메시지가 null인 경우 null을 반환한다")
   void resolveMessage_null() throws Exception {
     // When & Then
-    mockMvc.perform(get("/test/no-such-element")) // message 파라미터 없음 -> null
+    mockMvc
+        .perform(get("/test/no-such-element")) // message 파라미터 없음 -> null
         .andExpect(status().isBadRequest())
         .andExpect(jsonPath("$.message").isEmpty());
   }

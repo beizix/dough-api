@@ -28,7 +28,8 @@ class CreateManagerWebAdapterTest extends WebMvcTestBase {
   @DisplayName("Scenario: 성공 - 매니저 생성 요청 시 UseCase가 호출된다")
   void create_manager_success() throws Exception {
     // Given
-    CreateManagerRequest request = new CreateManagerRequest("manager@dough.io", "새매니저", "pass1234!");
+    CreateManagerRequest request =
+        new CreateManagerRequest("manager@dough.io", "새매니저", "pass1234!");
     ManagerCreated managerCreated =
         new ManagerCreated(
             UUID.randomUUID(), "manager@dough.io", "새매니저", Role.MANAGER, LocalDateTime.now());

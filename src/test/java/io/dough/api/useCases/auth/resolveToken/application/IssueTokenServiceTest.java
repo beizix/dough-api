@@ -5,12 +5,12 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import io.dough.api.useCases.auth.issueToken.application.IssueTokenService;
 import io.dough.api.useCases.auth.issueToken.application.HandleTokenRefresh;
-import io.dough.api.useCases.shared.domain.auth.Role;
-import io.dough.api.useCases.auth.issueToken.domain.AuthToken;
+import io.dough.api.useCases.auth.issueToken.application.IssueTokenService;
 import io.dough.api.useCases.auth.issueToken.application.model.CreateTokenCmd;
 import io.dough.api.useCases.auth.issueToken.application.model.RefreshTokenCmd;
+import io.dough.api.useCases.auth.issueToken.domain.AuthToken;
+import io.dough.api.useCases.shared.domain.auth.Role;
 import java.util.Optional;
 import java.util.UUID;
 import org.junit.jupiter.api.BeforeEach;
@@ -31,7 +31,9 @@ class IssueTokenServiceTest {
   void setUp() {
     handleTokenRefresh = mock(HandleTokenRefresh.class);
     resolveTokenUseCase = mock(ResolveTokenUseCase.class);
-    issueTokenService = new IssueTokenService(secret, accessValidity, refreshValidity, handleTokenRefresh, resolveTokenUseCase);
+    issueTokenService =
+        new IssueTokenService(
+            secret, accessValidity, refreshValidity, handleTokenRefresh, resolveTokenUseCase);
   }
 
   @Test
