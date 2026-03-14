@@ -1,8 +1,8 @@
 package io.dough.api.useCases.auth.login.application;
 
 import io.dough.api.useCases.auth.issueToken.application.IssueTokenUseCase;
+import io.dough.api.useCases.shared.application.auth.AuthToken;
 import io.dough.api.useCases.auth.issueToken.application.model.CreateTokenCmd;
-import io.dough.api.useCases.auth.issueToken.domain.AuthToken;
 import io.dough.api.useCases.auth.login.application.model.LoginCmd;
 import io.dough.api.useCases.auth.login.application.model.LoginToken;
 import io.dough.api.useCases.auth.login.domain.LoginUser;
@@ -31,6 +31,6 @@ public class LoginService implements LoginUseCase {
         issueTokenUseCase.createToken(
             new CreateTokenCmd(user.id(), user.email(), user.displayName(), user.role()));
 
-    return new LoginToken(authToken.getAccessToken(), authToken.getRefreshToken());
+    return new LoginToken(authToken.accessToken(), authToken.refreshToken());
   }
 }

@@ -13,7 +13,7 @@ import io.dough.api.support.WebMvcTestBase;
 import io.dough.api.useCases.file.getFileURL.application.GetFileURLUseCase;
 import io.dough.api.useCases.file.saveFile.application.SaveFileUseCase;
 import io.dough.api.useCases.file.saveFile.application.model.SavedFile;
-import io.dough.api.useCases.shared.domain.file.FileUploadType;
+import io.dough.api.useCases.shared.application.file.FileUploadType;
 import java.util.UUID;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

@@ -6,16 +6,14 @@ import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
 
 import io.dough.api.useCases.auth.issueToken.application.IssueTokenUseCase;
+import io.dough.api.useCases.shared.application.auth.AuthToken;
 import io.dough.api.useCases.auth.issueToken.application.model.CreateTokenCmd;
-import io.dough.api.useCases.auth.issueToken.domain.AuthToken;
 import io.dough.api.useCases.auth.login.application.model.LoginCmd;
 import io.dough.api.useCases.auth.login.application.model.LoginToken;
 import io.dough.api.useCases.auth.login.domain.LoginUser;
 import io.dough.api.useCases.shared.domain.auth.Role;
-import java.util.Date;
 import java.util.Optional;
 import java.util.UUID;
-import javax.crypto.spec.SecretKeySpec;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -47,20 +45,11 @@ class LoginUseCaseTest {
     UUID userId = UUID.randomUUID();
     LoginUser user = new LoginUser(userId, email, encodedPassword, "Test User", role);
 
-    AuthToken authToken =
-        new AuthToken(
-            new SecretKeySpec("secretsecretsecretsecretsecretsecret".getBytes(), "HmacSHA256"),
-            userId,
-            email,
-            "Test User",
-            Role.USER,
-            new Date(),
-            3600000,
-            7200000);
+    AuthToken tokenIssuer = new AuthToken("access_token", "refresh_token");
 
     given(getUser.operate(email, role)).willReturn(Optional.of(user));
     given(passwordEncoder.matches(password, encodedPassword)).willReturn(true);
-    given(issueTokenUseCase.createToken(any(CreateTokenCmd.class))).willReturn(authToken);
+    given(issueTokenUseCase.createToken(any(CreateTokenCmd.class))).willReturn(tokenIssuer);
 
     // When
     LoginToken token = loginService.operate(cmd);

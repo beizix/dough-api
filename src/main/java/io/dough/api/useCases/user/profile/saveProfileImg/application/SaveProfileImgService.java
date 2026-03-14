@@ -2,7 +2,7 @@ package io.dough.api.useCases.user.profile.saveProfileImg.application;
 
 import io.dough.api.useCases.file.getFileURL.application.GetFileURLUseCase;
 import io.dough.api.useCases.file.saveFile.application.SaveFileUseCase;
-import io.dough.api.useCases.shared.domain.file.FileUploadType;
+import io.dough.api.useCases.shared.application.file.FileUploadType;
 import io.dough.api.useCases.user.profile.saveProfileImg.application.model.SaveProfileImgCmd;
 import io.dough.api.useCases.user.profile.saveProfileImg.application.model.SavedProfileImg;
 import java.util.Optional;

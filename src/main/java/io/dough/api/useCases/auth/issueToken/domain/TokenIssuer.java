@@ -6,7 +6,7 @@ import java.util.Date;
 import java.util.UUID;
 import javax.crypto.SecretKey;
 
-public record AuthToken(
+public record TokenIssuer(
     SecretKey key,
     UUID uuid,
     String email,

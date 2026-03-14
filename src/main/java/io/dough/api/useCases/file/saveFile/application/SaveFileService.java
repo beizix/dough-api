@@ -2,8 +2,8 @@ package io.dough.api.useCases.file.saveFile.application;
 
 import io.dough.api.useCases.file.saveFile.application.model.*;
 import io.dough.api.useCases.file.saveFile.domain.*;
+import io.dough.api.useCases.shared.application.file.FileUploadType;
 import io.dough.api.useCases.shared.domain.file.FileStorageType;
-import io.dough.api.useCases.shared.domain.file.FileUploadType;
 import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStream;

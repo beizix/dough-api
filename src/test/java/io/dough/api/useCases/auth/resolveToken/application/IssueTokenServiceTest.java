@@ -7,9 +7,9 @@ import static org.mockito.Mockito.when;
 
 import io.dough.api.useCases.auth.issueToken.application.HandleTokenRefresh;
 import io.dough.api.useCases.auth.issueToken.application.IssueTokenService;
+import io.dough.api.useCases.shared.application.auth.AuthToken;
 import io.dough.api.useCases.auth.issueToken.application.model.CreateTokenCmd;
 import io.dough.api.useCases.auth.issueToken.application.model.RefreshTokenCmd;
-import io.dough.api.useCases.auth.issueToken.domain.AuthToken;
 import io.dough.api.useCases.shared.domain.auth.Role;
 import java.util.Optional;
 import java.util.UUID;
@@ -48,7 +48,7 @@ class IssueTokenServiceTest {
 
     // Then
     assertThat(token).isNotNull();
-    verify(handleTokenRefresh).save(uuid, token.getRefreshToken());
+    verify(handleTokenRefresh).save(uuid, token.refreshToken());
   }
 
   @Test
@@ -69,6 +69,6 @@ class IssueTokenServiceTest {
 
     // Then
     assertThat(newToken).isNotNull();
-    verify(handleTokenRefresh).save(uuid, newToken.getRefreshToken());
+    verify(handleTokenRefresh).save(uuid, newToken.refreshToken());
   }
 }

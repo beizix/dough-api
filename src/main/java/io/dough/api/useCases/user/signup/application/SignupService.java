@@ -1,8 +1,8 @@
 package io.dough.api.useCases.user.signup.application;
 
 import io.dough.api.useCases.auth.issueToken.application.IssueTokenUseCase;
+import io.dough.api.useCases.shared.application.auth.AuthToken;
 import io.dough.api.useCases.auth.issueToken.application.model.CreateTokenCmd;
-import io.dough.api.useCases.auth.issueToken.domain.AuthToken;
 import io.dough.api.useCases.user.signup.application.model.SignupCmd;
 import io.dough.api.useCases.user.signup.application.model.SignupToken;
 import io.dough.api.useCases.user.signup.application.model.SignupUser;
@@ -35,6 +35,6 @@ public class SignupService implements SignupUseCase {
             new CreateTokenCmd(
                 savedUser.id(), savedUser.email(), savedUser.displayName(), savedUser.role()));
 
-    return new SignupToken(authToken.getAccessToken(), authToken.getRefreshToken());
+    return new SignupToken(authToken.accessToken(), authToken.refreshToken());
   }
 }

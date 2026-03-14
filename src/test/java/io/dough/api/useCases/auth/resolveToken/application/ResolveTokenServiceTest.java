@@ -35,7 +35,7 @@ class ResolveTokenServiceTest {
     UUID uuid = UUID.randomUUID();
     String email = "test@example.com";
     CreateTokenCmd cmd = new CreateTokenCmd(uuid, email, "Test User", Role.USER);
-    String token = issueTokenService.createToken(cmd).getAccessToken();
+    String token = issueTokenService.createToken(cmd).accessToken();
 
     // When & Then
     assertThat(resolveTokenService.validateToken(token)).isTrue();

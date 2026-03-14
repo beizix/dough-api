@@ -9,12 +9,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import io.dough.api.support.WebMvcTestBase;
 import io.dough.api.useCases.auth.issueToken.adapters.web.RefreshTokenWebAdapter;
 import io.dough.api.useCases.auth.issueToken.adapters.web.model.RefreshRequest;
+import io.dough.api.useCases.shared.application.auth.AuthToken;
 import io.dough.api.useCases.auth.issueToken.application.model.RefreshTokenCmd;
-import io.dough.api.useCases.auth.issueToken.domain.AuthToken;
-import io.dough.api.useCases.shared.domain.auth.Role;
-import java.util.Date;
-import java.util.UUID;
-import javax.crypto.spec.SecretKeySpec;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.webmvc.test.autoconfigure.WebMvcTest;
@@ -28,16 +24,7 @@ class RefreshTokenWebAdapterTest extends WebMvcTestBase {
   void refresh_token_success() throws Exception {
     // Given
     RefreshRequest req = new RefreshRequest("valid_refresh_token");
-    AuthToken token =
-        new AuthToken(
-            new SecretKeySpec("secretsecretsecretsecretsecretsecret".getBytes(), "HmacSHA256"),
-            UUID.randomUUID(),
-            "test@example.com",
-            "Test User",
-            Role.USER,
-            new Date(),
-            3600000,
-            7200000);
+    AuthToken token = new AuthToken("access_token", "refresh_token");
 
     given(issueTokenUseCase.refreshToken(any(RefreshTokenCmd.class))).willReturn(token);
 

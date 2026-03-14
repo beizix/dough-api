@@ -43,10 +43,7 @@ public class AppArchTest {
   @DisplayName("`인바운드 어댑터` 계층은 오직 `애플리케이션 계층` 만 참조할 수 있다.")
   @Test
   void webLayerMayOnlyAccessToApplication() {
-    layeredArchitecture
-        .whereLayer(INBOUND_ADAPTER)
-        .mayOnlyAccessLayers(APPLICATION, DOMAIN)
-        .check(classes);
+    layeredArchitecture.whereLayer(INBOUND_ADAPTER).mayOnlyAccessLayers(APPLICATION).check(classes);
   }
 
   @DisplayName("`인바운드 어댑터` 계층은 오직 `설정` 계층 만 접근을 허용 한다.")

@@ -1,8 +1,9 @@
 package io.dough.api.useCases.auth.issueToken.application;
 
+import io.dough.api.useCases.shared.application.auth.AuthToken;
 import io.dough.api.useCases.auth.issueToken.application.model.CreateTokenCmd;
 import io.dough.api.useCases.auth.issueToken.application.model.RefreshTokenCmd;
-import io.dough.api.useCases.auth.issueToken.domain.AuthToken;
+import io.dough.api.useCases.auth.issueToken.domain.TokenIssuer;
 import io.dough.api.useCases.auth.resolveToken.application.ResolveTokenUseCase;
 import io.jsonwebtoken.security.Keys;
 import java.nio.charset.StandardCharsets;
@@ -35,8 +36,8 @@ public class IssueTokenService implements IssueTokenUseCase {
 
   @Override
   public AuthToken createToken(CreateTokenCmd cmd) {
-    AuthToken authToken =
-        new AuthToken(
+    TokenIssuer tokenIssuer =
+        new TokenIssuer(
             key,
             cmd.uuid(),
             cmd.email(),
@@ -45,9 +46,10 @@ public class IssueTokenService implements IssueTokenUseCase {
             new Date(),
             accessTokenValidity,
             refreshTokenValidity);
-    handleTokenRefresh.save(cmd.uuid(), authToken.getRefreshToken());
 
-    return authToken;
+    handleTokenRefresh.save(cmd.uuid(), tokenIssuer.getRefreshToken());
+
+    return new AuthToken(tokenIssuer.getAccessToken(), tokenIssuer.getRefreshToken());
   }
 
   @Override

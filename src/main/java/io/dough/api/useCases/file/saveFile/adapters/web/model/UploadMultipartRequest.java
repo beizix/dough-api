@@ -1,6 +1,6 @@
 package io.dough.api.useCases.file.saveFile.adapters.web.model;
 
-import io.dough.api.useCases.shared.domain.file.FileUploadType;
+import io.dough.api.useCases.shared.application.file.FileUploadType;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotNull;
 import org.springframework.web.multipart.MultipartFile;
