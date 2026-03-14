@@ -1,4 +1,4 @@
-package io.dough.api.useCases.shared.application.file;
+package io.dough.api.useCases.shared.domain.file;
 
 import java.util.Set;
 import lombok.Getter;

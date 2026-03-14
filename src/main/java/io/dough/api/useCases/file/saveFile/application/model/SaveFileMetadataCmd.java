@@ -1,6 +1,6 @@
 package io.dough.api.useCases.file.saveFile.application.model;
 
-import io.dough.api.useCases.shared.application.file.FileUploadType;
+import io.dough.api.useCases.shared.domain.file.FileUploadType;
 
 /**
  * 파일 메타데이터 저장을 위한 커맨드 객체입니다.

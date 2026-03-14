@@ -1,7 +1,8 @@
 package io.dough.api.useCases.file.saveFile.application.model;
 
-import io.dough.api.useCases.shared.application.file.FileUploadType;
 import java.util.UUID;
+
+import io.dough.api.useCases.shared.domain.file.FileUploadType;
 
 /**
  * 저장 완료된 파일 정보를 담은 도메인 모델입니다.

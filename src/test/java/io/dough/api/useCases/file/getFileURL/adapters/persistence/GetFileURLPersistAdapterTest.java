@@ -7,7 +7,8 @@ import io.dough.api.support.DataJpaTestBase;
 import io.dough.api.useCases.file.getFileURL.application.model.FileMetadata;
 import io.dough.api.useCases.shared.adapters.persistence.entity.FileMetadataEntity;
 import io.dough.api.useCases.shared.adapters.persistence.repository.FileMetadataRepository;
-import io.dough.api.useCases.shared.application.file.FileUploadType;
+import io.dough.api.useCases.shared.domain.file.FileUploadType;
+
 import java.util.NoSuchElementException;
 import java.util.UUID;
 import org.junit.jupiter.api.DisplayName;

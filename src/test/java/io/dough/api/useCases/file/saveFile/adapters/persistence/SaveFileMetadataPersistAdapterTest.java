@@ -7,7 +7,8 @@ import io.dough.api.useCases.file.saveFile.application.model.SaveFileMetadataCmd
 import io.dough.api.useCases.file.saveFile.application.model.SaveFileMetadataResult;
 import io.dough.api.useCases.shared.adapters.persistence.entity.FileMetadataEntity;
 import io.dough.api.useCases.shared.adapters.persistence.repository.FileMetadataRepository;
-import io.dough.api.useCases.shared.application.file.FileUploadType;
+import io.dough.api.useCases.shared.domain.file.FileUploadType;
+
 import java.util.Optional;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

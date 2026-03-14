@@ -6,7 +6,7 @@ import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
 
 import io.dough.api.useCases.auth.issueToken.application.IssueTokenUseCase;
-import io.dough.api.useCases.shared.application.auth.AuthToken;
+import io.dough.api.useCases.auth.issueToken.application.model.AuthToken;
 import io.dough.api.useCases.auth.issueToken.application.model.CreateTokenCmd;
 import io.dough.api.useCases.auth.login.application.model.LoginCmd;
 import io.dough.api.useCases.auth.login.application.model.LoginToken;

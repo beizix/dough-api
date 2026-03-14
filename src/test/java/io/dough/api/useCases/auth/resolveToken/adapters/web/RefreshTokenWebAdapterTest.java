@@ -9,7 +9,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import io.dough.api.support.WebMvcTestBase;
 import io.dough.api.useCases.auth.issueToken.adapters.web.RefreshTokenWebAdapter;
 import io.dough.api.useCases.auth.issueToken.adapters.web.model.RefreshRequest;
-import io.dough.api.useCases.shared.application.auth.AuthToken;
+import io.dough.api.useCases.auth.issueToken.application.model.AuthToken;
 import io.dough.api.useCases.auth.issueToken.application.model.RefreshTokenCmd;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
