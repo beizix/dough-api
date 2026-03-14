@@ -84,13 +84,14 @@ io.dough.api/
         |           `-- <USE_CASE_NAME>Response.java
         |-- application
         |   |-- model
-        |   |   `-- <NAME>Loaded.java (포트 DTO - 데이터 전달용 객체)
+        |   |   |-- <NAME>Loaded.java (포트 DTO - 데이터 전달용 객체)
+        |   |   |-- <USE_CASE_NAME>Cmd.java (유스케이스 커맨드)
+        |   |   `-- <USE_CASE_NAME>.java (유스케이스 반환 모델)
         |   |-- <USE_CASE_NAME>UseCase.java (입력 포트)
         |   |-- <BEHAVIOR>.java (출력 포트 - 행위 중심 네이밍)
         |   `-- <USE_CASE_NAME>Service.java (서비스 구현체 - 흐름 조율)
-        `-- domain
-            |-- <USE_CASE_NAME>.java (도메인 모델)
-            `-- <USE_CASE_NAME>Cmd.java (유스케이스 커맨드)
+        `-- domain (선택 사항 - 비즈니스 로직이 필요한 경우에만 생성)
+            `-- <DOMAIN_MODEL>.java (도메인 모델)
 ```
 
 ## 헥사고날 계층과 컴포넌트
@@ -113,8 +114,8 @@ io.dough.api/
   -   애플리케이션이 외부 세계(DB, 외부 API 등)와 소통하는 방법을 정의하는 인터페이스입니다.
   -   유즈케이스의 맥락은 클래스명에서 표현되니 단일 메서드로 구성된다면 메서드 이름은 `operate` 로 지정합니다.
 
--   `application/model/`: **포트 DTO**
-  -   포트 인터페이스에서 데이터 전달을 위해 사용되는 객체(예: `ProfileLoaded`)가 위치합니다.
+-   `application/model/`: **포트 DTO 및 커맨드**
+  -   포트 인터페이스에서 데이터 전달을 위해 사용되는 객체(예: `ProfileLoaded`)와 유스케이스 실행에 필요한 커맨드 객체(`GetProfileCmd` 등)가 위치합니다.
 
 -   `application/<USE_CASE_NAME>Service.java`: **서비스 구현체**
   -   실제 비즈니스 로직의 **절차(Step)**를 수행하고 트랜잭션을 관리합니다.
@@ -124,10 +125,11 @@ io.dough.api/
 ### `domain` (비즈니스 핵심 로직 - 데이터와 규칙)
 
 실제 비즈니스 규칙과 도메인 모델을 정의합니다. **`model` 서브 패키지는 생성하지 않고 `domain` 패키지 바로 아래에 위치시킵니다.**
+**모든 유스케이스가 도메인 계층을 가질 필요는 없으며, 복잡한 비즈니스 규칙이나 상태를 가진 모델이 필요한 경우에만 선택적으로 생성합니다.**
 
--   `domain/`: **도메인 모델 및 커맨드**
-  -   비즈니스의 핵심 데이터와 규칙을 담는 모델 객체(`Profile`, `UpdatePassword` 등)와 유스케이스 실행에 필요한 커맨드 객체(`GetProfileCmd` 등)가 위치합니다.
-  -   **도메인 모델은 애플리케이션 계층의 객체(Port DTO 등)를 참조해서는 안 됩니다.**
+-   `domain/`: **도메인 모델**
+  -   비즈니스의 핵심 데이터와 규칙을 담는 모델 객체(`Profile`, `UpdatePassword` 등)가 위치합니다. 유스케이스 명칭과 일치할 필요는 없으며, 비즈니스 실체에 부합하는 명확한 이름을 사용합니다.
+  -   **도메인 모델은 애플리케이션 계층의 객체(Port DTO, Command 등)를 참조해서는 안 됩니다.**
 
 ### `adapters` (외부 세계와의 연결)
 
