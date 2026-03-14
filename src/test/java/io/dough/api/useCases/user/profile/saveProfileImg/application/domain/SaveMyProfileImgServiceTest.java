@@ -55,12 +55,7 @@ class SaveMyProfileImgServiceTest {
 
     String expectedUrl = "http://example.com/files/" + savedFileId;
 
-    given(
-            saveFileUseCase.operate(
-                eq(FileUploadType.MY_PROFILE_IMG),
-                any(),
-                eq("profile.png"),
-                eq((long) content.length)))
+    given(saveFileUseCase.operate(any(io.dough.api.useCases.file.saveFile.application.model.SaveFileCmd.class)))
         .willReturn(mockSavedFile);
     given(getFileURLUseCase.operate(savedFileId)).willReturn(expectedUrl);
 
@@ -71,8 +66,7 @@ class SaveMyProfileImgServiceTest {
     assertThat(result).isPresent();
     assertThat(result.get().referURL()).isEqualTo(expectedUrl);
     verify(saveFileUseCase)
-        .operate(
-            eq(FileUploadType.MY_PROFILE_IMG), any(), eq("profile.png"), eq((long) content.length));
+        .operate(any(io.dough.api.useCases.file.saveFile.application.model.SaveFileCmd.class));
     verify(updateUserProfileImg).operate(userId, savedFileId);
     verify(getFileURLUseCase).operate(savedFileId);
   }

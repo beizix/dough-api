@@ -21,10 +21,11 @@ public class SaveProfileImgService implements SaveProfileImgUseCase {
   public Optional<SavedProfileImg> operate(SaveProfileImgCmd cmd) {
     var file =
         saveFileUseCase.operate(
-            FileUploadType.MY_PROFILE_IMG,
-            cmd.inputStream(),
-            cmd.originalFilename(),
-            cmd.fileSize());
+            new io.dough.api.useCases.file.saveFile.application.model.SaveFileCmd(
+                FileUploadType.MY_PROFILE_IMG,
+                cmd.inputStream(),
+                cmd.originalFilename(),
+                cmd.fileSize()));
 
     updateUserProfileImg.operate(cmd.userId(), file.id());
     String referURL = getFileURLUseCase.operate(file.id());

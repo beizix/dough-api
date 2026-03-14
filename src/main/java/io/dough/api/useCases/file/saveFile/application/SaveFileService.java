@@ -25,33 +25,23 @@ public class SaveFileService implements SaveFileUseCase {
   private static final int MARK_READ_LIMIT = 64 * 1024;
 
   @Override
-  public SavedFile operate(
-      FileUploadType fileUploadType,
-      InputStream inputStream,
-      String originalFilename,
-      long fileSize) {
+  public SavedFile operate(SaveFileCmd cmd) {
 
-    if (inputStream == null || originalFilename == null || originalFilename.isEmpty()) {
-      throw new IllegalArgumentException("exception.file.invalid_input");
-    }
+    FileUploadType fileUploadType = cmd.fileUploadType();
+    String originalFilename = cmd.originalFilename();
+    long fileSize = cmd.fileSize();
 
     // ✦ 도메인 객체 생성 및 기본 확장자 검증
     FileToUpload fileToUpload = new FileToUpload(originalFilename, fileSize, fileUploadType.getSubPath());
 
-    Set<String> allowedExtensions = fileUploadType.getAcceptableFileTypes().stream()
-        .flatMap(type -> type.getExtensions().stream())
-        .collect(Collectors.toSet());
-    fileToUpload.validateExtension(allowedExtensions);
+    fileToUpload.validateExtension(cmd.getAllowedExtensions());
 
-    try (InputStream bis = new BufferedInputStream(inputStream)) {
+    try (InputStream bis = new BufferedInputStream(cmd.inputStream())) {
       bis.mark(MARK_READ_LIMIT);
 
       // ✦ 도메인 유효성 검증 (MIME 타입)
       String detectedMimeType = tika.detect(bis, originalFilename);
-      Set<String> allowedMimeTypes = fileUploadType.getAcceptableFileTypes().stream()
-          .flatMap(type -> type.getMimeTypes().stream())
-          .collect(Collectors.toSet());
-      fileToUpload.validateMimeType(allowedMimeTypes, detectedMimeType);
+      fileToUpload.validateMimeType(cmd.getAllowedMimeTypes(), detectedMimeType);
 
       bis.reset();
 
@@ -60,16 +50,15 @@ public class SaveFileService implements SaveFileUseCase {
           .operate(bis, fileToUpload.subPath(), fileToUpload.createFilename());
 
       // ✦ 인프라 서비스 조율 (메타데이터 저장)
-      SaveFileMetadataResult metadata =
-          saveFileMetadata
-              .operate(
-                  new SaveFileMetadataCmd(
-                      fileUploadType,
-                      fileToUpload.subPath(),
-                      fileToUpload.createFilename(),
-                      originalFilename,
-                      fileSize))
-              .orElseThrow();
+      SaveFileMetadataResult metadata = saveFileMetadata
+          .operate(
+              new SaveFileMetadataCmd(
+                  fileUploadType,
+                  fileToUpload.subPath(),
+                  fileToUpload.createFilename(),
+                  originalFilename,
+                  fileSize))
+          .orElseThrow();
 
       return new SavedFile(
           metadata.id(),

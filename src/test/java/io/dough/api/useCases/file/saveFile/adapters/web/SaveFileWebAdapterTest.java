@@ -45,7 +45,7 @@ class SaveFileWebAdapterTest extends WebMvcTestBase {
     SavedFile savedFile = new SavedFile(fileId, type, "/path/to/file", "saved.png", "test.png", 100L);
     String resourceUrl = "/uploads/path/to/file/saved.png";
 
-    given(saveFileUseCase.operate(eq(type), any(InputStream.class), anyString(), anyLong()))
+    given(saveFileUseCase.operate(any(io.dough.api.useCases.file.saveFile.application.model.SaveFileCmd.class)))
         .willReturn(savedFile);
     given(getFileUrlUseCase.operate(fileId)).willReturn(resourceUrl);
 
@@ -58,7 +58,7 @@ class SaveFileWebAdapterTest extends WebMvcTestBase {
         .andExpect(jsonPath("$.originName").value("test.png"))
         .andExpect(jsonPath("$.referURL").value(resourceUrl));
 
-    verify(saveFileUseCase).operate(eq(type), any(InputStream.class), anyString(), anyLong());
+    verify(saveFileUseCase).operate(any(io.dough.api.useCases.file.saveFile.application.model.SaveFileCmd.class));
     verify(getFileUrlUseCase).operate(fileId);
   }
 
@@ -85,7 +85,7 @@ class SaveFileWebAdapterTest extends WebMvcTestBase {
     SavedFile savedFile = new SavedFile(fileId, type, "/path/to/file", "saved.png", "image.png", 100L);
     String resourceUrl = "/uploads/path/to/file/saved.png";
 
-    given(saveFileUseCase.operate(eq(type), any(InputStream.class), anyString(), anyLong()))
+    given(saveFileUseCase.operate(any(io.dough.api.useCases.file.saveFile.application.model.SaveFileCmd.class)))
         .willReturn(savedFile);
     given(getFileUrlUseCase.operate(fileId)).willReturn(resourceUrl);
 
@@ -100,7 +100,7 @@ class SaveFileWebAdapterTest extends WebMvcTestBase {
         .andExpect(jsonPath("$.id").exists())
         .andExpect(jsonPath("$.referURL").value(resourceUrl));
 
-    verify(saveFileUseCase).operate(eq(type), any(InputStream.class), anyString(), anyLong());
+    verify(saveFileUseCase).operate(any(io.dough.api.useCases.file.saveFile.application.model.SaveFileCmd.class));
     verify(getFileUrlUseCase).operate(fileId);
   }
 }
