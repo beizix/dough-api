@@ -9,7 +9,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import io.dough.api.support.WebMvcTestBase;
 import io.dough.api.useCases.user.maintenance.removeManager.adapters.web.model.RemoveManagerRequest;
 import io.dough.api.useCases.user.maintenance.removeManager.application.RemoveManagerUseCase;
-import io.dough.api.useCases.user.maintenance.removeManager.domain.ManagerRemoved;
+import io.dough.api.useCases.user.maintenance.removeManager.application.model.ManagerRemoved;
 import java.time.LocalDateTime;
 import java.util.UUID;
 import org.junit.jupiter.api.DisplayName;

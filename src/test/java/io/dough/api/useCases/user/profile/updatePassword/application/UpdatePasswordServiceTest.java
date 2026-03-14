@@ -7,7 +7,7 @@ import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 
 import io.dough.api.useCases.user.profile.updatePassword.domain.UpdatedPassword;
-import io.dough.api.useCases.user.profile.updatePassword.domain.UpdatePasswordCmd;
+import io.dough.api.useCases.user.profile.updatePassword.application.model.UpdatePasswordCmd;
 import java.util.UUID;
 
 import org.junit.jupiter.api.DisplayName;

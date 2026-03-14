@@ -2,7 +2,7 @@ package io.dough.api.config.init;
 
 import io.dough.api.useCases.shared.domain.auth.Role;
 import io.dough.api.useCases.user.maintenance.createManager.application.CreateManagerUseCase;
-import io.dough.api.useCases.user.maintenance.createManager.domain.CreateManagerCmd;
+import io.dough.api.useCases.user.maintenance.createManager.application.model.CreateManagerCmd;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;

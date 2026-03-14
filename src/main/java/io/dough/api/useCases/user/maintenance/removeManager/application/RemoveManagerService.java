@@ -1,7 +1,7 @@
 package io.dough.api.useCases.user.maintenance.removeManager.application;
 
-import io.dough.api.useCases.user.maintenance.removeManager.domain.ManagerRemoved;
-import io.dough.api.useCases.user.maintenance.removeManager.domain.RemoveManagerCmd;
+import io.dough.api.useCases.user.maintenance.removeManager.application.model.ManagerRemoved;
+import io.dough.api.useCases.user.maintenance.removeManager.application.model.RemoveManagerCmd;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

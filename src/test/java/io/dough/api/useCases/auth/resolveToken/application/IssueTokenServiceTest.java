@@ -8,9 +8,9 @@ import static org.mockito.Mockito.when;
 import io.dough.api.useCases.auth.issueToken.application.IssueTokenService;
 import io.dough.api.useCases.auth.issueToken.application.HandleTokenRefresh;
 import io.dough.api.useCases.shared.domain.auth.Role;
-import io.dough.api.useCases.shared.domain.auth.AuthToken;
-import io.dough.api.useCases.auth.issueToken.domain.CreateTokenCmd;
-import io.dough.api.useCases.auth.issueToken.domain.RefreshTokenCmd;
+import io.dough.api.useCases.auth.issueToken.domain.AuthToken;
+import io.dough.api.useCases.auth.issueToken.application.model.CreateTokenCmd;
+import io.dough.api.useCases.auth.issueToken.application.model.RefreshTokenCmd;
 import java.util.Optional;
 import java.util.UUID;
 import org.junit.jupiter.api.BeforeEach;
@@ -46,7 +46,7 @@ class IssueTokenServiceTest {
 
     // Then
     assertThat(token).isNotNull();
-    verify(handleTokenRefresh).save(uuid, token.refreshToken());
+    verify(handleTokenRefresh).save(uuid, token.getRefreshToken());
   }
 
   @Test
@@ -67,6 +67,6 @@ class IssueTokenServiceTest {
 
     // Then
     assertThat(newToken).isNotNull();
-    verify(handleTokenRefresh).save(uuid, newToken.refreshToken());
+    verify(handleTokenRefresh).save(uuid, newToken.getRefreshToken());
   }
 }

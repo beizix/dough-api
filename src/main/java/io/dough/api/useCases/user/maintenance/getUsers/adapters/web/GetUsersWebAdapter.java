@@ -3,7 +3,7 @@ package io.dough.api.useCases.user.maintenance.getUsers.adapters.web;
 import io.dough.api.useCases.shared.domain.auth.Role;
 import io.dough.api.useCases.user.maintenance.getUsers.adapters.web.model.GetUsersResponse;
 import io.dough.api.useCases.user.maintenance.getUsers.application.GetUsersUseCase;
-import io.dough.api.useCases.user.maintenance.getUsers.domain.GetUsersCmd;
+import io.dough.api.useCases.user.maintenance.getUsers.application.model.GetUsersCmd;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;

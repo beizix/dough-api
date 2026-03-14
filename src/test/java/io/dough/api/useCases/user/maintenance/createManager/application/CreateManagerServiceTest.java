@@ -3,13 +3,12 @@ package io.dough.api.useCases.user.maintenance.createManager.application;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
 
 import io.dough.api.useCases.shared.domain.auth.Role;
-import io.dough.api.useCases.user.maintenance.createManager.domain.CreateManagerCmd;
-import io.dough.api.useCases.user.maintenance.createManager.domain.ManagerCreated;
+import io.dough.api.useCases.user.maintenance.createManager.application.model.CreateManagerCmd;
+import io.dough.api.useCases.user.maintenance.createManager.application.model.ManagerCreated;
 import java.time.LocalDateTime;
 import java.util.UUID;
 import org.junit.jupiter.api.DisplayName;

@@ -1,10 +1,11 @@
 package io.dough.api.useCases.auth.login.application;
 
-import io.dough.api.useCases.auth.login.application.model.GetUserResult;
-import io.dough.api.useCases.auth.login.domain.LoginCmd;
 import io.dough.api.useCases.auth.issueToken.application.IssueTokenUseCase;
-import io.dough.api.useCases.shared.domain.auth.AuthToken;
-import io.dough.api.useCases.auth.issueToken.domain.CreateTokenCmd;
+import io.dough.api.useCases.auth.issueToken.application.model.CreateTokenCmd;
+import io.dough.api.useCases.auth.issueToken.domain.AuthToken;
+import io.dough.api.useCases.auth.login.application.model.LoginToken;
+import io.dough.api.useCases.auth.login.application.model.LoginCmd;
+import io.dough.api.useCases.auth.login.domain.LoginUser;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -18,17 +19,17 @@ public class LoginService implements LoginUseCase {
   private final PasswordEncoder passwordEncoder;
 
   @Override
-  public AuthToken operate(LoginCmd cmd) {
-    GetUserResult user =
-        getUser
-            .operate(cmd.email(), cmd.role())
-            .orElseThrow(() -> new IllegalArgumentException("exception.user.not_found"));
+  public LoginToken operate(LoginCmd cmd) {
+    LoginUser user =
+      getUser
+        .operate(cmd.email(), cmd.role())
+        .orElseThrow(() -> new IllegalArgumentException("exception.user.not_found"));
 
-    if (!passwordEncoder.matches(cmd.password(), user.password())) {
-      throw new IllegalArgumentException("exception.auth.invalid_password");
-    }
+    user.validatePassword(cmd.password(), passwordEncoder);
 
-    return issueTokenUseCase.createToken(
-        new CreateTokenCmd(user.id(), user.email(), user.displayName(), user.role()));
+    AuthToken authToken = issueTokenUseCase.createToken(
+      new CreateTokenCmd(user.id(), user.email(), user.displayName(), user.role()));
+
+    return new LoginToken(authToken.getAccessToken(), authToken.getRefreshToken());
   }
 }

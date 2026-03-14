@@ -1,7 +1,7 @@
 package io.dough.api.useCases.user.maintenance.createManager.application;
 
-import io.dough.api.useCases.user.maintenance.createManager.domain.CreateManagerCmd;
-import io.dough.api.useCases.user.maintenance.createManager.domain.ManagerCreated;
+import io.dough.api.useCases.user.maintenance.createManager.application.model.CreateManagerCmd;
+import io.dough.api.useCases.user.maintenance.createManager.application.model.ManagerCreated;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;

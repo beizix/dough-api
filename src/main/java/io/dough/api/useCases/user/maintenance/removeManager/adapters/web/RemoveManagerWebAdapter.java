@@ -3,7 +3,7 @@ package io.dough.api.useCases.user.maintenance.removeManager.adapters.web;
 import io.dough.api.useCases.user.maintenance.removeManager.adapters.web.model.RemoveManagerRequest;
 import io.dough.api.useCases.user.maintenance.removeManager.adapters.web.model.RemoveManagerResponse;
 import io.dough.api.useCases.user.maintenance.removeManager.application.RemoveManagerUseCase;
-import io.dough.api.useCases.user.maintenance.removeManager.domain.RemoveManagerCmd;
+import io.dough.api.useCases.user.maintenance.removeManager.application.model.RemoveManagerCmd;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;

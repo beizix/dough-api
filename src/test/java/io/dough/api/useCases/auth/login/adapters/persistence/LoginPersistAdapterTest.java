@@ -6,7 +6,7 @@ import io.dough.api.useCases.shared.adapters.persistence.entity.UserEntity;
 import io.dough.api.useCases.shared.adapters.persistence.repository.UserRepository;
 import io.dough.api.useCases.shared.domain.auth.Role;
 import io.dough.api.support.DataJpaTestBase;
-import io.dough.api.useCases.auth.login.application.model.GetUserResult;
+import io.dough.api.useCases.auth.login.domain.LoginUser;
 import java.util.Optional;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -29,7 +29,7 @@ class LoginPersistAdapterTest extends DataJpaTestBase {
     userRepository.save(new UserEntity(email, "password", "Persist User", role, null));
 
     // When
-    Optional<GetUserResult> result = loginPersistAdapter.operate(email, role);
+    Optional<LoginUser> result = loginPersistAdapter.operate(email, role);
 
     // Then
     assertThat(result).isPresent();

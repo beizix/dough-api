@@ -8,11 +8,15 @@ import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
 
 import io.dough.api.useCases.auth.issueToken.application.IssueTokenUseCase;
-import io.dough.api.useCases.shared.domain.auth.AuthToken;
-import io.dough.api.useCases.auth.issueToken.domain.CreateTokenCmd;
-import io.dough.api.useCases.user.signup.domain.SignupCmd;
+import io.dough.api.useCases.auth.issueToken.application.model.CreateTokenCmd;
+import io.dough.api.useCases.auth.issueToken.domain.AuthToken;
+import io.dough.api.useCases.shared.domain.auth.Role;
+import io.dough.api.useCases.user.signup.application.model.SignupCmd;
+import io.dough.api.useCases.user.signup.application.model.SignupToken;
 import io.dough.api.useCases.user.signup.application.model.SignupUser;
+import java.util.Date;
 import java.util.UUID;
+import javax.crypto.spec.SecretKeySpec;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -37,43 +41,42 @@ class SignupServiceTest {
   void signup_success() {
     // Given
     SignupCmd cmd = new SignupCmd("test@dough.io", "rawPassword123!", "Test User");
+    UUID userId = UUID.randomUUID();
+    SignupUser savedUser = new SignupUser(userId, cmd.email(), "encodedPassword", cmd.displayName(), Role.USER);
+    
+    AuthToken authToken = new AuthToken(
+        new SecretKeySpec("secretsecretsecretsecretsecretsecret".getBytes(), "HmacSHA256"),
+        userId,
+        cmd.email(),
+        cmd.displayName(),
+        Role.USER,
+        new Date(),
+        3600000,
+        7200000
+    );
 
     given(registerUser.existsByEmailAndRole(cmd.email(), cmd.role())).willReturn(false);
     given(passwordEncoder.encode(cmd.password())).willReturn("encodedPassword");
-    given(registerUser.save(any(SignupUser.class)))
-        .willAnswer(
-            invocation -> {
-              SignupUser user = invocation.getArgument(0);
-              return new SignupUser(
-                  UUID.randomUUID(),
-                  user.email(),
-                  user.password(),
-                  user.displayName(),
-                  user.role());
-            });
+    given(registerUser.save(cmd.email(), "encodedPassword", cmd.displayName(), cmd.role()))
+        .willReturn(savedUser);
     given(issueTokenUseCase.createToken(any(CreateTokenCmd.class)))
-        .willReturn(new AuthToken("access", "refresh"));
+        .willReturn(authToken);
 
     // When
-    AuthToken token = signupService.operate(cmd);
+    SignupToken token = signupService.operate(cmd);
 
     // Then
     assertThat(token).isNotNull();
-    assertThat(token.accessToken()).isEqualTo("access");
+    assertThat(token.accessToken()).isNotBlank();
+    assertThat(token.refreshToken()).isNotBlank();
 
-    verify(registerUser)
-        .save(
-            argThat(
-                user ->
-                    user.email().equals(cmd.email())
-                        && user.password().equals("encodedPassword")
-                        && user.displayName().equals(cmd.displayName())
-                        && user.role().equals(cmd.role())));
-
+    verify(registerUser).save(cmd.email(), "encodedPassword", cmd.displayName(), cmd.role());
     verify(issueTokenUseCase)
         .createToken(
             argThat(
-                authCmd -> authCmd.email().equals(cmd.email()) && authCmd.role() == cmd.role()));
+                authCmd -> authCmd.uuid().equals(userId) 
+                    && authCmd.email().equals(cmd.email()) 
+                    && authCmd.role() == cmd.role()));
   }
 
   @Test

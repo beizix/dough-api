@@ -6,8 +6,8 @@ import static org.mockito.Mockito.verify;
 
 import io.dough.api.useCases.shared.domain.auth.Role;
 import io.dough.api.useCases.file.getFileURL.application.GetFileURLUseCase;
-import io.dough.api.useCases.user.profile.getProfile.domain.GetProfileCmd;
-import io.dough.api.useCases.user.profile.getProfile.domain.UserProfile;
+import io.dough.api.useCases.user.profile.getProfile.application.model.GetProfileCmd;
+import io.dough.api.useCases.user.profile.getProfile.application.model.UserProfile;
 import io.dough.api.useCases.user.profile.getProfile.application.model.ProfileLoaded;
 import java.util.UUID;
 import org.junit.jupiter.api.DisplayName;

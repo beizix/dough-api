@@ -10,7 +10,7 @@ import io.dough.api.support.WebMvcTestBase;
 import io.dough.api.useCases.shared.domain.auth.Role;
 import io.dough.api.useCases.user.maintenance.updateManager.adapters.web.model.UpdateManagerRequest;
 import io.dough.api.useCases.user.maintenance.updateManager.application.UpdateManagerUseCase;
-import io.dough.api.useCases.user.maintenance.updateManager.domain.ManagerUpdated;
+import io.dough.api.useCases.user.maintenance.updateManager.application.model.ManagerUpdated;
 import java.time.LocalDateTime;
 import java.util.UUID;
 import org.junit.jupiter.api.DisplayName;

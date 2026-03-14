@@ -3,7 +3,7 @@ package io.dough.api.useCases.user.maintenance.updateManager.adapters.web;
 import io.dough.api.useCases.user.maintenance.updateManager.adapters.web.model.UpdateManagerRequest;
 import io.dough.api.useCases.user.maintenance.updateManager.adapters.web.model.UpdateManagerResponse;
 import io.dough.api.useCases.user.maintenance.updateManager.application.UpdateManagerUseCase;
-import io.dough.api.useCases.user.maintenance.updateManager.domain.UpdateManagerCmd;
+import io.dough.api.useCases.user.maintenance.updateManager.application.model.UpdateManagerCmd;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;

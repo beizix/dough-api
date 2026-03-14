@@ -3,7 +3,7 @@ package io.dough.api.useCases.auth.logout.application;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
-import io.dough.api.useCases.auth.logout.domain.LogoutCmd;
+import io.dough.api.useCases.auth.logout.application.model.LogoutCmd;
 import java.util.UUID;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;

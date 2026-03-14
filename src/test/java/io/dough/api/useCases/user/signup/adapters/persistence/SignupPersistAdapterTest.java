@@ -19,21 +19,23 @@ class SignupPersistAdapterTest extends DataJpaTestBase {
   @Autowired private UserRepository userRepository;
 
   @Test
-  @DisplayName("Scenario: 성공 - SignupUser 모델을 저장하면 UserEntity로 변환되어 DB에 영속화된다")
+  @DisplayName("Scenario: 성공 - 사용자 정보를 저장하면 UserEntity로 변환되어 DB에 영속화된다")
   void save_user_success() {
     // Given
-    SignupUser user =
-        new SignupUser(null, "persist@dough.io", "encodedPassword", "Persist User", Role.USER);
+    String email = "persist@dough.io";
+    String password = "encodedPassword";
+    String displayName = "Persist User";
+    Role role = Role.USER;
 
     // When
-    signupPersistAdapter.save(user);
+    signupPersistAdapter.save(email, password, displayName, role);
 
     // Then
-    var foundUser = userRepository.findByEmailAndRole(user.email(), user.role());
+    var foundUser = userRepository.findByEmailAndRole(email, role);
     assertThat(foundUser).isPresent();
-    assertThat(foundUser.get().getEmail()).isEqualTo(user.email());
-    assertThat(foundUser.get().getDisplayName()).isEqualTo(user.displayName());
-    assertThat(foundUser.get().getRole()).isEqualTo(user.role());
+    assertThat(foundUser.get().getEmail()).isEqualTo(email);
+    assertThat(foundUser.get().getDisplayName()).isEqualTo(displayName);
+    assertThat(foundUser.get().getRole()).isEqualTo(role);
   }
 
   @Test
@@ -41,7 +43,7 @@ class SignupPersistAdapterTest extends DataJpaTestBase {
   void exists_by_email_and_role_true() {
     // Given
     String email = "exists@dough.io";
-    signupPersistAdapter.save(new SignupUser(null, email, "pass", "User", Role.USER));
+    signupPersistAdapter.save(email, "pass", "User", Role.USER);
 
     // When
     boolean exists = signupPersistAdapter.existsByEmailAndRole(email, Role.USER);

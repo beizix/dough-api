@@ -3,6 +3,7 @@ package io.dough.api.useCases.user.maintenance.createManager.domain;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
+import io.dough.api.useCases.user.maintenance.createManager.application.model.CreateManagerCmd;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;

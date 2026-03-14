@@ -1,8 +1,8 @@
 package io.dough.api.useCases.auth.issueToken.application;
 
-import io.dough.api.useCases.shared.domain.auth.AuthToken;
-import io.dough.api.useCases.auth.issueToken.domain.CreateTokenCmd;
-import io.dough.api.useCases.auth.issueToken.domain.RefreshTokenCmd;
+import io.dough.api.useCases.auth.issueToken.domain.AuthToken;
+import io.dough.api.useCases.auth.issueToken.application.model.CreateTokenCmd;
+import io.dough.api.useCases.auth.issueToken.application.model.RefreshTokenCmd;
 
 /** 인증 토큰(JWT)의 발급 및 갱신을 담당하는 유스케이스입니다. */
 public interface IssueTokenUseCase {

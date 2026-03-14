@@ -1,6 +1,6 @@
 package io.dough.api.useCases.user.maintenance.removeManager.adapters.web.model;
 
-import io.dough.api.useCases.user.maintenance.removeManager.domain.ManagerRemoved;
+import io.dough.api.useCases.user.maintenance.removeManager.application.model.ManagerRemoved;
 import java.time.LocalDateTime;
 
 public record RemoveManagerResponse(boolean removed, LocalDateTime deletedAt) {

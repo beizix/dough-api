@@ -11,7 +11,7 @@ import static org.mockito.Mockito.lenient;
 
 import io.dough.api.useCases.shared.domain.file.FileStorageType;
 import io.dough.api.useCases.shared.domain.file.FileUploadType;
-import io.dough.api.useCases.file.saveFile.domain.SavedFile;
+import io.dough.api.useCases.file.saveFile.application.model.SavedFile;
 import io.dough.api.useCases.file.saveFile.application.model.SaveFileMetadataCmd;
 import io.dough.api.useCases.file.saveFile.application.model.SaveFileMetadataResult;
 import java.io.ByteArrayInputStream;

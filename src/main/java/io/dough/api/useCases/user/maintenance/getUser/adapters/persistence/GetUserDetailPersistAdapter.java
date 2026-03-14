@@ -3,8 +3,8 @@ package io.dough.api.useCases.user.maintenance.getUser.adapters.persistence;
 import io.dough.api.useCases.shared.adapters.persistence.entity.UserEntity;
 import io.dough.api.useCases.shared.adapters.persistence.repository.UserRepository;
 import io.dough.api.useCases.user.maintenance.getUser.application.LoadUser;
-import io.dough.api.useCases.user.maintenance.getUser.domain.GetUserCmd;
-import io.dough.api.useCases.user.maintenance.getUser.domain.UserDetail;
+import io.dough.api.useCases.user.maintenance.getUser.application.model.GetUserCmd;
+import io.dough.api.useCases.user.maintenance.getUser.application.model.UserDetail;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 

@@ -3,10 +3,10 @@ package io.dough.api.useCases.user.maintenance.getUsers.adapters.persistence;
 import io.dough.api.useCases.shared.adapters.persistence.entity.UserEntity;
 import io.dough.api.useCases.shared.adapters.persistence.repository.UserRepository;
 import io.dough.api.useCases.user.maintenance.getUsers.application.LoadUsers;
-import io.dough.api.useCases.user.maintenance.getUsers.domain.GetUsers;
-import io.dough.api.useCases.user.maintenance.getUsers.domain.GetUsersCmd;
-import io.dough.api.useCases.user.maintenance.getUsers.domain.PageInfo;
-import io.dough.api.useCases.user.maintenance.getUsers.domain.UserForList;
+import io.dough.api.useCases.user.maintenance.getUsers.application.model.GetUsers;
+import io.dough.api.useCases.user.maintenance.getUsers.application.model.GetUsersCmd;
+import io.dough.api.useCases.user.maintenance.getUsers.application.model.PageInfo;
+import io.dough.api.useCases.user.maintenance.getUsers.application.model.UserForList;
 import jakarta.persistence.criteria.Predicate;
 import java.util.ArrayList;
 import java.util.List;
@@ -77,7 +77,7 @@ public class GetUsersPersistAdapter implements LoadUsers {
         Sort.Direction direction = Sort.Direction.fromString(sortParts[1]);
         sort = Sort.by(direction, property);
     }
-    
+
     return PageRequest.of(cmd.page(), cmd.size(), sort);
   }
 }

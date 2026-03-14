@@ -8,11 +8,10 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import io.dough.api.support.WebMvcTestBase;
-import io.dough.api.useCases.shared.domain.auth.AuthToken;
-import io.dough.api.useCases.user.signup.adapters.web.SignupUserWebAdapter;
 import io.dough.api.useCases.user.signup.adapters.web.model.SignupUserRequest;
 import io.dough.api.useCases.user.signup.application.SignupUseCase;
-import io.dough.api.useCases.user.signup.domain.SignupCmd;
+import io.dough.api.useCases.user.signup.application.model.SignupCmd;
+import io.dough.api.useCases.user.signup.application.model.SignupToken;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.webmvc.test.autoconfigure.WebMvcTest;
@@ -29,7 +28,7 @@ class SignupUserWebAdapterTest extends WebMvcTestBase {
     // Given
     SignupUserRequest req = new SignupUserRequest("user@dough.io", "password123!", "User Nickname");
     given(signupUseCase.operate(any(SignupCmd.class)))
-        .willReturn(new AuthToken("access", "refresh"));
+        .willReturn(new SignupToken("access_token_value", "refresh_token_value"));
 
     // When
     mockMvc

@@ -10,8 +10,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import io.dough.api.support.WebMvcTestBase;
 import io.dough.api.useCases.user.profile.saveProfileImg.application.SaveProfileImgUseCase;
-import io.dough.api.useCases.user.profile.saveProfileImg.domain.SaveProfileImgCmd;
-import io.dough.api.useCases.user.profile.saveProfileImg.domain.SavedProfileImg;
+import io.dough.api.useCases.user.profile.saveProfileImg.application.model.SaveProfileImgCmd;
+import io.dough.api.useCases.user.profile.saveProfileImg.application.model.SavedProfileImg;
 import java.util.Optional;
 import java.util.UUID;
 import org.junit.jupiter.api.DisplayName;

@@ -4,8 +4,8 @@ import io.dough.api.useCases.shared.adapters.persistence.entity.UserEntity;
 import io.dough.api.useCases.shared.adapters.persistence.repository.UserRepository;
 import io.dough.api.useCases.shared.domain.auth.Role;
 import io.dough.api.useCases.user.maintenance.createManager.application.SaveManager;
-import io.dough.api.useCases.user.maintenance.createManager.domain.CreateManagerCmd;
-import io.dough.api.useCases.user.maintenance.createManager.domain.ManagerCreated;
+import io.dough.api.useCases.user.maintenance.createManager.application.model.CreateManagerCmd;
+import io.dough.api.useCases.user.maintenance.createManager.application.model.ManagerCreated;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 

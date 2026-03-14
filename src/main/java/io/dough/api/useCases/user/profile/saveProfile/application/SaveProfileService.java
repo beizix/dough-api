@@ -1,7 +1,7 @@
 package io.dough.api.useCases.user.profile.saveProfile.application;
 
-import io.dough.api.useCases.user.profile.saveProfile.domain.SaveProfileCmd;
-import io.dough.api.useCases.user.profile.saveProfile.domain.SavedProfile;
+import io.dough.api.useCases.user.profile.saveProfile.application.model.SaveProfileCmd;
+import io.dough.api.useCases.user.profile.saveProfile.application.model.SavedProfile;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

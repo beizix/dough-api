@@ -20,15 +20,16 @@ public class RegisterUserPersistAdapter implements RegisterUser {
   }
 
   @Override
-  public SignupUser save(SignupUser user) {
+  public SignupUser save(String email, String password, String displayName, Role role) {
+    // refreshToken 은 추후 토큰 발급 과정에서 업데이트 됩니다.
     UserEntity entity =
-        new UserEntity(user.email(), user.password(), user.displayName(), user.role(), null);
+      new UserEntity(email, password, displayName, role, null);
     UserEntity saved = userRepository.save(entity);
     return new SignupUser(
-        saved.getId(),
-        saved.getEmail(),
-        saved.getPassword(),
-        saved.getDisplayName(),
-        saved.getRole());
+      saved.getId(),
+      saved.getEmail(),
+      saved.getPassword(),
+      saved.getDisplayName(),
+      saved.getRole());
   }
 }

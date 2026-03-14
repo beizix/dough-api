@@ -5,8 +5,8 @@ import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
 
 import io.dough.api.useCases.shared.domain.auth.Role;
-import io.dough.api.useCases.user.maintenance.getUser.domain.GetUserCmd;
-import io.dough.api.useCases.user.maintenance.getUser.domain.UserDetail;
+import io.dough.api.useCases.user.maintenance.getUser.application.model.GetUserCmd;
+import io.dough.api.useCases.user.maintenance.getUser.application.model.UserDetail;
 import java.time.LocalDateTime;
 import java.util.UUID;
 import org.junit.jupiter.api.DisplayName;

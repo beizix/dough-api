@@ -1,6 +1,6 @@
 package io.dough.api.useCases.auth.logout.application;
 
-import io.dough.api.useCases.auth.logout.domain.LogoutCmd;
+import io.dough.api.useCases.auth.logout.application.model.LogoutCmd;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

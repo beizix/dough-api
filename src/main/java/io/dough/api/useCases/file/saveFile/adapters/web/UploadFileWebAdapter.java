@@ -6,7 +6,7 @@ import io.dough.api.useCases.file.saveFile.adapters.web.model.UploadBase64Reques
 import io.dough.api.useCases.file.saveFile.adapters.web.model.UploadFileResponse;
 import io.dough.api.useCases.file.saveFile.adapters.web.model.UploadMultipartRequest;
 import io.dough.api.useCases.file.saveFile.application.SaveFileUseCase;
-import io.dough.api.useCases.file.saveFile.domain.SavedFile;
+import io.dough.api.useCases.file.saveFile.application.model.SavedFile;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;

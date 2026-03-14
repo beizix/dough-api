@@ -4,8 +4,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
 
-import io.dough.api.useCases.user.maintenance.removeManager.domain.ManagerRemoved;
-import io.dough.api.useCases.user.maintenance.removeManager.domain.RemoveManagerCmd;
+import io.dough.api.useCases.user.maintenance.removeManager.application.model.ManagerRemoved;
+import io.dough.api.useCases.user.maintenance.removeManager.application.model.RemoveManagerCmd;
 import java.time.LocalDateTime;
 import java.util.UUID;
 import org.junit.jupiter.api.DisplayName;

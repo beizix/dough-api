@@ -10,8 +10,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import io.dough.api.support.WebMvcTestBase;
 import io.dough.api.useCases.auth.login.adapters.web.model.LoginRequest;
 import io.dough.api.useCases.auth.login.application.LoginUseCase;
-import io.dough.api.useCases.auth.login.domain.LoginCmd;
-import io.dough.api.useCases.shared.domain.auth.AuthToken;
+import io.dough.api.useCases.auth.login.application.model.LoginCmd;
+import io.dough.api.useCases.auth.issueToken.domain.AuthToken;
+import io.dough.api.useCases.auth.login.application.model.LoginToken;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.webmvc.test.autoconfigure.WebMvcTest;
@@ -28,7 +29,7 @@ class LoginUserWebAdapterTest extends WebMvcTestBase {
   void login_success() throws Exception {
     // Given
     LoginRequest req = new LoginRequest("test@test.com", "password123");
-    AuthToken token = new AuthToken("access_token_value", "refresh_token_value");
+    LoginToken token = new LoginToken("access_token_value", "refresh_token_value");
 
     given(loginUseCase.operate(any(LoginCmd.class))).willReturn(token);
 

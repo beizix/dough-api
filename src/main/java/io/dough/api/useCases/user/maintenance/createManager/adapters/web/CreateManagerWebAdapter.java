@@ -3,7 +3,7 @@ package io.dough.api.useCases.user.maintenance.createManager.adapters.web;
 import io.dough.api.useCases.user.maintenance.createManager.adapters.web.model.CreateManagerRequest;
 import io.dough.api.useCases.user.maintenance.createManager.adapters.web.model.CreateManagerResponse;
 import io.dough.api.useCases.user.maintenance.createManager.application.CreateManagerUseCase;
-import io.dough.api.useCases.user.maintenance.createManager.domain.CreateManagerCmd;
+import io.dough.api.useCases.user.maintenance.createManager.application.model.CreateManagerCmd;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;

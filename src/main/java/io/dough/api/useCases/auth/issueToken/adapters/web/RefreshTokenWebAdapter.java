@@ -3,8 +3,8 @@ package io.dough.api.useCases.auth.issueToken.adapters.web;
 import io.dough.api.useCases.auth.issueToken.adapters.web.model.RefreshRequest;
 import io.dough.api.useCases.auth.issueToken.adapters.web.model.RefreshResponse;
 import io.dough.api.useCases.auth.issueToken.application.IssueTokenUseCase;
-import io.dough.api.useCases.shared.domain.auth.AuthToken;
-import io.dough.api.useCases.auth.issueToken.domain.RefreshTokenCmd;
+import io.dough.api.useCases.auth.issueToken.domain.AuthToken;
+import io.dough.api.useCases.auth.issueToken.application.model.RefreshTokenCmd;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -29,6 +29,6 @@ public class RefreshTokenWebAdapter {
   public RefreshResponse refresh(
       @RequestBody @Parameter(description = "토큰 갱신 요청", required = true) RefreshRequest req) {
     AuthToken token = issueTokenUseCase.refreshToken(new RefreshTokenCmd(req.refreshToken()));
-    return new RefreshResponse(token.accessToken(), token.refreshToken());
+    return new RefreshResponse(token.getAccessToken(), token.getRefreshToken());
   }
 }

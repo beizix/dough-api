@@ -5,9 +5,9 @@ import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
 
 import io.dough.api.useCases.shared.domain.auth.Role;
-import io.dough.api.useCases.user.maintenance.getUsers.domain.GetUsers;
-import io.dough.api.useCases.user.maintenance.getUsers.domain.GetUsersCmd;
-import io.dough.api.useCases.user.maintenance.getUsers.domain.PageInfo;
+import io.dough.api.useCases.user.maintenance.getUsers.application.model.GetUsers;
+import io.dough.api.useCases.user.maintenance.getUsers.application.model.GetUsersCmd;
+import io.dough.api.useCases.user.maintenance.getUsers.application.model.PageInfo;
 import java.util.List;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

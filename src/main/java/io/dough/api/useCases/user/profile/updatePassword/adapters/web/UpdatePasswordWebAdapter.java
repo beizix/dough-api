@@ -2,7 +2,7 @@ package io.dough.api.useCases.user.profile.updatePassword.adapters.web;
 
 import io.dough.api.useCases.user.profile.updatePassword.adapters.web.model.UpdatePasswordRequest;
 import io.dough.api.useCases.user.profile.updatePassword.application.UpdatePasswordUseCase;
-import io.dough.api.useCases.user.profile.updatePassword.domain.UpdatePasswordCmd;
+import io.dough.api.useCases.user.profile.updatePassword.application.model.UpdatePasswordCmd;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;

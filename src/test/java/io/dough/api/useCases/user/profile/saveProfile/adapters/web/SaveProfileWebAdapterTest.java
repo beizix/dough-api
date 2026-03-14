@@ -9,7 +9,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import io.dough.api.support.WebMvcTestBase;
 import io.dough.api.useCases.user.profile.saveProfile.adapters.web.model.SaveProfileRequest;
 import io.dough.api.useCases.user.profile.saveProfile.application.SaveProfileUseCase;
-import io.dough.api.useCases.user.profile.saveProfile.domain.SaveProfileCmd;
+import io.dough.api.useCases.user.profile.saveProfile.application.model.SaveProfileCmd;
 import java.util.UUID;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

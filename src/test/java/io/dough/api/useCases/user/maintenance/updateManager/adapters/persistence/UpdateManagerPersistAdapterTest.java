@@ -6,8 +6,8 @@ import io.dough.api.support.DataJpaTestBase;
 import io.dough.api.useCases.shared.adapters.persistence.entity.UserEntity;
 import io.dough.api.useCases.shared.adapters.persistence.repository.UserRepository;
 import io.dough.api.useCases.shared.domain.auth.Role;
-import io.dough.api.useCases.user.maintenance.updateManager.domain.ManagerUpdated;
-import io.dough.api.useCases.user.maintenance.updateManager.domain.UpdateManagerCmd;
+import io.dough.api.useCases.user.maintenance.updateManager.application.model.ManagerUpdated;
+import io.dough.api.useCases.user.maintenance.updateManager.application.model.UpdateManagerCmd;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -38,7 +38,7 @@ class UpdateManagerPersistAdapterTest extends DataJpaTestBase {
     // Then
     assertThat(result.email()).isEqualTo("manager@dough.io");
     assertThat(result.displayName()).isEqualTo("수정된이름");
-    
+
     UserEntity updatedUser = userRepository.findByEmailAndRole("manager@dough.io", Role.MANAGER).orElseThrow();
     assertThat(updatedUser.getDisplayName()).isEqualTo("수정된이름");
     assertThat(updatedUser.getPassword()).isEqualTo("newPass123!");

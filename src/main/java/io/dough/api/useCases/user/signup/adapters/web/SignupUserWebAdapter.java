@@ -1,11 +1,10 @@
 package io.dough.api.useCases.user.signup.adapters.web;
 
-import io.dough.api.useCases.shared.domain.auth.Role;
-import io.dough.api.useCases.shared.domain.auth.AuthToken;
 import io.dough.api.useCases.user.signup.adapters.web.model.SignupResponse;
 import io.dough.api.useCases.user.signup.adapters.web.model.SignupUserRequest;
 import io.dough.api.useCases.user.signup.application.SignupUseCase;
-import io.dough.api.useCases.user.signup.domain.SignupCmd;
+import io.dough.api.useCases.user.signup.application.model.SignupCmd;
+import io.dough.api.useCases.user.signup.application.model.SignupToken;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -26,9 +25,9 @@ public class SignupUserWebAdapter {
   @ApiResponse(responseCode = "200", description = "회원가입 성공")
   @PostMapping("/api/v1/signup/user")
   public SignupResponse signupUser(
-      @RequestBody @Parameter(description = "사용자 가입 정보", required = true) SignupUserRequest req) {
-    AuthToken token =
-        signupUseCase.operate(new SignupCmd(req.email(), req.password(), req.displayName()));
+    @RequestBody @Parameter(description = "사용자 가입 정보", required = true) SignupUserRequest req) {
+    SignupToken token =
+      signupUseCase.operate(new SignupCmd(req.email(), req.password(), req.displayName()));
     return new SignupResponse(token.accessToken(), token.refreshToken());
   }
 }

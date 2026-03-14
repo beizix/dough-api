@@ -1,7 +1,7 @@
 package io.dough.api.useCases.user.maintenance.createManager.adapters.web.model;
 
 import io.dough.api.useCases.shared.domain.auth.Role;
-import io.dough.api.useCases.user.maintenance.createManager.domain.ManagerCreated;
+import io.dough.api.useCases.user.maintenance.createManager.application.model.ManagerCreated;
 import java.time.LocalDateTime;
 import java.util.UUID;
 

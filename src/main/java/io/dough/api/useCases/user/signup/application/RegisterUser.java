@@ -14,11 +14,5 @@ public interface RegisterUser {
    */
   boolean existsByEmailAndRole(String email, Role role);
 
-  /**
-   * 새로운 사용자 정보를 영구 저장소에 저장합니다.
-   *
-   * @param user 저장할 사용자 정보
-   * @return 저장된 사용자 정보 (ID 포함)
-   */
-  SignupUser save(SignupUser user);
+  SignupUser save(String email, String password, String displayName, Role role);
 }

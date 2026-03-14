@@ -9,13 +9,12 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import io.dough.api.support.WebMvcTestBase;
 import io.dough.api.useCases.shared.domain.auth.Role;
 import io.dough.api.useCases.user.maintenance.getUser.application.GetUserUseCase;
-import io.dough.api.useCases.user.maintenance.getUser.domain.UserDetail;
+import io.dough.api.useCases.user.maintenance.getUser.application.model.UserDetail;
 import java.time.LocalDateTime;
 import java.util.UUID;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.webmvc.test.autoconfigure.WebMvcTest;
-import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 
 @WebMvcTest(GetUserDetailWebAdapter.class)

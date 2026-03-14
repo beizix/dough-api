@@ -5,7 +5,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import io.dough.api.useCases.auth.issueToken.application.IssueTokenService;
 import io.dough.api.useCases.auth.issueToken.application.HandleTokenRefresh;
 import io.dough.api.useCases.shared.domain.auth.Role;
-import io.dough.api.useCases.auth.issueToken.domain.CreateTokenCmd;
+import io.dough.api.useCases.auth.issueToken.application.model.CreateTokenCmd;
 import java.util.UUID;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -33,7 +33,7 @@ class ResolveTokenServiceTest {
     UUID uuid = UUID.randomUUID();
     String email = "test@example.com";
     CreateTokenCmd cmd = new CreateTokenCmd(uuid, email, "Test User", Role.USER);
-    String token = issueTokenService.createToken(cmd).accessToken();
+    String token = issueTokenService.createToken(cmd).getAccessToken();
 
     // When & Then
     assertThat(resolveTokenService.validateToken(token)).isTrue();

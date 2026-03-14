@@ -1,7 +1,7 @@
 package io.dough.api.useCases.user.maintenance.getUser.application;
 
-import io.dough.api.useCases.user.maintenance.getUser.domain.GetUserCmd;
-import io.dough.api.useCases.user.maintenance.getUser.domain.UserDetail;
+import io.dough.api.useCases.user.maintenance.getUser.application.model.GetUserCmd;
+import io.dough.api.useCases.user.maintenance.getUser.application.model.UserDetail;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

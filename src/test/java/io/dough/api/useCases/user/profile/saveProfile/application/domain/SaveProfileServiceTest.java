@@ -7,8 +7,8 @@ import static org.mockito.Mockito.verify;
 
 import io.dough.api.useCases.user.profile.saveProfile.application.SaveProfileService;
 import io.dough.api.useCases.user.profile.saveProfile.application.UpdateProfile;
-import io.dough.api.useCases.user.profile.saveProfile.domain.SaveProfileCmd;
-import io.dough.api.useCases.user.profile.saveProfile.domain.SavedProfile;
+import io.dough.api.useCases.user.profile.saveProfile.application.model.SaveProfileCmd;
+import io.dough.api.useCases.user.profile.saveProfile.application.model.SavedProfile;
 import java.time.LocalDateTime;
 import java.util.UUID;
 import org.junit.jupiter.api.DisplayName;
