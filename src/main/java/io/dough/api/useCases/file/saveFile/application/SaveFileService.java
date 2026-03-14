@@ -5,8 +5,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.NoSuchElementException;
 import java.util.Set;
+import java.util.stream.Collectors;
 
-import io.dough.api.useCases.shared.domain.file.AcceptableFileType;
 import io.dough.api.useCases.shared.domain.file.FileStorageType;
 import io.dough.api.useCases.shared.domain.file.FileUploadType;
 import io.dough.api.useCases.file.saveFile.application.model.*;
@@ -36,15 +36,22 @@ public class SaveFileService implements SaveFileUseCase {
     }
 
     // ✦ 도메인 객체 생성 및 기본 확장자 검증
-    FileToUpload fileToUpload = new FileToUpload(fileUploadType, originalFilename, fileSize);
+    FileToUpload fileToUpload = new FileToUpload(originalFilename, fileSize, fileUploadType.getSubPath());
+
+    Set<String> allowedExtensions = fileUploadType.getAcceptableFileTypes().stream()
+        .flatMap(type -> type.getExtensions().stream())
+        .collect(Collectors.toSet());
+    fileToUpload.validateExtension(allowedExtensions);
 
     try (InputStream bis = new BufferedInputStream(inputStream)) {
       bis.mark(MARK_READ_LIMIT);
 
-      // ✦ 도메인 유효성 검증 (확장자 및 MIME 타입)
-      AcceptableFileType acceptableFileType = fileToUpload.validateExtension();
+      // ✦ 도메인 유효성 검증 (MIME 타입)
       String detectedMimeType = tika.detect(bis, originalFilename);
-      fileToUpload.validateMimeType(acceptableFileType, detectedMimeType);
+      Set<String> allowedMimeTypes = fileUploadType.getAcceptableFileTypes().stream()
+          .flatMap(type -> type.getMimeTypes().stream())
+          .collect(Collectors.toSet());
+      fileToUpload.validateMimeType(allowedMimeTypes, detectedMimeType);
 
       bis.reset();
 
