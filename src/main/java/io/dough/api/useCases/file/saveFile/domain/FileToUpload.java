@@ -18,8 +18,7 @@ public record FileToUpload(
     long fileSize,
     String extension,
     String createFilename,
-    String subPath
-) {
+    String subPath) {
   public FileToUpload(FileUploadType type, String originalFilename, long fileSize) {
     this(
         type,
@@ -27,8 +26,7 @@ public record FileToUpload(
         fileSize,
         extractExtension(originalFilename),
         generateUUIDFilename(extractExtension(originalFilename)),
-        calculateSubPath(type.getSubPath())
-    );
+        calculateSubPath(type.getSubPath()));
   }
 
   private static String extractExtension(String filename) {
@@ -45,7 +43,7 @@ public record FileToUpload(
   private static String calculateSubPath(String basePath) {
     LocalDate now = LocalDate.now();
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMM");
-    return Path.of(basePath, now.format(formatter)).normalize().toString().replace("", "/");
+    return Path.of(basePath, now.format(formatter)).normalize().toString().replace("\\", "/");
   }
 
   /**
