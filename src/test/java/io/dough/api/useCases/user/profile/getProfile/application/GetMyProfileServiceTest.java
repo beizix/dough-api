@@ -4,7 +4,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
 
-import io.dough.api.useCases.file.getFileURL.application.GetFileURLUseCase;
+import io.dough.api.useCases.file.resolveURL.application.ResolveURLUseCase;
 import io.dough.api.useCases.shared.domain.auth.Role;
 import io.dough.api.useCases.user.profile.getProfile.application.model.GetProfileCmd;
 import io.dough.api.useCases.user.profile.getProfile.application.model.ProfileLoaded;
@@ -22,7 +22,7 @@ class GetMyProfileServiceTest {
 
   @Mock private LoadProfile loadProfile;
 
-  @Mock private GetFileURLUseCase getFileURLUseCase;
+  @Mock private ResolveURLUseCase resolveURLUseCase;
 
   @InjectMocks private GetProfileService getMyProfileService;
 
@@ -60,7 +60,7 @@ class GetMyProfileServiceTest {
         new ProfileLoaded(userId, "test@example.com", "Test User", Role.USER, now, imageId);
 
     given(loadProfile.operate(userId)).willReturn(loadedUser);
-    given(getFileURLUseCase.operate(imageId)).willReturn(expectedUrl);
+    given(resolveURLUseCase.operate(imageId)).willReturn(expectedUrl);
 
     // When
     UserProfile result = getMyProfileService.operate(cmd);
@@ -70,6 +70,6 @@ class GetMyProfileServiceTest {
     assertThat(result.profileImageId()).isEqualTo(imageId);
     assertThat(result.profileImageUrl()).isEqualTo(expectedUrl);
     verify(loadProfile).operate(userId);
-    verify(getFileURLUseCase).operate(imageId);
+    verify(resolveURLUseCase).operate(imageId);
   }
 }

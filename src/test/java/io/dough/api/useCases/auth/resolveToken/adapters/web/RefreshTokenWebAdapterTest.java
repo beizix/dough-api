@@ -8,7 +8,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import io.dough.api.support.WebMvcTestBase;
 import io.dough.api.useCases.auth.issueToken.adapters.web.RefreshTokenWebAdapter;
-import io.dough.api.useCases.auth.issueToken.adapters.web.model.RefreshRequest;
+import io.dough.api.useCases.auth.issueToken.adapters.web.model.RefreshTokenRequest;
 import io.dough.api.useCases.auth.issueToken.application.model.AuthToken;
 import io.dough.api.useCases.auth.issueToken.application.model.RefreshTokenCmd;
 import org.junit.jupiter.api.DisplayName;
@@ -23,7 +23,7 @@ class RefreshTokenWebAdapterTest extends WebMvcTestBase {
   @DisplayName("Scenario: 성공 - 유효한 리프레시 토큰으로 토큰 재발급")
   void refresh_token_success() throws Exception {
     // Given
-    RefreshRequest req = new RefreshRequest("valid_refresh_token");
+    RefreshTokenRequest req = new RefreshTokenRequest("valid_refresh_token");
     AuthToken token = new AuthToken("access_token", "refresh_token");
 
     given(issueTokenUseCase.refreshToken(any(RefreshTokenCmd.class))).willReturn(token);

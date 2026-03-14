@@ -9,7 +9,7 @@ import static org.mockito.Mockito.verify;
 
 import io.dough.api.useCases.auth.issueToken.application.IssueTokenUseCase;
 import io.dough.api.useCases.auth.issueToken.application.model.AuthToken;
-import io.dough.api.useCases.auth.issueToken.application.model.CreateTokenCmd;
+import io.dough.api.useCases.auth.issueToken.application.model.IssueTokenCmd;
 import io.dough.api.useCases.shared.domain.auth.Role;
 import io.dough.api.useCases.user.signup.application.model.SignupCmd;
 import io.dough.api.useCases.user.signup.application.model.SignupToken;
@@ -49,7 +49,7 @@ class SignupServiceTest {
     given(passwordEncoder.encode(cmd.password())).willReturn("encodedPassword");
     given(registerUser.save(cmd.email(), "encodedPassword", cmd.displayName(), cmd.role()))
         .willReturn(savedUser);
-    given(issueTokenUseCase.createToken(any(CreateTokenCmd.class))).willReturn(tokenIssuer);
+    given(issueTokenUseCase.createToken(any(IssueTokenCmd.class))).willReturn(tokenIssuer);
 
     // When
     SignupToken token = signupService.operate(cmd);

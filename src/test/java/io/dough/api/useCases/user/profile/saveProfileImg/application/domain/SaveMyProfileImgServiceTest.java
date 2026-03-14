@@ -5,9 +5,10 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
 
-import io.dough.api.useCases.file.getFileURL.application.GetFileURLUseCase;
-import io.dough.api.useCases.file.saveFile.application.SaveFileUseCase;
-import io.dough.api.useCases.file.saveFile.application.model.SavedFile;
+import io.dough.api.useCases.file.resolveURL.application.ResolveURLUseCase;
+import io.dough.api.useCases.file.upload.application.UploadFileUseCase;
+import io.dough.api.useCases.file.upload.application.model.UploadedFile;
+import io.dough.api.useCases.file.upload.application.model.UploadFileCmd;
 import io.dough.api.useCases.shared.domain.file.FileUploadType;
 import io.dough.api.useCases.user.profile.saveProfileImg.application.SaveProfileImgService;
 import io.dough.api.useCases.user.profile.saveProfileImg.application.UpdateUserProfileImg;
@@ -26,9 +27,9 @@ import org.mockito.junit.jupiter.MockitoExtension;
 @ExtendWith(MockitoExtension.class)
 class SaveMyProfileImgServiceTest {
 
-  @Mock private SaveFileUseCase saveFileUseCase;
+  @Mock private UploadFileUseCase uploadFileUseCase;
   @Mock private UpdateUserProfileImg updateUserProfileImg;
-  @Mock private GetFileURLUseCase getFileURLUseCase;
+  @Mock private ResolveURLUseCase resolveURLUseCase;
 
   @InjectMocks private SaveProfileImgService saveMyProfileImgService;
 
@@ -43,8 +44,8 @@ class SaveMyProfileImgServiceTest {
         new SaveProfileImgCmd(userId, inputStream, "profile.png", (long) content.length);
 
     UUID savedFileId = UUID.randomUUID();
-    SavedFile mockSavedFile =
-        new SavedFile(
+    UploadedFile mockUploadedFile =
+        new UploadedFile(
             savedFileId,
             FileUploadType.MY_PROFILE_IMG,
             "/user/profile/img",
@@ -55,10 +56,10 @@ class SaveMyProfileImgServiceTest {
     String expectedUrl = "http://example.com/files/" + savedFileId;
 
     given(
-            saveFileUseCase.operate(
-                any(io.dough.api.useCases.file.saveFile.application.model.SaveFileCmd.class)))
-        .willReturn(mockSavedFile);
-    given(getFileURLUseCase.operate(savedFileId)).willReturn(expectedUrl);
+            uploadFileUseCase.operate(
+                any(UploadFileCmd.class)))
+        .willReturn(mockUploadedFile);
+    given(resolveURLUseCase.operate(savedFileId)).willReturn(expectedUrl);
 
     // When
     Optional<SavedProfileImg> result = saveMyProfileImgService.operate(cmd);
@@ -66,9 +67,9 @@ class SaveMyProfileImgServiceTest {
     // Then
     assertThat(result).isPresent();
     assertThat(result.get().referURL()).isEqualTo(expectedUrl);
-    verify(saveFileUseCase)
-        .operate(any(io.dough.api.useCases.file.saveFile.application.model.SaveFileCmd.class));
+    verify(uploadFileUseCase)
+        .operate(any(UploadFileCmd.class));
     verify(updateUserProfileImg).operate(userId, savedFileId);
-    verify(getFileURLUseCase).operate(savedFileId);
+    verify(resolveURLUseCase).operate(savedFileId);
   }
 }

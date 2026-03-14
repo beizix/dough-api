@@ -1,7 +1,7 @@
 package io.dough.api.useCases.auth.issueToken.application;
 
 import io.dough.api.useCases.auth.issueToken.application.model.AuthToken;
-import io.dough.api.useCases.auth.issueToken.application.model.CreateTokenCmd;
+import io.dough.api.useCases.auth.issueToken.application.model.IssueTokenCmd;
 import io.dough.api.useCases.auth.issueToken.application.model.RefreshTokenCmd;
 import io.dough.api.useCases.auth.issueToken.domain.TokenIssuer;
 import io.dough.api.useCases.auth.resolveToken.application.ResolveTokenUseCase;
@@ -18,24 +18,24 @@ public class IssueTokenService implements IssueTokenUseCase {
   private final SecretKey key;
   private final long accessTokenValidity;
   private final long refreshTokenValidity;
-  private final HandleTokenRefresh handleTokenRefresh;
+  private final ManageRefreshToken manageRefreshToken;
   private final ResolveTokenUseCase resolveTokenUseCase;
 
   public IssueTokenService(
       @Value("${jwt.secret}") String secret,
       @Value("${jwt.access-token-validity}") long accessTokenValidity,
       @Value("${jwt.refresh-token-validity}") long refreshTokenValidity,
-      HandleTokenRefresh handleTokenRefresh,
+      ManageRefreshToken manageRefreshToken,
       ResolveTokenUseCase resolveTokenUseCase) {
     this.key = Keys.hmacShaKeyFor(secret.getBytes(StandardCharsets.UTF_8));
     this.accessTokenValidity = accessTokenValidity;
     this.refreshTokenValidity = refreshTokenValidity;
-    this.handleTokenRefresh = handleTokenRefresh;
+    this.manageRefreshToken = manageRefreshToken;
     this.resolveTokenUseCase = resolveTokenUseCase;
   }
 
   @Override
-  public AuthToken createToken(CreateTokenCmd cmd) {
+  public AuthToken createToken(IssueTokenCmd cmd) {
     TokenIssuer tokenIssuer =
         new TokenIssuer(
             key,
@@ -47,7 +47,7 @@ public class IssueTokenService implements IssueTokenUseCase {
             accessTokenValidity,
             refreshTokenValidity);
 
-    handleTokenRefresh.save(cmd.uuid(), tokenIssuer.getRefreshToken());
+    manageRefreshToken.save(cmd.uuid(), tokenIssuer.getRefreshToken());
 
     return new AuthToken(tokenIssuer.getAccessToken(), tokenIssuer.getRefreshToken());
   }
@@ -58,12 +58,12 @@ public class IssueTokenService implements IssueTokenUseCase {
       throw new IllegalArgumentException("exception.auth.invalid_refresh_token");
     }
 
-    return handleTokenRefresh
+    return manageRefreshToken
         .get(cmd.refreshToken())
         .map(
             user ->
                 createToken(
-                    new CreateTokenCmd(user.uuid(), user.email(), user.displayName(), user.role())))
+                    new IssueTokenCmd(user.uuid(), user.email(), user.displayName(), user.role())))
         .orElseThrow(() -> new IllegalArgumentException("exception.auth.invalid_refresh_token"));
   }
 }

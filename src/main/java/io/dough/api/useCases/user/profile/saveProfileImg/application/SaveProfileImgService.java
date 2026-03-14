@@ -1,7 +1,8 @@
 package io.dough.api.useCases.user.profile.saveProfileImg.application;
 
-import io.dough.api.useCases.file.getFileURL.application.GetFileURLUseCase;
-import io.dough.api.useCases.file.saveFile.application.SaveFileUseCase;
+import io.dough.api.useCases.file.resolveURL.application.ResolveURLUseCase;
+import io.dough.api.useCases.file.upload.application.UploadFileUseCase;
+import io.dough.api.useCases.file.upload.application.model.UploadFileCmd;
 import io.dough.api.useCases.shared.domain.file.FileUploadType;
 import io.dough.api.useCases.user.profile.saveProfileImg.application.model.SaveProfileImgCmd;
 import io.dough.api.useCases.user.profile.saveProfileImg.application.model.SavedProfileImg;
@@ -13,22 +14,22 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class SaveProfileImgService implements SaveProfileImgUseCase {
 
-  private final SaveFileUseCase saveFileUseCase;
+  private final UploadFileUseCase uploadFileUseCase;
   private final UpdateUserProfileImg updateUserProfileImg;
-  private final GetFileURLUseCase getFileURLUseCase;
+  private final ResolveURLUseCase resolveURLUseCase;
 
   @Override
   public Optional<SavedProfileImg> operate(SaveProfileImgCmd cmd) {
     var file =
-        saveFileUseCase.operate(
-            new io.dough.api.useCases.file.saveFile.application.model.SaveFileCmd(
+        uploadFileUseCase.operate(
+            new UploadFileCmd(
                 FileUploadType.MY_PROFILE_IMG,
                 cmd.inputStream(),
                 cmd.originalFilename(),
                 cmd.fileSize()));
 
     updateUserProfileImg.operate(cmd.userId(), file.id());
-    String referURL = getFileURLUseCase.operate(file.id());
+    String referURL = resolveURLUseCase.operate(file.id());
 
     return Optional.of(
         new SavedProfileImg(

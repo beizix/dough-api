@@ -5,10 +5,10 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import io.dough.api.useCases.auth.issueToken.application.HandleTokenRefresh;
+import io.dough.api.useCases.auth.issueToken.application.ManageRefreshToken;
 import io.dough.api.useCases.auth.issueToken.application.IssueTokenService;
 import io.dough.api.useCases.auth.issueToken.application.model.AuthToken;
-import io.dough.api.useCases.auth.issueToken.application.model.CreateTokenCmd;
+import io.dough.api.useCases.auth.issueToken.application.model.IssueTokenCmd;
 import io.dough.api.useCases.auth.issueToken.application.model.RefreshTokenCmd;
 import io.dough.api.useCases.shared.domain.auth.Role;
 import java.util.Optional;
@@ -20,7 +20,7 @@ import org.junit.jupiter.api.Test;
 class IssueTokenServiceTest {
 
   private IssueTokenService issueTokenService;
-  private HandleTokenRefresh handleTokenRefresh;
+  private ManageRefreshToken manageRefreshToken;
   private ResolveTokenUseCase resolveTokenUseCase;
 
   private final String secret = "v-api-test-secret-key-must-be-long-enough-for-hs256";
@@ -29,11 +29,11 @@ class IssueTokenServiceTest {
 
   @BeforeEach
   void setUp() {
-    handleTokenRefresh = mock(HandleTokenRefresh.class);
+    manageRefreshToken = mock(ManageRefreshToken.class);
     resolveTokenUseCase = mock(ResolveTokenUseCase.class);
     issueTokenService =
         new IssueTokenService(
-            secret, accessValidity, refreshValidity, handleTokenRefresh, resolveTokenUseCase);
+            secret, accessValidity, refreshValidity, manageRefreshToken, resolveTokenUseCase);
   }
 
   @Test
@@ -41,14 +41,14 @@ class IssueTokenServiceTest {
   void create_token_success() {
     // Given
     UUID uuid = UUID.randomUUID();
-    CreateTokenCmd cmd = new CreateTokenCmd(uuid, "test@example.com", "Test User", Role.USER);
+    IssueTokenCmd cmd = new IssueTokenCmd(uuid, "test@example.com", "Test User", Role.USER);
 
     // When
     AuthToken token = issueTokenService.createToken(cmd);
 
     // Then
     assertThat(token).isNotNull();
-    verify(handleTokenRefresh).save(uuid, token.refreshToken());
+    verify(manageRefreshToken).save(uuid, token.refreshToken());
   }
 
   @Test
@@ -61,14 +61,14 @@ class IssueTokenServiceTest {
     Role role = Role.USER;
 
     when(resolveTokenUseCase.validateToken(refreshToken)).thenReturn(true);
-    when(handleTokenRefresh.get(refreshToken))
-        .thenReturn(Optional.of(new HandleTokenRefresh.RefreshUser(uuid, email, "User", role)));
+    when(manageRefreshToken.get(refreshToken))
+        .thenReturn(Optional.of(new ManageRefreshToken.RefreshUser(uuid, email, "User", role)));
 
     // When
     AuthToken newToken = issueTokenService.refreshToken(new RefreshTokenCmd(refreshToken));
 
     // Then
     assertThat(newToken).isNotNull();
-    verify(handleTokenRefresh).save(uuid, newToken.refreshToken());
+    verify(manageRefreshToken).save(uuid, newToken.refreshToken());
   }
 }

@@ -1,6 +1,6 @@
 package io.dough.api.useCases.user.profile.getProfile.application;
 
-import io.dough.api.useCases.file.getFileURL.application.GetFileURLUseCase;
+import io.dough.api.useCases.file.resolveURL.application.ResolveURLUseCase;
 import io.dough.api.useCases.user.profile.getProfile.application.model.GetProfileCmd;
 import io.dough.api.useCases.user.profile.getProfile.application.model.ProfileLoaded;
 import io.dough.api.useCases.user.profile.getProfile.application.model.UserProfile;
@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 public class GetProfileService implements GetProfileUseCase {
 
   private final LoadProfile loadProfile;
-  private final GetFileURLUseCase getFileURLUseCase;
+  private final ResolveURLUseCase resolveURLUseCase;
 
   @Override
   public UserProfile operate(GetProfileCmd cmd) {
@@ -25,7 +25,7 @@ public class GetProfileService implements GetProfileUseCase {
         loaded.createdAt(),
         loaded.profileImageId(),
         loaded.profileImageId() != null
-            ? getFileURLUseCase.operate(loaded.profileImageId())
+            ? resolveURLUseCase.operate(loaded.profileImageId())
             : null);
   }
 }
