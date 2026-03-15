@@ -21,7 +21,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @ExtendWith(MockitoExtension.class)
 class UpdateManagerServiceTest {
 
-  @Mock private UpdateManagerPortOut updateManagerPortOut;
+  @Mock private UpdateManager updateManager;
   @Mock private PasswordEncoder passwordEncoder;
 
   @InjectMocks private UpdateManagerService updateManagerService;
@@ -36,7 +36,7 @@ class UpdateManagerServiceTest {
             UUID.randomUUID(), "manager@dough.io", "수정된이름", Role.MANAGER, LocalDateTime.now());
 
     given(passwordEncoder.encode("newPass123!")).willReturn("encodedPass1");
-    given(updateManagerPortOut.operate(any(UpdateManagerCmd.class))).willReturn(expected);
+    given(updateManager.operate(any(UpdateManagerCmd.class))).willReturn(expected);
 
     // When
     ManagerUpdated actual = updateManagerService.operate(cmd);
@@ -44,6 +44,6 @@ class UpdateManagerServiceTest {
     // Then
     assertThat(actual).isEqualTo(expected);
     verify(passwordEncoder).encode("newPass123!");
-    verify(updateManagerPortOut).operate(any(UpdateManagerCmd.class));
+    verify(updateManager).operate(any(UpdateManagerCmd.class));
   }
 }

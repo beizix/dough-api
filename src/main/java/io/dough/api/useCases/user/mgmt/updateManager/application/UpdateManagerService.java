@@ -12,7 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class UpdateManagerService implements UpdateManagerUseCase {
 
-  private final UpdateManagerPortOut updateManagerPortOut;
+  private final UpdateManager updateManager;
   private final PasswordEncoder passwordEncoder;
 
   @Override
@@ -21,6 +21,6 @@ public class UpdateManagerService implements UpdateManagerUseCase {
         new UpdateManagerCmd(
             cmd.email(), cmd.displayName(), passwordEncoder.encode(cmd.password()));
 
-    return updateManagerPortOut.operate(encodedCmd);
+    return updateManager.operate(encodedCmd);
   }
 }
