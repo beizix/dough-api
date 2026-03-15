@@ -1,0 +1,40 @@
+package io.dough.api.useCases.user.registerUser.application;
+
+import io.dough.api.useCases.auth.issueToken.application.IssueTokenUseCase;
+import io.dough.api.useCases.auth.issueToken.application.model.AuthToken;
+import io.dough.api.useCases.auth.issueToken.application.model.IssueTokenCmd;
+import io.dough.api.useCases.user.registerUser.application.model.RegisterUserCmd;
+import io.dough.api.useCases.user.registerUser.application.model.RegisteredToken;
+import io.dough.api.useCases.user.registerUser.application.model.RegisteredUser;
+import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+@Service
+@RequiredArgsConstructor
+public class RegisterUserService implements RegisterUserUseCase {
+
+  private final RegisterUser registerUser;
+  private final PasswordEncoder passwordEncoder;
+  private final IssueTokenUseCase issueTokenUseCase;
+
+  @Override
+  @Transactional
+  public RegisteredToken operate(RegisterUserCmd cmd) {
+    if (registerUser.existsByEmailAndRole(cmd.email(), cmd.role())) {
+      throw new IllegalArgumentException("exception.auth.email_already_exists");
+    }
+
+    RegisteredUser savedUser =
+        registerUser.save(
+            cmd.email(), passwordEncoder.encode(cmd.password()), cmd.displayName(), cmd.role());
+
+    AuthToken authToken =
+        issueTokenUseCase.createToken(
+            new IssueTokenCmd(
+                savedUser.id(), savedUser.email(), savedUser.displayName(), savedUser.role()));
+
+    return new RegisteredToken(authToken.accessToken(), authToken.refreshToken());
+  }
+}

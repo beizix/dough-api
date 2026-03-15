@@ -1,7 +1,7 @@
 package io.dough.api.useCases.user.profile.updatePassword.application;
 
 import io.dough.api.useCases.user.profile.updatePassword.application.model.UpdatePasswordCmd;
-import io.dough.api.useCases.user.profile.updatePassword.domain.UpdatedPassword;
+import io.dough.api.useCases.user.profile.updatePassword.domain.Password;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -11,26 +11,23 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 class UpdatePasswordService implements UpdatePasswordUseCase {
 
-  private final GetUser getUser;
-  private final SaveUser saveUser;
+  private final LoadPassword loadPassword;
+  private final SavePassword savePassword;
   private final PasswordEncoder passwordEncoder;
 
   @Override
   @Transactional
   public void operate(UpdatePasswordCmd command) {
-    // 1. 신규 패스워드 일치 확인 (UpdatePasswordCmd 생성 시 이미 완료됨)
+    // 1. 현재 패스워드 정보 조회
+    Password currentPassword = loadPassword.operate(command.userId());
 
-    // 2. 현재 사용자 정보 조회 (userId를 전달하여 영속성 계층에 위임)
-    UpdatedPassword currentPasswordModel = getUser.operate(command.userId());
+    // 2. 현재 패스워드 검증
+    currentPassword.verify(command.currentPassword(), passwordEncoder);
 
-    // 3. 현재 패스워드 검증 (도메인 모델에 위임)
-    currentPasswordModel.verify(command.currentPassword(), passwordEncoder);
+    // 3. 새로운 패스워드로 업데이트 (해싱 포함)
+    Password updatedPassword = currentPassword.update(command.newPassword(), passwordEncoder);
 
-    // 4. 새로운 패스워드로 도메인 모델 생성 (도메인 모델에 위임)
-    UpdatedPassword updatedPasswordModel =
-        currentPasswordModel.update(command.newPassword(), passwordEncoder);
-
-    // 5. 저장 요청
-    saveUser.operate(updatedPasswordModel);
+    // 4. 변경 내용 저장
+    savePassword.operate(updatedPassword);
   }
 }

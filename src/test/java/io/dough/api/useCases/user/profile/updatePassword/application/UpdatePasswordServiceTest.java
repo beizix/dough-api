@@ -7,7 +7,7 @@ import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 
 import io.dough.api.useCases.user.profile.updatePassword.application.model.UpdatePasswordCmd;
-import io.dough.api.useCases.user.profile.updatePassword.domain.UpdatedPassword;
+import io.dough.api.useCases.user.profile.updatePassword.domain.Password;
 import java.util.UUID;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -20,8 +20,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @ExtendWith(MockitoExtension.class)
 class UpdatePasswordServiceTest {
 
-  @Mock private GetUser getUser;
-  @Mock private SaveUser saveUser;
+  @Mock private LoadPassword loadPassword;
+  @Mock private SavePassword savePassword;
   @Mock private PasswordEncoder passwordEncoder;
 
   @InjectMocks private UpdatePasswordService updatePasswordService;
@@ -42,16 +42,16 @@ class UpdatePasswordServiceTest {
     UUID userId = UUID.randomUUID();
     UpdatePasswordCmd cmd =
         new UpdatePasswordCmd(userId, "wrongCurrent", "newPass123!", "newPass123!");
-    UpdatedPassword domainModel = new UpdatedPassword(userId, "encodedCurrent");
+    Password domainModel = new Password(userId, "encodedCurrent");
 
-    given(getUser.operate(userId)).willReturn(domainModel);
+    given(loadPassword.operate(userId)).willReturn(domainModel);
     given(passwordEncoder.matches("wrongCurrent", "encodedCurrent")).willReturn(false);
 
     // When & Then
     assertThatThrownBy(() -> updatePasswordService.operate(cmd))
         .isInstanceOf(IllegalArgumentException.class);
 
-    verify(saveUser, never()).operate(any());
+    verify(savePassword, never()).operate(any());
   }
 
   @Test
@@ -60,9 +60,9 @@ class UpdatePasswordServiceTest {
     // Given
     UUID userId = UUID.randomUUID();
     UpdatePasswordCmd cmd = new UpdatePasswordCmd(userId, "current", "newPass123!", "newPass123!");
-    UpdatedPassword domainModel = new UpdatedPassword(userId, "encodedCurrent");
+    Password domainModel = new Password(userId, "encodedCurrent");
 
-    given(getUser.operate(userId)).willReturn(domainModel);
+    given(loadPassword.operate(userId)).willReturn(domainModel);
     given(passwordEncoder.matches("current", "encodedCurrent")).willReturn(true);
     given(passwordEncoder.encode("newPass123!")).willReturn("encodedNew");
 
@@ -70,6 +70,6 @@ class UpdatePasswordServiceTest {
     updatePasswordService.operate(cmd);
 
     // Then
-    verify(saveUser).operate(any(UpdatedPassword.class));
+    verify(savePassword).operate(any(Password.class));
   }
 }
