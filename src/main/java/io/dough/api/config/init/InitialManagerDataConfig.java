@@ -1,8 +1,8 @@
 package io.dough.api.config.init;
 
 import io.dough.api.useCases.shared.domain.auth.Role;
-import io.dough.api.useCases.user.maintenance.createManager.application.CreateManagerUseCase;
-import io.dough.api.useCases.user.maintenance.createManager.application.model.CreateManagerCmd;
+import io.dough.api.useCases.user.mgmt.registerManager.application.RegisterManagerUseCase;
+import io.dough.api.useCases.user.mgmt.registerManager.application.model.RegisterManagerCmd;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
@@ -15,17 +15,17 @@ import org.springframework.stereotype.Component;
 @ConditionalOnProperty(name = "app.init.data", havingValue = "true")
 public class InitialManagerDataConfig implements CommandLineRunner {
 
-  private final CreateManagerUseCase createManagerUseCase;
+  private final RegisterManagerUseCase registerManagerUseCase;
 
   @Override
   public void run(String... args) {
     log.info("✦ Initializing manager data: Creating Super Manager account...");
 
     try {
-      CreateManagerCmd managerCmd =
-          new CreateManagerCmd("manager@dough.io", "SuperManager", "manager1@#$", Role.MANAGER);
+      RegisterManagerCmd managerCmd =
+          new RegisterManagerCmd("manager@dough.io", "SuperManager", "manager1@#$", Role.MANAGER);
 
-      createManagerUseCase.operate(managerCmd);
+      registerManagerUseCase.operate(managerCmd);
       log.info("✦ Super Manager account created successfully.");
     } catch (Exception e) {
       log.warn("✦ Super Manager account initialization skipped: {}", e.getMessage());

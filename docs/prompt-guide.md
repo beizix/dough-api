@@ -26,7 +26,7 @@
 - **설명:** 매니저 생성 기능
 
 **2. 아키텍처 및 패키지 구조**
-- **생성 위치:** io.dough.api.useCases.user.maintenance 하위
+- **생성 위치:** io.dough.api.useCases.user.mgmt 하위
 - **원칙:** 헥사고날 아키텍처 준수 (adapters.web, adapters.persistence, application, domain 계층 분리)
 - **공유 자원:** shared 패키지의 엔티티 및 리포지토리 활용
 
@@ -63,7 +63,7 @@
    - **기능 설명:** 사용자 목록 관리
 
 **2. 아키텍처 구조:**
-   - **패키지 생성 위치:** `io.dough.api.useCases.user.maintenance` 하위에 `<USE_CASE_NAME>`에 해당하는 패키지를 생성하고 기능 구현을 진행.
+   - **패키지 생성 위치:** `io.dough.api.useCases.user.mgmt` 하위에 `<USE_CASE_NAME>`에 해당하는 패키지를 생성하고 기능 구현을 진행.
 
 **3. 엔드포인트 정보:**
    - **@Tag:** `사용자 관리`
@@ -92,7 +92,7 @@
 - **설명:** 매니저 정보 수정 기능
 
 **2. 아키텍처 및 패키지 구조**
-- **생성 위치:** io.dough.api.useCases.user.maintenance 하위
+- **생성 위치:** io.dough.api.useCases.user.mgmt 하위
 - **원칙:** 헥사고날 아키텍처 준수 (adapters.web, adapters.persistence, application, domain 계층 분리)
 - **공유 자원:** shared 패키지의 엔티티 및 리포지토리 활용
 
@@ -129,7 +129,7 @@
 - **설명:** 매니저 삭제 기능
 
 **2. 아키텍처 및 패키지 구조**
-- **생성 위치:** io.dough.api.useCases.user.maintenance 하위
+- **생성 위치:** io.dough.api.useCases.user.mgmt 하위
 - **원칙:** 헥사고날 아키텍처 준수 (adapters.web, adapters.persistence, application, domain 계층 분리)
 - **공유 자원:** shared 패키지의 엔티티 및 리포지토리 활용
 
@@ -168,7 +168,7 @@
 - **설명:** 사용자 목록 관리 및 조건 검색 기능
 
 **2. 아키텍처 및 패키지 구조**
-- **생성 위치:** io.dough.api.useCases.user.maintenance 하위
+- **생성 위치:** io.dough.api.useCases.user.mgmt 하위
 - **원칙:** 헥사고날 아키텍처 준수 (adapters.web, adapters.persistence, application, domain 계층 분리)
 - **공유 자원:** shared 패키지의 엔티티 및 리포지토리 활용
 
