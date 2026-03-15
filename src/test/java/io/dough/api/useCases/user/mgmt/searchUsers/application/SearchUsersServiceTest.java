@@ -17,11 +17,11 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 @ExtendWith(MockitoExtension.class)
-class GetUsersServiceTest {
+class SearchUsersServiceTest {
 
   @Mock private FindUsers findUsers;
 
-  @InjectMocks private SearchUsersService getUsersService;
+  @InjectMocks private SearchUsersService searchUsersService;
 
   @Test
   @DisplayName("Scenario: 성공 - 서비스 호출 시 영속성 포트가 호출되고 결과가 반환된다")
@@ -32,7 +32,7 @@ class GetUsersServiceTest {
     given(findUsers.operate(cmd)).willReturn(expectedResponse);
 
     // When
-    SearchUsers actualResponse = getUsersService.operate(cmd);
+    SearchUsers actualResponse = searchUsersService.operate(cmd);
 
     // Then
     assertThat(actualResponse).isEqualTo(expectedResponse);

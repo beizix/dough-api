@@ -1,4 +1,4 @@
-package io.dough.api.useCases.auth.login.adapters.persistence;
+package io.dough.api.useCases.auth.authenticate.adapters.persistence;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -15,9 +15,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Import;
 
 @Import({LoadAuthUserPersistAdapter.class})
-class LoginPersistAdapterTest extends DataJpaTestBase {
+class LoadAuthUserPersistAdapterTest extends DataJpaTestBase {
 
-  @Autowired private LoadAuthUserPersistAdapter loginPersistAdapter;
+  @Autowired private LoadAuthUserPersistAdapter loadAuthUserPersistAdapter;
 
   @Autowired private UserRepository userRepository;
 
@@ -30,7 +30,7 @@ class LoginPersistAdapterTest extends DataJpaTestBase {
     userRepository.save(new UserEntity(email, "password", "Persist User", role, null));
 
     // When
-    Optional<AuthenticatableUser> result = loginPersistAdapter.operate(email, role);
+    Optional<AuthenticatableUser> result = loadAuthUserPersistAdapter.operate(email, role);
 
     // Then
     assertThat(result).isPresent();

@@ -1,4 +1,4 @@
-package io.dough.api.useCases.auth.login.application;
+package io.dough.api.useCases.auth.authenticate.application;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
@@ -25,9 +25,9 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 @ExtendWith(MockitoExtension.class)
-class AuthenticateUseCaseTest {
+class AuthenticateServiceTest {
 
-  @InjectMocks private AuthenticateService loginService;
+  @InjectMocks private AuthenticateService authenticateService;
 
   @Mock private LoadAuthenticatableUser loadAuthenticatableUser;
 
@@ -54,7 +54,7 @@ class AuthenticateUseCaseTest {
     given(issueTokenUseCase.createToken(any(IssueTokenCmd.class))).willReturn(tokenIssuer);
 
     // When
-    AuthenticatedToken token = loginService.operate(cmd);
+    AuthenticatedToken token = authenticateService.operate(cmd);
 
     // Then
     assertThat(token).isNotNull();
@@ -73,7 +73,7 @@ class AuthenticateUseCaseTest {
     given(loadAuthenticatableUser.operate(email, role)).willReturn(Optional.empty());
 
     // When & Then
-    org.assertj.core.api.Assertions.assertThatThrownBy(() -> loginService.operate(cmd))
+    org.assertj.core.api.Assertions.assertThatThrownBy(() -> authenticateService.operate(cmd))
         .isInstanceOf(IllegalArgumentException.class)
         .hasMessage("exception.user.not_found");
   }
@@ -92,7 +92,7 @@ class AuthenticateUseCaseTest {
     given(passwordEncoder.matches(password, user.password())).willReturn(false);
 
     // When & Then
-    org.assertj.core.api.Assertions.assertThatThrownBy(() -> loginService.operate(cmd))
+    org.assertj.core.api.Assertions.assertThatThrownBy(() -> authenticateService.operate(cmd))
         .isInstanceOf(IllegalArgumentException.class)
         .hasMessage("exception.auth.invalid_password");
   }

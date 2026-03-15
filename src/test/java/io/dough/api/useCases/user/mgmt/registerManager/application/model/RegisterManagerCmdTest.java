@@ -1,4 +1,4 @@
-package io.dough.api.useCases.user.mgmt.registerManager.domain;
+package io.dough.api.useCases.user.mgmt.registerManager.application.model;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;

@@ -1,4 +1,4 @@
-package io.dough.api.useCases.auth.resolveToken.application;
+package io.dough.api.useCases.auth.issueToken.application;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
@@ -10,6 +10,7 @@ import io.dough.api.useCases.auth.issueToken.application.IssueTokenService;
 import io.dough.api.useCases.auth.issueToken.application.model.AuthToken;
 import io.dough.api.useCases.auth.issueToken.application.model.IssueTokenCmd;
 import io.dough.api.useCases.auth.issueToken.application.model.RefreshTokenCmd;
+import io.dough.api.useCases.auth.resolveToken.application.ResolveTokenUseCase;
 import io.dough.api.useCases.shared.domain.auth.Role;
 import java.util.Optional;
 import java.util.UUID;

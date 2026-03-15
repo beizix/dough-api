@@ -1,4 +1,4 @@
-package io.dough.api.useCases.user.profile.updateProfileImage.application.domain;
+package io.dough.api.useCases.user.profile.updateProfileImage.application;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;

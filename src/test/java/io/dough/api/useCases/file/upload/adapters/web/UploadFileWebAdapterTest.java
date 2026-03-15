@@ -25,7 +25,7 @@ import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 
 @WebMvcTest(UploadFileWebAdapter.class)
-class SaveFileWebAdapterTest extends WebMvcTestBase {
+class UploadFileWebAdapterTest extends WebMvcTestBase {
 
   @MockitoBean private UploadFileUseCase uploadFileUseCase;
 

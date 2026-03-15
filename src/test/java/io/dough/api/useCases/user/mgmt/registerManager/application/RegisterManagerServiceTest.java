@@ -20,12 +20,12 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 @ExtendWith(MockitoExtension.class)
-class CreateManagerServiceTest {
+class RegisterManagerServiceTest {
 
   @Mock private RecordManager recordManager;
   @Mock private PasswordEncoder passwordEncoder;
 
-  @InjectMocks private RegisterManagerService createManagerService;
+  @InjectMocks private RegisterManagerService registerManagerService;
 
   @Test
   @DisplayName("Scenario: 성공 - 매니저 생성 시 비밀번호를 암호화하고 영속성 포트를 호출한다")
@@ -41,7 +41,7 @@ class CreateManagerServiceTest {
     given(recordManager.operate(any(RegisterManagerCmd.class))).willReturn(expected);
 
     // When
-    ManagerRegistered actual = createManagerService.operate(cmd);
+    ManagerRegistered actual = registerManagerService.operate(cmd);
 
     // Then
     assertThat(actual).isEqualTo(expected);
@@ -59,7 +59,7 @@ class CreateManagerServiceTest {
     given(recordManager.existsByEmailAndRole(cmd.email(), cmd.role())).willReturn(true);
 
     // When & Then
-    assertThatThrownBy(() -> createManagerService.operate(cmd))
+    assertThatThrownBy(() -> registerManagerService.operate(cmd))
         .isInstanceOf(IllegalArgumentException.class)
         .hasMessage("exception.auth.email_already_exists");
   }

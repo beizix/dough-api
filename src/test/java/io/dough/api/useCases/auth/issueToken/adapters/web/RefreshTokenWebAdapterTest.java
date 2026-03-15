@@ -1,4 +1,4 @@
-package io.dough.api.useCases.auth.resolveToken.adapters.web;
+package io.dough.api.useCases.auth.issueToken.adapters.web;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
