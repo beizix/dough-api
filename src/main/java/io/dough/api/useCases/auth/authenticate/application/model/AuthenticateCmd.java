@@ -1,7 +1,7 @@
 package io.dough.api.useCases.auth.authenticate.application.model;
 
-import io.dough.api.useCases.shared.domain.auth.EmailValidator;
-import io.dough.api.useCases.shared.domain.auth.PasswordValidator;
+import io.dough.api.useCases.shared.application.validator.EmailValidator;
+import io.dough.api.useCases.shared.application.validator.PasswordValidator;
 import io.dough.api.useCases.shared.domain.auth.Role;
 
 /**

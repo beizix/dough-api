@@ -1,4 +1,4 @@
-package io.dough.api.useCases.shared.domain.auth;
+package io.dough.api.useCases.shared.application.validator;
 
 import java.util.regex.Pattern;
 

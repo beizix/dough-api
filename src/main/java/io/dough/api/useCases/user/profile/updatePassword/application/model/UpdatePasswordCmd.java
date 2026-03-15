@@ -1,6 +1,6 @@
 package io.dough.api.useCases.user.profile.updatePassword.application.model;
 
-import io.dough.api.useCases.shared.domain.auth.PasswordValidator;
+import io.dough.api.useCases.shared.application.validator.PasswordValidator;
 import java.util.UUID;
 
 public record UpdatePasswordCmd(
