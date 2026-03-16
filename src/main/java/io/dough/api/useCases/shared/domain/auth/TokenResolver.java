@@ -1,6 +1,5 @@
-package io.dough.api.useCases.auth.resolveToken.domain;
+package io.dough.api.useCases.shared.domain.auth;
 
-import io.dough.api.useCases.shared.domain.auth.Token;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import java.util.Collections;

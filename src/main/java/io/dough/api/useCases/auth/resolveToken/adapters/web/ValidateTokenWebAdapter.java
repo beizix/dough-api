@@ -2,7 +2,7 @@ package io.dough.api.useCases.auth.resolveToken.adapters.web;
 
 import io.dough.api.useCases.auth.resolveToken.adapters.web.model.ValidateRequest;
 import io.dough.api.useCases.auth.resolveToken.adapters.web.model.ValidateResponse;
-import io.dough.api.useCases.auth.resolveToken.domain.TokenResolver;
+import io.dough.api.useCases.shared.domain.auth.TokenResolver;
 import io.jsonwebtoken.security.Keys;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;

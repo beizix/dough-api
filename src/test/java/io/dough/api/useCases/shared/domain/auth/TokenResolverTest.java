@@ -1,10 +1,8 @@
-package io.dough.api.useCases.auth.resolveToken.domain;
+package io.dough.api.useCases.shared.domain.auth;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 import io.dough.api.useCases.auth.issueToken.domain.TokenIssuer;
-import io.dough.api.useCases.shared.domain.auth.Role;
-import io.dough.api.useCases.shared.domain.auth.Token;
 import io.jsonwebtoken.security.Keys;
 import java.nio.charset.StandardCharsets;
 import java.util.Date;

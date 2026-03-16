@@ -4,7 +4,7 @@ import io.dough.api.useCases.auth.issueToken.application.model.AuthToken;
 import io.dough.api.useCases.auth.issueToken.application.model.IssueTokenCmd;
 import io.dough.api.useCases.auth.issueToken.application.model.RefreshTokenCmd;
 import io.dough.api.useCases.auth.issueToken.domain.TokenIssuer;
-import io.dough.api.useCases.auth.resolveToken.domain.TokenResolver;
+import io.dough.api.useCases.shared.domain.auth.TokenResolver;
 import io.jsonwebtoken.security.Keys;
 import java.nio.charset.StandardCharsets;
 import java.util.Date;
