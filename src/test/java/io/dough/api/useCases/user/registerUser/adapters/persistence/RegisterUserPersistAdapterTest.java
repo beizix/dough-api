@@ -55,7 +55,8 @@ class RegisterUserPersistAdapterTest extends DataJpaTestBase {
   @DisplayName("Scenario: 성공 - 존재하지 않는 이메일 조회 시 false를 반환한다")
   void exists_by_email_false() {
     // When
-    boolean exists = registerUserPersistAdapter.existsByEmailAndRole("notfound@dough.io", Role.USER);
+    boolean exists =
+        registerUserPersistAdapter.existsByEmailAndRole("notfound@dough.io", Role.USER);
 
     // Then
     assertThat(exists).isFalse();

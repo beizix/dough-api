@@ -9,7 +9,6 @@ import static org.mockito.Mockito.verify;
 import io.dough.api.useCases.file.resolveURL.application.model.FileMetadataLoaded;
 import io.dough.api.useCases.shared.domain.file.FileStorageType;
 import io.dough.api.useCases.shared.domain.file.FileUploadType;
-
 import java.util.NoSuchElementException;
 import java.util.Set;
 import java.util.UUID;
@@ -70,7 +69,7 @@ class ResolveURLServiceTest {
     // 여기서는 전략 목록을 비워서 테스트
     ResolveURLService noStrategyService =
         new ResolveURLService(
-          loadFileMetadata, Set.of() // Empty strategies
+            loadFileMetadata, Set.of() // Empty strategies
             );
 
     FileMetadataLoaded fileResource =

@@ -7,7 +7,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import io.dough.api.support.WebMvcTestBase;
-import io.dough.api.useCases.auth.issueToken.adapters.web.RefreshTokenWebAdapter;
 import io.dough.api.useCases.auth.issueToken.adapters.web.model.RefreshTokenRequest;
 import io.dough.api.useCases.auth.issueToken.application.model.AuthToken;
 import io.dough.api.useCases.auth.issueToken.application.model.RefreshTokenCmd;

@@ -7,11 +7,9 @@ import static org.mockito.Mockito.verify;
 
 import io.dough.api.useCases.file.resolveURL.application.ResolveURLUseCase;
 import io.dough.api.useCases.file.upload.application.UploadFileUseCase;
-import io.dough.api.useCases.file.upload.application.model.UploadedFile;
 import io.dough.api.useCases.file.upload.application.model.UploadFileCmd;
+import io.dough.api.useCases.file.upload.application.model.UploadedFile;
 import io.dough.api.useCases.shared.domain.file.FileUploadType;
-import io.dough.api.useCases.user.profile.updateProfileImage.application.UpdateProfileImageService;
-import io.dough.api.useCases.user.profile.updateProfileImage.application.UpdateUserProfileImage;
 import io.dough.api.useCases.user.profile.updateProfileImage.application.model.ProfileImageUpdated;
 import io.dough.api.useCases.user.profile.updateProfileImage.application.model.UpdateProfileImageCmd;
 import java.io.ByteArrayInputStream;
@@ -55,10 +53,7 @@ class UpdateProfileImageServiceTest {
 
     String expectedUrl = "http://example.com/files/" + savedFileId;
 
-    given(
-            uploadFileUseCase.operate(
-                any(UploadFileCmd.class)))
-        .willReturn(mockUploadedFile);
+    given(uploadFileUseCase.operate(any(UploadFileCmd.class))).willReturn(mockUploadedFile);
     given(resolveURLUseCase.operate(savedFileId)).willReturn(expectedUrl);
 
     // When
@@ -67,8 +62,7 @@ class UpdateProfileImageServiceTest {
     // Then
     assertThat(result).isPresent();
     assertThat(result.get().referURL()).isEqualTo(expectedUrl);
-    verify(uploadFileUseCase)
-        .operate(any(UploadFileCmd.class));
+    verify(uploadFileUseCase).operate(any(UploadFileCmd.class));
     verify(updateUserProfileImage).operate(userId, savedFileId);
     verify(resolveURLUseCase).operate(savedFileId);
   }

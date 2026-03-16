@@ -1,8 +1,8 @@
 package io.dough.api.useCases.file.upload.adapters.persistence;
 
 import io.dough.api.useCases.file.upload.application.RegisterFileMetadata;
-import io.dough.api.useCases.file.upload.application.model.RegisterFileMetadataCmd;
 import io.dough.api.useCases.file.upload.application.model.FileMetadataRegistered;
+import io.dough.api.useCases.file.upload.application.model.RegisterFileMetadataCmd;
 import io.dough.api.useCases.shared.adapters.persistence.entity.FileMetadataEntity;
 import io.dough.api.useCases.shared.adapters.persistence.repository.FileMetadataRepository;
 import java.util.Optional;

@@ -36,19 +36,14 @@ class TokenIssuerTest {
   @DisplayName("Scenario: 성공 - 액세스 토큰 생성 및 클레임 검증")
   void generate_access_token_success() {
     // Given
-    TokenIssuer issuer = new TokenIssuer(
-        key, uuid, email, displayName, role, now, accessValidity, refreshValidity
-    );
+    TokenIssuer issuer =
+        new TokenIssuer(key, uuid, email, displayName, role, now, accessValidity, refreshValidity);
 
     // When
     String token = issuer.getAccessToken();
 
     // Then
-    Claims claims = Jwts.parser()
-        .verifyWith(key)
-        .build()
-        .parseSignedClaims(token)
-        .getPayload();
+    Claims claims = Jwts.parser().verifyWith(key).build().parseSignedClaims(token).getPayload();
 
     assertThat(claims.getSubject()).isEqualTo(uuid.toString());
     assertThat(claims.get("email")).isEqualTo(email);
@@ -63,19 +58,14 @@ class TokenIssuerTest {
   @DisplayName("Scenario: 성공 - 리프레시 토큰 생성 및 클레임 검증")
   void generate_refresh_token_success() {
     // Given
-    TokenIssuer issuer = new TokenIssuer(
-        key, uuid, email, displayName, role, now, accessValidity, refreshValidity
-    );
+    TokenIssuer issuer =
+        new TokenIssuer(key, uuid, email, displayName, role, now, accessValidity, refreshValidity);
 
     // When
     String token = issuer.getRefreshToken();
 
     // Then
-    Claims claims = Jwts.parser()
-        .verifyWith(key)
-        .build()
-        .parseSignedClaims(token)
-        .getPayload();
+    Claims claims = Jwts.parser().verifyWith(key).build().parseSignedClaims(token).getPayload();
 
     assertThat(claims.getSubject()).isEqualTo(uuid.toString());
     assertThat(claims.get("type")).isEqualTo(Token.refresh.name());

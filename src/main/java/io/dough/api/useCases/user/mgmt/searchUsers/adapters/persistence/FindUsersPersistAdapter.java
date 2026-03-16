@@ -2,10 +2,10 @@ package io.dough.api.useCases.user.mgmt.searchUsers.adapters.persistence;
 
 import io.dough.api.useCases.shared.adapters.persistence.entity.UserEntity;
 import io.dough.api.useCases.shared.adapters.persistence.repository.UserRepository;
+import io.dough.api.useCases.shared.application.model.PageInfo;
 import io.dough.api.useCases.user.mgmt.searchUsers.application.FindUsers;
 import io.dough.api.useCases.user.mgmt.searchUsers.application.model.SearchUsers;
 import io.dough.api.useCases.user.mgmt.searchUsers.application.model.SearchUsersCmd;
-import io.dough.api.useCases.shared.application.model.PageInfo;
 import io.dough.api.useCases.user.mgmt.searchUsers.application.model.SearchedUser;
 import jakarta.persistence.criteria.Predicate;
 import java.util.ArrayList;

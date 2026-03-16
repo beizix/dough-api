@@ -26,7 +26,8 @@ class RegisterUserWebAdapterTest extends WebMvcTestBase {
   @DisplayName("Scenario: 성공 - 사용자 회원가입 요청 시 토큰을 반환한다")
   void signup_user_success() throws Exception {
     // Given
-    RegisterUserRequest req = new RegisterUserRequest("user@dough.io", "password123!", "User Nickname");
+    RegisterUserRequest req =
+        new RegisterUserRequest("user@dough.io", "password123!", "User Nickname");
     given(registerUserUseCase.operate(any(RegisterUserCmd.class)))
         .willReturn(new RegisteredToken("access_token_value", "refresh_token_value"));
 

@@ -27,7 +27,8 @@ public class RegisterUserWebAdapter {
   public RegisterUserResponse signupUser(
       @RequestBody @Parameter(description = "사용자 가입 정보", required = true) RegisterUserRequest req) {
     RegisteredToken token =
-        registerUserUseCase.operate(new RegisterUserCmd(req.email(), req.password(), req.displayName()));
+        registerUserUseCase.operate(
+            new RegisterUserCmd(req.email(), req.password(), req.displayName()));
     return new RegisterUserResponse(token.accessToken(), token.refreshToken());
   }
 }

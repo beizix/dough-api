@@ -3,12 +3,11 @@ package io.dough.api.useCases.file.upload.adapters.persistence;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import io.dough.api.support.DataJpaTestBase;
-import io.dough.api.useCases.file.upload.application.model.RegisterFileMetadataCmd;
 import io.dough.api.useCases.file.upload.application.model.FileMetadataRegistered;
+import io.dough.api.useCases.file.upload.application.model.RegisterFileMetadataCmd;
 import io.dough.api.useCases.shared.adapters.persistence.entity.FileMetadataEntity;
 import io.dough.api.useCases.shared.adapters.persistence.repository.FileMetadataRepository;
 import io.dough.api.useCases.shared.domain.file.FileUploadType;
-
 import java.util.Optional;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

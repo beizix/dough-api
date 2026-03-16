@@ -1,7 +1,7 @@
 package io.dough.api.useCases.user.mgmt.registerManager.application;
 
-import io.dough.api.useCases.user.mgmt.registerManager.application.model.RegisterManagerCmd;
 import io.dough.api.useCases.user.mgmt.registerManager.application.model.ManagerRegistered;
+import io.dough.api.useCases.user.mgmt.registerManager.application.model.RegisterManagerCmd;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;

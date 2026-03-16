@@ -7,8 +7,8 @@ import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
 
 import io.dough.api.useCases.shared.domain.auth.Role;
-import io.dough.api.useCases.user.mgmt.registerManager.application.model.RegisterManagerCmd;
 import io.dough.api.useCases.user.mgmt.registerManager.application.model.ManagerRegistered;
+import io.dough.api.useCases.user.mgmt.registerManager.application.model.RegisterManagerCmd;
 import java.time.LocalDateTime;
 import java.util.UUID;
 import org.junit.jupiter.api.DisplayName;

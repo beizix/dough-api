@@ -12,10 +12,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import io.dough.api.support.WebMvcTestBase;
 import io.dough.api.useCases.file.resolveURL.application.ResolveURLUseCase;
 import io.dough.api.useCases.file.upload.application.UploadFileUseCase;
-import io.dough.api.useCases.file.upload.application.model.UploadedFile;
 import io.dough.api.useCases.file.upload.application.model.UploadFileCmd;
+import io.dough.api.useCases.file.upload.application.model.UploadedFile;
 import io.dough.api.useCases.shared.domain.file.FileUploadType;
-
 import java.util.UUID;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -44,10 +43,7 @@ class UploadFileWebAdapterTest extends WebMvcTestBase {
         new UploadedFile(fileId, type, "/path/to/file", "saved.png", "test.png", 100L);
     String resourceUrl = "/uploads/path/to/file/saved.png";
 
-    given(
-            uploadFileUseCase.operate(
-                any(UploadFileCmd.class)))
-        .willReturn(uploadedFile);
+    given(uploadFileUseCase.operate(any(UploadFileCmd.class))).willReturn(uploadedFile);
     given(resolveUrlUseCase.operate(fileId)).willReturn(resourceUrl);
 
     // When & Then
@@ -59,8 +55,7 @@ class UploadFileWebAdapterTest extends WebMvcTestBase {
         .andExpect(jsonPath("$.originName").value("test.png"))
         .andExpect(jsonPath("$.referURL").value(resourceUrl));
 
-    verify(uploadFileUseCase)
-        .operate(any(UploadFileCmd.class));
+    verify(uploadFileUseCase).operate(any(UploadFileCmd.class));
     verify(resolveUrlUseCase).operate(fileId);
   }
 
@@ -88,10 +83,7 @@ class UploadFileWebAdapterTest extends WebMvcTestBase {
         new UploadedFile(fileId, type, "/path/to/file", "saved.png", "image.png", 100L);
     String resourceUrl = "/uploads/path/to/file/saved.png";
 
-    given(
-            uploadFileUseCase.operate(
-                any(UploadFileCmd.class)))
-        .willReturn(uploadedFile);
+    given(uploadFileUseCase.operate(any(UploadFileCmd.class))).willReturn(uploadedFile);
     given(resolveUrlUseCase.operate(fileId)).willReturn(resourceUrl);
 
     // When & Then
@@ -105,8 +97,7 @@ class UploadFileWebAdapterTest extends WebMvcTestBase {
         .andExpect(jsonPath("$.id").exists())
         .andExpect(jsonPath("$.referURL").value(resourceUrl));
 
-    verify(uploadFileUseCase)
-        .operate(any(UploadFileCmd.class));
+    verify(uploadFileUseCase).operate(any(UploadFileCmd.class));
     verify(resolveUrlUseCase).operate(fileId);
   }
 }

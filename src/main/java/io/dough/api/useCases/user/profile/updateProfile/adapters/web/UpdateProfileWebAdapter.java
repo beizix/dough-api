@@ -37,7 +37,8 @@ public class UpdateProfileWebAdapter {
       @RequestBody @Parameter(description = "업데이트할 프로필 정보", required = true)
           UpdateProfileRequest request) {
     UUID loginUserId = UUID.fromString(principal.getName());
-    UpdateProfileCmd cmd = new UpdateProfileCmd(loginUserId, request.email(), request.displayName());
+    UpdateProfileCmd cmd =
+        new UpdateProfileCmd(loginUserId, request.email(), request.displayName());
     return updateProfileUseCase.operate(cmd);
   }
 }

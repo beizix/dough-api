@@ -21,15 +21,16 @@ public class AuthenticateService implements AuthenticateUseCase {
   @Override
   public AuthenticatedToken operate(AuthenticateCmd cmd) {
     AuthenticatableUser authUser =
-      loadAuthenticatableUser
-        .operate(cmd.email(), cmd.role())
-        .orElseThrow(() -> new IllegalArgumentException("exception.user.not_found"));
+        loadAuthenticatableUser
+            .operate(cmd.email(), cmd.role())
+            .orElseThrow(() -> new IllegalArgumentException("exception.user.not_found"));
 
     authUser.validatePassword(cmd.password(), passwordEncoder);
 
     AuthToken authToken =
-      issueTokenUseCase.createToken(
-        new IssueTokenCmd(authUser.id(), authUser.email(), authUser.displayName(), authUser.role()));
+        issueTokenUseCase.createToken(
+            new IssueTokenCmd(
+                authUser.id(), authUser.email(), authUser.displayName(), authUser.role()));
 
     return new AuthenticatedToken(authToken.accessToken(), authToken.refreshToken());
   }

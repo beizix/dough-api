@@ -9,13 +9,12 @@ import static org.mockito.BDDMockito.given;
 import static org.mockito.BDDMockito.then;
 import static org.mockito.Mockito.lenient;
 
-import io.dough.api.useCases.file.upload.application.model.UploadFileCmd;
-import io.dough.api.useCases.file.upload.application.model.RegisterFileMetadataCmd;
 import io.dough.api.useCases.file.upload.application.model.FileMetadataRegistered;
+import io.dough.api.useCases.file.upload.application.model.RegisterFileMetadataCmd;
+import io.dough.api.useCases.file.upload.application.model.UploadFileCmd;
 import io.dough.api.useCases.file.upload.application.model.UploadedFile;
 import io.dough.api.useCases.shared.domain.file.FileStorageType;
 import io.dough.api.useCases.shared.domain.file.FileUploadType;
-
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -147,7 +146,8 @@ class UploadFileServiceTest {
   @DisplayName("Scenario: 실패 - 지원하지 않는 스토리지 타입인 경우 예외 발생")
   void upload_fail_no_strategy() throws IOException {
     // Given: 지원하는 전략이 비어있는 서비스 생성
-    UploadFileService noStrategyService = new UploadFileService(Set.of(), registerFileMetadata, tika);
+    UploadFileService noStrategyService =
+        new UploadFileService(Set.of(), registerFileMetadata, tika);
 
     InputStream inputStream = new ByteArrayInputStream("content".getBytes());
     String originalFilename = "test.png";

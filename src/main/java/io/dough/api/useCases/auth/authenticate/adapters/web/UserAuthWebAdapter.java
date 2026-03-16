@@ -27,7 +27,8 @@ public class UserAuthWebAdapter {
   @PostMapping("/api/v1/auth/login/user")
   public AuthenticateResponse operate(
       @RequestBody @Parameter(description = "로그인 요청", required = true) AuthenticateRequest req) {
-    AuthenticatedToken token = authenticateUseCase.operate(new AuthenticateCmd(req.email(), req.password(), Role.USER));
+    AuthenticatedToken token =
+        authenticateUseCase.operate(new AuthenticateCmd(req.email(), req.password(), Role.USER));
     return new AuthenticateResponse(token.accessToken(), token.refreshToken());
   }
 }

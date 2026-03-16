@@ -2,8 +2,8 @@ package io.dough.api.useCases.auth.resolveToken.application;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import io.dough.api.useCases.auth.issueToken.application.ManageRefreshToken;
 import io.dough.api.useCases.auth.issueToken.application.IssueTokenService;
+import io.dough.api.useCases.auth.issueToken.application.ManageRefreshToken;
 import io.dough.api.useCases.auth.issueToken.application.model.IssueTokenCmd;
 import io.dough.api.useCases.shared.domain.auth.Role;
 import java.util.UUID;

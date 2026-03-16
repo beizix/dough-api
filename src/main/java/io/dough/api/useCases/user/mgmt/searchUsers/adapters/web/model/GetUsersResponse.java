@@ -1,8 +1,8 @@
 package io.dough.api.useCases.user.mgmt.searchUsers.adapters.web.model;
 
+import io.dough.api.useCases.shared.application.model.PageInfo;
 import io.dough.api.useCases.shared.domain.auth.Role;
 import io.dough.api.useCases.user.mgmt.searchUsers.application.model.SearchUsers;
-import io.dough.api.useCases.shared.application.model.PageInfo;
 import io.dough.api.useCases.user.mgmt.searchUsers.application.model.SearchedUser;
 import java.util.List;
 import java.util.UUID;

@@ -5,8 +5,6 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import io.dough.api.useCases.auth.issueToken.application.ManageRefreshToken;
-import io.dough.api.useCases.auth.issueToken.application.IssueTokenService;
 import io.dough.api.useCases.auth.issueToken.application.model.AuthToken;
 import io.dough.api.useCases.auth.issueToken.application.model.IssueTokenCmd;
 import io.dough.api.useCases.auth.issueToken.application.model.RefreshTokenCmd;

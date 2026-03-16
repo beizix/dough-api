@@ -5,8 +5,6 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
 
-import io.dough.api.useCases.auth.authenticate.application.LoadAuthenticatableUser;
-import io.dough.api.useCases.auth.authenticate.application.AuthenticateService;
 import io.dough.api.useCases.auth.authenticate.application.model.AuthenticateCmd;
 import io.dough.api.useCases.auth.authenticate.application.model.AuthenticatedToken;
 import io.dough.api.useCases.auth.authenticate.domain.AuthenticatableUser;
@@ -45,7 +43,8 @@ class AuthenticateServiceTest {
     Role role = Role.USER;
     AuthenticateCmd cmd = new AuthenticateCmd(email, password, role);
     UUID userId = UUID.randomUUID();
-    AuthenticatableUser user = new AuthenticatableUser(userId, email, encodedPassword, "Test User", role);
+    AuthenticatableUser user =
+        new AuthenticatableUser(userId, email, encodedPassword, "Test User", role);
 
     AuthToken tokenIssuer = new AuthToken("access_token", "refresh_token");
 
@@ -86,7 +85,8 @@ class AuthenticateServiceTest {
     String password = "wrongPassword123!";
     Role role = Role.USER;
     AuthenticateCmd cmd = new AuthenticateCmd(email, password, role);
-    AuthenticatableUser user = new AuthenticatableUser(UUID.randomUUID(), email, "encodedPassword", "Name", role);
+    AuthenticatableUser user =
+        new AuthenticatableUser(UUID.randomUUID(), email, "encodedPassword", "Name", role);
 
     given(loadAuthenticatableUser.operate(email, role)).willReturn(Optional.of(user));
     given(passwordEncoder.matches(password, user.password())).willReturn(false);

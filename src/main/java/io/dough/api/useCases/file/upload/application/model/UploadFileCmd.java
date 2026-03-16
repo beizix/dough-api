@@ -1,10 +1,9 @@
 package io.dough.api.useCases.file.upload.application.model;
 
+import io.dough.api.useCases.shared.domain.file.FileUploadType;
 import java.io.InputStream;
 import java.util.Set;
 import java.util.stream.Collectors;
-
-import io.dough.api.useCases.shared.domain.file.FileUploadType;
 
 public record UploadFileCmd(
     FileUploadType fileUploadType,
