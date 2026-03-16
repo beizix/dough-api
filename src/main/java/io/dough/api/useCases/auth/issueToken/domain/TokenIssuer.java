@@ -1,6 +1,7 @@
 package io.dough.api.useCases.auth.issueToken.domain;
 
 import io.dough.api.useCases.shared.domain.auth.Role;
+import io.dough.api.useCases.shared.domain.auth.Token;
 import io.jsonwebtoken.Jwts;
 import java.util.Date;
 import java.util.UUID;
@@ -17,14 +18,14 @@ public record TokenIssuer(
     long refreshTokenValidity) {
 
   public String getAccessToken() {
-    return generateToken(accessTokenValidity);
+    return generateToken(Token.access, accessTokenValidity);
   }
 
   public String getRefreshToken() {
-    return generateToken(refreshTokenValidity);
+    return generateToken(Token.refresh, refreshTokenValidity);
   }
 
-  private String generateToken(long validity) {
+  private String generateToken(Token type, long validity) {
     var roleStr = role.getAuthority();
     var privileges = role.getPrivileges().stream().map(Enum::name).distinct().toList();
     Date expiration = new Date(now.getTime() + validity);
@@ -33,6 +34,7 @@ public record TokenIssuer(
         .subject(uuid.toString())
         .claim("email", email)
         .claim("displayName", displayName)
+        .claim("type", type.name())
         .claim("role", roleStr)
         .claim("privileges", privileges)
         .issuedAt(now)
