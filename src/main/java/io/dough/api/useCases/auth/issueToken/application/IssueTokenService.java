@@ -4,6 +4,7 @@ import io.dough.api.useCases.auth.issueToken.application.model.AuthToken;
 import io.dough.api.useCases.auth.issueToken.application.model.IssueTokenCmd;
 import io.dough.api.useCases.auth.issueToken.application.model.RefreshTokenCmd;
 import io.dough.api.useCases.auth.issueToken.domain.TokenIssuer;
+import io.dough.api.useCases.shared.domain.auth.Token;
 import io.dough.api.useCases.shared.domain.auth.TokenResolver;
 import io.jsonwebtoken.security.Keys;
 import java.nio.charset.StandardCharsets;
@@ -33,16 +34,15 @@ public class IssueTokenService implements IssueTokenUseCase {
 
   @Override
   public AuthToken createToken(IssueTokenCmd cmd) {
-    TokenIssuer tokenIssuer =
-        new TokenIssuer(
-            key,
-            cmd.uuid(),
-            cmd.email(),
-            cmd.displayName(),
-            cmd.role(),
-            new Date(),
-            accessTokenValidity,
-            refreshTokenValidity);
+    TokenIssuer tokenIssuer = new TokenIssuer(
+        key,
+        cmd.uuid(),
+        cmd.email(),
+        cmd.displayName(),
+        cmd.role(),
+        new Date(),
+        accessTokenValidity,
+        refreshTokenValidity);
 
     manageRefreshToken.save(cmd.uuid(), tokenIssuer.getRefreshToken());
 
@@ -52,16 +52,15 @@ public class IssueTokenService implements IssueTokenUseCase {
   @Override
   public AuthToken refreshToken(RefreshTokenCmd cmd) {
     TokenResolver tokenResolver = new TokenResolver(key, cmd.refreshToken());
-    if (!tokenResolver.validate()) {
+    if (!tokenResolver.validate() || tokenResolver.getType() != Token.refresh) {
       throw new IllegalArgumentException("exception.auth.invalid_refresh_token");
     }
 
     return manageRefreshToken
         .get(cmd.refreshToken())
         .map(
-            user ->
-                createToken(
-                    new IssueTokenCmd(user.uuid(), user.email(), user.displayName(), user.role())))
+            user -> createToken(
+                new IssueTokenCmd(user.uuid(), user.email(), user.displayName(), user.role())))
         .orElseThrow(() -> new IllegalArgumentException("exception.auth.invalid_refresh_token"));
   }
 }
