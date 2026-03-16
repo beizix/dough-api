@@ -1,16 +1,19 @@
 package io.dough.api.config.security;
 
-import io.dough.api.useCases.auth.resolveToken.application.ResolveTokenUseCase;
+import io.dough.api.useCases.auth.resolveToken.domain.TokenResolver;
+import io.jsonwebtoken.security.Keys;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Stream;
-import lombok.RequiredArgsConstructor;
+import javax.crypto.SecretKey;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -18,10 +21,13 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 @Component
-@RequiredArgsConstructor
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
-  private final ResolveTokenUseCase resolveTokenUseCase;
+  private final SecretKey key;
+
+  public JwtAuthenticationFilter(@Value("${jwt.secret}") String secret) {
+    this.key = Keys.hmacShaKeyFor(secret.getBytes(StandardCharsets.UTF_8));
+  }
 
   @Override
   protected void doFilterInternal(
@@ -30,23 +36,24 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     Optional<String> tokenOptional = resolveToken(request);
 
-    tokenOptional
-        .filter(resolveTokenUseCase::validateToken)
-        .ifPresent(
-            token -> {
-              String userUuid = resolveTokenUseCase.getSubject(token);
-              List<SimpleGrantedAuthority> authorities =
-                  Stream.concat(
-                          Stream.of(resolveTokenUseCase.getRole(token)),
-                          resolveTokenUseCase.getPrivileges(token).stream())
-                      .filter(Objects::nonNull)
-                      .map(SimpleGrantedAuthority::new)
-                      .toList();
+    tokenOptional.ifPresent(
+        token -> {
+          TokenResolver tokenResolver = new TokenResolver(key, token);
+          if (tokenResolver.validate()) {
+            String userUuid = tokenResolver.getSubject();
+            List<SimpleGrantedAuthority> authorities =
+                Stream.concat(
+                        Stream.of(tokenResolver.getRole()),
+                        tokenResolver.getPrivileges().stream())
+                    .filter(Objects::nonNull)
+                    .map(SimpleGrantedAuthority::new)
+                    .toList();
 
-              UsernamePasswordAuthenticationToken authentication =
-                  new UsernamePasswordAuthenticationToken(userUuid, null, authorities);
-              SecurityContextHolder.getContext().setAuthentication(authentication);
-            });
+            UsernamePasswordAuthenticationToken authentication =
+                new UsernamePasswordAuthenticationToken(userUuid, null, authorities);
+            SecurityContextHolder.getContext().setAuthentication(authentication);
+          }
+        });
 
     filterChain.doFilter(request, response);
   }

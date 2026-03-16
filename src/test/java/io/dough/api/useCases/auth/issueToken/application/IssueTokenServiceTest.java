@@ -8,8 +8,11 @@ import static org.mockito.Mockito.when;
 import io.dough.api.useCases.auth.issueToken.application.model.AuthToken;
 import io.dough.api.useCases.auth.issueToken.application.model.IssueTokenCmd;
 import io.dough.api.useCases.auth.issueToken.application.model.RefreshTokenCmd;
-import io.dough.api.useCases.auth.resolveToken.application.ResolveTokenUseCase;
+import io.dough.api.useCases.auth.issueToken.domain.TokenIssuer;
 import io.dough.api.useCases.shared.domain.auth.Role;
+import io.jsonwebtoken.security.Keys;
+import java.nio.charset.StandardCharsets;
+import java.util.Date;
 import java.util.Optional;
 import java.util.UUID;
 import org.junit.jupiter.api.BeforeEach;
@@ -20,7 +23,6 @@ class IssueTokenServiceTest {
 
   private IssueTokenService issueTokenService;
   private ManageRefreshToken manageRefreshToken;
-  private ResolveTokenUseCase resolveTokenUseCase;
 
   private final String secret = "v-api-test-secret-key-must-be-long-enough-for-hs256";
   private final long accessValidity = 60000L;
@@ -29,10 +31,7 @@ class IssueTokenServiceTest {
   @BeforeEach
   void setUp() {
     manageRefreshToken = mock(ManageRefreshToken.class);
-    resolveTokenUseCase = mock(ResolveTokenUseCase.class);
-    issueTokenService =
-        new IssueTokenService(
-            secret, accessValidity, refreshValidity, manageRefreshToken, resolveTokenUseCase);
+    issueTokenService = new IssueTokenService(secret, accessValidity, refreshValidity, manageRefreshToken);
   }
 
   @Test
@@ -54,12 +53,17 @@ class IssueTokenServiceTest {
   @DisplayName("Scenario: 성공 - 리프레시 토큰이 유효하면 재발급한다")
   void refresh_token_success() {
     // Given
-    String refreshToken = "valid_refresh_token";
     UUID uuid = UUID.randomUUID();
     String email = "test@example.com";
     Role role = Role.USER;
 
-    when(resolveTokenUseCase.validateToken(refreshToken)).thenReturn(true);
+    // 실제로 유효한 토큰 생성
+    TokenIssuer issuer = new TokenIssuer(
+        Keys.hmacShaKeyFor(secret.getBytes(StandardCharsets.UTF_8)),
+        uuid, email, "User", role, new Date(), accessValidity, refreshValidity
+    );
+    String refreshToken = issuer.getRefreshToken();
+
     when(manageRefreshToken.get(refreshToken))
         .thenReturn(Optional.of(new ManageRefreshToken.RefreshUser(uuid, email, "User", role)));
 

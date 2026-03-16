@@ -4,7 +4,7 @@ import io.dough.api.useCases.auth.issueToken.application.model.AuthToken;
 import io.dough.api.useCases.auth.issueToken.application.model.IssueTokenCmd;
 import io.dough.api.useCases.auth.issueToken.application.model.RefreshTokenCmd;
 import io.dough.api.useCases.auth.issueToken.domain.TokenIssuer;
-import io.dough.api.useCases.auth.resolveToken.application.ResolveTokenUseCase;
+import io.dough.api.useCases.auth.resolveToken.domain.TokenResolver;
 import io.jsonwebtoken.security.Keys;
 import java.nio.charset.StandardCharsets;
 import java.util.Date;
@@ -19,19 +19,16 @@ public class IssueTokenService implements IssueTokenUseCase {
   private final long accessTokenValidity;
   private final long refreshTokenValidity;
   private final ManageRefreshToken manageRefreshToken;
-  private final ResolveTokenUseCase resolveTokenUseCase;
 
   public IssueTokenService(
       @Value("${jwt.secret}") String secret,
       @Value("${jwt.access-token-validity}") long accessTokenValidity,
       @Value("${jwt.refresh-token-validity}") long refreshTokenValidity,
-      ManageRefreshToken manageRefreshToken,
-      ResolveTokenUseCase resolveTokenUseCase) {
+      ManageRefreshToken manageRefreshToken) {
     this.key = Keys.hmacShaKeyFor(secret.getBytes(StandardCharsets.UTF_8));
     this.accessTokenValidity = accessTokenValidity;
     this.refreshTokenValidity = refreshTokenValidity;
     this.manageRefreshToken = manageRefreshToken;
-    this.resolveTokenUseCase = resolveTokenUseCase;
   }
 
   @Override
@@ -54,7 +51,8 @@ public class IssueTokenService implements IssueTokenUseCase {
 
   @Override
   public AuthToken refreshToken(RefreshTokenCmd cmd) {
-    if (!resolveTokenUseCase.validateToken(cmd.refreshToken())) {
+    TokenResolver tokenResolver = new TokenResolver(key, cmd.refreshToken());
+    if (!tokenResolver.validate()) {
       throw new IllegalArgumentException("exception.auth.invalid_refresh_token");
     }
 

@@ -1,18 +1,18 @@
 package io.dough.api.config.security;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.BDDMockito.given;
-import static org.mockito.Mockito.never;
-import static org.mockito.Mockito.verify;
 
-import io.dough.api.useCases.auth.resolveToken.application.ResolveTokenUseCase;
+import io.dough.api.useCases.auth.issueToken.domain.TokenIssuer;
+import io.dough.api.useCases.shared.domain.auth.Role;
+import io.jsonwebtoken.security.Keys;
+import java.nio.charset.StandardCharsets;
+import java.util.Date;
+import java.util.UUID;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.mock.web.MockFilterChain;
 import org.springframework.mock.web.MockHttpServletRequest;
@@ -24,8 +24,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 class JwtAuthenticationFilterTest {
 
   private JwtAuthenticationFilter filter;
-
-  @Mock private ResolveTokenUseCase resolveTokenUseCase;
+  private final String secret = "v-api-test-secret-key-must-be-long-enough-for-hs256";
 
   private MockHttpServletRequest request;
   private MockHttpServletResponse response;
@@ -33,7 +32,7 @@ class JwtAuthenticationFilterTest {
 
   @BeforeEach
   void setUp() {
-    filter = new JwtAuthenticationFilter(resolveTokenUseCase);
+    filter = new JwtAuthenticationFilter(secret);
     request = new MockHttpServletRequest();
     response = new MockHttpServletResponse();
     filterChain = new MockFilterChain();
@@ -49,17 +48,18 @@ class JwtAuthenticationFilterTest {
   @DisplayName("Scenario: 성공 - 유효한 토큰으로 인증 성공 및 권한 부여")
   void authentication_success() throws Exception {
     // Given
-    String token = "valid-token";
-    String userUuid = "123e4567-e89b-12d3-a456-426614174000"; // Example UUID
-    String role = "ROLE_USER";
-    var privileges = java.util.List.of("ACCESS_MANAGER_API");
+    UUID uuid = UUID.randomUUID();
+    String email = "test@example.com";
+    Role role = Role.USER;
+
+    // 실제로 유효한 토큰 생성
+    TokenIssuer issuer = new TokenIssuer(
+        Keys.hmacShaKeyFor(secret.getBytes(StandardCharsets.UTF_8)),
+        uuid, email, "User", role, new Date(), 60000L, 120000L
+    );
+    String token = issuer.getAccessToken();
 
     request.addHeader("Authorization", "Bearer " + token);
-
-    given(resolveTokenUseCase.validateToken(token)).willReturn(true);
-    given(resolveTokenUseCase.getSubject(token)).willReturn(userUuid);
-    given(resolveTokenUseCase.getRole(token)).willReturn(role);
-    given(resolveTokenUseCase.getPrivileges(token)).willReturn(privileges);
 
     // When
     filter.doFilterInternal(request, response, filterChain);
@@ -67,15 +67,12 @@ class JwtAuthenticationFilterTest {
     // Then
     var authentication = SecurityContextHolder.getContext().getAuthentication();
     assertThat(authentication).isNotNull();
-    assertThat(authentication.getName()).isEqualTo(userUuid);
+    assertThat(authentication.getName()).isEqualTo(uuid.toString());
 
-    // 검증: JwtUseCase에서 반환된 권한이 실제로 적용되었는지 확인
+    // ROLE_USER와 Role.java에서 정의된 기본 Privilege(ACCESS_USER_API)가 포함되어야 함
     assertThat(authentication.getAuthorities())
         .extracting(GrantedAuthority::getAuthority)
-        .containsExactlyInAnyOrder("ROLE_USER", "ACCESS_MANAGER_API");
-
-    verify(resolveTokenUseCase).getRole(token);
-    verify(resolveTokenUseCase).getPrivileges(token);
+        .contains("ROLE_USER", "ACCESS_USER_API");
   }
 
   @Test
@@ -87,6 +84,5 @@ class JwtAuthenticationFilterTest {
     // Then
     var authentication = SecurityContextHolder.getContext().getAuthentication();
     assertThat(authentication).isNull();
-    verify(resolveTokenUseCase, never()).validateToken(any());
   }
 }
