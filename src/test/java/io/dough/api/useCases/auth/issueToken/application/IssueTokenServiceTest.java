@@ -8,6 +8,7 @@ import static org.mockito.Mockito.when;
 import io.dough.api.useCases.auth.issueToken.application.model.AuthToken;
 import io.dough.api.useCases.auth.issueToken.application.model.IssueTokenCmd;
 import io.dough.api.useCases.auth.issueToken.application.model.RefreshTokenCmd;
+import io.dough.api.useCases.auth.issueToken.application.model.RefreshUserLoaded;
 import io.dough.api.useCases.auth.issueToken.domain.TokenIssuer;
 import io.dough.api.useCases.shared.domain.auth.Role;
 import io.jsonwebtoken.security.Keys;
@@ -65,7 +66,7 @@ class IssueTokenServiceTest {
     String refreshToken = issuer.getRefreshToken();
 
     when(manageRefreshToken.get(refreshToken))
-        .thenReturn(Optional.of(new ManageRefreshToken.RefreshUser(uuid, email, "User", role)));
+        .thenReturn(Optional.of(new RefreshUserLoaded(uuid, email, "User", role)));
 
     // When
     AuthToken newToken = issueTokenService.refreshToken(new RefreshTokenCmd(refreshToken));

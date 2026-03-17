@@ -1,6 +1,7 @@
 package io.dough.api.useCases.auth.issueToken.adapters.persistence;
 
 import io.dough.api.useCases.auth.issueToken.application.ManageRefreshToken;
+import io.dough.api.useCases.auth.issueToken.application.model.RefreshUserLoaded;
 import io.dough.api.useCases.shared.adapters.persistence.repository.UserRepository;
 import java.util.Optional;
 import java.util.UUID;
@@ -16,12 +17,12 @@ public class ManageRefreshPersistAdapter implements ManageRefreshToken {
 
   @Override
   @Transactional(readOnly = true)
-  public Optional<RefreshUser> get(String refreshToken) {
+  public Optional<RefreshUserLoaded> get(String refreshToken) {
     return userRepository
         .findByRefreshToken(refreshToken)
         .map(
             entity ->
-                new RefreshUser(
+                new RefreshUserLoaded(
                     entity.getId(), entity.getEmail(), entity.getDisplayName(), entity.getRole()));
   }
 
