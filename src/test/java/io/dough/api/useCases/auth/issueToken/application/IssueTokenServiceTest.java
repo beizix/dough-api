@@ -47,7 +47,7 @@ class IssueTokenServiceTest {
 
     // Then
     assertThat(token).isNotNull();
-    verify(manageRefreshToken).save(uuid, token.refreshToken());
+    verify(manageRefreshToken).updateRefreshToken(uuid, token.refreshToken());
   }
 
   @Test
@@ -61,11 +61,10 @@ class IssueTokenServiceTest {
     // 실제로 유효한 토큰 생성
     TokenIssuer issuer = new TokenIssuer(
         Keys.hmacShaKeyFor(secret.getBytes(StandardCharsets.UTF_8)),
-        uuid, email, "User", role, new Date(), accessValidity, refreshValidity
-    );
+        uuid, email, "User", role, new Date(), accessValidity, refreshValidity);
     String refreshToken = issuer.getRefreshToken();
 
-    when(manageRefreshToken.get(refreshToken))
+    when(manageRefreshToken.loadRefreshUser(refreshToken))
         .thenReturn(Optional.of(new RefreshUserLoaded(uuid, email, "User", role)));
 
     // When
@@ -73,6 +72,6 @@ class IssueTokenServiceTest {
 
     // Then
     assertThat(newToken).isNotNull();
-    verify(manageRefreshToken).save(uuid, newToken.refreshToken());
+    verify(manageRefreshToken).updateRefreshToken(uuid, newToken.refreshToken());
   }
 }

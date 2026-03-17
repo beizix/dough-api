@@ -44,7 +44,7 @@ public class IssueTokenService implements IssueTokenUseCase {
         accessTokenValidity,
         refreshTokenValidity);
 
-    manageRefreshToken.save(cmd.uuid(), tokenIssuer.getRefreshToken());
+    manageRefreshToken.updateRefreshToken(cmd.uuid(), tokenIssuer.getRefreshToken());
 
     return new AuthToken(tokenIssuer.getAccessToken(), tokenIssuer.getRefreshToken());
   }
@@ -57,7 +57,7 @@ public class IssueTokenService implements IssueTokenUseCase {
     }
 
     return manageRefreshToken
-        .get(cmd.refreshToken())
+        .loadRefreshUser(cmd.refreshToken())
         .map(
             user -> createToken(
                 new IssueTokenCmd(user.uuid(), user.email(), user.displayName(), user.role())))

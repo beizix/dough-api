@@ -14,13 +14,13 @@ public interface ManageRefreshToken {
    * @param refreshToken 리프레시 토큰
    * @return 유효한 토큰일 경우 사용자 정보, 그렇지 않으면 Optional.empty()
    */
-  Optional<RefreshUserLoaded> get(String refreshToken);
+  Optional<RefreshUserLoaded> loadRefreshUser(String refreshToken);
 
   /**
    * 리프레시 토큰을 저장하거나 업데이트합니다.
    *
-   * @param uuid 사용자 식별자
+   * @param uuid         사용자 식별자
    * @param refreshToken 발급된 리프레시 토큰
    */
-  void save(UUID uuid, String refreshToken);
+  void updateRefreshToken(UUID uuid, String refreshToken);
 }

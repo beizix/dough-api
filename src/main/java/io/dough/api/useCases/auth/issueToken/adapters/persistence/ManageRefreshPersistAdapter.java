@@ -17,18 +17,17 @@ public class ManageRefreshPersistAdapter implements ManageRefreshToken {
 
   @Override
   @Transactional(readOnly = true)
-  public Optional<RefreshUserLoaded> get(String refreshToken) {
+  public Optional<RefreshUserLoaded> loadRefreshUser(String refreshToken) {
     return userRepository
         .findByRefreshToken(refreshToken)
         .map(
-            entity ->
-                new RefreshUserLoaded(
-                    entity.getId(), entity.getEmail(), entity.getDisplayName(), entity.getRole()));
+            entity -> new RefreshUserLoaded(
+                entity.getId(), entity.getEmail(), entity.getDisplayName(), entity.getRole()));
   }
 
   @Override
   @Transactional
-  public void save(UUID uuid, String refreshToken) {
+  public void updateRefreshToken(UUID uuid, String refreshToken) {
     userRepository
         .findById(uuid)
         .ifPresent(
