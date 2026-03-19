@@ -1,7 +1,4 @@
-package io.dough.api.useCases.auth.authenticate.application;
-
-import io.dough.api.useCases.auth.authenticate.application.model.AuthenticateCmd;
-import io.dough.api.useCases.auth.authenticate.application.model.AuthenticatedToken;
+package io.dough.api.useCases.auth.authenticate.application.port.in;
 
 /** 사용자 로그인을 처리하고 인증 토큰을 발급하는 유스케이스입니다. */
 public interface AuthenticateUseCase {

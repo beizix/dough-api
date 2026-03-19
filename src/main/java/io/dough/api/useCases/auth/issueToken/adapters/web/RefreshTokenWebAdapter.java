@@ -1,10 +1,8 @@
 package io.dough.api.useCases.auth.issueToken.adapters.web;
 
-import io.dough.api.useCases.auth.issueToken.adapters.web.model.RefreshTokenRequest;
-import io.dough.api.useCases.auth.issueToken.adapters.web.model.RefreshTokenResponse;
-import io.dough.api.useCases.auth.issueToken.application.IssueTokenUseCase;
-import io.dough.api.useCases.auth.issueToken.application.model.AuthToken;
-import io.dough.api.useCases.auth.issueToken.application.model.RefreshTokenCmd;
+import io.dough.api.useCases.auth.issueToken.application.port.in.AuthToken;
+import io.dough.api.useCases.auth.issueToken.application.port.in.IssueTokenUseCase;
+import io.dough.api.useCases.auth.issueToken.application.port.in.RefreshTokenCmd;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;

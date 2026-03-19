@@ -1,11 +1,13 @@
-package io.dough.api.useCases.auth.authenticate.application;
+package io.dough.api.useCases.auth.authenticate.application.service;
 
-import io.dough.api.useCases.auth.authenticate.application.model.AuthenticateCmd;
-import io.dough.api.useCases.auth.authenticate.application.model.AuthenticatedToken;
-import io.dough.api.useCases.auth.authenticate.domain.AuthenticatableUser;
-import io.dough.api.useCases.auth.issueToken.application.IssueTokenUseCase;
-import io.dough.api.useCases.auth.issueToken.application.model.AuthToken;
-import io.dough.api.useCases.auth.issueToken.application.model.IssueTokenCmd;
+import io.dough.api.useCases.auth.authenticate.application.port.in.AuthenticateCmd;
+import io.dough.api.useCases.auth.authenticate.application.port.in.AuthenticateUseCase;
+import io.dough.api.useCases.auth.authenticate.application.port.in.AuthenticatedToken;
+import io.dough.api.useCases.auth.authenticate.application.port.out.AuthenticatableUser;
+import io.dough.api.useCases.auth.authenticate.application.port.out.LoadAuthenticatableUser;
+import io.dough.api.useCases.auth.issueToken.application.port.in.AuthToken;
+import io.dough.api.useCases.auth.issueToken.application.port.in.IssueTokenCmd;
+import io.dough.api.useCases.auth.issueToken.application.port.in.IssueTokenUseCase;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;

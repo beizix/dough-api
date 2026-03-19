@@ -79,20 +79,22 @@ io.dough.api/
     `-- <verbNoun> (유스케이스 명칭 - 예: registerUser)
         |-- adapters
         |   |-- persistence
-        |   |   `-- <VerbNoun>PersistAdapter.java (예: RegisterUserPersistAdapter)
+        |   |   |-- <VerbNoun>PersistAdapter.java (예: RegisterUserPersistAdapter)
         |   `-- web
         |       |-- <VerbNoun>WebAdapter.java (예: RegisterUserWebAdapter)
-        |       `-- model
-        |           |-- <VerbNoun>Request.java (RequestBody)
-        |           `-- <VerbNoun>Response.java (ResponseBody)
+        |       |-- <VerbNoun>Request.java (RequestBody)
+        |       `-- <VerbNoun>Response.java (ResponseBody)
         |-- application
-        |   |-- model
-        |   |   |-- <Noun><Status>.java (결과 모델 - 예: UserRegistered, ProfileLoaded)
-        |   |   |-- <VerbNoun>Cmd.java (유스케이스 커맨드)
-        |   |   `-- <Noun>.java (필요시 도메인 정보 전달 객체 - 예: Profile)
-        |   |-- <VerbNoun>UseCase.java (입력 포트 - 예: RegisterUserUseCase)
-        |   |-- <VerbNoun>.java (출력 포트 - 행위 이름 - 예: RegisterUser, LoadProfile)
-        |   `-- <VerbNoun>Service.java (서비스 구현체 - 예: RegisterUserService)
+        |   |-- port
+        |   |   |-- in
+        |   |   |   |-- <VerbNoun>UseCase.java (입력 포트)
+        |   |   |   |-- <VerbNoun>Cmd.java (유스케이스 커맨드)
+        |   |   |   `-- <Noun><Status>.java (결과 모델 - 예: UserRegistered)
+        |   |   `-- out
+        |   |       |-- <Behavior>.java (출력 포트 - 예: RegisterUser, LoadProfile)
+        |   |       `-- <Noun>.java (필요시 도메인 정보 전달 객체 - 예: Profile)
+        |   `-- service
+        |       `-- <VerbNoun>Service.java (서비스 구현체 - 예: RegisterUserService)
         `-- domain (복잡한 비즈니스 로직이 필요한 경우에만 생성)
             `-- <Domain>.java (도메인 모델 - 예: Password)
 ```
@@ -109,21 +111,20 @@ io.dough.api/
 애플리케이션의 흐름을 제어하고 유스케이스를 구현하는 계층입니다. 외부 세계(프레임워크, UI, DB 등)에 대한 의존성이 없습니다.
 **절대 원칙: Application Layer는 Web Layer(Req, Res)나 Persistence Layer(Entity, Dao)의 객체를 참조(Import)해서는 안 됩니다. 데이터 교환은 오직 `application` 또는 `domain` 에 정의된 객체로만 수행합니다.**
 
--   `application/<VerbNoun>UseCase.java`: **입력 포트(Input Port)**
-  -   애플리케이션을 구동하는 방법을 정의하는 인터페이스입니다.
-  -   유즈케이스의 맥락은 클래스명에서 표현되니 단일 메서드로 구성된다면 메서드 이름은 `operate` 로 지정합니다.
+-   `application/port/in/`: **입력 포트(Input Port)**
+  -   `...UseCase.java`: 애플리케이션을 구동하는 방법을 정의하는 인터페이스입니다.
+  -   `...Cmd.java`: 유스케이스 실행에 필요한 데이터 객체입니다.
+  -   `...Loaded`, `...Registered`: 유스케이스 수행 결과를 나타내는 과거 분사형 모델입니다.
+  -   메서드 이름: 유즈케이스의 맥락은 클래스명에서 표현되니 단일 메서드로 구성된다면 `operate` 로 지정합니다.
   -   예: `RegisterUserUseCase.operate(RegisterUserCmd cmd)`
 
--   `application/<Behavior>.java`: **출력 포트(Output Port)**
+-   `application/port/out/`: **출력 포트(Output Port)**
   -   애플리케이션이 외부 세계(DB, 외부 API 등)와 소통하는 방법을 정의하는 인터페이스입니다.
   -   `PortOut` 접미사를 지양하고, 행위 중심의 이름을 사용합니다.
   -   메서드 이름은 유스케이스 맥락에 따라 `operate`, `load`, `save` 등을 사용합니다.
   -   예: `LoadProfile.operate(UUID userId)`, `UpdateProfile.operate(UpdateProfileCmd cmd)`
 
--   `application/model/`: **포트 DTO 및 커맨드**
-  -   포트 인터페이스에서 데이터 전달을 위해 사용되는 객체(예: `ProfileLoaded`)와 유스케이스 실행에 필요한 커맨드 객체(`GetProfileCmd` 등)가 위치합니다.
-
--   `application/<VerbNoun>Service.java`: **서비스 구현체**
+-   `application/service/`: **서비스 구현체**
   -   실제 비즈니스 로직의 **절차(Step)**를 수행하고 트랜잭션을 관리합니다.
   -   `UseCase` 인터페이스를 구현하고, 출력 포트 인터페이스를 호출하여 필요한 데이터를 주고받습니다.
   -   비즈니스 판단(Rule) 자체는 `domain` 모델에게 위임합니다.
@@ -144,8 +145,7 @@ io.dough.api/
 -   `adapters/web/`: **웹 어댑터**
   -   HTTP 요청을 받아 처리하고 응답을 반환하는 역할을 합니다.
   -   `WebAdapter`는 `UseCase` 인터페이스를 주입받아 호출함으로써 비즈니스 로직 실행을 위임합니다.
-  -   `model` 디렉터리에는 요청/응답에 사용되는 데이터 전송 객체(Req/Res)가 위치합니다.
-  -   사용자가 <ENDPOINT> 을 입력했다면 해당 URL 에 맞게 request mapping 을 선언해주면 됩니다.
+  -   **DTO 위치**: 요청/응답에 사용되는 데이터 전송 객체(`Request`, `Response`)는 별도의 `model` 패키지 없이 `web` 패키지 바로 아래에 위치합니다.
   -   **Swagger 적용**: 모든 WebAdapter 클래스에는 `@Tag`, 메서드에는 `@Operation` 및 `@ApiResponse`, 요청 파라미터(RequestBody 포함)에는 `@Parameter` 어노테이션을 반드시 추가하여 API 문서를 자동화합니다.
 
 -   `adapters/persistence/`: **영속성 어댑터**

@@ -1,8 +1,8 @@
-package io.dough.api.useCases.auth.authenticate.adapters.web.model;
+package io.dough.api.useCases.auth.issueToken.adapters.web;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 
-@Schema(description = "로그인 응답")
-public record AuthenticateResponse(
+@Schema(description = "토큰 갱신 응답")
+public record RefreshTokenResponse(
     @Schema(description = "액세스 토큰") String accessToken,
     @Schema(description = "리프레시 토큰") String refreshToken) {}

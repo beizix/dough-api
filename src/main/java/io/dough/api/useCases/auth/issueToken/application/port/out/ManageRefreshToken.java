@@ -1,9 +1,7 @@
-package io.dough.api.useCases.auth.issueToken.application;
+package io.dough.api.useCases.auth.issueToken.application.port.out;
 
 import java.util.Optional;
 import java.util.UUID;
-
-import io.dough.api.useCases.auth.issueToken.application.model.RefreshUserLoaded;
 
 /** 리프레시 토큰의 저장 및 조회를 담당하는 출력 포트입니다. */
 public interface ManageRefreshToken {

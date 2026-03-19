@@ -1,4 +1,4 @@
-package io.dough.api.useCases.auth.issueToken.application.model;
+package io.dough.api.useCases.auth.issueToken.application.port.in;
 
 import io.dough.api.useCases.shared.application.validator.DisplayNameValidator;
 import io.dough.api.useCases.shared.application.validator.EmailValidator;

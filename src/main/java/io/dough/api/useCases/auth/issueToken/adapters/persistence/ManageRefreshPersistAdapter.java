@@ -1,7 +1,7 @@
 package io.dough.api.useCases.auth.issueToken.adapters.persistence;
 
-import io.dough.api.useCases.auth.issueToken.application.ManageRefreshToken;
-import io.dough.api.useCases.auth.issueToken.application.model.RefreshUserLoaded;
+import io.dough.api.useCases.auth.issueToken.application.port.out.ManageRefreshToken;
+import io.dough.api.useCases.auth.issueToken.application.port.out.RefreshUserLoaded;
 import io.dough.api.useCases.shared.adapters.persistence.repository.UserRepository;
 import java.util.Optional;
 import java.util.UUID;

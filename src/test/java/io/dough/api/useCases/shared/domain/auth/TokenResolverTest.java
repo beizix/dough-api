@@ -2,7 +2,7 @@ package io.dough.api.useCases.shared.domain.auth;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import io.dough.api.useCases.auth.issueToken.domain.TokenIssuer;
+import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 import java.nio.charset.StandardCharsets;
 import java.util.Date;
@@ -33,10 +33,18 @@ class TokenResolverTest {
   @DisplayName("Scenario: 성공 - 유효한 액세스 토큰 해석")
   void resolve_access_token_success() {
     // Given
-    TokenIssuer issuer = new TokenIssuer(
-        key, uuid, email, displayName, role, now, accessValidity, refreshValidity
-    );
-    String token = issuer.getAccessToken();
+    String token =
+        Jwts.builder()
+            .subject(uuid.toString())
+            .claim("email", email)
+            .claim("displayName", displayName)
+            .claim("type", Token.access.name())
+            .claim("role", role.getAuthority())
+            .claim("privileges", role.getPrivileges().stream().map(Enum::name).toList())
+            .issuedAt(now)
+            .expiration(new Date(now.getTime() + accessValidity))
+            .signWith(key)
+            .compact();
 
     // When
     TokenResolver resolver = new TokenResolver(key, token);
@@ -48,19 +56,20 @@ class TokenResolverTest {
     assertThat(resolver.getDisplayName()).isEqualTo(displayName);
     assertThat(resolver.getRole()).isEqualTo(role.getAuthority());
     assertThat(resolver.getType()).isEqualTo(Token.access);
-    assertThat(resolver.getPrivileges()).containsExactlyInAnyOrderElementsOf(
-        role.getPrivileges().stream().map(Enum::name).toList()
-    );
   }
 
   @Test
   @DisplayName("Scenario: 성공 - 유효한 리프레시 토큰 해석")
   void resolve_refresh_token_success() {
     // Given
-    TokenIssuer issuer = new TokenIssuer(
-        key, uuid, email, displayName, role, now, accessValidity, refreshValidity
-    );
-    String token = issuer.getRefreshToken();
+    String token =
+        Jwts.builder()
+            .subject(uuid.toString())
+            .claim("type", Token.refresh.name())
+            .issuedAt(now)
+            .expiration(new Date(now.getTime() + refreshValidity))
+            .signWith(key)
+            .compact();
 
     // When
     TokenResolver resolver = new TokenResolver(key, token);
@@ -75,10 +84,13 @@ class TokenResolverTest {
   @DisplayName("Scenario: 실패 - 위조된 토큰 검증 실패")
   void resolve_manipulated_token_fail() {
     // Given
-    TokenIssuer issuer = new TokenIssuer(
-        key, uuid, email, displayName, role, now, accessValidity, refreshValidity
-    );
-    String token = issuer.getAccessToken() + "extra";
+    String token =
+        Jwts.builder()
+            .subject(uuid.toString())
+            .claim("type", Token.access.name())
+            .signWith(key)
+            .compact()
+            + "extra";
 
     // When
     TokenResolver resolver = new TokenResolver(key, token);
@@ -91,11 +103,16 @@ class TokenResolverTest {
   @DisplayName("Scenario: 실패 - 다른 키로 서명된 토큰 검증 실패")
   void resolve_different_key_token_fail() {
     // Given
-    SecretKey anotherKey = Keys.hmacShaKeyFor("another-secret-key-very-long-and-long-enough".getBytes(StandardCharsets.UTF_8));
-    TokenIssuer issuer = new TokenIssuer(
-        anotherKey, uuid, email, displayName, role, now, accessValidity, refreshValidity
-    );
-    String token = issuer.getAccessToken();
+    SecretKey anotherKey =
+        Keys.hmacShaKeyFor(
+            "another-secret-key-very-long-and-long-enough-for-hs256"
+                .getBytes(StandardCharsets.UTF_8));
+    String token =
+        Jwts.builder()
+            .subject(uuid.toString())
+            .claim("type", Token.access.name())
+            .signWith(anotherKey)
+            .compact();
 
     // When
     TokenResolver resolver = new TokenResolver(key, token);

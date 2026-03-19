@@ -2,11 +2,8 @@ package io.dough.api.config.security;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import io.dough.api.useCases.auth.issueToken.domain.TokenIssuer;
+import io.dough.api.useCases.auth.issueToken.adapters.jwt.IssueTokenJwtAdapter;
 import io.dough.api.useCases.shared.domain.auth.Role;
-import io.jsonwebtoken.security.Keys;
-import java.nio.charset.StandardCharsets;
-import java.util.Date;
 import java.util.UUID;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -53,11 +50,8 @@ class JwtAuthenticationFilterTest {
     Role role = Role.USER;
 
     // 실제로 유효한 토큰 생성
-    TokenIssuer issuer = new TokenIssuer(
-        Keys.hmacShaKeyFor(secret.getBytes(StandardCharsets.UTF_8)),
-        uuid, email, "User", role, new Date(), 60000L, 120000L
-    );
-    String token = issuer.getAccessToken();
+    IssueTokenJwtAdapter adapter = new IssueTokenJwtAdapter(secret, 60000L, 120000L);
+    String token = adapter.getAccessToken(uuid, email, "User", role);
 
     request.addHeader("Authorization", "Bearer " + token);
 

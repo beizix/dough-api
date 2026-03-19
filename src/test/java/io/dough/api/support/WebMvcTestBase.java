@@ -1,11 +1,12 @@
 package io.dough.api.support;
 
-import io.dough.api.useCases.auth.issueToken.application.IssueTokenUseCase;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.webmvc.test.autoconfigure.AutoConfigureMockMvc;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
+
+import io.dough.api.useCases.auth.issueToken.application.port.in.IssueTokenUseCase;
 import tools.jackson.databind.ObjectMapper;
 
 @AutoConfigureMockMvc // 시큐리티 필터 적용 (기본값 addFilters = true)

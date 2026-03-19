@@ -1,10 +1,8 @@
 package io.dough.api.useCases.auth.authenticate.adapters.web;
 
-import io.dough.api.useCases.auth.authenticate.adapters.web.model.AuthenticateRequest;
-import io.dough.api.useCases.auth.authenticate.adapters.web.model.AuthenticateResponse;
-import io.dough.api.useCases.auth.authenticate.application.AuthenticateUseCase;
-import io.dough.api.useCases.auth.authenticate.application.model.AuthenticateCmd;
-import io.dough.api.useCases.auth.authenticate.application.model.AuthenticatedToken;
+import io.dough.api.useCases.auth.authenticate.application.port.in.AuthenticateCmd;
+import io.dough.api.useCases.auth.authenticate.application.port.in.AuthenticateUseCase;
+import io.dough.api.useCases.auth.authenticate.application.port.in.AuthenticatedToken;
 import io.dough.api.useCases.shared.domain.auth.Role;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;

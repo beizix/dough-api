@@ -1,7 +1,7 @@
 package io.dough.api.useCases.auth.authenticate.adapters.persistence;
 
-import io.dough.api.useCases.auth.authenticate.application.LoadAuthenticatableUser;
-import io.dough.api.useCases.auth.authenticate.domain.AuthenticatableUser;
+import io.dough.api.useCases.auth.authenticate.application.port.out.AuthenticatableUser;
+import io.dough.api.useCases.auth.authenticate.application.port.out.LoadAuthenticatableUser;
 import io.dough.api.useCases.shared.adapters.persistence.repository.UserRepository;
 import io.dough.api.useCases.shared.domain.auth.Role;
 import java.util.Optional;
