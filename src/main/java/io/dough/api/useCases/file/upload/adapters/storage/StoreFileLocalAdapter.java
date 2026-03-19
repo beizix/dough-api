@@ -1,6 +1,6 @@
 package io.dough.api.useCases.file.upload.adapters.storage;
 
-import io.dough.api.useCases.file.upload.application.SaveToFileStorage;
+import io.dough.api.useCases.file.upload.application.StoreFile;
 import io.dough.api.useCases.shared.domain.file.FileStorageType;
 import java.io.IOException;
 import java.io.InputStream;
@@ -21,7 +21,7 @@ import org.springframework.stereotype.Component;
     name = "app.storage.local.enabled",
     havingValue = "true",
     matchIfMissing = true)
-public class SaveToLocalStorageAdapter implements SaveToFileStorage {
+public class StoreFileLocalAdapter implements StoreFile {
 
   @Value("${app.upload.path}")
   private String localPath;

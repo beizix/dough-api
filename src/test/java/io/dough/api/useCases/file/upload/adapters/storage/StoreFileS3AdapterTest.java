@@ -20,9 +20,9 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.test.util.ReflectionTestUtils;
 
 @ExtendWith(MockitoExtension.class)
-class SaveToS3StorageAdapterTest {
+class StoreFileS3AdapterTest {
 
-  @InjectMocks private SaveToS3StorageAdapter saveToS3StorageAdapter;
+  @InjectMocks private StoreFileS3Adapter storeFileS3Adapter;
 
   @Mock private S3Template s3Template;
 
@@ -31,15 +31,15 @@ class SaveToS3StorageAdapterTest {
 
   @BeforeEach
   void setUp() {
-    ReflectionTestUtils.setField(saveToS3StorageAdapter, "bucketName", bucketName);
-    ReflectionTestUtils.setField(saveToS3StorageAdapter, "bucketFolder", bucketFolder);
+    ReflectionTestUtils.setField(storeFileS3Adapter, "bucketName", bucketName);
+    ReflectionTestUtils.setField(storeFileS3Adapter, "bucketFolder", bucketFolder);
   }
 
   @Test
   @DisplayName("Scenario: 성공 - 저장소 타입이 S3임을 반환한다")
   void getStorageType_success() {
     // When
-    FileStorageType storageType = saveToS3StorageAdapter.getStorageType();
+    FileStorageType storageType = storeFileS3Adapter.getStorageType();
 
     // Then
     assertThat(storageType).isEqualTo(FileStorageType.S3);
@@ -56,7 +56,7 @@ class SaveToS3StorageAdapterTest {
     String expectedPath = bucketFolder + "/" + subPath + "/" + filename;
 
     // When
-    saveToS3StorageAdapter.operate(inputStream, subPath, filename);
+    storeFileS3Adapter.operate(inputStream, subPath, filename);
 
     // Then
     verify(s3Template).upload(eq(bucketName), eq(expectedPath), any(InputStream.class));

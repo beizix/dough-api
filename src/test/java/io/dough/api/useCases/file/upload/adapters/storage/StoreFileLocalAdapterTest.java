@@ -14,18 +14,18 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 import org.springframework.test.util.ReflectionTestUtils;
 
-class SaveToLocalStorageAdapterTest {
+class StoreFileLocalAdapterTest {
 
-  private SaveToLocalStorageAdapter saveToLocalStorageAdapter;
+  private StoreFileLocalAdapter storeFileLocalAdapter;
 
   @TempDir Path tempDir;
 
   @BeforeEach
   void setUp() {
-    saveToLocalStorageAdapter = new SaveToLocalStorageAdapter();
+    storeFileLocalAdapter = new StoreFileLocalAdapter();
     // tempDir/public 경로를 생성하고 주입
     Path localPath = tempDir.resolve("public");
-    ReflectionTestUtils.setField(saveToLocalStorageAdapter, "localPath", localPath.toString());
+    ReflectionTestUtils.setField(storeFileLocalAdapter, "localPath", localPath.toString());
   }
 
   @Test
@@ -38,15 +38,13 @@ class SaveToLocalStorageAdapterTest {
     String filename = "test.png";
 
     // When
-    saveToLocalStorageAdapter.operate(inputStream, subPath, filename);
+    storeFileLocalAdapter.operate(inputStream, subPath, filename);
 
     // Then
     Path savedFile = tempDir.resolve("public").resolve(subPath).resolve(filename);
     assertThat(Files.exists(savedFile)).isTrue();
     assertThat(Files.readString(savedFile)).isEqualTo(content);
     assertThat(Files.isReadable(savedFile)).isTrue();
-    // 윈도우에서는 setWritable(true, false)가 소유자 권한만 설정하는게 아닐 수 있어 체크 생략 혹은 OS별 분기 필요
-    // 여기선 파일 존재와 내용 위주로 검증
   }
 
   @Test
@@ -64,7 +62,7 @@ class SaveToLocalStorageAdapterTest {
     InputStream inputStream = new ByteArrayInputStream(newContent.getBytes());
 
     // When
-    saveToLocalStorageAdapter.operate(inputStream, subPath, filename);
+    storeFileLocalAdapter.operate(inputStream, subPath, filename);
 
     // Then
     assertThat(Files.readString(targetFile)).isEqualTo(newContent);
@@ -79,7 +77,7 @@ class SaveToLocalStorageAdapterTest {
     String filename = "../../../etc/passwd";
 
     // When & Then
-    assertThatThrownBy(() -> saveToLocalStorageAdapter.operate(inputStream, subPath, filename))
+    assertThatThrownBy(() -> storeFileLocalAdapter.operate(inputStream, subPath, filename))
         .isInstanceOf(IllegalArgumentException.class)
         .hasMessageContaining("exception.file.path_traversal");
   }

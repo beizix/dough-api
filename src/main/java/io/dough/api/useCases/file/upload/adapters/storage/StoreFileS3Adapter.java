@@ -1,7 +1,7 @@
 package io.dough.api.useCases.file.upload.adapters.storage;
 
 import io.awspring.cloud.s3.S3Template;
-import io.dough.api.useCases.file.upload.application.SaveToFileStorage;
+import io.dough.api.useCases.file.upload.application.StoreFile;
 import io.dough.api.useCases.shared.domain.file.FileStorageType;
 import java.io.IOException;
 import java.io.InputStream;
@@ -14,7 +14,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 @Component
 @RequiredArgsConstructor
 @ConditionalOnProperty(name = "app.storage.s3.enabled", havingValue = "true")
-public class SaveToS3StorageAdapter implements SaveToFileStorage {
+public class StoreFileS3Adapter implements StoreFile {
   private final S3Template s3Template;
 
   @Value("${spring.cloud.aws.s3.bucket:#{null}}")

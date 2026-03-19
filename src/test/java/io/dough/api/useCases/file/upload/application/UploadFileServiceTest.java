@@ -37,7 +37,7 @@ class UploadFileServiceTest {
 
   @Mock private Tika tika;
 
-  @Mock private SaveToFileStorage localStorageStrategy;
+  @Mock private StoreFile localStorageStrategy;
 
   private UploadFileService uploadFileService;
 
@@ -46,7 +46,7 @@ class UploadFileServiceTest {
     // 기본적으로 로컬 스토리지 전략을 지원하도록 설정
     // 일부 실패 테스트에서는 전략을 조회하지 않으므로 lenient() 사용
     lenient().when(localStorageStrategy.getStorageType()).thenReturn(FileStorageType.LOCAL);
-    Set<SaveToFileStorage> strategies = Set.of(localStorageStrategy);
+    Set<StoreFile> strategies = Set.of(localStorageStrategy);
 
     uploadFileService = new UploadFileService(strategies, registerFileMetadata, tika);
   }
