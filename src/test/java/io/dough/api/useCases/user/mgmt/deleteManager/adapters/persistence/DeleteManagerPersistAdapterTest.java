@@ -3,8 +3,8 @@ package io.dough.api.useCases.user.mgmt.deleteManager.adapters.persistence;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import io.dough.api.support.DataJpaTestBase;
-import io.dough.api.useCases.shared.adapters.persistence.entity.UserEntity;
-import io.dough.api.useCases.shared.adapters.persistence.repository.UserRepository;
+import io.dough.api.useCases.shared.adapters.out.persistence.entity.UserEntity;
+import io.dough.api.useCases.shared.adapters.out.persistence.repository.UserRepository;
 import io.dough.api.useCases.shared.domain.auth.Role;
 import io.dough.api.useCases.user.mgmt.deleteManager.application.model.DeleteManagerCmd;
 import io.dough.api.useCases.user.mgmt.deleteManager.application.model.ManagerDeleted;

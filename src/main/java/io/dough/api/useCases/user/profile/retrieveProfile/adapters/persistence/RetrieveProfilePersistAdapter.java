@@ -1,7 +1,7 @@
 package io.dough.api.useCases.user.profile.retrieveProfile.adapters.persistence;
 
-import io.dough.api.useCases.shared.adapters.persistence.entity.UserEntity;
-import io.dough.api.useCases.shared.adapters.persistence.repository.UserRepository;
+import io.dough.api.useCases.shared.adapters.out.persistence.entity.UserEntity;
+import io.dough.api.useCases.shared.adapters.out.persistence.repository.UserRepository;
 import io.dough.api.useCases.user.profile.retrieveProfile.application.LoadProfile;
 import io.dough.api.useCases.user.profile.retrieveProfile.application.model.ProfileLoaded;
 import java.util.UUID;

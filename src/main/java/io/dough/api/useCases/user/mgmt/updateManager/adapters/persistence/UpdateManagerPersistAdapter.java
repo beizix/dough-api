@@ -1,7 +1,7 @@
 package io.dough.api.useCases.user.mgmt.updateManager.adapters.persistence;
 
-import io.dough.api.useCases.shared.adapters.persistence.entity.UserEntity;
-import io.dough.api.useCases.shared.adapters.persistence.repository.UserRepository;
+import io.dough.api.useCases.shared.adapters.out.persistence.entity.UserEntity;
+import io.dough.api.useCases.shared.adapters.out.persistence.repository.UserRepository;
 import io.dough.api.useCases.shared.domain.auth.Role;
 import io.dough.api.useCases.user.mgmt.updateManager.application.UpdateManager;
 import io.dough.api.useCases.user.mgmt.updateManager.application.model.ManagerUpdated;

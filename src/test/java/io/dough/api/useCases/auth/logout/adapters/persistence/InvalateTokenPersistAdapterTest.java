@@ -3,8 +3,8 @@ package io.dough.api.useCases.auth.logout.adapters.persistence;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import io.dough.api.support.DataJpaTestBase;
-import io.dough.api.useCases.shared.adapters.persistence.entity.UserEntity;
-import io.dough.api.useCases.shared.adapters.persistence.repository.UserRepository;
+import io.dough.api.useCases.shared.adapters.out.persistence.entity.UserEntity;
+import io.dough.api.useCases.shared.adapters.out.persistence.repository.UserRepository;
 import io.dough.api.useCases.shared.domain.auth.Role;
 import java.util.UUID;
 import org.junit.jupiter.api.DisplayName;

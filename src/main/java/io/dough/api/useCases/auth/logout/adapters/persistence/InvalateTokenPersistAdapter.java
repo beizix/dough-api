@@ -1,7 +1,8 @@
 package io.dough.api.useCases.auth.logout.adapters.persistence;
 
 import io.dough.api.useCases.auth.logout.application.InvalidateRefreshToken;
-import io.dough.api.useCases.shared.adapters.persistence.repository.UserRepository;
+import io.dough.api.useCases.shared.adapters.out.persistence.repository.UserRepository;
+
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;

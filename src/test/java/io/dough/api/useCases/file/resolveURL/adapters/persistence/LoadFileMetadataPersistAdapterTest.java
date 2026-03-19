@@ -5,8 +5,8 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import io.dough.api.support.DataJpaTestBase;
 import io.dough.api.useCases.file.resolveURL.application.model.FileMetadataLoaded;
-import io.dough.api.useCases.shared.adapters.persistence.entity.FileMetadataEntity;
-import io.dough.api.useCases.shared.adapters.persistence.repository.FileMetadataRepository;
+import io.dough.api.useCases.shared.adapters.out.persistence.entity.FileMetadataEntity;
+import io.dough.api.useCases.shared.adapters.out.persistence.repository.FileMetadataRepository;
 import io.dough.api.useCases.shared.domain.file.FileUploadType;
 import java.util.NoSuchElementException;
 import java.util.UUID;

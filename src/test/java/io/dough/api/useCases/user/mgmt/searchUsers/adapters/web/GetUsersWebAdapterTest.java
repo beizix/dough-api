@@ -8,7 +8,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import io.dough.api.support.WebMvcTestBase;
-import io.dough.api.useCases.shared.application.model.PageInfo;
+import io.dough.api.useCases.shared.application.service.model.PageInfo;
 import io.dough.api.useCases.user.mgmt.searchUsers.application.SearchUsersUseCase;
 import io.dough.api.useCases.user.mgmt.searchUsers.application.model.SearchUsers;
 import io.dough.api.useCases.user.mgmt.searchUsers.application.model.SearchUsersCmd;

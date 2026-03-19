@@ -4,7 +4,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
 
-import io.dough.api.useCases.shared.application.model.PageInfo;
+import io.dough.api.useCases.shared.application.service.model.PageInfo;
 import io.dough.api.useCases.shared.domain.auth.Role;
 import io.dough.api.useCases.user.mgmt.searchUsers.application.model.SearchUsers;
 import io.dough.api.useCases.user.mgmt.searchUsers.application.model.SearchUsersCmd;

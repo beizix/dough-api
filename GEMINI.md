@@ -71,19 +71,26 @@ io.dough.api/
 `-- useCases
     |-- shared (사용자, 매니저 등 전역 엔티티 공유)
     |   `-- adapters
-    |       `-- persistence
-    |           |-- entity
-    |           |   `-- <Domain>Entity.java (모든 엔티티는 AuditEntity 상속 및 @SQLRestriction 추가)
-    |           `-- repository
-    |               `-- <Domain>Repository.java
+    |       `-- out
+    |           `-- persistence
+    |               |-- entity
+    |               |   `-- <Domain>Entity.java (모든 엔티티는 AuditEntity 상속 및 @SQLRestriction 추가)
+    |               `-- repository
+    |                   `-- <Domain>Repository.java
     `-- <verbNoun> (유스케이스 명칭 - 예: registerUser)
         |-- adapters
-        |   |-- persistence
-        |   |   |-- <VerbNoun>PersistAdapter.java (예: RegisterUserPersistAdapter)
-        |   `-- web
-        |       |-- <VerbNoun>WebAdapter.java (예: RegisterUserWebAdapter)
-        |       |-- <VerbNoun>Request.java (RequestBody)
-        |       `-- <VerbNoun>Response.java (ResponseBody)
+        |   |-- in (인바운드 어댑터 - 외부에서 들어오는 요청)
+        |   |   `-- web
+        |   |       |-- <VerbNoun>WebAdapter.java (예: RegisterUserWebAdapter)
+        |   |       |-- <VerbNoun>Request.java (RequestBody)
+        |   |       `-- <VerbNoun>Response.java (ResponseBody)
+        |   `-- out (아웃바운드 어댑터 - 외부로 나가는 요청)
+        |       |-- persistence
+        |       |   `-- <VerbNoun>PersistAdapter.java (예: RegisterUserPersistAdapter)
+        |       |-- jwt
+        |       |   `-- <VerbNoun>JwtAdapter.java (예: IssueTokenJwtAdapter)
+        |       `-- storage
+        |           `-- <VerbNoun><Type>Adapter.java (예: StoreFileS3Adapter)
         |-- application
         |   |-- port
         |   |   |-- in
@@ -142,15 +149,17 @@ io.dough.api/
 
 `application`에 정의된 인터페이스를 구현하거나 호출하여, 특정 기술(웹, 데이터베이스 등)과 애플리케이션 핵심부를 연결합니다.
 
--   `adapters/web/`: **웹 어댑터**
+-   `adapters/in/web/`: **인바운드 웹 어댑터**
   -   HTTP 요청을 받아 처리하고 응답을 반환하는 역할을 합니다.
   -   `WebAdapter`는 `UseCase` 인터페이스를 주입받아 호출함으로써 비즈니스 로직 실행을 위임합니다.
-  -   **DTO 위치**: 요청/응답에 사용되는 데이터 전송 객체(`Request`, `Response`)는 별도의 `model` 패키지 없이 `web` 패키지 바로 아래에 위치합니다.
+  -   **DTO 위치**: 요청/응답에 사용되는 데이터 전송 객체(`Request`, `Response`)는 별도의 `model` 패키지 없이 `adapters/in/web` 패키지 바로 아래에 위치합니다.
   -   **Swagger 적용**: 모든 WebAdapter 클래스에는 `@Tag`, 메서드에는 `@Operation` 및 `@ApiResponse`, 요청 파라미터(RequestBody 포함)에는 `@Parameter` 어노테이션을 반드시 추가하여 API 문서를 자동화합니다.
 
--   `adapters/persistence/`: **영속성 어댑터**
-  -   데이터베이스와의 상호작용을 담당합니다.
-  -   출력 포트 인터페이스를 구현하여 실제 DB 쿼리를 실행하고, 그 결과를 애플리케이션 내부의 도메인 모델로 변환하여 반환합니다.
+-   `adapters/out/`: **아웃바운드 어댑터**
+  -   데이터베이스, 외부 API, 파일 시스템 등 외부 세계와의 상호작용을 담당합니다.
+  -   출력 포트 인터페이스를 구현하여 기술적인 세부 사항을 처리하고, 결과를 애플리케이션 내부 도메인 모델로 변환하여 반환합니다.
+  -   `persistence/`: 데이터베이스 연동 및 영속성 관리
+  -   `jwt/`, `storage/`, `ai/`: 기타 외부 인프라 서비스 연동
 
 ### `model` 정의 타입
 

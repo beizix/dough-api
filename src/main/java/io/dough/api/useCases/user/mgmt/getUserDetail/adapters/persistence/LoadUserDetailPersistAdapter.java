@@ -1,7 +1,7 @@
 package io.dough.api.useCases.user.mgmt.getUserDetail.adapters.persistence;
 
-import io.dough.api.useCases.shared.adapters.persistence.entity.UserEntity;
-import io.dough.api.useCases.shared.adapters.persistence.repository.UserRepository;
+import io.dough.api.useCases.shared.adapters.out.persistence.entity.UserEntity;
+import io.dough.api.useCases.shared.adapters.out.persistence.repository.UserRepository;
 import io.dough.api.useCases.user.mgmt.getUserDetail.application.LoadUserDetail;
 import io.dough.api.useCases.user.mgmt.getUserDetail.application.model.GetUserDetailCmd;
 import io.dough.api.useCases.user.mgmt.getUserDetail.application.model.UserDetailLoaded;

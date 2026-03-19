@@ -1,7 +1,7 @@
 package io.dough.api.useCases.user.mgmt.deleteManager.adapters.persistence;
 
-import io.dough.api.useCases.shared.adapters.persistence.entity.UserEntity;
-import io.dough.api.useCases.shared.adapters.persistence.repository.UserRepository;
+import io.dough.api.useCases.shared.adapters.out.persistence.entity.UserEntity;
+import io.dough.api.useCases.shared.adapters.out.persistence.repository.UserRepository;
 import io.dough.api.useCases.shared.domain.auth.Role;
 import io.dough.api.useCases.user.mgmt.deleteManager.application.DeleteManager;
 import io.dough.api.useCases.user.mgmt.deleteManager.application.model.DeleteManagerCmd;

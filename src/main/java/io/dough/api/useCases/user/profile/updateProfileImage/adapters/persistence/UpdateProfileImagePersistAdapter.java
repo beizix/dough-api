@@ -1,9 +1,9 @@
 package io.dough.api.useCases.user.profile.updateProfileImage.adapters.persistence;
 
-import io.dough.api.useCases.shared.adapters.persistence.entity.FileMetadataEntity;
-import io.dough.api.useCases.shared.adapters.persistence.entity.UserEntity;
-import io.dough.api.useCases.shared.adapters.persistence.repository.FileMetadataRepository;
-import io.dough.api.useCases.shared.adapters.persistence.repository.UserRepository;
+import io.dough.api.useCases.shared.adapters.out.persistence.entity.FileMetadataEntity;
+import io.dough.api.useCases.shared.adapters.out.persistence.entity.UserEntity;
+import io.dough.api.useCases.shared.adapters.out.persistence.repository.FileMetadataRepository;
+import io.dough.api.useCases.shared.adapters.out.persistence.repository.UserRepository;
 import io.dough.api.useCases.user.profile.updateProfileImage.application.UpdateUserProfileImage;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
