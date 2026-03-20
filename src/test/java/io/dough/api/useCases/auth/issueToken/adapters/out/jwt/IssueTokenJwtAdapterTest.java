@@ -2,9 +2,9 @@ package io.dough.api.useCases.auth.issueToken.adapters.out.jwt;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import io.dough.api.useCases.shared.application.service.auth.TokenResolver;
+import io.dough.api.useCases.shared.application.service.auth.TokenType;
 import io.dough.api.useCases.shared.domain.auth.Role;
-import io.dough.api.useCases.shared.domain.auth.Token;
-import io.dough.api.useCases.shared.domain.auth.TokenResolver;
 import io.jsonwebtoken.security.Keys;
 import java.nio.charset.StandardCharsets;
 import java.util.UUID;
@@ -45,7 +45,7 @@ class IssueTokenJwtAdapterTest {
     assertThat(resolver.validate()).isTrue();
     assertThat(resolver.getSubject()).isEqualTo(uuid.toString());
     assertThat(resolver.getEmail()).isEqualTo(email);
-    assertThat(resolver.getType()).isEqualTo(Token.access);
+    assertThat(resolver.getType()).isEqualTo(TokenType.access);
   }
 
   @Test
@@ -65,6 +65,6 @@ class IssueTokenJwtAdapterTest {
     TokenResolver resolver = new TokenResolver(key, token);
     assertThat(resolver.validate()).isTrue();
     assertThat(resolver.getSubject()).isEqualTo(uuid.toString());
-    assertThat(resolver.getType()).isEqualTo(Token.refresh);
+    assertThat(resolver.getType()).isEqualTo(TokenType.refresh);
   }
 }

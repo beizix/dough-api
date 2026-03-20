@@ -12,8 +12,8 @@ import io.dough.api.useCases.auth.issueToken.application.port.in.RefreshTokenCmd
 import io.dough.api.useCases.auth.issueToken.application.port.out.ManageRefreshToken;
 import io.dough.api.useCases.auth.issueToken.application.port.out.RefreshUserLoaded;
 import io.dough.api.useCases.auth.issueToken.application.port.out.TokenProvider;
+import io.dough.api.useCases.shared.application.service.auth.TokenType;
 import io.dough.api.useCases.shared.domain.auth.Role;
-import io.dough.api.useCases.shared.domain.auth.Token;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 import java.nio.charset.StandardCharsets;
@@ -74,7 +74,7 @@ class IssueTokenServiceTest {
     String refreshToken =
         Jwts.builder()
             .subject(uuid.toString())
-            .claim("type", Token.refresh.name())
+            .claim("type", TokenType.refresh.name())
             .signWith(Keys.hmacShaKeyFor(secret.getBytes(StandardCharsets.UTF_8)))
             .compact();
 

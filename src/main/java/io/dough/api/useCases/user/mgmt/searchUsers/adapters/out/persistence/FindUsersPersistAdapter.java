@@ -2,7 +2,7 @@ package io.dough.api.useCases.user.mgmt.searchUsers.adapters.out.persistence;
 
 import io.dough.api.useCases.shared.adapters.out.persistence.entity.UserEntity;
 import io.dough.api.useCases.shared.adapters.out.persistence.repository.UserRepository;
-import io.dough.api.useCases.shared.application.service.model.PageInfo;
+import io.dough.api.useCases.shared.application.service.pageable.PageInfo;
 import io.dough.api.useCases.user.mgmt.searchUsers.application.port.out.FindUsers;
 import io.dough.api.useCases.user.mgmt.searchUsers.application.port.in.SearchUsers;
 import io.dough.api.useCases.user.mgmt.searchUsers.application.port.in.SearchUsersCmd;

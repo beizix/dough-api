@@ -1,8 +1,8 @@
 package io.dough.api.useCases.auth.issueToken.adapters.out.jwt;
 
 import io.dough.api.useCases.auth.issueToken.application.port.out.TokenProvider;
+import io.dough.api.useCases.shared.application.service.auth.TokenType;
 import io.dough.api.useCases.shared.domain.auth.Role;
-import io.dough.api.useCases.shared.domain.auth.Token;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 import java.nio.charset.StandardCharsets;
@@ -31,16 +31,16 @@ public class IssueTokenJwtAdapter implements TokenProvider {
 
   @Override
   public String getAccessToken(UUID uuid, String email, String displayName, Role role) {
-    return generateToken(uuid, email, displayName, role, Token.access, accessTokenValidity);
+    return generateToken(uuid, email, displayName, role, TokenType.access, accessTokenValidity);
   }
 
   @Override
   public String getRefreshToken(UUID uuid, String email, String displayName, Role role) {
-    return generateToken(uuid, email, displayName, role, Token.refresh, refreshTokenValidity);
+    return generateToken(uuid, email, displayName, role, TokenType.refresh, refreshTokenValidity);
   }
 
   private String generateToken(
-      UUID uuid, String email, String displayName, Role role, Token type, long validity) {
+      UUID uuid, String email, String displayName, Role role, TokenType type, long validity) {
     Date now = new Date();
     Date expiration = new Date(now.getTime() + validity);
     var roleStr = role.getAuthority();

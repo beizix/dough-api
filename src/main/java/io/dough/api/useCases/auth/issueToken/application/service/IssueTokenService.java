@@ -6,8 +6,8 @@ import io.dough.api.useCases.auth.issueToken.application.port.in.IssueTokenUseCa
 import io.dough.api.useCases.auth.issueToken.application.port.in.RefreshTokenCmd;
 import io.dough.api.useCases.auth.issueToken.application.port.out.ManageRefreshToken;
 import io.dough.api.useCases.auth.issueToken.application.port.out.TokenProvider;
-import io.dough.api.useCases.shared.domain.auth.Token;
-import io.dough.api.useCases.shared.domain.auth.TokenResolver;
+import io.dough.api.useCases.shared.application.service.auth.TokenResolver;
+import io.dough.api.useCases.shared.application.service.auth.TokenType;
 import io.jsonwebtoken.security.Keys;
 import java.nio.charset.StandardCharsets;
 import javax.crypto.SecretKey;
@@ -41,7 +41,7 @@ public class IssueTokenService implements IssueTokenUseCase {
   public AuthToken refreshToken(RefreshTokenCmd cmd) {
     SecretKey key = Keys.hmacShaKeyFor(secret.getBytes(StandardCharsets.UTF_8));
     TokenResolver tokenResolver = new TokenResolver(key, cmd.refreshToken());
-    if (!tokenResolver.validate() || tokenResolver.getType() != Token.refresh) {
+    if (!tokenResolver.validate() || tokenResolver.getType() != TokenType.refresh) {
       throw new IllegalArgumentException("exception.auth.invalid_refresh_token");
     }
 

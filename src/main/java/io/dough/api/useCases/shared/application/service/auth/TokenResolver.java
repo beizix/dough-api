@@ -1,4 +1,4 @@
-package io.dough.api.useCases.shared.domain.auth;
+package io.dough.api.useCases.shared.application.service.auth;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -51,9 +51,9 @@ public class TokenResolver {
     return privileges != null ? privileges : Collections.emptyList();
   }
 
-  public Token getType() {
+  public TokenType getType() {
     String type = getClaims().get("type", String.class);
-    return Token.valueOf(type);
+    return TokenType.valueOf(type);
   }
 
   private Claims getClaims() {

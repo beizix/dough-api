@@ -2,6 +2,8 @@ package io.dough.api.useCases.shared.domain.auth;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import io.dough.api.useCases.shared.application.service.auth.TokenResolver;
+import io.dough.api.useCases.shared.application.service.auth.TokenType;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 import java.nio.charset.StandardCharsets;
@@ -38,7 +40,7 @@ class TokenResolverTest {
             .subject(uuid.toString())
             .claim("email", email)
             .claim("displayName", displayName)
-            .claim("type", Token.access.name())
+            .claim("type", TokenType.access.name())
             .claim("role", role.getAuthority())
             .claim("privileges", role.getPrivileges().stream().map(Enum::name).toList())
             .issuedAt(now)
@@ -55,7 +57,7 @@ class TokenResolverTest {
     assertThat(resolver.getEmail()).isEqualTo(email);
     assertThat(resolver.getDisplayName()).isEqualTo(displayName);
     assertThat(resolver.getRole()).isEqualTo(role.getAuthority());
-    assertThat(resolver.getType()).isEqualTo(Token.access);
+    assertThat(resolver.getType()).isEqualTo(TokenType.access);
   }
 
   @Test
@@ -65,7 +67,7 @@ class TokenResolverTest {
     String token =
         Jwts.builder()
             .subject(uuid.toString())
-            .claim("type", Token.refresh.name())
+            .claim("type", TokenType.refresh.name())
             .issuedAt(now)
             .expiration(new Date(now.getTime() + refreshValidity))
             .signWith(key)
@@ -77,7 +79,7 @@ class TokenResolverTest {
     // Then
     assertThat(resolver.validate()).isTrue();
     assertThat(resolver.getSubject()).isEqualTo(uuid.toString());
-    assertThat(resolver.getType()).isEqualTo(Token.refresh);
+    assertThat(resolver.getType()).isEqualTo(TokenType.refresh);
   }
 
   @Test
@@ -87,7 +89,7 @@ class TokenResolverTest {
     String token =
         Jwts.builder()
                 .subject(uuid.toString())
-                .claim("type", Token.access.name())
+                .claim("type", TokenType.access.name())
                 .signWith(key)
                 .compact()
             + "extra";
@@ -110,7 +112,7 @@ class TokenResolverTest {
     String token =
         Jwts.builder()
             .subject(uuid.toString())
-            .claim("type", Token.access.name())
+            .claim("type", TokenType.access.name())
             .signWith(anotherKey)
             .compact();
 

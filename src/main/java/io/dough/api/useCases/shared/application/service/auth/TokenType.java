@@ -1,12 +1,12 @@
-package io.dough.api.useCases.shared.domain.auth;
+package io.dough.api.useCases.shared.application.service.auth;
 
-public enum Token {
+public enum TokenType {
   access("액세스 토큰"),
   refresh("리프레시 토큰");
 
   private final String desc;
 
-  Token(String desc) {
+  TokenType(String desc) {
     this.desc = desc;
   }
 

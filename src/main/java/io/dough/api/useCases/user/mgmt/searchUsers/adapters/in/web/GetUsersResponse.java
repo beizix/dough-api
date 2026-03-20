@@ -1,6 +1,6 @@
 package io.dough.api.useCases.user.mgmt.searchUsers.adapters.in.web;
 
-import io.dough.api.useCases.shared.application.service.model.PageInfo;
+import io.dough.api.useCases.shared.application.service.pageable.PageInfo;
 import io.dough.api.useCases.shared.domain.auth.Role;
 import io.dough.api.useCases.user.mgmt.searchUsers.application.port.in.SearchUsers;
 import io.dough.api.useCases.user.mgmt.searchUsers.application.port.in.SearchedUser;
