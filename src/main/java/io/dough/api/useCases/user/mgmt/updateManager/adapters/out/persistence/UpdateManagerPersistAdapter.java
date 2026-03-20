@@ -1,0 +1,37 @@
+package io.dough.api.useCases.user.mgmt.updateManager.adapters.out.persistence;
+
+import io.dough.api.useCases.shared.adapters.out.persistence.entity.UserEntity;
+import io.dough.api.useCases.shared.adapters.out.persistence.repository.UserRepository;
+import io.dough.api.useCases.shared.domain.auth.Role;
+import io.dough.api.useCases.user.mgmt.updateManager.application.port.out.UpdateManager;
+import io.dough.api.useCases.user.mgmt.updateManager.application.port.in.ManagerUpdated;
+import io.dough.api.useCases.user.mgmt.updateManager.application.port.in.UpdateManagerCmd;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Component;
+
+@Component
+@RequiredArgsConstructor
+public class UpdateManagerPersistAdapter implements UpdateManager {
+
+  private final UserRepository userRepository;
+
+  @Override
+  public ManagerUpdated operate(UpdateManagerCmd cmd) {
+    UserEntity user =
+        userRepository
+            .findByEmailAndRole(cmd.email(), Role.MANAGER)
+            .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 매니저입니다."));
+
+    if (cmd.displayName() != null) {
+      user.setDisplayName(cmd.displayName());
+    }
+    if (cmd.password() != null) {
+      user.setPassword(cmd.password());
+    }
+
+    userRepository.save(user);
+
+    return new ManagerUpdated(
+        user.getId(), user.getEmail(), user.getDisplayName(), user.getRole(), user.getUpdatedAt());
+  }
+}
