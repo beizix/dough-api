@@ -1,7 +1,10 @@
-package io.dough.api.useCases.user.profile.updatePassword.application;
+package io.dough.api.useCases.user.profile.updatePassword.application.service;
 
-import io.dough.api.useCases.user.profile.updatePassword.application.model.Password;
-import io.dough.api.useCases.user.profile.updatePassword.application.model.UpdatePasswordCmd;
+import io.dough.api.useCases.user.profile.updatePassword.application.port.in.UpdatePasswordCmd;
+import io.dough.api.useCases.user.profile.updatePassword.application.port.in.UpdatePasswordUseCase;
+import io.dough.api.useCases.user.profile.updatePassword.application.port.out.LoadPassword;
+import io.dough.api.useCases.user.profile.updatePassword.application.port.out.Password;
+import io.dough.api.useCases.user.profile.updatePassword.application.port.out.SavePassword;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;

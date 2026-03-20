@@ -1,4 +1,4 @@
-package io.dough.api.useCases.user.profile.updatePassword.application.model;
+package io.dough.api.useCases.user.profile.updatePassword.application.port.in;
 
 import io.dough.api.useCases.shared.application.service.validator.PasswordValidator;
 import java.util.UUID;

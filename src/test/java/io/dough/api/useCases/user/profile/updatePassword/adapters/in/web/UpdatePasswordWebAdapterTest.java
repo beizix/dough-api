@@ -1,4 +1,4 @@
-package io.dough.api.useCases.user.profile.updatePassword.adapters.web;
+package io.dough.api.useCases.user.profile.updatePassword.adapters.in.web;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
@@ -6,9 +6,8 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import io.dough.api.support.WebMvcTestBase;
-import io.dough.api.useCases.user.profile.updatePassword.adapters.web.model.UpdatePasswordRequest;
-import io.dough.api.useCases.user.profile.updatePassword.application.UpdatePasswordUseCase;
-import io.dough.api.useCases.user.profile.updatePassword.application.model.UpdatePasswordCmd;
+import io.dough.api.useCases.user.profile.updatePassword.application.port.in.UpdatePasswordCmd;
+import io.dough.api.useCases.user.profile.updatePassword.application.port.in.UpdatePasswordUseCase;
 import java.util.List;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

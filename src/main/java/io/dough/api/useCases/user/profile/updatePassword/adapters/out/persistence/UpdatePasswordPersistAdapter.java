@@ -1,11 +1,10 @@
-package io.dough.api.useCases.user.profile.updatePassword.adapters.persistence;
+package io.dough.api.useCases.user.profile.updatePassword.adapters.out.persistence;
 
 import io.dough.api.useCases.shared.adapters.out.persistence.entity.UserEntity;
 import io.dough.api.useCases.shared.adapters.out.persistence.repository.UserRepository;
-import io.dough.api.useCases.user.profile.updatePassword.application.LoadPassword;
-import io.dough.api.useCases.user.profile.updatePassword.application.SavePassword;
-import io.dough.api.useCases.user.profile.updatePassword.application.model.Password;
-
+import io.dough.api.useCases.user.profile.updatePassword.application.port.out.LoadPassword;
+import io.dough.api.useCases.user.profile.updatePassword.application.port.out.Password;
+import io.dough.api.useCases.user.profile.updatePassword.application.port.out.SavePassword;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
