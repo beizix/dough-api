@@ -1,4 +1,4 @@
-package io.dough.api.useCases.file.upload.adapters.storage;
+package io.dough.api.useCases.file.upload.adapters.out.storage;
 
 import io.dough.api.useCases.file.upload.application.port.out.StoreFile;
 import io.dough.api.useCases.shared.domain.file.FileStorageType;

@@ -1,4 +1,4 @@
-package io.dough.api.useCases.file.upload.adapters.persistence;
+package io.dough.api.useCases.file.upload.adapters.out.persistence;
 
 import io.dough.api.useCases.file.upload.application.port.out.FileMetadataRegistered;
 import io.dough.api.useCases.file.upload.application.port.out.RegisterFileMetadata;
