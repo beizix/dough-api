@@ -12,10 +12,10 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Import;
 
-@Import(InvalateTokenPersistAdapter.class)
-class InvalateTokenPersistAdapterTest extends DataJpaTestBase {
+@Import(InvalidateTokenPersistAdapter.class)
+class InvalidateTokenPersistAdapterTest extends DataJpaTestBase {
 
-  @Autowired private InvalateTokenPersistAdapter invalateTokenPersistAdapter;
+  @Autowired private InvalidateTokenPersistAdapter invalidateTokenPersistAdapter;
 
   @Autowired private UserRepository userRepository;
 
@@ -29,7 +29,7 @@ class InvalateTokenPersistAdapterTest extends DataJpaTestBase {
     UUID userId = savedUser.getId();
 
     // When
-    invalateTokenPersistAdapter.operate(userId);
+    invalidateTokenPersistAdapter.operate(userId);
 
     // Then
     UserEntity updatedUser = userRepository.findById(userId).orElseThrow();

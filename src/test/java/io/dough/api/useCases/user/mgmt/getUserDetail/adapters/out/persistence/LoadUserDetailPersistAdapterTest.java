@@ -17,11 +17,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Import;
 
 @Import(LoadUserDetailPersistAdapter.class)
-class GetUserDetailPersistAdapterTest extends DataJpaTestBase {
+class LoadUserDetailPersistAdapterTest extends DataJpaTestBase {
 
   @Autowired private UserRepository userRepository;
 
-  @Autowired private LoadUserDetailPersistAdapter getUserDetailPersistAdapter;
+  @Autowired private LoadUserDetailPersistAdapter loadUserDetailPersistAdapter;
 
   private UUID savedUserId;
 
@@ -39,7 +39,7 @@ class GetUserDetailPersistAdapterTest extends DataJpaTestBase {
     GetUserDetailCmd cmd = new GetUserDetailCmd(savedUserId);
 
     // When
-    UserDetailLoaded result = getUserDetailPersistAdapter.operate(cmd);
+    UserDetailLoaded result = loadUserDetailPersistAdapter.operate(cmd);
 
     // Then
     assertThat(result.id()).isEqualTo(savedUserId);
@@ -56,7 +56,7 @@ class GetUserDetailPersistAdapterTest extends DataJpaTestBase {
     GetUserDetailCmd cmd = new GetUserDetailCmd(UUID.randomUUID());
 
     // Then
-    assertThatThrownBy(() -> getUserDetailPersistAdapter.operate(cmd))
+    assertThatThrownBy(() -> loadUserDetailPersistAdapter.operate(cmd))
         .isInstanceOf(IllegalArgumentException.class);
   }
 }

@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
-public class InvalateTokenPersistAdapter implements InvalidateRefreshToken {
+public class InvalidateTokenPersistAdapter implements InvalidateRefreshToken {
 
   private final UserRepository userRepository;
 

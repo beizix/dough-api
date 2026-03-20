@@ -8,7 +8,7 @@ import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 import tools.jackson.databind.ObjectMapper;
 
-@AutoConfigureMockMvc // 시큐리티 필터 적용 (기본값 addFilters = true)
+@AutoConfigureMockMvc(addFilters = false) // 시큐리티 필터 제외 (GEMINI.md 지침)
 @ActiveProfiles("test")
 public abstract class WebMvcTestBase {
 
