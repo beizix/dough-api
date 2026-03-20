@@ -1,12 +1,13 @@
-package io.dough.api.useCases.user.mgmt.getUserDetail.application;
+package io.dough.api.useCases.user.mgmt.getUserDetail.application.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
 
 import io.dough.api.useCases.shared.domain.auth.Role;
-import io.dough.api.useCases.user.mgmt.getUserDetail.application.model.GetUserDetailCmd;
-import io.dough.api.useCases.user.mgmt.getUserDetail.application.model.UserDetailLoaded;
+import io.dough.api.useCases.user.mgmt.getUserDetail.application.port.in.GetUserDetailCmd;
+import io.dough.api.useCases.user.mgmt.getUserDetail.application.port.in.UserDetailLoaded;
+import io.dough.api.useCases.user.mgmt.getUserDetail.application.port.out.LoadUserDetail;
 import java.time.LocalDateTime;
 import java.util.UUID;
 import org.junit.jupiter.api.DisplayName;

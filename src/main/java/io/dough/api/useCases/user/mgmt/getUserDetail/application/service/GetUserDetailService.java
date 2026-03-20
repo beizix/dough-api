@@ -1,7 +1,9 @@
-package io.dough.api.useCases.user.mgmt.getUserDetail.application;
+package io.dough.api.useCases.user.mgmt.getUserDetail.application.service;
 
-import io.dough.api.useCases.user.mgmt.getUserDetail.application.model.GetUserDetailCmd;
-import io.dough.api.useCases.user.mgmt.getUserDetail.application.model.UserDetailLoaded;
+import io.dough.api.useCases.user.mgmt.getUserDetail.application.port.in.GetUserDetailCmd;
+import io.dough.api.useCases.user.mgmt.getUserDetail.application.port.in.GetUserDetailUseCase;
+import io.dough.api.useCases.user.mgmt.getUserDetail.application.port.in.UserDetailLoaded;
+import io.dough.api.useCases.user.mgmt.getUserDetail.application.port.out.LoadUserDetail;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

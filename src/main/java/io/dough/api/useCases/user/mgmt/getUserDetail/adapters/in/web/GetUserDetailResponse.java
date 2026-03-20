@@ -1,7 +1,7 @@
-package io.dough.api.useCases.user.mgmt.getUserDetail.adapters.web.model;
+package io.dough.api.useCases.user.mgmt.getUserDetail.adapters.in.web;
 
 import io.dough.api.useCases.shared.domain.auth.Role;
-import io.dough.api.useCases.user.mgmt.getUserDetail.application.model.UserDetailLoaded;
+import io.dough.api.useCases.user.mgmt.getUserDetail.application.port.in.UserDetailLoaded;
 import java.time.LocalDateTime;
 import java.util.UUID;
 

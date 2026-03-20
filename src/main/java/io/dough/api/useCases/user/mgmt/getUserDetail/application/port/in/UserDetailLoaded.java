@@ -1,4 +1,4 @@
-package io.dough.api.useCases.user.mgmt.getUserDetail.application.model;
+package io.dough.api.useCases.user.mgmt.getUserDetail.application.port.in;
 
 import io.dough.api.useCases.shared.domain.auth.Role;
 import java.time.LocalDateTime;

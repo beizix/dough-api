@@ -1,4 +1,4 @@
-package io.dough.api.useCases.user.mgmt.getUserDetail.adapters.persistence;
+package io.dough.api.useCases.user.mgmt.getUserDetail.adapters.out.persistence;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -7,8 +7,8 @@ import io.dough.api.support.DataJpaTestBase;
 import io.dough.api.useCases.shared.adapters.out.persistence.entity.UserEntity;
 import io.dough.api.useCases.shared.adapters.out.persistence.repository.UserRepository;
 import io.dough.api.useCases.shared.domain.auth.Role;
-import io.dough.api.useCases.user.mgmt.getUserDetail.application.model.GetUserDetailCmd;
-import io.dough.api.useCases.user.mgmt.getUserDetail.application.model.UserDetailLoaded;
+import io.dough.api.useCases.user.mgmt.getUserDetail.application.port.in.GetUserDetailCmd;
+import io.dough.api.useCases.user.mgmt.getUserDetail.application.port.in.UserDetailLoaded;
 import java.util.UUID;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;

@@ -1,4 +1,4 @@
-package io.dough.api.useCases.user.mgmt.getUserDetail.adapters.web;
+package io.dough.api.useCases.user.mgmt.getUserDetail.adapters.in.web;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
@@ -8,8 +8,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import io.dough.api.support.WebMvcTestBase;
 import io.dough.api.useCases.shared.domain.auth.Role;
-import io.dough.api.useCases.user.mgmt.getUserDetail.application.GetUserDetailUseCase;
-import io.dough.api.useCases.user.mgmt.getUserDetail.application.model.UserDetailLoaded;
+import io.dough.api.useCases.user.mgmt.getUserDetail.application.port.in.GetUserDetailUseCase;
+import io.dough.api.useCases.user.mgmt.getUserDetail.application.port.in.UserDetailLoaded;
 import java.time.LocalDateTime;
 import java.util.UUID;
 import org.junit.jupiter.api.DisplayName;
