@@ -16,33 +16,27 @@ public class AppArchTest {
   static final String OUTBOUND_ADAPTER = "OUTBOUND_ADAPTER";
   static final String CONFIG = "CONFIG";
 
-  final JavaClasses classes =
-      new ClassFileImporter()
-          .withImportOption(new ImportOption.DoNotIncludeTests())
-          .importPackages("io.dough.api..");
+  final JavaClasses classes = new ClassFileImporter()
+      .withImportOption(new ImportOption.DoNotIncludeTests())
+      .importPackages("io.dough.api..");
 
-  final Architectures.LayeredArchitecture layeredArchitecture =
-      layeredArchitecture()
-          .consideringOnlyDependenciesInAnyPackage("io.dough.api..")
-          // `도매인 계층` 정의
-          .layer(DOMAIN)
-          .definedBy("..domain..")
-          // `애플리케이션 계층` 정의
-          .layer(APPLICATION)
-          .definedBy("..application..")
-          // `인바운드 어댑터` 계층 정의
-          .layer(INBOUND_ADAPTER)
-          .definedBy("..adapters.web..")
-          // `아웃바운드 어댑터` 계층 정의
-          .layer(OUTBOUND_ADAPTER)
-          .definedBy(
-              "..adapters.persistence..",
-              "..adapters.ai..",
-              "..adapters.storage..",
-              "..adapters.jwt..")
-          // `설정` 계층 정의
-          .layer(CONFIG)
-          .definedBy("..config..");
+  final Architectures.LayeredArchitecture layeredArchitecture = layeredArchitecture()
+      .consideringOnlyDependenciesInAnyPackage("io.dough.api..")
+      // `도매인 계층` 정의
+      .layer(DOMAIN)
+      .definedBy("..domain..")
+      // `애플리케이션 계층` 정의
+      .layer(APPLICATION)
+      .definedBy("..application..")
+      // `인바운드 어댑터` 계층 정의
+      .layer(INBOUND_ADAPTER)
+      .definedBy("..adapters.in..")
+      // `아웃바운드 어댑터` 계층 정의
+      .layer(OUTBOUND_ADAPTER)
+      .definedBy("..adapters.out..")
+      // `설정` 계층 정의
+      .layer(CONFIG)
+      .definedBy("..config..");
 
   @DisplayName("`인바운드 어댑터` 계층은 `애플리케이션` 계층과 `도메인` 계층을 참조할 수 있다.")
   @Test
