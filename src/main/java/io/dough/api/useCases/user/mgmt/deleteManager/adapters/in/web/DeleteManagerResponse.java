@@ -1,6 +1,6 @@
-package io.dough.api.useCases.user.mgmt.deleteManager.adapters.web.model;
+package io.dough.api.useCases.user.mgmt.deleteManager.adapters.in.web;
 
-import io.dough.api.useCases.user.mgmt.deleteManager.application.model.ManagerDeleted;
+import io.dough.api.useCases.user.mgmt.deleteManager.application.port.in.ManagerDeleted;
 import java.time.LocalDateTime;
 
 public record DeleteManagerResponse(boolean deleted, LocalDateTime deletedAt) {

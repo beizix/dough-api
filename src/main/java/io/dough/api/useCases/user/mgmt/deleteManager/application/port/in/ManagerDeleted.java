@@ -1,4 +1,4 @@
-package io.dough.api.useCases.user.mgmt.deleteManager.application.model;
+package io.dough.api.useCases.user.mgmt.deleteManager.application.port.in;
 
 import java.time.LocalDateTime;
 

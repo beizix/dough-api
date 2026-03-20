@@ -1,9 +1,9 @@
-package io.dough.api.useCases.user.mgmt.deleteManager.adapters.web;
+package io.dough.api.useCases.user.mgmt.deleteManager.adapters.in.web;
 
-import io.dough.api.useCases.user.mgmt.deleteManager.adapters.web.model.DeleteManagerRequest;
-import io.dough.api.useCases.user.mgmt.deleteManager.adapters.web.model.DeleteManagerResponse;
-import io.dough.api.useCases.user.mgmt.deleteManager.application.DeleteManagerUseCase;
-import io.dough.api.useCases.user.mgmt.deleteManager.application.model.DeleteManagerCmd;
+import io.dough.api.useCases.user.mgmt.deleteManager.adapters.in.web.DeleteManagerRequest;
+import io.dough.api.useCases.user.mgmt.deleteManager.adapters.in.web.DeleteManagerResponse;
+import io.dough.api.useCases.user.mgmt.deleteManager.application.port.in.DeleteManagerUseCase;
+import io.dough.api.useCases.user.mgmt.deleteManager.application.port.in.DeleteManagerCmd;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;

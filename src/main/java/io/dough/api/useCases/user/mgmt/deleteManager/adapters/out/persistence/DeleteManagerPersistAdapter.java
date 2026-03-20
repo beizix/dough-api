@@ -1,11 +1,11 @@
-package io.dough.api.useCases.user.mgmt.deleteManager.adapters.persistence;
+package io.dough.api.useCases.user.mgmt.deleteManager.adapters.out.persistence;
 
 import io.dough.api.useCases.shared.adapters.out.persistence.entity.UserEntity;
 import io.dough.api.useCases.shared.adapters.out.persistence.repository.UserRepository;
 import io.dough.api.useCases.shared.domain.auth.Role;
-import io.dough.api.useCases.user.mgmt.deleteManager.application.DeleteManager;
-import io.dough.api.useCases.user.mgmt.deleteManager.application.model.DeleteManagerCmd;
-import io.dough.api.useCases.user.mgmt.deleteManager.application.model.ManagerDeleted;
+import io.dough.api.useCases.user.mgmt.deleteManager.application.port.out.DeleteManager;
+import io.dough.api.useCases.user.mgmt.deleteManager.application.port.in.DeleteManagerCmd;
+import io.dough.api.useCases.user.mgmt.deleteManager.application.port.in.ManagerDeleted;
 import java.time.LocalDateTime;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;

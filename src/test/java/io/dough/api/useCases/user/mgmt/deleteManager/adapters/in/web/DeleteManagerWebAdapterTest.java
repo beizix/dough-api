@@ -1,4 +1,4 @@
-package io.dough.api.useCases.user.mgmt.deleteManager.adapters.web;
+package io.dough.api.useCases.user.mgmt.deleteManager.adapters.in.web;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
@@ -7,9 +7,9 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import io.dough.api.support.WebMvcTestBase;
-import io.dough.api.useCases.user.mgmt.deleteManager.adapters.web.model.DeleteManagerRequest;
-import io.dough.api.useCases.user.mgmt.deleteManager.application.DeleteManagerUseCase;
-import io.dough.api.useCases.user.mgmt.deleteManager.application.model.ManagerDeleted;
+import io.dough.api.useCases.user.mgmt.deleteManager.adapters.in.web.DeleteManagerRequest;
+import io.dough.api.useCases.user.mgmt.deleteManager.application.port.in.DeleteManagerUseCase;
+import io.dough.api.useCases.user.mgmt.deleteManager.application.port.in.ManagerDeleted;
 import java.time.LocalDateTime;
 import java.util.UUID;
 import org.junit.jupiter.api.DisplayName;

@@ -1,11 +1,12 @@
-package io.dough.api.useCases.user.mgmt.deleteManager.application;
+package io.dough.api.useCases.user.mgmt.deleteManager.application.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
 
-import io.dough.api.useCases.user.mgmt.deleteManager.application.model.DeleteManagerCmd;
-import io.dough.api.useCases.user.mgmt.deleteManager.application.model.ManagerDeleted;
+import io.dough.api.useCases.user.mgmt.deleteManager.application.port.in.DeleteManagerCmd;
+import io.dough.api.useCases.user.mgmt.deleteManager.application.port.in.ManagerDeleted;
+import io.dough.api.useCases.user.mgmt.deleteManager.application.port.out.DeleteManager;
 import java.time.LocalDateTime;
 import java.util.UUID;
 import org.junit.jupiter.api.DisplayName;

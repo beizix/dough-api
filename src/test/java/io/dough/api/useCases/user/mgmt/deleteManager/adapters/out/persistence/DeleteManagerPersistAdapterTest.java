@@ -1,4 +1,4 @@
-package io.dough.api.useCases.user.mgmt.deleteManager.adapters.persistence;
+package io.dough.api.useCases.user.mgmt.deleteManager.adapters.out.persistence;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -6,8 +6,8 @@ import io.dough.api.support.DataJpaTestBase;
 import io.dough.api.useCases.shared.adapters.out.persistence.entity.UserEntity;
 import io.dough.api.useCases.shared.adapters.out.persistence.repository.UserRepository;
 import io.dough.api.useCases.shared.domain.auth.Role;
-import io.dough.api.useCases.user.mgmt.deleteManager.application.model.DeleteManagerCmd;
-import io.dough.api.useCases.user.mgmt.deleteManager.application.model.ManagerDeleted;
+import io.dough.api.useCases.user.mgmt.deleteManager.application.port.in.DeleteManagerCmd;
+import io.dough.api.useCases.user.mgmt.deleteManager.application.port.in.ManagerDeleted;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import java.util.UUID;
