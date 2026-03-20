@@ -1,9 +1,10 @@
-package io.dough.api.useCases.user.profile.retrieveProfile.adapters.persistence;
+package io.dough.api.useCases.user.profile.retrieveProfile.adapters.out.persistence;
 
 import io.dough.api.useCases.shared.adapters.out.persistence.entity.UserEntity;
 import io.dough.api.useCases.shared.adapters.out.persistence.repository.UserRepository;
-import io.dough.api.useCases.user.profile.retrieveProfile.application.LoadProfile;
-import io.dough.api.useCases.user.profile.retrieveProfile.application.model.ProfileLoaded;
+import io.dough.api.useCases.user.profile.retrieveProfile.application.port.out.LoadProfile;
+import io.dough.api.useCases.user.profile.retrieveProfile.application.port.out.ProfileLoaded;
+
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;

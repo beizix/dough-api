@@ -1,4 +1,4 @@
-package io.dough.api.useCases.user.profile.retrieveProfile.adapters.persistence;
+package io.dough.api.useCases.user.profile.retrieveProfile.adapters.out.persistence;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -6,7 +6,9 @@ import io.dough.api.support.DataJpaTestBase;
 import io.dough.api.useCases.shared.adapters.out.persistence.entity.UserEntity;
 import io.dough.api.useCases.shared.adapters.out.persistence.repository.UserRepository;
 import io.dough.api.useCases.shared.domain.auth.Role;
-import io.dough.api.useCases.user.profile.retrieveProfile.application.model.ProfileLoaded;
+import io.dough.api.useCases.user.profile.retrieveProfile.adapters.out.persistence.RetrieveProfilePersistAdapter;
+import io.dough.api.useCases.user.profile.retrieveProfile.application.port.out.ProfileLoaded;
+
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

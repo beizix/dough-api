@@ -1,9 +1,11 @@
-package io.dough.api.useCases.user.profile.retrieveProfile.application;
+package io.dough.api.useCases.user.profile.retrieveProfile.application.service;
 
 import io.dough.api.useCases.file.resolveURL.application.port.in.ResolveURLUseCase;
-import io.dough.api.useCases.user.profile.retrieveProfile.application.model.ProfileLoaded;
-import io.dough.api.useCases.user.profile.retrieveProfile.application.model.RetrieveProfile;
-import io.dough.api.useCases.user.profile.retrieveProfile.application.model.RetrieveProfileCmd;
+import io.dough.api.useCases.user.profile.retrieveProfile.application.port.in.RetrieveProfile;
+import io.dough.api.useCases.user.profile.retrieveProfile.application.port.in.RetrieveProfileCmd;
+import io.dough.api.useCases.user.profile.retrieveProfile.application.port.in.RetrieveProfileUseCase;
+import io.dough.api.useCases.user.profile.retrieveProfile.application.port.out.LoadProfile;
+import io.dough.api.useCases.user.profile.retrieveProfile.application.port.out.ProfileLoaded;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

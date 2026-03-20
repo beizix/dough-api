@@ -1,4 +1,4 @@
-package io.dough.api.useCases.user.profile.retrieveProfile.application.model;
+package io.dough.api.useCases.user.profile.retrieveProfile.application.port.in;
 
 import java.time.LocalDateTime;
 import java.util.UUID;

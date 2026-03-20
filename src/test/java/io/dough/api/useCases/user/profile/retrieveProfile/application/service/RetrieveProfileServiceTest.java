@@ -1,4 +1,4 @@
-package io.dough.api.useCases.user.profile.retrieveProfile.application;
+package io.dough.api.useCases.user.profile.retrieveProfile.application.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.BDDMockito.given;
@@ -6,9 +6,12 @@ import static org.mockito.Mockito.verify;
 
 import io.dough.api.useCases.file.resolveURL.application.port.in.ResolveURLUseCase;
 import io.dough.api.useCases.shared.domain.auth.Role;
-import io.dough.api.useCases.user.profile.retrieveProfile.application.model.ProfileLoaded;
-import io.dough.api.useCases.user.profile.retrieveProfile.application.model.RetrieveProfile;
-import io.dough.api.useCases.user.profile.retrieveProfile.application.model.RetrieveProfileCmd;
+import io.dough.api.useCases.user.profile.retrieveProfile.application.port.in.RetrieveProfile;
+import io.dough.api.useCases.user.profile.retrieveProfile.application.port.in.RetrieveProfileCmd;
+import io.dough.api.useCases.user.profile.retrieveProfile.application.port.out.LoadProfile;
+import io.dough.api.useCases.user.profile.retrieveProfile.application.port.out.ProfileLoaded;
+import io.dough.api.useCases.user.profile.retrieveProfile.application.service.RetrieveProfileService;
+
 import java.util.UUID;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

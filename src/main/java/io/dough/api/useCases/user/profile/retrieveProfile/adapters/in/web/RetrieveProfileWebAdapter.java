@@ -1,9 +1,9 @@
-package io.dough.api.useCases.user.profile.retrieveProfile.adapters.web;
+package io.dough.api.useCases.user.profile.retrieveProfile.adapters.in.web;
 
-import io.dough.api.useCases.user.profile.retrieveProfile.adapters.web.model.RetrieveProfileResponse;
-import io.dough.api.useCases.user.profile.retrieveProfile.application.RetrieveProfileUseCase;
-import io.dough.api.useCases.user.profile.retrieveProfile.application.model.RetrieveProfile;
-import io.dough.api.useCases.user.profile.retrieveProfile.application.model.RetrieveProfileCmd;
+import io.dough.api.useCases.user.profile.retrieveProfile.adapters.in.web.model.RetrieveProfileResponse;
+import io.dough.api.useCases.user.profile.retrieveProfile.application.port.in.RetrieveProfile;
+import io.dough.api.useCases.user.profile.retrieveProfile.application.port.in.RetrieveProfileCmd;
+import io.dough.api.useCases.user.profile.retrieveProfile.application.port.in.RetrieveProfileUseCase;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
