@@ -1,8 +1,8 @@
 package io.dough.api.useCases.user.profile.updateProfileImage.application;
 
 import io.dough.api.useCases.file.resolveURL.application.ResolveURLUseCase;
-import io.dough.api.useCases.file.upload.application.UploadFileUseCase;
-import io.dough.api.useCases.file.upload.application.model.UploadFileCmd;
+import io.dough.api.useCases.file.upload.application.port.in.UploadFileCmd;
+import io.dough.api.useCases.file.upload.application.port.in.UploadFileUseCase;
 import io.dough.api.useCases.shared.domain.file.FileUploadType;
 import io.dough.api.useCases.user.profile.updateProfileImage.application.model.ProfileImageUpdated;
 import io.dough.api.useCases.user.profile.updateProfileImage.application.model.UpdateProfileImageCmd;
