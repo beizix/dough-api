@@ -1,6 +1,6 @@
 package io.dough.api.useCases.user.profile.retrieveProfile.application;
 
-import io.dough.api.useCases.file.resolveURL.application.ResolveURLUseCase;
+import io.dough.api.useCases.file.resolveURL.application.port.in.ResolveURLUseCase;
 import io.dough.api.useCases.user.profile.retrieveProfile.application.model.ProfileLoaded;
 import io.dough.api.useCases.user.profile.retrieveProfile.application.model.RetrieveProfile;
 import io.dough.api.useCases.user.profile.retrieveProfile.application.model.RetrieveProfileCmd;

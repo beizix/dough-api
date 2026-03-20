@@ -1,4 +1,4 @@
-package io.dough.api.useCases.file.resolveURL.application;
+package io.dough.api.useCases.file.resolveURL.application.port.in;
 
 import java.util.UUID;
 

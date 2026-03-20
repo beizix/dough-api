@@ -1,6 +1,6 @@
 package io.dough.api.useCases.file.upload.adapters.in.web;
 
-import io.dough.api.useCases.file.resolveURL.application.ResolveURLUseCase;
+import io.dough.api.useCases.file.resolveURL.application.port.in.ResolveURLUseCase;
 import io.dough.api.useCases.file.upload.adapters.in.web.model.Base64MultipartFile;
 import io.dough.api.useCases.file.upload.adapters.in.web.model.UploadBase64Request;
 import io.dough.api.useCases.file.upload.adapters.in.web.model.UploadFileResponse;

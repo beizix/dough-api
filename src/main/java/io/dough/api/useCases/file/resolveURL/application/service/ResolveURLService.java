@@ -1,6 +1,9 @@
-package io.dough.api.useCases.file.resolveURL.application;
+package io.dough.api.useCases.file.resolveURL.application.service;
 
-import io.dough.api.useCases.file.resolveURL.application.model.FileMetadataLoaded;
+import io.dough.api.useCases.file.resolveURL.application.port.in.FileMetadataLoaded;
+import io.dough.api.useCases.file.resolveURL.application.port.in.ResolveURLUseCase;
+import io.dough.api.useCases.file.resolveURL.application.port.out.LoadFileMetadata;
+import io.dough.api.useCases.file.resolveURL.application.port.out.ProvideFileURL;
 import io.dough.api.useCases.shared.domain.file.FileStorageType;
 import java.util.NoSuchElementException;
 import java.util.Set;

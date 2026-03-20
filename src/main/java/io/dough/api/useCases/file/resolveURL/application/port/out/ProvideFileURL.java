@@ -1,4 +1,4 @@
-package io.dough.api.useCases.file.resolveURL.application;
+package io.dough.api.useCases.file.resolveURL.application.port.out;
 
 import io.dough.api.useCases.shared.domain.file.FileStorageType;
 

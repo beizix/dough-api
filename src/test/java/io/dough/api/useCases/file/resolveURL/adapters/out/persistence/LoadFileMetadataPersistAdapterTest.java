@@ -1,10 +1,10 @@
-package io.dough.api.useCases.file.resolveURL.adapters.persistence;
+package io.dough.api.useCases.file.resolveURL.adapters.out.persistence;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import io.dough.api.support.DataJpaTestBase;
-import io.dough.api.useCases.file.resolveURL.application.model.FileMetadataLoaded;
+import io.dough.api.useCases.file.resolveURL.application.port.in.FileMetadataLoaded;
 import io.dough.api.useCases.shared.adapters.out.persistence.entity.FileMetadataEntity;
 import io.dough.api.useCases.shared.adapters.out.persistence.repository.FileMetadataRepository;
 import io.dough.api.useCases.shared.domain.file.FileUploadType;

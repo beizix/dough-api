@@ -1,4 +1,4 @@
-package io.dough.api.useCases.file.resolveURL.adapters.storage;
+package io.dough.api.useCases.file.resolveURL.adapters.out.storage;
 
 import static org.assertj.core.api.Assertions.assertThat;
 

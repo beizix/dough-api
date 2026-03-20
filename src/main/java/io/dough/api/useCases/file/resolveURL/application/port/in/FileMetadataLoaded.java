@@ -1,4 +1,4 @@
-package io.dough.api.useCases.file.resolveURL.application.model;
+package io.dough.api.useCases.file.resolveURL.application.port.in;
 
 import io.dough.api.useCases.shared.domain.file.FileUploadType;
 

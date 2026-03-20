@@ -4,7 +4,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
 
-import io.dough.api.useCases.file.resolveURL.application.ResolveURLUseCase;
+import io.dough.api.useCases.file.resolveURL.application.port.in.ResolveURLUseCase;
 import io.dough.api.useCases.shared.domain.auth.Role;
 import io.dough.api.useCases.user.profile.retrieveProfile.application.model.ProfileLoaded;
 import io.dough.api.useCases.user.profile.retrieveProfile.application.model.RetrieveProfile;

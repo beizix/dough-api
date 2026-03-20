@@ -10,7 +10,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import io.dough.api.support.WebMvcTestBase;
-import io.dough.api.useCases.file.resolveURL.application.ResolveURLUseCase;
+import io.dough.api.useCases.file.resolveURL.application.port.in.ResolveURLUseCase;
 import io.dough.api.useCases.file.upload.application.port.in.UploadFileCmd;
 import io.dough.api.useCases.file.upload.application.port.in.UploadFileUseCase;
 import io.dough.api.useCases.file.upload.application.port.in.UploadedFile;

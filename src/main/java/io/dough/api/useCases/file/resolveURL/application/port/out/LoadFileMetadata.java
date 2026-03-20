@@ -1,6 +1,6 @@
-package io.dough.api.useCases.file.resolveURL.application;
+package io.dough.api.useCases.file.resolveURL.application.port.out;
 
-import io.dough.api.useCases.file.resolveURL.application.model.FileMetadataLoaded;
+import io.dough.api.useCases.file.resolveURL.application.port.in.FileMetadataLoaded;
 import java.util.UUID;
 
 /** 애플리케이션 계층에서 영속성 계층으로 파일 메타데이터 조회를 요청하는 출력 포트입니다. */

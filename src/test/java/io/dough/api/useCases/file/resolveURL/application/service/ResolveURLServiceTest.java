@@ -1,4 +1,4 @@
-package io.dough.api.useCases.file.resolveURL.application;
+package io.dough.api.useCases.file.resolveURL.application.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -6,7 +6,9 @@ import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.lenient;
 import static org.mockito.Mockito.verify;
 
-import io.dough.api.useCases.file.resolveURL.application.model.FileMetadataLoaded;
+import io.dough.api.useCases.file.resolveURL.application.port.in.FileMetadataLoaded;
+import io.dough.api.useCases.file.resolveURL.application.port.out.LoadFileMetadata;
+import io.dough.api.useCases.file.resolveURL.application.port.out.ProvideFileURL;
 import io.dough.api.useCases.shared.domain.file.FileStorageType;
 import io.dough.api.useCases.shared.domain.file.FileUploadType;
 import java.util.NoSuchElementException;

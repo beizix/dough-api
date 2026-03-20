@@ -1,6 +1,6 @@
-package io.dough.api.useCases.file.resolveURL.adapters.storage;
+package io.dough.api.useCases.file.resolveURL.adapters.out.storage;
 
-import io.dough.api.useCases.file.resolveURL.application.ProvideFileURL;
+import io.dough.api.useCases.file.resolveURL.application.port.out.ProvideFileURL;
 import io.dough.api.useCases.shared.domain.file.FileStorageType;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
