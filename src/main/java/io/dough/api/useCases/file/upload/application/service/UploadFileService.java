@@ -36,17 +36,16 @@ public class UploadFileService implements UploadFileUseCase {
     long fileSize = cmd.fileSize();
 
     // ✦ 도메인 객체 생성 및 기본 확장자 검증
-    UploadableFile uploadableFile =
-        new UploadableFile(originalFilename, fileSize, fileUploadType.getSubPath());
+    UploadableFile uploadableFile = new UploadableFile(fileUploadType, originalFilename, fileSize);
 
-    uploadableFile.validateExtension(cmd.getAllowedExtensions());
+    uploadableFile.validateExtension();
 
     try (InputStream bis = new BufferedInputStream(cmd.inputStream())) {
       bis.mark(MARK_READ_LIMIT);
 
       // ✦ 도메인 유효성 검증 (MIME 타입)
       String detectedMimeType = tika.detect(bis, originalFilename);
-      uploadableFile.validateMimeType(cmd.getAllowedMimeTypes(), detectedMimeType);
+      uploadableFile.validateMimeType(detectedMimeType);
 
       bis.reset();
 
