@@ -1,10 +1,8 @@
-package io.dough.api.useCases.user.registerUser.adapters.web;
+package io.dough.api.useCases.user.registerUser.adapters.in.web;
 
-import io.dough.api.useCases.user.registerUser.adapters.web.model.RegisterUserRequest;
-import io.dough.api.useCases.user.registerUser.adapters.web.model.RegisterUserResponse;
-import io.dough.api.useCases.user.registerUser.application.RegisterUserUseCase;
-import io.dough.api.useCases.user.registerUser.application.model.RegisterUserCmd;
-import io.dough.api.useCases.user.registerUser.application.model.RegisteredToken;
+import io.dough.api.useCases.user.registerUser.application.port.in.RegisterUserCmd;
+import io.dough.api.useCases.user.registerUser.application.port.in.RegisterUserUseCase;
+import io.dough.api.useCases.user.registerUser.application.port.in.RegisteredToken;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -17,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Tag(name = "회원가입", description = "회원가입 관련 API")
 @RestController
 @RequiredArgsConstructor
-public class RegisterUserWebAdapter {
+class RegisterUserWebAdapter {
 
   private final RegisterUserUseCase registerUserUseCase;
 

@@ -1,4 +1,4 @@
-package io.dough.api.useCases.user.registerUser.application.model;
+package io.dough.api.useCases.user.registerUser.application.port.in;
 
 import io.dough.api.useCases.shared.application.service.validator.DisplayNameValidator;
 import io.dough.api.useCases.shared.application.service.validator.EmailValidator;

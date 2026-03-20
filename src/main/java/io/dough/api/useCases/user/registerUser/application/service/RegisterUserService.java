@@ -1,11 +1,13 @@
-package io.dough.api.useCases.user.registerUser.application;
+package io.dough.api.useCases.user.registerUser.application.service;
 
 import io.dough.api.useCases.auth.issueToken.application.port.in.AuthToken;
 import io.dough.api.useCases.auth.issueToken.application.port.in.IssueTokenCmd;
 import io.dough.api.useCases.auth.issueToken.application.port.in.IssueTokenUseCase;
-import io.dough.api.useCases.user.registerUser.application.model.RegisterUserCmd;
-import io.dough.api.useCases.user.registerUser.application.model.RegisteredToken;
-import io.dough.api.useCases.user.registerUser.application.model.RegisteredUser;
+import io.dough.api.useCases.user.registerUser.application.port.in.RegisterUserCmd;
+import io.dough.api.useCases.user.registerUser.application.port.in.RegisterUserUseCase;
+import io.dough.api.useCases.user.registerUser.application.port.in.RegisteredToken;
+import io.dough.api.useCases.user.registerUser.application.port.in.RegisteredUser;
+import io.dough.api.useCases.user.registerUser.application.port.out.RegisterUser;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -13,7 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
-public class RegisterUserService implements RegisterUserUseCase {
+class RegisterUserService implements RegisterUserUseCase {
 
   private final RegisterUser registerUser;
   private final PasswordEncoder passwordEncoder;

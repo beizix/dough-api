@@ -1,7 +1,7 @@
-package io.dough.api.useCases.user.registerUser.application;
+package io.dough.api.useCases.user.registerUser.application.port.out;
 
 import io.dough.api.useCases.shared.domain.auth.Role;
-import io.dough.api.useCases.user.registerUser.application.model.RegisteredUser;
+import io.dough.api.useCases.user.registerUser.application.port.in.RegisteredUser;
 
 /** 회원가입 유스케이스에서 요구하는 영속성 작업을 정의한 출력 포트입니다. */
 public interface RegisterUser {

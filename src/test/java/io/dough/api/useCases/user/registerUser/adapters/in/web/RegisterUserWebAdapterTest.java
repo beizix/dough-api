@@ -1,4 +1,4 @@
-package io.dough.api.useCases.user.registerUser.adapters.web;
+package io.dough.api.useCases.user.registerUser.adapters.in.web;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
@@ -8,10 +8,9 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import io.dough.api.support.WebMvcTestBase;
-import io.dough.api.useCases.user.registerUser.adapters.web.model.RegisterUserRequest;
-import io.dough.api.useCases.user.registerUser.application.RegisterUserUseCase;
-import io.dough.api.useCases.user.registerUser.application.model.RegisterUserCmd;
-import io.dough.api.useCases.user.registerUser.application.model.RegisteredToken;
+import io.dough.api.useCases.user.registerUser.application.port.in.RegisterUserCmd;
+import io.dough.api.useCases.user.registerUser.application.port.in.RegisterUserUseCase;
+import io.dough.api.useCases.user.registerUser.application.port.in.RegisteredToken;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.webmvc.test.autoconfigure.WebMvcTest;

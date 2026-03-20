@@ -1,4 +1,4 @@
-package io.dough.api.useCases.user.registerUser.application;
+package io.dough.api.useCases.user.registerUser.application.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -10,10 +10,11 @@ import static org.mockito.Mockito.verify;
 import io.dough.api.useCases.auth.issueToken.application.port.in.AuthToken;
 import io.dough.api.useCases.auth.issueToken.application.port.in.IssueTokenCmd;
 import io.dough.api.useCases.auth.issueToken.application.port.in.IssueTokenUseCase;
-import io.dough.api.useCases.shared.domain.auth.Role;
-import io.dough.api.useCases.user.registerUser.application.model.RegisterUserCmd;
-import io.dough.api.useCases.user.registerUser.application.model.RegisteredToken;
-import io.dough.api.useCases.user.registerUser.application.model.RegisteredUser;
+import io.dough.api.useCases.user.registerUser.application.port.in.RegisterUserCmd;
+import io.dough.api.useCases.user.registerUser.application.port.in.RegisterUserUseCase;
+import io.dough.api.useCases.user.registerUser.application.port.in.RegisteredToken;
+import io.dough.api.useCases.user.registerUser.application.port.in.RegisteredUser;
+import io.dough.api.useCases.user.registerUser.application.port.out.RegisterUser;
 import java.util.UUID;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -41,7 +42,7 @@ class RegisterUserServiceTest {
     RegisterUserCmd cmd = new RegisterUserCmd("test@dough.io", "rawPassword123!", "Test User");
     UUID userId = UUID.randomUUID();
     RegisteredUser savedUser =
-        new RegisteredUser(userId, cmd.email(), "encodedPassword", cmd.displayName(), Role.USER);
+        new RegisteredUser(userId, cmd.email(), "encodedPassword", cmd.displayName(), cmd.role());
 
     AuthToken tokenIssuer = new AuthToken("access_token", "refresh_token");
 
