@@ -1,9 +1,7 @@
 package io.dough.api.useCases.user.mgmt.registerManager.adapters.in.web;
 
-import io.dough.api.useCases.user.mgmt.registerManager.adapters.in.web.RegisterManagerRequest;
-import io.dough.api.useCases.user.mgmt.registerManager.adapters.in.web.RegisterManagerResponse;
-import io.dough.api.useCases.user.mgmt.registerManager.application.port.in.RegisterManagerUseCase;
 import io.dough.api.useCases.user.mgmt.registerManager.application.port.in.RegisterManagerCmd;
+import io.dough.api.useCases.user.mgmt.registerManager.application.port.in.RegisterManagerUseCase;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;

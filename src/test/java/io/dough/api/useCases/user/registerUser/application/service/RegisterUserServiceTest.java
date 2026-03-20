@@ -11,7 +11,6 @@ import io.dough.api.useCases.auth.issueToken.application.port.in.AuthToken;
 import io.dough.api.useCases.auth.issueToken.application.port.in.IssueTokenCmd;
 import io.dough.api.useCases.auth.issueToken.application.port.in.IssueTokenUseCase;
 import io.dough.api.useCases.user.registerUser.application.port.in.RegisterUserCmd;
-import io.dough.api.useCases.user.registerUser.application.port.in.RegisterUserUseCase;
 import io.dough.api.useCases.user.registerUser.application.port.in.RegisteredToken;
 import io.dough.api.useCases.user.registerUser.application.port.in.RegisteredUser;
 import io.dough.api.useCases.user.registerUser.application.port.out.RegisterUser;

@@ -2,9 +2,9 @@ package io.dough.api.useCases.user.mgmt.getUserDetail.adapters.out.persistence;
 
 import io.dough.api.useCases.shared.adapters.out.persistence.entity.UserEntity;
 import io.dough.api.useCases.shared.adapters.out.persistence.repository.UserRepository;
-import io.dough.api.useCases.user.mgmt.getUserDetail.application.port.out.LoadUserDetail;
 import io.dough.api.useCases.user.mgmt.getUserDetail.application.port.in.GetUserDetailCmd;
 import io.dough.api.useCases.user.mgmt.getUserDetail.application.port.in.UserDetailLoaded;
+import io.dough.api.useCases.user.mgmt.getUserDetail.application.port.out.LoadUserDetail;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 

@@ -9,11 +9,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import io.dough.api.support.WebMvcTestBase;
-import io.dough.api.useCases.user.profile.retrieveProfile.adapters.in.web.RetrieveProfileWebAdapter;
 import io.dough.api.useCases.user.profile.retrieveProfile.application.port.in.RetrieveProfile;
 import io.dough.api.useCases.user.profile.retrieveProfile.application.port.in.RetrieveProfileCmd;
 import io.dough.api.useCases.user.profile.retrieveProfile.application.port.in.RetrieveProfileUseCase;
-
 import java.time.LocalDateTime;
 import java.util.UUID;
 import org.junit.jupiter.api.DisplayName;

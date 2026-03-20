@@ -12,7 +12,6 @@ import io.dough.api.useCases.file.upload.application.port.in.UploadedFile;
 import io.dough.api.useCases.shared.domain.file.FileUploadType;
 import io.dough.api.useCases.user.profile.updateProfileImage.application.port.in.ProfileImageUpdated;
 import io.dough.api.useCases.user.profile.updateProfileImage.application.port.in.UpdateProfileImageCmd;
-import io.dough.api.useCases.user.profile.updateProfileImage.application.port.in.UpdateProfileImageUseCase;
 import io.dough.api.useCases.user.profile.updateProfileImage.application.port.out.UpdateUserProfileImage;
 import java.io.ByteArrayInputStream;
 import java.util.Optional;

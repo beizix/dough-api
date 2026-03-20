@@ -19,31 +19,28 @@ import org.springframework.context.annotation.Import;
 @Import(UpdateProfileImagePersistAdapter.class)
 class UpdateProfileImagePersistAdapterTest extends DataJpaTestBase {
 
-  @Autowired
-  private UpdateProfileImagePersistAdapter adapter;
+  @Autowired private UpdateProfileImagePersistAdapter adapter;
 
-  @Autowired
-  private UserRepository userRepository;
+  @Autowired private UserRepository userRepository;
 
-  @Autowired
-  private FileMetadataRepository fileMetadataRepository;
+  @Autowired private FileMetadataRepository fileMetadataRepository;
 
   @Test
   @DisplayName("Scenario: 성공 - 사용자의 프로필 이미지를 업데이트한다")
   void update_profile_image_success() {
     // Given
-    UserEntity user = new UserEntity(
-        "test@example.com", "password", "Tester", Role.USER, null);
+    UserEntity user = new UserEntity("test@example.com", "password", "Tester", Role.USER, null);
     userRepository.save(user);
 
-    FileMetadataEntity fileMetadata = FileMetadataEntity.builder()
-        .id(UUID.randomUUID())
-        .type(FileUploadType.MY_PROFILE_IMG)
-        .path("/test/path")
-        .name("test.png")
-        .originName("test.png")
-        .fileLength(1024L)
-        .build();
+    FileMetadataEntity fileMetadata =
+        FileMetadataEntity.builder()
+            .id(UUID.randomUUID())
+            .type(FileUploadType.MY_PROFILE_IMG)
+            .path("/test/path")
+            .name("test.png")
+            .originName("test.png")
+            .fileLength(1024L)
+            .build();
     fileMetadataRepository.save(fileMetadata);
 
     // When
@@ -72,8 +69,7 @@ class UpdateProfileImagePersistAdapterTest extends DataJpaTestBase {
   @DisplayName("Scenario: 실패 - 존재하지 않는 파일 메타데이터로 업데이트 시 예외가 발생한다")
   void update_profile_image_fail_file_not_found() {
     // Given
-    UserEntity user = new UserEntity(
-        "test@example.com", "password", "Tester", Role.USER, null);
+    UserEntity user = new UserEntity("test@example.com", "password", "Tester", Role.USER, null);
     userRepository.save(user);
     UUID nonExistentFileId = UUID.randomUUID();
 

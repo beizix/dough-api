@@ -1,8 +1,7 @@
 package io.dough.api.useCases.user.mgmt.getUserDetail.adapters.in.web;
 
-import io.dough.api.useCases.user.mgmt.getUserDetail.adapters.in.web.GetUserDetailResponse;
-import io.dough.api.useCases.user.mgmt.getUserDetail.application.port.in.GetUserDetailUseCase;
 import io.dough.api.useCases.user.mgmt.getUserDetail.application.port.in.GetUserDetailCmd;
+import io.dough.api.useCases.user.mgmt.getUserDetail.application.port.in.GetUserDetailUseCase;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;

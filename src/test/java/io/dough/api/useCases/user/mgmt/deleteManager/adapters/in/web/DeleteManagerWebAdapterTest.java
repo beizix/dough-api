@@ -7,7 +7,6 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import io.dough.api.support.WebMvcTestBase;
-import io.dough.api.useCases.user.mgmt.deleteManager.adapters.in.web.DeleteManagerRequest;
 import io.dough.api.useCases.user.mgmt.deleteManager.application.port.in.DeleteManagerUseCase;
 import io.dough.api.useCases.user.mgmt.deleteManager.application.port.in.ManagerDeleted;
 import java.time.LocalDateTime;

@@ -8,10 +8,10 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import io.dough.api.support.WebMvcTestBase;
-import io.dough.api.useCases.user.mgmt.searchUsers.application.port.in.SearchUsersUseCase;
 import io.dough.api.useCases.shared.application.service.pageable.PageInfo;
 import io.dough.api.useCases.user.mgmt.searchUsers.application.port.in.SearchUsers;
 import io.dough.api.useCases.user.mgmt.searchUsers.application.port.in.SearchUsersCmd;
+import io.dough.api.useCases.user.mgmt.searchUsers.application.port.in.SearchUsersUseCase;
 import java.util.List;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

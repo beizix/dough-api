@@ -1,9 +1,8 @@
 package io.dough.api.useCases.user.mgmt.searchUsers.adapters.in.web;
 
 import io.dough.api.useCases.shared.domain.auth.Role;
-import io.dough.api.useCases.user.mgmt.searchUsers.adapters.in.web.GetUsersResponse;
-import io.dough.api.useCases.user.mgmt.searchUsers.application.port.in.SearchUsersUseCase;
 import io.dough.api.useCases.user.mgmt.searchUsers.application.port.in.SearchUsersCmd;
+import io.dough.api.useCases.user.mgmt.searchUsers.application.port.in.SearchUsersUseCase;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;

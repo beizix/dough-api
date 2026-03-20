@@ -31,10 +31,7 @@ class RegisterUserWebAdapterTest extends WebMvcTestBase {
 
     // When
     mockMvc
-        .perform(
-            post("/api/v1/signup/user")
-                .content(json(req))
-                .contentType("application/json"))
+        .perform(post("/api/v1/signup/user").content(json(req)).contentType("application/json"))
         .andExpect(status().isOk());
 
     // Then

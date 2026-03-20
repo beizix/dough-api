@@ -3,9 +3,9 @@ package io.dough.api.useCases.user.mgmt.updateManager.adapters.out.persistence;
 import io.dough.api.useCases.shared.adapters.out.persistence.entity.UserEntity;
 import io.dough.api.useCases.shared.adapters.out.persistence.repository.UserRepository;
 import io.dough.api.useCases.shared.domain.auth.Role;
-import io.dough.api.useCases.user.mgmt.updateManager.application.port.out.UpdateManager;
 import io.dough.api.useCases.user.mgmt.updateManager.application.port.in.ManagerUpdated;
 import io.dough.api.useCases.user.mgmt.updateManager.application.port.in.UpdateManagerCmd;
+import io.dough.api.useCases.user.mgmt.updateManager.application.port.out.UpdateManager;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 

@@ -10,8 +10,6 @@ import io.dough.api.useCases.user.profile.retrieveProfile.application.port.in.Re
 import io.dough.api.useCases.user.profile.retrieveProfile.application.port.in.RetrieveProfileCmd;
 import io.dough.api.useCases.user.profile.retrieveProfile.application.port.out.LoadProfile;
 import io.dough.api.useCases.user.profile.retrieveProfile.application.port.out.ProfileLoaded;
-import io.dough.api.useCases.user.profile.retrieveProfile.application.service.RetrieveProfileService;
-
 import java.util.UUID;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

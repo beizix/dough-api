@@ -1,9 +1,7 @@
 package io.dough.api.useCases.user.mgmt.updateManager.adapters.in.web;
 
-import io.dough.api.useCases.user.mgmt.updateManager.adapters.in.web.UpdateManagerRequest;
-import io.dough.api.useCases.user.mgmt.updateManager.adapters.in.web.UpdateManagerResponse;
-import io.dough.api.useCases.user.mgmt.updateManager.application.port.in.UpdateManagerUseCase;
 import io.dough.api.useCases.user.mgmt.updateManager.application.port.in.UpdateManagerCmd;
+import io.dough.api.useCases.user.mgmt.updateManager.application.port.in.UpdateManagerUseCase;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;

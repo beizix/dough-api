@@ -16,19 +16,17 @@ import org.springframework.context.annotation.Import;
 @Import(ManageRefreshPersistAdapter.class)
 class ManageRefreshPersistAdapterTest extends DataJpaTestBase {
 
-  @Autowired
-  private ManageRefreshPersistAdapter adapter;
+  @Autowired private ManageRefreshPersistAdapter adapter;
 
-  @Autowired
-  private UserRepository userRepository;
+  @Autowired private UserRepository userRepository;
 
   @Test
   @DisplayName("Scenario: 성공 - 리프레시 토큰으로 사용자 정보를 조회한다")
   void load_refresh_user_success() {
     // Given
     String refreshToken = "valid-refresh-token";
-    UserEntity user = new UserEntity(
-        "test@example.com", "password", "Tester", Role.USER, refreshToken);
+    UserEntity user =
+        new UserEntity("test@example.com", "password", "Tester", Role.USER, refreshToken);
     userRepository.save(user);
 
     // When
@@ -45,8 +43,7 @@ class ManageRefreshPersistAdapterTest extends DataJpaTestBase {
   @DisplayName("Scenario: 성공 - 리프레시 토큰을 업데이트한다")
   void update_refresh_token_success() {
     // Given
-    UserEntity user = new UserEntity(
-        "test@example.com", "password", "Tester", Role.USER, null);
+    UserEntity user = new UserEntity("test@example.com", "password", "Tester", Role.USER, null);
     userRepository.save(user);
     String newRefreshToken = "new-refresh-token";
 

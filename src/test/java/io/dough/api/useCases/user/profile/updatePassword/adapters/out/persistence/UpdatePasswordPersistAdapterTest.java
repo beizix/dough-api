@@ -17,19 +17,17 @@ import org.springframework.context.annotation.Import;
 @Import(UpdatePasswordPersistAdapter.class)
 class UpdatePasswordPersistAdapterTest extends DataJpaTestBase {
 
-  @Autowired
-  private UpdatePasswordPersistAdapter adapter;
+  @Autowired private UpdatePasswordPersistAdapter adapter;
 
-  @Autowired
-  private UserRepository userRepository;
+  @Autowired private UserRepository userRepository;
 
   @Test
   @DisplayName("Scenario: 성공 - 사용자 비밀번호를 조회한다")
   void load_password_success() {
     // Given
     String currentPassword = "old-password";
-    UserEntity user = new UserEntity(
-        "test@example.com", currentPassword, "Tester", Role.USER, null);
+    UserEntity user =
+        new UserEntity("test@example.com", currentPassword, "Tester", Role.USER, null);
     userRepository.save(user);
 
     // When
@@ -44,8 +42,7 @@ class UpdatePasswordPersistAdapterTest extends DataJpaTestBase {
   @DisplayName("Scenario: 성공 - 사용자 비밀번호를 저장한다")
   void save_password_success() {
     // Given
-    UserEntity user = new UserEntity(
-        "test@example.com", "old-password", "Tester", Role.USER, null);
+    UserEntity user = new UserEntity("test@example.com", "old-password", "Tester", Role.USER, null);
     userRepository.save(user);
     String newPassword = "new-password";
     Password password = new Password(user.getId(), newPassword);

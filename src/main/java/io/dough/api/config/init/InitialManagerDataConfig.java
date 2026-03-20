@@ -1,8 +1,8 @@
 package io.dough.api.config.init;
 
 import io.dough.api.useCases.shared.domain.auth.Role;
-import io.dough.api.useCases.user.mgmt.registerManager.application.port.in.RegisterManagerUseCase;
 import io.dough.api.useCases.user.mgmt.registerManager.application.port.in.RegisterManagerCmd;
+import io.dough.api.useCases.user.mgmt.registerManager.application.port.in.RegisterManagerUseCase;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;

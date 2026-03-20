@@ -30,7 +30,8 @@ class UpdatePasswordService implements UpdatePasswordUseCase {
     }
 
     // 3. 새로운 패스워드로 업데이트 (해싱 포함)
-    Password updatedPassword = new Password(currentPassword.id(), passwordEncoder.encode(command.newPassword()));
+    Password updatedPassword =
+        new Password(currentPassword.id(), passwordEncoder.encode(command.newPassword()));
 
     // 4. 변경 내용 저장
     savePassword.operate(updatedPassword);

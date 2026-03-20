@@ -8,9 +8,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import io.dough.api.support.WebMvcTestBase;
 import io.dough.api.useCases.shared.domain.auth.Role;
-import io.dough.api.useCases.user.mgmt.updateManager.adapters.in.web.UpdateManagerRequest;
-import io.dough.api.useCases.user.mgmt.updateManager.application.port.in.UpdateManagerUseCase;
 import io.dough.api.useCases.user.mgmt.updateManager.application.port.in.ManagerUpdated;
+import io.dough.api.useCases.user.mgmt.updateManager.application.port.in.UpdateManagerUseCase;
 import java.time.LocalDateTime;
 import java.util.UUID;
 import org.junit.jupiter.api.DisplayName;
