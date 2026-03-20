@@ -1,6 +1,4 @@
-package io.dough.api.useCases.auth.logout.application;
-
-import io.dough.api.useCases.auth.logout.application.model.LogoutCmd;
+package io.dough.api.useCases.auth.logout.application.port.in;
 
 /** 로그아웃 기능을 정의한 입력 포트입니다. */
 public interface LogoutUseCase {

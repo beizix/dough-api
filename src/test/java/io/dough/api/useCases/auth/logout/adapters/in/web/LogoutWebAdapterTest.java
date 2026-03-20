@@ -1,4 +1,4 @@
-package io.dough.api.useCases.auth.logout.adapters.web;
+package io.dough.api.useCases.auth.logout.adapters.in.web;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
@@ -8,7 +8,9 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import io.dough.api.support.WebMvcTestBase;
-import io.dough.api.useCases.auth.logout.application.LogoutUseCase;
+import io.dough.api.useCases.auth.logout.adapters.in.web.LogoutWebAdapter;
+import io.dough.api.useCases.auth.logout.application.port.in.LogoutUseCase;
+
 import java.security.Principal;
 import java.util.UUID;
 import org.junit.jupiter.api.DisplayName;

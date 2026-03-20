@@ -1,6 +1,8 @@
-package io.dough.api.useCases.auth.logout.application;
+package io.dough.api.useCases.auth.logout.application.service;
 
-import io.dough.api.useCases.auth.logout.application.model.LogoutCmd;
+import io.dough.api.useCases.auth.logout.application.port.in.LogoutCmd;
+import io.dough.api.useCases.auth.logout.application.port.in.LogoutUseCase;
+import io.dough.api.useCases.auth.logout.application.port.out.InvalidateRefreshToken;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

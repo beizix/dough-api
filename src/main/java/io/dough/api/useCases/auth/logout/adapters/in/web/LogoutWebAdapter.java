@@ -1,7 +1,7 @@
-package io.dough.api.useCases.auth.logout.adapters.web;
+package io.dough.api.useCases.auth.logout.adapters.in.web;
 
-import io.dough.api.useCases.auth.logout.application.LogoutUseCase;
-import io.dough.api.useCases.auth.logout.application.model.LogoutCmd;
+import io.dough.api.useCases.auth.logout.application.port.in.LogoutCmd;
+import io.dough.api.useCases.auth.logout.application.port.in.LogoutUseCase;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;

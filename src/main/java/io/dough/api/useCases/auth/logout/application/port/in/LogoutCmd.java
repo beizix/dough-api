@@ -1,4 +1,4 @@
-package io.dough.api.useCases.auth.logout.application.model;
+package io.dough.api.useCases.auth.logout.application.port.in;
 
 import java.util.UUID;
 
