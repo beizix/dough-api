@@ -5,8 +5,6 @@ import static org.mockito.Mockito.verify;
 
 import io.dough.api.useCases.auth.logout.application.port.in.LogoutCmd;
 import io.dough.api.useCases.auth.logout.application.port.out.InvalidateRefreshToken;
-import io.dough.api.useCases.auth.logout.application.service.LogoutService;
-
 import java.util.UUID;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;

@@ -17,7 +17,7 @@ public interface ManageRefreshToken {
   /**
    * 리프레시 토큰을 저장하거나 업데이트합니다.
    *
-   * @param uuid         사용자 식별자
+   * @param uuid 사용자 식별자
    * @param refreshToken 발급된 리프레시 토큰
    */
   void updateRefreshToken(UUID uuid, String refreshToken);

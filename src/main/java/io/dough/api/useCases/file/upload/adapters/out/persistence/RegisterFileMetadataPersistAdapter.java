@@ -5,7 +5,6 @@ import io.dough.api.useCases.file.upload.application.port.out.RegisterFileMetada
 import io.dough.api.useCases.file.upload.application.port.out.RegisterFileMetadataCmd;
 import io.dough.api.useCases.shared.adapters.out.persistence.entity.FileMetadataEntity;
 import io.dough.api.useCases.shared.adapters.out.persistence.repository.FileMetadataRepository;
-
 import java.util.Optional;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;

@@ -12,15 +12,11 @@ import io.dough.api.useCases.auth.issueToken.application.port.in.RefreshTokenCmd
 import io.dough.api.useCases.auth.issueToken.application.port.out.ManageRefreshToken;
 import io.dough.api.useCases.auth.issueToken.application.port.out.RefreshUserLoaded;
 import io.dough.api.useCases.auth.issueToken.application.port.out.TokenProvider;
-import io.dough.api.useCases.auth.issueToken.application.service.IssueTokenService;
 import io.dough.api.useCases.shared.domain.auth.Role;
 import io.dough.api.useCases.shared.domain.auth.Token;
-import io.dough.api.useCases.shared.domain.auth.TokenResolver;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 import java.nio.charset.StandardCharsets;
-import java.util.Date;
-import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 import org.junit.jupiter.api.BeforeEach;

@@ -3,7 +3,6 @@ package io.dough.api.useCases.auth.issueToken.adapters.out.persistence;
 import io.dough.api.useCases.auth.issueToken.application.port.out.ManageRefreshToken;
 import io.dough.api.useCases.auth.issueToken.application.port.out.RefreshUserLoaded;
 import io.dough.api.useCases.shared.adapters.out.persistence.repository.UserRepository;
-
 import java.util.Optional;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
@@ -22,8 +21,9 @@ public class ManageRefreshPersistAdapter implements ManageRefreshToken {
     return userRepository
         .findByRefreshToken(refreshToken)
         .map(
-            entity -> new RefreshUserLoaded(
-                entity.getId(), entity.getEmail(), entity.getDisplayName(), entity.getRole()));
+            entity ->
+                new RefreshUserLoaded(
+                    entity.getId(), entity.getEmail(), entity.getDisplayName(), entity.getRole()));
   }
 
   @Override

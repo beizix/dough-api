@@ -43,8 +43,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             String userUuid = tokenResolver.getSubject();
             List<SimpleGrantedAuthority> authorities =
                 Stream.concat(
-                        Stream.of(tokenResolver.getRole()),
-                        tokenResolver.getPrivileges().stream())
+                        Stream.of(tokenResolver.getRole()), tokenResolver.getPrivileges().stream())
                     .filter(Objects::nonNull)
                     .map(SimpleGrantedAuthority::new)
                     .toList();

@@ -15,7 +15,6 @@ import io.dough.api.useCases.file.upload.application.port.out.FileMetadataRegist
 import io.dough.api.useCases.file.upload.application.port.out.RegisterFileMetadata;
 import io.dough.api.useCases.file.upload.application.port.out.RegisterFileMetadataCmd;
 import io.dough.api.useCases.file.upload.application.port.out.StoreFile;
-import io.dough.api.useCases.file.upload.application.service.UploadFileService;
 import io.dough.api.useCases.shared.domain.file.FileStorageType;
 import io.dough.api.useCases.shared.domain.file.FileUploadType;
 import java.io.ByteArrayInputStream;

@@ -86,10 +86,10 @@ class TokenResolverTest {
     // Given
     String token =
         Jwts.builder()
-            .subject(uuid.toString())
-            .claim("type", Token.access.name())
-            .signWith(key)
-            .compact()
+                .subject(uuid.toString())
+                .claim("type", Token.access.name())
+                .signWith(key)
+                .compact()
             + "extra";
 
     // When

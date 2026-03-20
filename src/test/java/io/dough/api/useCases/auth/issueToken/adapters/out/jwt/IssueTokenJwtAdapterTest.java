@@ -2,14 +2,13 @@ package io.dough.api.useCases.auth.issueToken.adapters.out.jwt;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import io.dough.api.useCases.auth.issueToken.adapters.out.jwt.IssueTokenJwtAdapter;
 import io.dough.api.useCases.shared.domain.auth.Role;
 import io.dough.api.useCases.shared.domain.auth.Token;
 import io.dough.api.useCases.shared.domain.auth.TokenResolver;
+import io.jsonwebtoken.security.Keys;
 import java.nio.charset.StandardCharsets;
 import java.util.UUID;
 import javax.crypto.SecretKey;
-import io.jsonwebtoken.security.Keys;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

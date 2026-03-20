@@ -3,7 +3,6 @@ package io.dough.api.useCases.auth.authenticate.adapters.out.persistence;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import io.dough.api.support.DataJpaTestBase;
-import io.dough.api.useCases.auth.authenticate.adapters.out.persistence.LoadAuthUserPersistAdapter;
 import io.dough.api.useCases.auth.authenticate.application.port.out.AuthenticatableUser;
 import io.dough.api.useCases.shared.adapters.out.persistence.entity.UserEntity;
 import io.dough.api.useCases.shared.adapters.out.persistence.repository.UserRepository;
