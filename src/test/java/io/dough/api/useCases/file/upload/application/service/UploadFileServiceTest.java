@@ -48,9 +48,8 @@ class UploadFileServiceTest {
     // 기본적으로 로컬 스토리지 전략을 지원하도록 설정
     // 일부 실패 테스트에서는 전략을 조회하지 않으므로 lenient() 사용
     lenient().when(localStorageStrategy.getStorageType()).thenReturn(FileStorageType.LOCAL);
-    Set<StoreFile> strategies = Set.of(localStorageStrategy);
 
-    uploadFileService = new UploadFileService(strategies, registerFileMetadata, tika);
+    uploadFileService = new UploadFileService(Set.of(localStorageStrategy), registerFileMetadata, tika);
   }
 
   @Test
@@ -165,7 +164,7 @@ class UploadFileServiceTest {
               noStrategyService.operate(cmd);
             })
         .isInstanceOf(NoSuchElementException.class)
-        .hasMessageContaining("exception.file.no_strategy");
+        .hasMessageContaining("exception.file.no_store_implementation");
   }
 
   @Test

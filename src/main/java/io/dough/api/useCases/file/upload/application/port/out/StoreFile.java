@@ -1,8 +1,9 @@
 package io.dough.api.useCases.file.upload.application.port.out;
 
-import io.dough.api.useCases.shared.domain.file.FileStorageType;
 import java.io.IOException;
 import java.io.InputStream;
+
+import io.dough.api.useCases.shared.domain.file.FileStorageType;
 
 /** 애플리케이션 계층에서 파일 저장소(로컬, S3 등)로 실제 파일 물리 저장을 요청하는 출력 포트입니다. */
 public interface StoreFile {

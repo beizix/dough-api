@@ -2,11 +2,12 @@ package io.dough.api.useCases.file.resolveURL.adapters.out.storage;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import io.dough.api.useCases.shared.domain.file.FileStorageType;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.test.util.ReflectionTestUtils;
+
+import io.dough.api.useCases.shared.domain.file.FileStorageType;
 
 class ProvideS3FileURLAdapterTest {
 

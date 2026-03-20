@@ -22,7 +22,7 @@ import org.springframework.stereotype.Service;
 @Service
 @RequiredArgsConstructor
 public class UploadFileService implements UploadFileUseCase {
-  private final Set<StoreFile> storeFileStrategies;
+  private final Set<StoreFile> storeFiles;
   private final RegisterFileMetadata registerFileMetadata;
   private final Tika tika;
 
@@ -51,7 +51,7 @@ public class UploadFileService implements UploadFileUseCase {
       bis.reset();
 
       // ✦ 인프라 서비스 조율 (파일 저장소 업로드)
-      getStoreFileStrategy(fileUploadType.getFileStorageType())
+      resolveStore(fileUploadType.getFileStorageType())
           .operate(bis, uploadableFile.subPath(), uploadableFile.createFilename());
 
       // ✦ 인프라 서비스 조율 (메타데이터 저장)
@@ -79,10 +79,10 @@ public class UploadFileService implements UploadFileUseCase {
     }
   }
 
-  private StoreFile getStoreFileStrategy(FileStorageType fileStorageType) {
-    return storeFileStrategies.stream()
+  private StoreFile resolveStore(FileStorageType fileStorageType) {
+    return storeFiles.stream()
         .filter(storeFile -> storeFile.getStorageType().equals(fileStorageType))
         .findFirst()
-        .orElseThrow(() -> new NoSuchElementException("exception.file.no_strategy"));
+        .orElseThrow(() -> new NoSuchElementException("exception.file.no_store_implementation"));
   }
 }
