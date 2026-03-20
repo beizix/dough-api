@@ -1,10 +1,13 @@
 package io.dough.api.useCases.file.upload.domain.model;
 
+import io.dough.api.useCases.file.upload.domain.service.StoreFile;
 import io.dough.api.useCases.shared.domain.file.FileUploadType;
 import java.nio.file.Path;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.NoSuchElementException;
 import java.util.Optional;
+import java.util.Set;
 import java.util.UUID;
 
 /** 업로드할 파일의 도메인 로직을 담당하는 객체 */
@@ -32,6 +35,14 @@ public record UploadableFile(
         .normalize()
         .toString()
         .replace("\\", "/");
+  }
+
+  /** 가용 저장소 목록 중 현재 파일 업로드 타입에 적합한 저장소 구현체를 반환합니다. */
+  public StoreFile resolveStore(Set<StoreFile> storeFiles) {
+    return storeFiles.stream()
+        .filter(store -> store.getStorageType().equals(fileUploadType.getFileStorageType()))
+        .findFirst()
+        .orElseThrow(() -> new NoSuchElementException("exception.file.no_store_implementation"));
   }
 
   private static String extractExtension(String filename) {

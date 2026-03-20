@@ -1,7 +1,7 @@
 package io.dough.api.useCases.file.upload.adapters.out.storage;
 
 import io.awspring.cloud.s3.S3Template;
-import io.dough.api.useCases.file.upload.application.port.out.StoreFile;
+import io.dough.api.useCases.file.upload.domain.service.StoreFile;
 import io.dough.api.useCases.shared.domain.file.FileStorageType;
 
 import java.io.IOException;

@@ -1,4 +1,4 @@
-package io.dough.api.useCases.file.upload.application.port.out;
+package io.dough.api.useCases.file.upload.domain.service;
 
 import java.io.IOException;
 import java.io.InputStream;
