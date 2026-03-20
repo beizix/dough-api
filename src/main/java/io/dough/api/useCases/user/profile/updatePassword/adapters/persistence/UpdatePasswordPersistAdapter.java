@@ -4,7 +4,8 @@ import io.dough.api.useCases.shared.adapters.out.persistence.entity.UserEntity;
 import io.dough.api.useCases.shared.adapters.out.persistence.repository.UserRepository;
 import io.dough.api.useCases.user.profile.updatePassword.application.LoadPassword;
 import io.dough.api.useCases.user.profile.updatePassword.application.SavePassword;
-import io.dough.api.useCases.user.profile.updatePassword.domain.Password;
+import io.dough.api.useCases.user.profile.updatePassword.application.model.Password;
+
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -32,7 +33,7 @@ class UpdatePasswordPersistAdapter implements LoadPassword, SavePassword {
             .findById(password.id())
             .orElseThrow(() -> new IllegalArgumentException("User not found"));
 
-    userEntity.setPassword(password.encodedPassword());
+    userEntity.setPassword(password.encodedValue());
     userRepository.save(userEntity);
   }
 }
