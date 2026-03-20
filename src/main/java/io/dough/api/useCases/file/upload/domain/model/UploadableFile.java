@@ -16,7 +16,8 @@ public record UploadableFile(
     String originalFilename,
     long fileSize,
     String extension,
-    String createFilename) {
+    String createFilename,
+    String subPath) {
 
   public UploadableFile(FileUploadType fileUploadType, String originalFilename, long fileSize) {
     this(
@@ -24,17 +25,14 @@ public record UploadableFile(
         originalFilename,
         fileSize,
         extractExtension(originalFilename),
-        generateUUIDFilename(extractExtension(originalFilename)));
+        generateUUIDFilename(extractExtension(originalFilename)),
+        calculateSubPath(fileUploadType.getSubPath()));
   }
 
-  /** 실제 물리 파일이 저장될 하위 경로를 계산하여 반환합니다. */
-  public String subPath() {
+  private static String calculateSubPath(String basePath) {
     LocalDate now = LocalDate.now();
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMM");
-    return Path.of(fileUploadType.getSubPath(), now.format(formatter))
-        .normalize()
-        .toString()
-        .replace("\\", "/");
+    return Path.of(basePath, now.format(formatter)).normalize().toString().replace("\\", "/");
   }
 
   /** 가용 저장소 목록 중 현재 파일 업로드 타입에 적합한 저장소 구현체를 반환합니다. */
